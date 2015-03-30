@@ -22,10 +22,11 @@ public class MCommands
 	public void regCommands(MetalPonyPlug mppl)
 	{
 		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand());
+		mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return true;
+		return null;
 	}
 }
