@@ -16,8 +16,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import fr.mpp.MetalPonyPlug;
+
 public class MPlayerListener implements Listener
 {
+	private final MetalPonyPlug mpp;
+	
+	public MPlayerListener(MetalPonyPlug mppl)
+	{
+		this.mpp = mppl;
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogin(PlayerLoginEvent event)
 	{
@@ -27,7 +36,15 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		// Code ...
+		if (event.getPlayer().hasMetadata("MPPRegistered"))
+		{
+			// Code ...
+		}
+		else
+		{
+			mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
+			mpp.setMeta(event.getPlayer(), "MPPRank", "Noobie");
+		}
 	}
 	
 	@EventHandler

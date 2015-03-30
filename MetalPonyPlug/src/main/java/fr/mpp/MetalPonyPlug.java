@@ -56,9 +56,9 @@ public class MetalPonyPlug
 		return this.conf.getStringList(name);
 	}
 	
-	public String getMeta(Player player, String name)
+	public Object getMeta(Player player, String name)
 	{
-		return player.getMetadata(name).get(0).asString();
+		return player.getMetadata(name).get(0).value();
 	}
 	
 	public void setMeta(Player player, String name, Object meta)
