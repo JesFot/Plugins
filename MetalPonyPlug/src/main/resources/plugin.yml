@@ -1,0 +1,10 @@
+name: MetalPonyPlug
+main: fr.mpp.bukkit.BukkitPlugin
+version: 1.0 ALPHA
+description: Plugin for PonyMetalCraft server
+authors: ["JesFot"]
+commands:
+  testmpp:
+    com: testmpp
+    description: Commande test.
+    usage: /<command> [word]
