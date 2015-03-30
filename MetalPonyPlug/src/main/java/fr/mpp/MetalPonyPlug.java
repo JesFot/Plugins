@@ -7,6 +7,8 @@ import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.mpp.bukkit.BukkitPlugin;
@@ -52,6 +54,16 @@ public class MetalPonyPlug
 	public List<String> getConfig(String name)
 	{
 		return this.conf.getStringList(name);
+	}
+	
+	public String getMeta(Player player, String name)
+	{
+		return player.getMetadata(name).get(0).asString();
+	}
+	
+	public void setMeta(Player player, String name, Object meta)
+	{
+		player.setMetadata(name, new FixedMetadataValue(this.getPlugin(), meta));
 	}
 	
 	public Server getServer()
