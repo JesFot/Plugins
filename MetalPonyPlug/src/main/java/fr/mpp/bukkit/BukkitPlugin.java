@@ -46,7 +46,7 @@ public class BukkitPlugin extends JavaPlugin
 		final MPluginListener pluginListener = new MPluginListener();
 		final MBlockListener blockListener = new MBlockListener();
 		final MEntityListener entityListener = new MEntityListener();
-		final MPlayerListener playerListener = new MPlayerListener();
+		final MPlayerListener playerListener = new MPlayerListener(this.mpp);
 		
 		pm.registerEvents(pluginListener, this);
 		pm.registerEvents(blockListener, this);
