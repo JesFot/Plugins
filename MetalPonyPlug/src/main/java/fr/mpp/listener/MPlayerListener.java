@@ -68,8 +68,15 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
+		private boolean rightClck = false;
+		private boolean leftClck = false;
 		private Action action = event.getEction();
 		private Action rightClickAir = Action.RIGHT_CLICK_AIR;
+		private Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
+		if (action == rightClickAir || action == rightClickBlock)
+		{
+			rightClck = true;
+		}
 	}
 	
 	@EventHandler
