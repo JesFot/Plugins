@@ -8,3 +8,7 @@ commands:
     com: testmpp
     description: Commande test.
     usage: /<command> [word]
+  mpp:
+    com: mpp
+    description: MetalPonyPlug configuration
+    usage: /<command> <reset|set> [all]

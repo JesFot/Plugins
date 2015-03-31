@@ -27,6 +27,6 @@ public class MCommands
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return null;
+		return false;
 	}
 }

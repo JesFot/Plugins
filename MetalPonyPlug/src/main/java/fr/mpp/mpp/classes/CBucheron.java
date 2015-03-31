@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import fr.mpp.mpp.IClasses;
 
-public class CMiner implements IClasses
+public class CBucheron implements IClasses
 {
 	@Override
 	public String getName()

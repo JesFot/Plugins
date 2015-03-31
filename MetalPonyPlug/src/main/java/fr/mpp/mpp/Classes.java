@@ -32,6 +32,7 @@ public enum Classes
 	{
 		this.name = name;
 		this.classe = classe;
+		this.classe.setName(name);
 	}
 	
 	public String getName()

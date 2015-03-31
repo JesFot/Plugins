@@ -18,6 +18,7 @@ public class MetalPonyPlug
 {
 	private FileConfiguration conf;
 	private MCommands coms;
+	private MConfig config;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -37,6 +38,7 @@ public class MetalPonyPlug
 	public void onEnable()
 	{
 		this.conf = plugin.getConfig();
+		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);
 		coms.regCommands();
 	}
@@ -58,12 +60,21 @@ public class MetalPonyPlug
 	
 	public Object getMeta(Player player, String name)
 	{
+		if (!player.hasMetadata(name))
+		{
+			return false;
+		}
 		return player.getMetadata(name).get(0).value();
 	}
 	
 	public void setMeta(Player player, String name, Object meta)
 	{
 		player.setMetadata(name, new FixedMetadataValue(this.getPlugin(), meta));
+	}
+
+	public MConfig getConfig()
+	{
+		return config;
 	}
 	
 	public Server getServer()
