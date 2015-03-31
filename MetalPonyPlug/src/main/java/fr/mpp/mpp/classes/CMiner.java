@@ -64,4 +64,10 @@ public class CMiner implements IClasses
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setLevel(int level) {
+		// TODO Auto-generated method stub
+		
+	}
 }

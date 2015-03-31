@@ -4,10 +4,10 @@ import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+//import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
-import org.bukkit.entity.Player;
+//import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -82,9 +82,9 @@ public class MPlayerListener implements Listener
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
 		Action action = event.getAction();
-		Player player = event.getPlayer();
-		Block block = event.getClickedBlock();
-		ItemStack frame = event.getItem();
+		//Player player = event.getPlayer();
+		//Block block = event.getClickedBlock();
+		//ItemStack frame = event.getItem();
 		Action rightClickAir = Action.RIGHT_CLICK_AIR;
 		Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
 		Action leftClickAir = Action.LEFT_CLICK_AIR;

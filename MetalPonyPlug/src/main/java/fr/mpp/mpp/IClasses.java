@@ -21,4 +21,5 @@ public interface IClasses
 	
 	public int getLevel();
 	public void setLevel();
+	void setLevel(int level);
 }

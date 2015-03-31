@@ -8,30 +8,32 @@ import fr.mpp.mpp.IClasses;
 
 public class CAssassin implements IClasses
 {
+	private String name;
+	private String reason;
+	private int level;
+	
 	@Override
 	public String getName()
 	{
-		// Code ...
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name)
 	{
-		// Code ...
+		this.name = name;
 	}
 
 	@Override
 	public String getReason()
 	{
-		// Code ...
-		return null;
+		return this.reason;
 	}
 
 	@Override
 	public void setReason(String reason)
 	{
-		// Code ...
+		this.reason = reason;
 	}
 
 	@Override
@@ -56,13 +58,18 @@ public class CAssassin implements IClasses
 	@Override
 	public int getLevel()
 	{
-		// Code ...
-		return 0;
+		return this.level;
 	}
 
 	@Override
-	public void setLevel()
+	public void setLevel(int level)
 	{
-		// Code ...
+		this.level = level;
+	}
+
+	@Override
+	public void setLevel() {
+		// TODO Auto-generated method stub
+		
 	}
 }
