@@ -123,12 +123,17 @@ public class MPlayerListener implements Listener
 			ItemStack stack = frame.getItem();
 			Material mat = stack.getType();
 			double x = 395, y = 79, z = -27;
+			Location loc = frame.getLocation();
+			int Bx = loc.getBlockX();
+			int By = loc.getBlockY();
+			int Bz = loc.getBlockZ();
 			if (mat == Material.DIAMOND_PICKAXE)
 			{
-				if (frame.getLocation().equals(new Location(frame.getWorld(), x, y, z)))
+				event.getPlayer().sendMessage("You do that : " + frame.getLocation().getBlockX());
+				if (Bx==x && By==y && Bz==z)
 				{
 					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
-					event.getPlayer().sendPluginMessage(mpp.getPlugin(), "You clicked right !!!", "Mwahaha MSG".getBytes());
+					event.getPlayer().sendMessage("You clicked right !!!");
 				}
 			}
 		}
