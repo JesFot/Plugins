@@ -1,6 +1,13 @@
 package fr.mpp.command;
 
-public class MppCommand
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import fr.mpp.MetalPonyPlug;
+
+public class MppCommand implements CommandExecutor
 {
 	private final MetalPonyPlug mpp;
 
@@ -26,7 +33,7 @@ public class MppCommand
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if (args >= 1)
+		if (args.length >= 1)
 		{
 			if (args[0].equalsIgnoreCase("reset"))
 			{

@@ -1,5 +1,9 @@
 package fr.mpp.mpp;
 
+import java.util.List;
+
+import org.bukkit.entity.Player;
+
 /*
  * Interface for all Ranks
  */
