@@ -72,6 +72,7 @@ public class MPlayerListener implements Listener
 		private boolean leftClck = false;
 		private Action action = event.getEction();
 		private Player player = event.getPlayer();
+		private Block block = event.getClickedBlock();
 		private Action rightClickAir = Action.RIGHT_CLICK_AIR;
 		private Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
 		private Action leftClickAir = Action.LEFT_CLICK_AIR;
