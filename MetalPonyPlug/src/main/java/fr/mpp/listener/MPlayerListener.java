@@ -86,7 +86,7 @@ public class MPlayerListener implements Listener
 			}
 			else
 			{
-				player.chat("Test !!!! B : "+block.getType().toString());
+				//player.chat("Test !!!! B : "+block.getType().toString());
 			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)
