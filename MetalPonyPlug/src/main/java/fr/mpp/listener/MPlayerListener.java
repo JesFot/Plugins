@@ -66,9 +66,10 @@ public class MPlayerListener implements Listener
 	}
 	
 	@EventHandler
-	public void onRightClick(PlayerInteractEvent event)
+	public void onPlayerClick(PlayerInteractEvent event)
 	{
-		// Code ...
+		private Action action = event.getEction();
+		private Action rightClickAir = Action.RIGHT_CLICK_AIR;
 	}
 	
 	@EventHandler
