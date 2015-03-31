@@ -1,6 +1,12 @@
 package fr.mpp.listener;
 
+import java.util.logging.Level;
+
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,6 +16,7 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -18,8 +25,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.mpp.Classes;
 
 public class MPlayerListener implements Listener
 {
@@ -46,6 +55,7 @@ public class MPlayerListener implements Listener
 		else
 		{
 			mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
+			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getDisplayName());
 			mpp.setMeta(event.getPlayer(), "MPPRank", "Noobie");
 		}
 	}
@@ -74,6 +84,7 @@ public class MPlayerListener implements Listener
 		Action action = event.getAction();
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
+		ItemStack frame = event.getItem();
 		Action rightClickAir = Action.RIGHT_CLICK_AIR;
 		Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
 		Action leftClickAir = Action.LEFT_CLICK_AIR;
@@ -98,6 +109,27 @@ public class MPlayerListener implements Listener
 			else
 			{
 				// Code ...
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerClickEntity(final PlayerInteractEntityEvent event)
+	{
+		Entity entity = event.getRightClicked();
+		if (entity instanceof ItemFrame)
+		{
+			ItemFrame frame = (ItemFrame)entity;
+			ItemStack stack = frame.getItem();
+			Material mat = stack.getType();
+			double x = 395, y = 79, z = -27;
+			if (mat == Material.DIAMOND_PICKAXE)
+			{
+				if (frame.getLocation().equals(new Location(frame.getWorld(), x, y, z)))
+				{
+					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
+					event.getPlayer().sendPluginMessage(mpp.getPlugin(), "You clicked right !!!", "Mwahaha MSG".getBytes());
+				}
 			}
 		}
 	}
