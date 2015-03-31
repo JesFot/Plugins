@@ -18,4 +18,7 @@ public interface IClasses
 	public List<Player> getPlayersConcern();
 	public void setPlayerConcern(Player player);
 	public void removeConcernPlayer(Player player);
+	
+	public int getLevel();
+	public void setLevel();
 }

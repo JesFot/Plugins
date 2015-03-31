@@ -52,4 +52,16 @@ public class CRedstoner implements IClasses
 	{
 		// Code ...
 	}
+
+	@Override
+	public int getLevel() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setLevel() {
+		// TODO Auto-generated method stub
+		
+	}
 }

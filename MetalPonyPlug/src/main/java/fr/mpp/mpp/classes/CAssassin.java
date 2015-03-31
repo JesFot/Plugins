@@ -52,4 +52,17 @@ public class CAssassin implements IClasses
 	{
 		// Code ...
 	}
+
+	@Override
+	public int getLevel()
+	{
+		// Code ...
+		return 0;
+	}
+
+	@Override
+	public void setLevel()
+	{
+		// Code ...
+	}
 }

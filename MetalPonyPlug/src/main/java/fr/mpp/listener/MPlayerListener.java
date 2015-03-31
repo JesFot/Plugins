@@ -122,7 +122,7 @@ public class MPlayerListener implements Listener
 			ItemFrame frame = (ItemFrame)entity;
 			ItemStack stack = frame.getItem();
 			Material mat = stack.getType();
-			double x = 395, y = 79, z = -27;
+			double x = 395, y = 79, z = -27; //394
 			Location loc = frame.getLocation();
 			int Bx = loc.getBlockX();
 			int By = loc.getBlockY();
