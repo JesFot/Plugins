@@ -1,8 +1,11 @@
 package fr.mpp.listener;
 
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -68,22 +71,34 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
-		private boolean rightClck = false;
-		private boolean leftClck = false;
-		private Action action = event.getEction();
-		private Player player = event.getPlayer();
-		private Block block = event.getClickedBlock();
-		private Action rightClickAir = Action.RIGHT_CLICK_AIR;
-		private Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
-		private Action leftClickAir = Action.LEFT_CLICK_AIR;
-		private Action leftClickBlock = Action.LEFT_CLICK_BLOCK;
+		Action action = event.getAction();
+		Player player = event.getPlayer();
+		Block block = event.getClickedBlock();
+		Action rightClickAir = Action.RIGHT_CLICK_AIR;
+		Action rightClickBlock = Action.RIGHT_CLICK_BLOCK;
+		Action leftClickAir = Action.LEFT_CLICK_AIR;
+		Action leftClickBlock = Action.LEFT_CLICK_BLOCK;
 		if (action == rightClickAir || action == rightClickBlock)
 		{
-			rightClck = true;
+			if (action == rightClickAir)
+			{
+				// Code ...
+			}
+			else
+			{
+				player.chat("Test !!!! B : "+block.getType().toString());
+			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)
 		{
-			leftClck = true;
+			if (action == leftClickAir)
+			{
+				// Code ...
+			}
+			else
+			{
+				// Code ...
+			}
 		}
 	}
 	
