@@ -22,27 +22,27 @@ public class MConfig
 	}
 
 	// int x = 395, y = 79, z = -27; //394
-	public int getMaxX()
+	public static int getMaxX()
 	{
 		return 395;
 	}
-	public int getMaxY()
+	public static int getMaxY()
 	{
 		return 79;
 	}
-	public int getMaxZ()
+	public static int getMaxZ()
 	{
 		return -27;
 	}
-	public int getMinX()
+	public static int getMinX()
 	{
 		return 389;
 	}
-	public int getMinY()
+	public static int getMinY()
 	{
 		return 78;
 	}
-	public int getMinZ()
+	public static int getMinZ()
 	{
 		return -27;
 	}

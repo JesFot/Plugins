@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.config.MConfig;
 
 public class ClassesUtils
 {
@@ -12,14 +13,15 @@ public class ClassesUtils
 	
 	public static boolean isInZone(Location loc)
 	{
+		//mpp.getConfig();
 		//395;79;-27;389;78;-27;
-		int mX = 395;//mpp.getConfig().getMaxX();
-		int mY = 79;//mpp.getConfig().getMaxY();
-		int mZ = -27;//mpp.getConfig().getMaxZ();
+		int mX = MConfig.getMaxX();//395;//mpp.getConfig().getMaxX();
+		int mY = MConfig.getMaxY();//79;//mpp.getConfig().getMaxY();
+		int mZ = MConfig.getMaxZ();//-27;//mpp.getConfig().getMaxZ();
 
-		int miX = 389;//mpp.getConfig().getMinX();
-		int miY = 78;//mpp.getConfig().getMinY();
-		int miZ = -27;//mpp.getConfig().getMinZ();
+		int miX = MConfig.getMinX();//389;//mpp.getConfig().getMinX();
+		int miY = MConfig.getMinY();//78;//mpp.getConfig().getMinY();
+		int miZ = MConfig.getMinZ();//-27;//mpp.getConfig().getMinZ();
 
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();
