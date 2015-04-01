@@ -7,7 +7,7 @@ public enum Classes
 	Piocheur("Piocheur", new CPiocheur()),
 	Miner("Mineur", new CMiner()),
 	Famer("Fermier", new CFarmer()),
-	Defensor("Défenseur", new CDefensor()),
+	Defensor("Defenseur", new CDefensor()),
 	Chevalier("Chevalier", new CChevalier()),
 	Assassin("Assassin", new CAssassin()),
 	Killer("Meurtrier", new CKiller()),
