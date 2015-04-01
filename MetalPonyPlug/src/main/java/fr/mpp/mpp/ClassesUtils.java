@@ -1,8 +1,14 @@
 package fr.mpp.mpp;
 
+import org.bukkit.Location;
+
+import fr.mpp.MetalPonyPlug;
+
 public class ClassesUtils
 {
-	public boolean isInZone(Localisation loc)
+	private MetalPonyPlug mpp;
+	
+	public boolean isInZone(Location loc)
 	{
 		int mX = mpp.getConfig().getMaxX();
 		int mY = mpp.getConfig().getMaxY();

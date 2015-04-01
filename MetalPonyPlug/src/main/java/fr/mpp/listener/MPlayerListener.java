@@ -48,10 +48,10 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		if (mpp.getMeta(event.getPlayer(), "MPPRegistered"))
+		if (mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true))
 		{
-			mpp.setMeta(event.getPlayer(), "MPPLogTimes", (mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
-			if (mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50)
+			mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
+			if ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50)
 			{
 				mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
 				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getDisplayName());

@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.mpp.bukkit.BukkitPlugin;
 import fr.mpp.command.MCommands;
+import fr.mpp.config.MConfig;
 
 public class MetalPonyPlug
 {
