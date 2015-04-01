@@ -20,7 +20,6 @@ public class CAssassin implements IClasses
 	{
 		this.level = 1;
 		this.material = Material.WOOD_SWORD;
-		this.displayName = ChatColor.RED + "[" + this.name + "]" + ChatColor.RESET;
 	}
 	
 	@Override
@@ -33,6 +32,7 @@ public class CAssassin implements IClasses
 	public void setName(String name)
 	{
 		this.name = name;
+		this.displayName = ChatColor.RED + "[" + this.name + "]" + ChatColor.RESET;
 	}
 	
 	@Override

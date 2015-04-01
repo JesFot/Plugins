@@ -12,23 +12,24 @@ public class ClassesUtils
 	
 	public static boolean isInZone(Location loc)
 	{
-		int mX = mpp.getConfig().getMaxX();
-		int mY = mpp.getConfig().getMaxY();
-		int mZ = mpp.getConfig().getMaxZ();
+		//395;79;-27;389;78;-27;
+		int mX = 395;//mpp.getConfig().getMaxX();
+		int mY = 79;//mpp.getConfig().getMaxY();
+		int mZ = -27;//mpp.getConfig().getMaxZ();
 
-		int miX = mpp.getConfig().getMinX();
-		int miY = mpp.getConfig().getMinY();
-		int miZ = mpp.getConfig().getMinZ();
+		int miX = 389;//mpp.getConfig().getMinX();
+		int miY = 78;//mpp.getConfig().getMinY();
+		int miZ = -27;//mpp.getConfig().getMinZ();
 
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();
 		int z = loc.getBlockZ();
 
-		if (x >= mX && x <= miX)
+		if (x <= mX && x >= miX)
 		{
-			if (y >= mY && y <= miY)
+			if (y <= mY && y >= miY)
 			{
-				if (z >= mZ && z <= miZ)
+				if (z <= mZ && z >= miZ)
 				{
 					return true;
 				}
