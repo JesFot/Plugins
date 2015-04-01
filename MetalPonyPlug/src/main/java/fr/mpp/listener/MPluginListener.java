@@ -13,7 +13,7 @@ public class MPluginListener implements Listener
 {
 	BukkitPlugin pl;
 	
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onPluginEnable(final PluginEnableEvent event)
 	{
 		if (event.getPlugin().equals(pl))

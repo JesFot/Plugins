@@ -5,10 +5,8 @@ import java.util.logging.Level;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-//import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
-//import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -130,24 +128,17 @@ public class MPlayerListener implements Listener
 			ItemFrame frame = (ItemFrame)entity;
 			ItemStack stack = frame.getItem();
 			Material mat = stack.getType();
-			int x = 395, y = 79, z = -27; //394
 			Location loc = frame.getLocation();
 			if (ClassesUtils.isInZone(loc))
 			{
 				String name = stack.getItemMeta().getDisplayName();
 				Classes cl = ClassesUtils.getClasseByName(name);
-				mpp.setMeta(event.getPlayer(), "MPPRank", cl);
-			}
-			int Bx = loc.getBlockX();
-			int By = loc.getBlockY();
-			int Bz = loc.getBlockZ();
-			if (mat == Material.DIAMOND_PICKAXE)
-			{
-				event.getPlayer().sendMessage("You do that : " + frame.getLocation().getBlockX());
-				if (Bx==x && By==y && Bz==z)
+				if (mat == cl.getClasse().getItem())
 				{
-					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
+					ClassesUtils.addRank(cl, event.getPlayer());
 					event.getPlayer().sendMessage("You clicked right !!!");
+					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
+					event.setCancelled(true);
 				}
 			}
 		}

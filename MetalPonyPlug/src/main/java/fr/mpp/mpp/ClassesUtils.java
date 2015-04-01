@@ -1,6 +1,8 @@
 package fr.mpp.mpp;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import fr.mpp.MetalPonyPlug;
 
@@ -49,5 +51,16 @@ public class ClassesUtils
 			}
 		}
 		return Classes.Default;
+	}
+	
+	public static void addRank(final Classes cl, final Player player)
+	{
+		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		player.setMetadata("MPPRank", new FixedMetadataValue(mpp.getPlugin(), cl));
+	}
+	
+	public static Classes getRank(final Player player)
+	{
+		return (Classes)player.getMetadata("MPPRank").get(0).value();
 	}
 }

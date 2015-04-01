@@ -12,6 +12,8 @@ public interface IClasses
 {
 	public String getName();
 	public void setName(String name);
+	public String getDisplayName();
+	public void setDisplayName(String name);
 	
 	public Material getItem();
 	public void setItem(Material mat);

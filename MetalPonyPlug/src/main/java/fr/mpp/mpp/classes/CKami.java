@@ -89,4 +89,16 @@ public class CKami implements IClasses
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDisplayName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -23,6 +23,18 @@ public class CBucheron implements IClasses
 	}
 
 	@Override
+	public String getDisplayName()
+	{
+		return null;
+	}
+
+	@Override
+	public void setDisplayName(String name)
+	{
+		// Code ...
+	}
+
+	@Override
 	public String getReason()
 	{
 		// Code ...
@@ -55,38 +67,38 @@ public class CBucheron implements IClasses
 	}
 
 	@Override
-	public int getLevel() {
-		// TODO Auto-generated method stub
+	public int getLevel()
+	{
 		return 0;
 	}
 
 	@Override
-	public void setLevel() {
-		// TODO Auto-generated method stub
-		
+	public void setLevel()
+	{
+		// Code ...
 	}
 
 	@Override
-	public void setLevel(int level) {
-		// TODO Auto-generated method stub
-		
+	public void setLevel(int level)
+	{
+		// Code ...
 	}
 
 	@Override
-	public Material getItem() {
-		// TODO Auto-generated method stub
+	public void addLevel(int level)
+	{
+		// Code ...
+	}
+
+	@Override
+	public Material getItem()
+	{
 		return null;
 	}
 
 	@Override
-	public void setItem(Material mat) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addLevel(int level) {
-		// TODO Auto-generated method stub
-		
+	public void setItem(Material mat)
+	{
+		// Code ...
 	}
 }

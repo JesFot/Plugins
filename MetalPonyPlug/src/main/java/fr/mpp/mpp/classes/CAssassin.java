@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -10,6 +11,7 @@ import fr.mpp.mpp.IClasses;
 public class CAssassin implements IClasses
 {
 	private String name;
+	private String displayName;
 	private String reason;
 	private int level;
 	private Material material;
@@ -18,6 +20,7 @@ public class CAssassin implements IClasses
 	{
 		this.level = 1;
 		this.material = Material.WOOD_SWORD;
+		this.displayName = ChatColor.RED + "[" + this.name + "]" + ChatColor.RESET;
 	}
 	
 	@Override
@@ -30,6 +33,18 @@ public class CAssassin implements IClasses
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	
+	@Override
+	public String getDisplayName()
+	{
+		return this.displayName;
+	}
+	
+	@Override
+	public void setDisplayName(String name)
+	{
+		this.displayName = name;
 	}
 
 	@Override
