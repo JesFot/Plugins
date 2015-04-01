@@ -1,11 +1,9 @@
 package fr.mpp.mpp.classes;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
+import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
 public class CBucheron implements IClasses
@@ -15,11 +13,13 @@ public class CBucheron implements IClasses
 	private String displayName;
 	private int level;
 	private Material material;
+	private Classes nextRank;
 	
 	public CBucheron()
 	{
 		this.level = 1;
 		this.material = Material.IRON_AXE;
+		this.nextRank = Classes.Null;
 	}
 	
 	@Override
@@ -58,36 +58,33 @@ public class CBucheron implements IClasses
 	{
 		this.reason = reason;
 	}
-
+	
 	@Override
-	public List<Player> getPlayersConcern()
+	public boolean hasNextRank()
 	{
-		// Code ...
-		return null;
+		if (this.nextRank != Classes.Null)
+		{
+			return true;
+		}
+		return false;
 	}
-
+	
 	@Override
-	public void setPlayerConcern(Player player)
+	public Classes getNextRank()
 	{
-		// Code ...
+		return this.nextRank;
 	}
-
+	
 	@Override
-	public void removeConcernPlayer(Player player)
+	public void setNextRank(Classes rank)
 	{
-		// Code ...
+		this.nextRank = rank;
 	}
 
 	@Override
 	public int getLevel()
 	{
 		return this.level;
-	}
-
-	@Override
-	public void setLevel()
-	{
-		this.level++;
 	}
 
 	@Override
@@ -100,6 +97,13 @@ public class CBucheron implements IClasses
 	public void addLevel(int level)
 	{
 		this.level += level;
+	}
+	
+	@Override
+	public int incrLevel()
+	{
+		this.level += 1;
+		return this.level;
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import fr.mpp.config.MConfig;
 
 public class ClassesUtils
 {
-	@SuppressWarnings("unused")
 	private static MetalPonyPlug mpp;
 	
 	public static boolean isInZone(Location loc)
@@ -59,11 +58,33 @@ public class ClassesUtils
 	{
 		Classes cl = ClassesUtils.getClasseByName(name);
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
-		//mpp.setMeta(player, "MPPRank", cl);
+		try
+		{
+			mpp.setMeta(player, "MPPRank", cl);
+		}
+		catch (Exception e)
+		{
+			// Code ...
+		}
 	}
 	
 	public static Classes getRank(final Player player)
 	{
 		return (Classes)player.getMetadata("MPPRank").get(0).value();
+	}
+	
+	public static boolean passRank(final String name, Player player)
+	{
+		try
+		{
+			Classes clT = getRank(player);
+			addRank(name, player);
+			mpp.setMeta(player, "MPPRankOld", clT);
+			return true;
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 }

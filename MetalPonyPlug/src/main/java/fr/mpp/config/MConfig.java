@@ -21,7 +21,7 @@ public class MConfig
 		return confFile.getBoolean("mpp_active");
 	}
 
-	// int x = 395, y = 79, z = -27; //394
+	// int x = 395, y = 79, z = -27; //391
 	public static int getMaxX()
 	{
 		return 395;

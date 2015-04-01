@@ -26,6 +26,7 @@ public enum Classes
 	Cheater("Cheater", new CCheater()),
 	Notch("Notch", new CNotch()),
 	Redstoner("Redstonneur", new CRedstoner()),
+	Null(),
 	Default(Noobie);
 	
 	private String name = "";
@@ -42,6 +43,12 @@ public enum Classes
 	{
 		this.name = classe.getName();
 		this.classe = classe.getClasse();
+	}
+	
+	Classes()
+	{
+		this.name = "null";
+		this.classe = null;
 	}
 	
 	public String getName()

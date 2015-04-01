@@ -1,9 +1,6 @@
 package fr.mpp.mpp;
 
-import java.util.List;
-
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
 /*
  * Interface for all Ranks
@@ -21,12 +18,12 @@ public interface IClasses
 	public String getReason();
 	public void setReason(String reason);
 
-	public List<Player> getPlayersConcern();
-	public void setPlayerConcern(Player player);
-	public void removeConcernPlayer(Player player);
+	public boolean hasNextRank();
+	public Classes getNextRank();
+	public void setNextRank(Classes rank);
 	
 	public int getLevel();
 	public void addLevel(int level);
+	public int incrLevel();
 	public void setLevel(int level);
-	public void setLevel(); //to remove
 }
