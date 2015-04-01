@@ -135,7 +135,7 @@ public class MPlayerListener implements Listener
 				Classes cl = ClassesUtils.getClasseByName(name);
 				if (mat == cl.getClasse().getItem())
 				{
-					ClassesUtils.addRank(cl, event.getPlayer());
+					ClassesUtils.addRank(name, event.getPlayer());
 					event.getPlayer().sendMessage("You clicked right !!!");
 					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
 					event.setCancelled(true);

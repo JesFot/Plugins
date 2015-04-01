@@ -2,12 +2,12 @@ package fr.mpp.mpp;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import fr.mpp.MetalPonyPlug;
 
 public class ClassesUtils
 {
+	@SuppressWarnings("unused")
 	private static MetalPonyPlug mpp;
 	
 	public static boolean isInZone(Location loc)
@@ -54,10 +54,11 @@ public class ClassesUtils
 		return Classes.Default;
 	}
 	
-	public static void addRank(final Classes cl, final Player player)
+	public static void addRank(String name, Player player)
 	{
+		Classes cl = ClassesUtils.getClasseByName(name);
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
-		player.setMetadata("MPPRank", new FixedMetadataValue(mpp.getPlugin(), cl));
+		//mpp.setMeta(player, "MPPRank", cl);
 	}
 	
 	public static Classes getRank(final Player player)
