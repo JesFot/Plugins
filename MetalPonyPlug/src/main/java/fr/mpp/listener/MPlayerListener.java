@@ -2,7 +2,6 @@ package fr.mpp.listener;
 
 import java.util.logging.Level;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -48,7 +47,7 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
+		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
 		if (mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true))
 		{
 			mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
