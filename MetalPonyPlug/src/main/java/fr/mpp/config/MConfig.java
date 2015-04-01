@@ -15,6 +15,11 @@ public class MConfig
 		this.mpp = p_mpp;
 	}
 	
+	public boolean getMppActive()
+	{
+		return confFile.getBoolean("mpp_active");
+	}
+	
 	public int getMaxX()
 	{
 		return 0;

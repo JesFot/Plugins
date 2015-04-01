@@ -40,6 +40,11 @@ public class MetalPonyPlug
 	{
 		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
+		if (!this.config.getMppActive())
+		{
+			BukkitPlugin pl = new BukkitPlugin();
+			pl.stopPlugin();
+		}
 		this.coms = new MCommands(this);
 		coms.regCommands();
 	}
