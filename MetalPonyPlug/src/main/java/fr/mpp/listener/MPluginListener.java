@@ -7,12 +7,22 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
+import fr.mpp.bukkit.BukkitPlugin;
+
 public class MPluginListener implements Listener
 {
-	@EventHandler(priority = EventPriority.MONITOR)
+	BukkitPlugin pl;
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPluginEnable(final PluginEnableEvent event)
 	{
-		// Code ...
+		if (event.getPlugin().equals(pl))
+		{
+			if (!pl.getConfig().getBoolean("mpp_active"))
+			{
+				event.getPlugin().getServer().getPluginManager().disablePlugin(pl);
+			}
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)

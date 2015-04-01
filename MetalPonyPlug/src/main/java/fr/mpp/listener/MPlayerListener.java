@@ -54,6 +54,7 @@ public class MPlayerListener implements Listener
 			if ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50)
 			{
 				mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
+				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getCustomName());
 				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getDisplayName());
 			}
 		}
@@ -61,6 +62,7 @@ public class MPlayerListener implements Listener
 		{
 			mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
 			mpp.setMeta(event.getPlayer(), "MPPLogTimes", 1);
+			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getCustomName());
 			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getDisplayName());
 			mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Noobie);
 		}

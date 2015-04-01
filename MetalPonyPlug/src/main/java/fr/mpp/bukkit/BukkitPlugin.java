@@ -25,19 +25,23 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		this.saveDefaultConfig();
-		this.getConfig().options().copyDefaults(true);
+		//this.saveDefaultConfig();
 		final PluginManager pm = this.getServer().getPluginManager();
 		mpp = new MetalPonyPlug(getServer(), getLogger(), this);
 		try
 		{
-
+			getLogger().log(Level.INFO, "Plugin start !!");
 			if (!this.getConfig().getBoolean("mpp_active"))
 			{
+				this.getConfig().set("mpp_active", this.getConfig().getBoolean("mpp_active"));
+				this.saveConfig();
+				this.getServer().getPluginManager().disablePlugin(this);
 				this.stopPlugin();
+				return;
 			}
 			else
 			{
+				this.saveConfig();
 				mpp.onEnable();
 			}
 		}
