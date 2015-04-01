@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -9,42 +10,53 @@ import fr.mpp.mpp.IClasses;
 
 public class CBucheron implements IClasses
 {
+	private String name;
+	private String reason;
+	private String displayName;
+	private int level;
+	private Material material;
+	
+	public CBucheron()
+	{
+		this.level = 1;
+		this.material = Material.IRON_AXE;
+	}
+	
 	@Override
 	public String getName()
 	{
-		// Code ...
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name)
 	{
-		// Code ...
+		this.name = name;
+		this.displayName = ChatColor.DARK_GREEN + "[" + this.name + "]" + ChatColor.RESET;
 	}
 
 	@Override
 	public String getDisplayName()
 	{
-		return null;
+		return this.displayName;
 	}
 
 	@Override
 	public void setDisplayName(String name)
 	{
-		// Code ...
+		this.displayName = name;
 	}
 
 	@Override
 	public String getReason()
 	{
-		// Code ...
-		return null;
+		return this.reason;
 	}
 
 	@Override
 	public void setReason(String reason)
 	{
-		// Code ...
+		this.reason = reason;
 	}
 
 	@Override
@@ -69,36 +81,36 @@ public class CBucheron implements IClasses
 	@Override
 	public int getLevel()
 	{
-		return 0;
+		return this.level;
 	}
 
 	@Override
 	public void setLevel()
 	{
-		// Code ...
+		this.level++;
 	}
 
 	@Override
 	public void setLevel(int level)
 	{
-		// Code ...
+		this.level = level;
 	}
 
 	@Override
 	public void addLevel(int level)
 	{
-		// Code ...
+		this.level += level;
 	}
 
 	@Override
 	public Material getItem()
 	{
-		return null;
+		return this.material;
 	}
 
 	@Override
 	public void setItem(Material mat)
 	{
-		// Code ...
+		this.material = mat;
 	}
 }

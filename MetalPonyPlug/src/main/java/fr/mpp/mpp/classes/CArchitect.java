@@ -8,18 +8,18 @@ import org.bukkit.entity.Player;
 
 import fr.mpp.mpp.IClasses;
 
-public class CAssassin implements IClasses
+public class CArchitect implements IClasses
 {
 	private String name;
-	private String displayName;
 	private String reason;
+	private String displayName;
 	private int level;
 	private Material material;
-
-	public CAssassin()
+	
+	public CArchitect()
 	{
 		this.level = 1;
-		this.material = Material.WOOD_SWORD;
+		this.material = Material.LOG;
 	}
 	
 	@Override
@@ -32,15 +32,15 @@ public class CAssassin implements IClasses
 	public void setName(String name)
 	{
 		this.name = name;
-		this.displayName = ChatColor.BLACK + "[" + this.name + "]" + ChatColor.RESET;
+		this.displayName = ChatColor.LIGHT_PURPLE + "[" + this.name + "]" + ChatColor.RESET;
 	}
-	
+
 	@Override
 	public String getDisplayName()
 	{
 		return this.displayName;
 	}
-	
+
 	@Override
 	public void setDisplayName(String name)
 	{
@@ -83,17 +83,23 @@ public class CAssassin implements IClasses
 	{
 		return this.level;
 	}
-	
+
 	@Override
-	public void addLevel(int level)
+	public void setLevel()
 	{
-		this.level += level;
+		this.level++;
 	}
 
 	@Override
 	public void setLevel(int level)
 	{
 		this.level = level;
+	}
+
+	@Override
+	public void addLevel(int level)
+	{
+		this.level += level;
 	}
 
 	@Override
@@ -106,11 +112,5 @@ public class CAssassin implements IClasses
 	public void setItem(Material mat)
 	{
 		this.material = mat;
-	}
-
-	@Override
-	public void setLevel()
-	{
-		this.level++;
 	}
 }

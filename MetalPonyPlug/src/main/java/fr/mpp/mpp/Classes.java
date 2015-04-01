@@ -16,6 +16,7 @@ public enum Classes
 	Prince("Prince", new CPrince()),
 	Princess("Princesse", new CPrincess()),
 	Vendor("Marchand", new CVendor()),
+	Architect("Architecte", new CArchitect()),
 	Farmer_chinois("Farmer chinois", new CCheFarmer()),
 	Noobie("Newbie", new CNoobie()),
 	Invite("Invité", new CInvite()),

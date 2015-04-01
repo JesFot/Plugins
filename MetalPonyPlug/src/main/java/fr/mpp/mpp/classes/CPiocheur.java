@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -9,30 +10,53 @@ import fr.mpp.mpp.IClasses;
 
 public class CPiocheur implements IClasses
 {
+	private String name;
+	private String displayName;
+	private String reason;
+	private int level;
+	private Material material;
+
+	public CPiocheur()
+	{
+		this.level = 1;
+		this.material = Material.IRON_PICKAXE;
+	}
+	
 	@Override
 	public String getName()
 	{
-		// Code ...
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name)
 	{
-		// Code ...
+		this.name = name;
+		this.displayName = ChatColor.GOLD + "[" + this.name + "]" + ChatColor.RESET;
+	}
+	
+	@Override
+	public String getDisplayName()
+	{
+		return this.displayName;
+	}
+	
+	@Override
+	public void setDisplayName(String name)
+	{
+		this.displayName = name;
 	}
 
 	@Override
 	public String getReason()
 	{
-		// Code ...
-		return null;
+		return this.reason;
 	}
 
 	@Override
 	public void setReason(String reason)
 	{
-		// Code ...
+		this.reason = reason;
 	}
 
 	@Override
@@ -55,50 +79,38 @@ public class CPiocheur implements IClasses
 	}
 
 	@Override
-	public int getLevel() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getLevel()
+	{
+		return this.level;
+	}
+	
+	@Override
+	public void addLevel(int level)
+	{
+		this.level += level;
 	}
 
 	@Override
-	public void setLevel() {
-		// TODO Auto-generated method stub
-		
+	public void setLevel(int level)
+	{
+		this.level = level;
 	}
 
 	@Override
-	public void setLevel(int level) {
-		// TODO Auto-generated method stub
-		
+	public Material getItem()
+	{
+		return this.material;
 	}
 
 	@Override
-	public Material getItem() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setItem(Material mat)
+	{
+		this.material = mat;
 	}
 
 	@Override
-	public void setItem(Material mat) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addLevel(int level) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDisplayName(String name) {
-		// TODO Auto-generated method stub
-		
+	public void setLevel()
+	{
+		this.level++;
 	}
 }
