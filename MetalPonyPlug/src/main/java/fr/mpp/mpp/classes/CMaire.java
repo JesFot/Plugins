@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import fr.mpp.mpp.IClasses;
@@ -67,6 +68,24 @@ public class CMaire implements IClasses
 
 	@Override
 	public void setLevel(int level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Material getItem() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setItem(Material mat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addLevel(int level) {
 		// TODO Auto-generated method stub
 		
 	}

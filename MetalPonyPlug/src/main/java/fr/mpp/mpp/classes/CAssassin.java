@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import fr.mpp.mpp.IClasses;
@@ -11,10 +12,12 @@ public class CAssassin implements IClasses
 	private String name;
 	private String reason;
 	private int level;
+	private Material material;
 
 	public CAssassin()
 	{
 		this.level = 1;
+		this.material = Material.WOOD_SWORD;
 	}
 	
 	@Override
@@ -65,11 +68,29 @@ public class CAssassin implements IClasses
 	{
 		return this.level;
 	}
+	
+	@Override
+	public void addLevel(int level)
+	{
+		this.level += level;
+	}
 
 	@Override
 	public void setLevel(int level)
 	{
 		this.level = level;
+	}
+
+	@Override
+	public Material getItem()
+	{
+		return this.material;
+	}
+
+	@Override
+	public void setItem(Material mat)
+	{
+		this.material = mat;
 	}
 
 	@Override

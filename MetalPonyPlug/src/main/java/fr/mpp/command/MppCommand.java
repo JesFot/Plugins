@@ -30,6 +30,10 @@ public class MppCommand implements CommandExecutor
 			mpp.setMeta(player, "MPPLogTimes", 0);
 			mpp.setMeta(player, "MPPRegistered", false);
 		}
+		else
+		{
+			resetPlugin();
+		}
 	}
 
 	@Override
@@ -39,7 +43,7 @@ public class MppCommand implements CommandExecutor
 		{
 			if (args[0].equalsIgnoreCase("reset"))
 			{
-				if (args[1].equalsIgnoreCase("all"))
+				if (args.length >= 2)
 				{
 					resetPlugin();
 				}

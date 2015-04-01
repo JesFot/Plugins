@@ -2,6 +2,7 @@ package fr.mpp.mpp;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 /*
@@ -11,6 +12,9 @@ public interface IClasses
 {
 	public String getName();
 	public void setName(String name);
+	
+	public Material getItem();
+	public void setItem(Material mat);
 
 	public String getReason();
 	public void setReason(String reason);
@@ -20,6 +24,7 @@ public interface IClasses
 	public void removeConcernPlayer(Player player);
 	
 	public int getLevel();
-	public void setLevel();
-	void setLevel(int level);
+	public void addLevel(int level);
+	public void setLevel(int level);
+	public void setLevel(); //to remove
 }

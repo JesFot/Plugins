@@ -23,7 +23,8 @@ public enum Classes
 	Kami("Kami-sama", new CKami()),
 	Cheater("Cheater", new CCheater()),
 	Notch("Notch", new CNotch()),
-	Redstoner("Redstonneur", new CRedstoner());
+	Redstoner("Redstonneur", new CRedstoner()),
+	Default(Noobie);
 	
 	private String name = "";
 	private IClasses classe;
@@ -33,6 +34,12 @@ public enum Classes
 		this.name = name;
 		this.classe = classe;
 		this.classe.setName(name);
+	}
+	
+	Classes(Classes classe)
+	{
+		this.name = classe.getName();
+		this.classe = classe.getClasse();
 	}
 	
 	public String getName()

@@ -2,6 +2,7 @@ package fr.mpp.listener;
 
 import java.util.logging.Level;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 //import org.bukkit.block.Block;
@@ -29,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.mpp.Classes;
+import fr.mpp.mpp.ClassesUtils;
 
 public class MPlayerListener implements Listener
 {
@@ -48,22 +50,23 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
 		if (mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true))
 		{
 			mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
 			if ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50)
 			{
 				mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
-				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getCustomName());
-				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getDisplayName());
+				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
+				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
 			}
 		}
 		else
 		{
 			mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
 			mpp.setMeta(event.getPlayer(), "MPPLogTimes", 1);
-			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getCustomName());
-			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getDisplayName());
+			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
+			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
 			mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Noobie);
 		}
 	}
@@ -129,6 +132,12 @@ public class MPlayerListener implements Listener
 			Material mat = stack.getType();
 			int x = 395, y = 79, z = -27; //394
 			Location loc = frame.getLocation();
+			if (ClassesUtils.isInZone(loc))
+			{
+				String name = stack.getItemMeta().getDisplayName();
+				Classes cl = ClassesUtils.getClasseByName(name);
+				mpp.setMeta(event.getPlayer(), "MPPRank", cl);
+			}
 			int Bx = loc.getBlockX();
 			int By = loc.getBlockY();
 			int Bz = loc.getBlockZ();

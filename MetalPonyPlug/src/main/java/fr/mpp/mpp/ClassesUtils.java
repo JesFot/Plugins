@@ -6,9 +6,9 @@ import fr.mpp.MetalPonyPlug;
 
 public class ClassesUtils
 {
-	private MetalPonyPlug mpp;
+	private static MetalPonyPlug mpp;
 	
-	public boolean isInZone(Location loc)
+	public static boolean isInZone(Location loc)
 	{
 		int mX = mpp.getConfig().getMaxX();
 		int mY = mpp.getConfig().getMaxY();
@@ -33,5 +33,21 @@ public class ClassesUtils
 			}
 		}
 		return false;
+	}
+	
+	public static Classes getClasseByName(final String name)
+	{
+		if (name == null || name == "")
+		{
+			return Classes.Default;
+		}
+		for (Classes c : Classes.values())
+		{
+			if (name.equalsIgnoreCase(c.getClasse().getName()))
+			{
+				return c;
+			}
+		}
+		return Classes.Default;
 	}
 }

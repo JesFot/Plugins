@@ -2,42 +2,45 @@ package fr.mpp.mpp.classes;
 
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import fr.mpp.mpp.IClasses;
 
 public class CNoobie implements IClasses
 {
+	private String name;
+	private String reason;
+	private int level;
+	
+	
 	@Override
 	public String getName()
 	{
-		// Code ...
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name)
 	{
-		// Code ...
+		this.name = name;
 	}
 
 	@Override
 	public String getReason()
 	{
-		// Code ...
-		return null;
+		return this.reason;
 	}
 
 	@Override
 	public void setReason(String reason)
 	{
-		// Code ...
+		this.reason = reason;
 	}
 
 	@Override
 	public List<Player> getPlayersConcern()
 	{
-		// Code ...
 		return null;
 	}
 
@@ -54,19 +57,35 @@ public class CNoobie implements IClasses
 	}
 
 	@Override
-	public int getLevel() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getLevel()
+	{
+		return this.level;
 	}
+
+	@Override
+	public void setLevel(int level)
+	{
+		this.level = level;
+	}
+
+	@Override
+	public Material getItem()
+	{
+		return null;
+	}
+	
+	@Override
+	public void addLevel(int level)
+	{
+		this.level += level;
+	}
+
+	@Override
+	public void setItem(Material mat)
+	{}
 
 	@Override
 	public void setLevel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setLevel(int level) {
 		// TODO Auto-generated method stub
 		
 	}
