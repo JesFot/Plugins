@@ -1,11 +1,9 @@
 package fr.mpp.mpp.classes;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
+import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
 public class CRedstoner implements IClasses
@@ -15,6 +13,7 @@ public class CRedstoner implements IClasses
 	private String displayName;
 	private int level;
 	private Material material;
+	private Classes nextRank;
 	
 	public CRedstoner()
 	{
@@ -34,13 +33,13 @@ public class CRedstoner implements IClasses
 		this.name = name;
 		this.displayName = ChatColor.RED + "[" + this.name + "]" + ChatColor.RESET;
 	}
-
+	
 	@Override
 	public String getDisplayName()
 	{
 		return this.displayName;
 	}
-
+	
 	@Override
 	public void setDisplayName(String name)
 	{
@@ -58,24 +57,27 @@ public class CRedstoner implements IClasses
 	{
 		this.reason = reason;
 	}
-
+	
 	@Override
-	public List<Player> getPlayersConcern()
+	public boolean hasNextRank()
 	{
-		// Code ...
-		return null;
+		if (this.nextRank != Classes.Null)
+		{
+			return true;
+		}
+		return false;
 	}
-
+	
 	@Override
-	public void setPlayerConcern(Player player)
+	public Classes getNextRank()
 	{
-		// Code ...
+		return this.nextRank;
 	}
-
+	
 	@Override
-	public void removeConcernPlayer(Player player)
+	public void setNextRank(Classes rank)
 	{
-		// Code ...
+		this.nextRank = rank;
 	}
 
 	@Override
@@ -83,23 +85,24 @@ public class CRedstoner implements IClasses
 	{
 		return this.level;
 	}
-
+	
 	@Override
-	public void setLevel()
+	public void addLevel(int level)
 	{
-		this.level++;
+		this.level += level;
+	}
+	
+	@Override
+	public int incrLevel()
+	{
+		this.level += 1;
+		return this.level;
 	}
 
 	@Override
 	public void setLevel(int level)
 	{
 		this.level = level;
-	}
-
-	@Override
-	public void addLevel(int level)
-	{
-		this.level += level;
 	}
 
 	@Override

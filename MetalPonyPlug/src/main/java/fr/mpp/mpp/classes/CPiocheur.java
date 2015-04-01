@@ -1,11 +1,9 @@
 package fr.mpp.mpp.classes;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
+import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
 public class CPiocheur implements IClasses
@@ -15,6 +13,7 @@ public class CPiocheur implements IClasses
 	private String reason;
 	private int level;
 	private Material material;
+	private Classes nextRank;
 
 	public CPiocheur()
 	{
@@ -58,24 +57,27 @@ public class CPiocheur implements IClasses
 	{
 		this.reason = reason;
 	}
-
+	
 	@Override
-	public List<Player> getPlayersConcern()
+	public boolean hasNextRank()
 	{
-		// Code ...
-		return null;
+		if (this.nextRank != Classes.Null)
+		{
+			return true;
+		}
+		return false;
 	}
-
+	
 	@Override
-	public void setPlayerConcern(Player player)
+	public Classes getNextRank()
 	{
-		// Code ...
+		return this.nextRank;
 	}
-
+	
 	@Override
-	public void removeConcernPlayer(Player player)
+	public void setNextRank(Classes rank)
 	{
-		// Code ...
+		this.nextRank = rank;
 	}
 
 	@Override
@@ -88,6 +90,13 @@ public class CPiocheur implements IClasses
 	public void addLevel(int level)
 	{
 		this.level += level;
+	}
+	
+	@Override
+	public int incrLevel()
+	{
+		this.level += 1;
+		return this.level;
 	}
 
 	@Override
@@ -106,11 +115,5 @@ public class CPiocheur implements IClasses
 	public void setItem(Material mat)
 	{
 		this.material = mat;
-	}
-
-	@Override
-	public void setLevel()
-	{
-		this.level++;
 	}
 }
