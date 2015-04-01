@@ -38,11 +38,13 @@ public class MetalPonyPlug
 	
 	public void onEnable()
 	{
-		this.conf = plugin.getConfig();
+		BukkitPlugin pl = new BukkitPlugin();
+		pl.saveDefaultConfig();
+		pl.getConfig().options().copyDefaults(true);
+		this.conf = pl.getConfig();
 		this.config = new MConfig(conf, this);
 		if (!this.config.getMppActive())
 		{
-			BukkitPlugin pl = new BukkitPlugin();
 			pl.stopPlugin();
 		}
 		this.coms = new MCommands(this);
