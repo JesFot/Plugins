@@ -19,7 +19,7 @@ public class CRedstoner implements IClasses
 	public CRedstoner()
 	{
 		this.level = 1;
-		this.material = Material.REDSTONE_WIRE;
+		this.material = Material.REDSTONE;
 	}
 	
 	@Override
