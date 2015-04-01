@@ -38,10 +38,9 @@ public class MetalPonyPlug
 	
 	public void onEnable()
 	{
-		BukkitPlugin pl = new BukkitPlugin();
-		pl.saveDefaultConfig();
-		pl.getConfig().options().copyDefaults(true);
-		this.conf = pl.getConfig();
+		plugin.saveDefaultConfig();
+		plugin.getConfig().options().copyDefaults(true);
+		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);
 		coms.regCommands();
