@@ -18,7 +18,7 @@ public class ClassesUtils
 		int mY = MConfig.getMaxY();//79;
 		int mZ = MConfig.getMaxZ();//-27;
 
-		int miX = MConfig.getMinX();//389;
+		int miX = MConfig.getMinX();//391;
 		int miY = MConfig.getMinY();//78;
 		int miZ = MConfig.getMinZ();//-27;
 

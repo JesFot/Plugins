@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -98,7 +99,20 @@ public class MPlayerListener implements Listener
 		{
 			if (action == rightClickAir)
 			{
-				// Code ...
+				if (event.getItem().getType().equals(Material.ARROW))
+				{
+					if (event.getItem().getItemMeta().getDisplayName() == "POUET")
+					{
+						event.getPlayer().sendMessage("Pouet !!");
+						for (Player player : mpp.getServer().getOnlinePlayers())
+						{
+							if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
+							{
+								player.kickPlayer("Vous etes chiants");
+							}
+						}
+					}
+				}
 			}
 			else
 			{

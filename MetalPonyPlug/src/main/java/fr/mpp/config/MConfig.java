@@ -36,7 +36,7 @@ public class MConfig
 	}
 	public static int getMinX()
 	{
-		return 389;
+		return 391;
 	}
 	public static int getMinY()
 	{

@@ -6,7 +6,7 @@ public enum Classes
 {
 	Piocheur("Piocheur", new CPiocheur()),
 	Miner("Mineur", new CMiner()),
-	Famer("Fermier", new CFarmer()),
+	Farmer("Fermier", new CFarmer()),
 	Defensor("Defenseur", new CDefensor()),
 	Chevalier("Chevalier", new CChevalier()),
 	Assassin("Assassin", new CAssassin()),
@@ -17,6 +17,7 @@ public enum Classes
 	Princess("Princesse", new CPrincess()),
 	Vendor("Marchand", new CVendor()),
 	Architect("Architecte", new CArchitect()),
+	Bucheron("Bucheron", new CBucheron()),
 	Farmer_chinois("Farmer chinois", new CCheFarmer()),
 	Noobie("Newbie", new CNoobie()),
 	Invite("Invité", new CInvite()),
