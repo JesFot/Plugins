@@ -38,8 +38,6 @@ public class MetalPonyPlug
 	
 	public void onEnable()
 	{
-		plugin.saveDefaultConfig();
-		plugin.getConfig().options().copyDefaults(true);
 		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);

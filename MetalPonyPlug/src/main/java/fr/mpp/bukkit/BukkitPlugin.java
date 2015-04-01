@@ -25,6 +25,8 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
+		this.saveDefaultConfig();
+		this.getConfig().options().copyDefaults(true);
 		final PluginManager pm = this.getServer().getPluginManager();
 		mpp = new MetalPonyPlug(getServer(), getLogger(), this);
 		try
