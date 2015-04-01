@@ -35,6 +35,11 @@ public class MppCommand implements CommandExecutor
 			resetPlugin();
 		}
 	}
+	
+	private void set(String[] args)
+	{
+		//
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -51,6 +56,10 @@ public class MppCommand implements CommandExecutor
 				{
 					resetPlayer(sender);
 				}
+			}
+			else if (args[0].equalsIgnoreCase("set"))
+			{
+				set(args);
 			}
 			return true;
 		}

@@ -31,9 +31,9 @@ public class BukkitPlugin extends JavaPlugin
 		try
 		{
 			getLogger().log(Level.INFO, "Plugin start !!");
-			if (!this.getConfig().getBoolean("mpp_active"))
+			if (!RefString.ACTIVE)
 			{
-				this.getConfig().set("mpp_active", this.getConfig().getBoolean("mpp_active"));
+				this.getConfig().set("mpp_active", RefString.ACTIVE);
 				this.saveConfig();
 				this.getServer().getPluginManager().disablePlugin(this);
 				this.stopPlugin();
@@ -41,7 +41,7 @@ public class BukkitPlugin extends JavaPlugin
 			}
 			else
 			{
-				this.saveConfig();
+				//this.saveConfig();
 				mpp.onEnable();
 			}
 		}
