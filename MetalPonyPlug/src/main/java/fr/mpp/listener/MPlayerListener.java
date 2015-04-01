@@ -99,31 +99,38 @@ public class MPlayerListener implements Listener
 		{
 			if (action == rightClickAir)
 			{
-				if (event.getItem().getType().equals(Material.ARROW))
+				if (event.getItem().getType().equals(Material.BREAD))
 				{
-					if (event.getItem().getItemMeta().getDisplayName() == "POUET")
+					event.getPlayer().sendMessage("Pouet !!");
+					for (Player player : mpp.getServer().getOnlinePlayers())
 					{
-						event.getPlayer().sendMessage("Pouet !!");
-						for (Player player : mpp.getServer().getOnlinePlayers())
+						if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
 						{
-							if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
-							{
-								player.kickPlayer("Vous etes chiants");
-							}
+							player.damage(20);
 						}
 					}
 				}
 			}
 			else
 			{
-				//player.chat("Test !!!! B : "+block.getType().toString());
+				//Code ...
 			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)
 		{
 			if (action == leftClickAir)
 			{
-				// Code ...
+				if (event.getItem().getType().equals(Material.BREAD))
+				{
+					event.getPlayer().sendMessage("Pouet !!");
+					for (Player player : mpp.getServer().getOnlinePlayers())
+					{
+						if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
+						{
+							player.damage(20);
+						}
+					}
+				}
 			}
 			else
 			{
