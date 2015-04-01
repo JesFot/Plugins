@@ -6,6 +6,7 @@ import fr.mpp.MetalPonyPlug;
 
 public class MConfig
 {
+	@SuppressWarnings("unused")
 	private final MetalPonyPlug mpp;
 	private FileConfiguration confFile;
 

@@ -43,10 +43,6 @@ public class MetalPonyPlug
 		pl.getConfig().options().copyDefaults(true);
 		this.conf = pl.getConfig();
 		this.config = new MConfig(conf, this);
-		if (!this.config.getMppActive())
-		{
-			pl.stopPlugin();
-		}
 		this.coms = new MCommands(this);
 		coms.regCommands();
 	}

@@ -29,7 +29,15 @@ public class BukkitPlugin extends JavaPlugin
 		mpp = new MetalPonyPlug(getServer(), getLogger(), this);
 		try
 		{
-			mpp.onEnable();
+
+			if (!this.getConfig().getBoolean("mpp_active"))
+			{
+				this.stopPlugin();
+			}
+			else
+			{
+				mpp.onEnable();
+			}
 		}
 		catch (RuntimeException ex)
 		{
