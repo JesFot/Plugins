@@ -4,14 +4,19 @@ import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -28,14 +33,17 @@ import org.bukkit.inventory.ItemStack;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
+import fr.mpp.mpp.MHalfBedSys;
 
 public class MPlayerListener implements Listener
 {
 	private final MetalPonyPlug mpp;
+	private final MHalfBedSys mhbs;
 	
 	public MPlayerListener(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
+		this.mhbs = new MHalfBedSys();
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -167,6 +175,29 @@ public class MPlayerListener implements Listener
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
 		// Code ...
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayergoBed(final PlayerBedEnterEvent event)
+	{
+		Player player = event.getPlayer();
+		this.mhbs.updatePlayers();
+		this.mhbs.addPlayerInBed(player);
+		if (this.mhbs.hasHalfInBed())
+		{
+			for (World w : (World[])this.mpp.getServer().getWorlds().toArray())
+			{
+				w.setTime(0);
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
+	{
+		Player player = event.getPlayer();
+		this.mhbs.updatePlayers();
+		this.mhbs.removePlayerInBed(player);
 	}
 	
 	@EventHandler

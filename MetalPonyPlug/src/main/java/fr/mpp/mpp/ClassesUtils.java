@@ -38,6 +38,33 @@ public class ClassesUtils
 		return false;
 	}
 	
+	public static boolean iInBlockZone(Location loc)
+	{
+		int mX = MConfig.getMaxBX();//395;
+		int mY = MConfig.getMaxBY();//79;
+		int mZ = MConfig.getMaxBZ();//-27;
+
+		int miX = MConfig.getMinBX();//391;
+		int miY = MConfig.getMinBY();//78;
+		int miZ = MConfig.getMinBZ();//-27;
+
+		int x = loc.getBlockX();
+		int y = loc.getBlockY();
+		int z = loc.getBlockZ();
+
+		if (x <= mX && x >= miX)
+		{
+			if (y <= mY && y >= miY)
+			{
+				if (z <= mZ && z >= miZ)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public static Classes getClasseByName(final String name)
 	{
 		if (name == null || name == "")

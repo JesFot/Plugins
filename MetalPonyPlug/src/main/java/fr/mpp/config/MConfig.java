@@ -9,6 +9,7 @@ public class MConfig
 	@SuppressWarnings("unused")
 	private final MetalPonyPlug mpp;
 	private FileConfiguration confFile;
+	private static final int x = 0, y = 0, z = 0;
 
 	public MConfig(FileConfiguration file, MetalPonyPlug p_mpp)
 	{
@@ -45,5 +46,29 @@ public class MConfig
 	public static int getMinZ()
 	{
 		return -27;
+	}
+	public static int getMaxBX()
+	{
+		return getMaxX()-x;
+	}
+	public static int getMaxBY()
+	{
+		return getMaxY()-y;
+	}
+	public static int getMaxBZ()
+	{
+		return getMaxZ()-z;
+	}
+	public static int getMinBX()
+	{
+		return getMinX()-x;
+	}
+	public static int getMinBY()
+	{
+		return getMinY()-y;
+	}
+	public static int getMinBZ()
+	{
+		return getMinZ()-z;
 	}
 }
