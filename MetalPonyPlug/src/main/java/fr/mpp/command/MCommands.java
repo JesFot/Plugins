@@ -1,5 +1,7 @@
 package fr.mpp.command;
 
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -29,5 +31,10 @@ public class MCommands
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		return false;
+	}
+	
+	public static List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	{
+		return null;
 	}
 }

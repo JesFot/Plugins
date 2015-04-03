@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.bukkit.BukkitPlugin;
 
 public class MppOffCommand implements CommandExecutor
 {
@@ -18,7 +19,8 @@ public class MppOffCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		this.mpp.getPlugin();
+		BukkitPlugin pl = (BukkitPlugin)this.mpp.getPlugin();
+		pl.stopPlugin();
 		return true;
 	}
 

@@ -56,6 +56,11 @@ public class MetalPonyPlug
 		return MCommands.onCommand(sender, cmd, label, args);
 	}
 	
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	{
+		return MCommands.onTabComplete(sender, command, alias, args);
+	}
+	
 	public List<String> getConfig(String name)
 	{
 		return this.conf.getStringList(name);

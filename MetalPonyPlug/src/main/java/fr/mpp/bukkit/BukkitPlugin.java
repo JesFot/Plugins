@@ -1,5 +1,6 @@
 package fr.mpp.bukkit;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.command.Command;
@@ -72,6 +73,12 @@ public class BukkitPlugin extends JavaPlugin
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		return mpp.onCommand(sender, cmd, label, args);
+	}
+	
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	{
+		return mpp.onTabComplete(sender, command, alias, args);
 	}
 	
 	@Override

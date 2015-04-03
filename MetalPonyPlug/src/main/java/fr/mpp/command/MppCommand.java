@@ -1,5 +1,6 @@
 package fr.mpp.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,7 +39,28 @@ public class MppCommand implements CommandExecutor
 	
 	private void set(String[] args)
 	{
-		//
+		if (args[1] != "")
+		{
+			Player target = null;
+			for (Player player : Bukkit.getOnlinePlayers())
+			{
+				if (player.getName() == args[1])
+				{
+					target = player;
+					break;
+				}
+				if (player.getDisplayName() == args[1])
+				{
+					target = player;
+					break;
+				}
+			}
+			if (!(target instanceof Player))
+			{
+				return;
+			}
+			mpp.setMeta(target, "MPP" + args[2], args[3]);
+		}
 	}
 
 	@Override
