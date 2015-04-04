@@ -1,6 +1,7 @@
 package fr.mpp;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.mpp.bukkit.BukkitPlugin;
@@ -75,11 +77,18 @@ public class MetalPonyPlug
 		return player.getMetadata(name).get(0).value();
 	}
 	
+	@SuppressWarnings("unused")
 	public Object getPerm(Player player, String name)
 	{
 		if (!player.getEffectivePermissions().contains("MPP."+name))
 		{
 			return false;
+		}
+		for (PermissionAttachmentInfo pai : player.getEffectivePermissions())
+		{
+			String permName = pai.getPermission();
+			boolean val = pai.getAttachment().getPermissions().get(name);
+			Map<String, Boolean> perms = pai.getAttachment().getPermissions();
 		}
 		return player.getEffectivePermissions().iterator().next().getPermission();
 	}
