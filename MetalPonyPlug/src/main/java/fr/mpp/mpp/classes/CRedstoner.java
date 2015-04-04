@@ -3,10 +3,11 @@ package fr.mpp.mpp.classes;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
+import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
-public class CRedstoner implements IClasses
+public class CRedstoner extends CClasses implements IClasses
 {
 	private String name;
 	private String reason;

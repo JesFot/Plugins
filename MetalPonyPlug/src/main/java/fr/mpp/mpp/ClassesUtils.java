@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.config.MConfig;
 
+@SuppressWarnings("unused")
 public class ClassesUtils
 {
 	private static MetalPonyPlug mpp;
@@ -84,10 +85,10 @@ public class ClassesUtils
 	public static void addRank(String name, Player player)
 	{
 		Classes cl = ClassesUtils.getClasseByName(name);
-		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		//player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
 		try
 		{
-			mpp.setMeta(player, "MPPRank", cl);
+			//mpp.setMeta(player, "MPPRank", cl);
 		}
 		catch (Exception e)
 		{

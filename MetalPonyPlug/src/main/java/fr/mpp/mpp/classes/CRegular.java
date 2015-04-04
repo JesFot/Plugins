@@ -2,10 +2,11 @@ package fr.mpp.mpp.classes;
 
 import org.bukkit.Material;
 
+import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
-public class CRegular implements IClasses
+public class CRegular extends CClasses implements IClasses
 {
 	private String name;
 	private String displayName;

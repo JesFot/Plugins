@@ -34,6 +34,7 @@ import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
 import fr.mpp.mpp.MHalfBedSys;
 
+@SuppressWarnings("unused")
 public class MPlayerListener implements Listener
 {
 	private final MetalPonyPlug mpp;
@@ -54,6 +55,9 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		//event.getPlayer().getServer().getPluginManager().getPermissions();
+		//event.getPlayer().getServer().getPluginManager().addPermission(null);
+		//event.getPlayer().getServer().getPluginManager().removePermission("");
 		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
 		if (mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true))
 		{
@@ -159,13 +163,14 @@ public class MPlayerListener implements Listener
 			{
 				String name = stack.getItemMeta().getDisplayName();
 				Classes cl = ClassesUtils.getClasseByName(name);
-				if (mat == cl.getClasse().getItem())
+				//IClasses icl = cl.getNClasse();
+				/*if (mat == cl.getClasse().getItem())
 				{
 					ClassesUtils.addRank(name, event.getPlayer());
 					event.getPlayer().sendMessage("You clicked right !!!");
 					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
 					event.setCancelled(true);
-				}
+				}*/
 			}
 		}
 	}

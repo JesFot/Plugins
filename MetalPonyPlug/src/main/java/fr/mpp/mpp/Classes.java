@@ -1,42 +1,43 @@
 package fr.mpp.mpp;
 
+import java.lang.reflect.Constructor;
+
 import fr.mpp.mpp.classes.*;
 
 public enum Classes
 {
-	Piocheur("Piocheur", new CPiocheur()),
-	Miner("Mineur", new CMiner()),
-	Farmer("Fermier", new CFarmer()),
-	Defensor("Defenseur", new CDefensor()),
-	Chevalier("Chevalier", new CChevalier()),
-	Assassin("Assassin", new CAssassin()),
-	Killer("Meurtrier", new CKiller()),
-	Cavaler("Cavalier", new CCavaler()),
-	Maire("Maire", new CMaire()),
-	Prince("Prince", new CPrince()),
-	Princess("Princesse", new CPrincess()),
-	Vendor("Marchand", new CVendor()),
-	Architect("Architecte", new CArchitect()),
-	Bucheron("Bucheron", new CBucheron()),
-	Farmer_chinois("Farmer chinois", new CCheFarmer()),
-	Noobie("Newbie", new CNoobie()),
-	Invite("Invité", new CInvite()),
-	Regular("Habitué", new CRegular()),
-	Kami("Kami-sama", new CKami()),
-	Cheater("Cheater", new CCheater()),
-	Notch("Notch", new CNotch()),
-	Redstoner("Redstonneur", new CRedstoner()),
+	Piocheur("Piocheur", CPiocheur.class),
+	Miner("Mineur", CMiner.class),
+	Farmer("Fermier", CFarmer.class),
+	Defensor("Defenseur", CDefensor.class),
+	Chevalier("Chevalier", CChevalier.class),
+	Assassin("Assassin", CAssassin.class),
+	Killer("Meurtrier",  CKiller.class),
+	Cavaler("Cavalier",  CCavaler.class),
+	Maire("Maire",  CMaire.class),
+	Prince("Prince",  CPrince.class),
+	Princess("Princesse",  CPrincess.class),
+	Vendor("Marchand",  CVendor.class),
+	Architect("Architecte", CArchitect.class),
+	Bucheron("Bucheron",  CBucheron.class),
+	Farmer_chinois("Farmer chinois",  CCheFarmer.class),
+	Noobie("bie",  CNoobie.class),
+	Invite("Invité",  CInvite.class),
+	Regular("Habitué",  CRegular.class),
+	Kami("Kami-sama",  CKami.class),
+	Cheater("Cheater",  CCheater.class),
+	Notch("Notch",  CNotch.class),
+	Redstoner("Redstonneur",  CRedstoner.class),
 	Null(),
 	Default(Noobie);
 	
 	private String name = "";
-	private IClasses classe;
+	private Class<? extends CClasses> classe;
 	
-	Classes(String name, IClasses classe)
+	Classes(String name, Class<? extends CClasses> classe)
 	{
 		this.name = name;
 		this.classe = classe;
-		this.classe.setName(name);
 	}
 	
 	Classes(Classes classe)
@@ -59,11 +60,25 @@ public enum Classes
 	{
 		this.name = name;
 	}
-	public IClasses getClasse()
+	public Class<? extends CClasses> getClasse()
 	{
 		return this.classe;
 	}
-	public void setClasse(IClasses p_class)
+	public Constructor<? extends CClasses> getNClasse()
+	{
+		Class<? extends CClasses> cl = this.classe;
+		try {
+			return cl.getConstructor();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public void setClasse(Class<? extends CClasses> p_class)
 	{
 		this.classe = p_class;
 	}

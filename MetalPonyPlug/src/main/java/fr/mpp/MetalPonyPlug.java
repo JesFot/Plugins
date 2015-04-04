@@ -75,6 +75,15 @@ public class MetalPonyPlug
 		return player.getMetadata(name).get(0).value();
 	}
 	
+	public Object getPerm(Player player, String name)
+	{
+		if (!player.getEffectivePermissions().contains("MPP."+name))
+		{
+			return false;
+		}
+		return player.getEffectivePermissions().iterator().next().getPermission();
+	}
+	
 	public void setMeta(Player player, String name, Object meta)
 	{
 		player.setMetadata(name, new FixedMetadataValue(this.getPlugin(), meta));

@@ -2,10 +2,11 @@ package fr.mpp.mpp.classes;
 
 import org.bukkit.Material;
 
+import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.IClasses;
 
-public class CCheater implements IClasses
+public class CCheater extends CClasses implements IClasses
 {
 	private String name;
 	private String displayName;
