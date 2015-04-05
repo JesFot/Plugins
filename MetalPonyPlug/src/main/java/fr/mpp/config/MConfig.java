@@ -20,7 +20,7 @@ public class MConfig
 	private FileConfiguration confFile;
 	private FileConfiguration customConfig = null;
 	private File customConfigFile = null;
-	private static final int x = 0, y = 0, z = 0;
+	private static final int x = 0, y = 0, z = -1;
 
 	public MConfig(FileConfiguration file, MetalPonyPlug p_mpp)
 	{
@@ -142,27 +142,27 @@ public class MConfig
 	// int x = 395, y = 79, z = -27; //391
 	public static int getMaxX()
 	{
-		return 395;
+		return 396;
 	}
 	public static int getMaxY()
 	{
-		return 79;
+		return 75;
 	}
 	public static int getMaxZ()
 	{
-		return -27;
+		return -40;
 	}
 	public static int getMinX()
 	{
-		return 391;
+		return 400;
 	}
 	public static int getMinY()
 	{
-		return 78;
+		return 74;
 	}
 	public static int getMinZ()
 	{
-		return -27;
+		return -40;
 	}
 	public static int getMaxBX()
 	{
