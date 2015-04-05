@@ -1,5 +1,6 @@
 package fr.mpp.listener;
 
+import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
@@ -30,19 +31,25 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.config.MConfig;
+import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
+import fr.mpp.mpp.IClasses;
 import fr.mpp.mpp.MHalfBedSys;
+import fr.mpp.mpp.RankLevel;
 
 @SuppressWarnings("unused")
 public class MPlayerListener implements Listener
 {
 	private final MetalPonyPlug mpp;
+	private MConfig confS;
 	private final MHalfBedSys mhbs;
 	
 	public MPlayerListener(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
+		this.confS = this.mpp.getConfig();
 		this.mhbs = new MHalfBedSys(mppl);
 	}
 	
@@ -55,27 +62,38 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		//event.getPlayer().getServer().getPluginManager().getPermissions();
-		//event.getPlayer().getServer().getPluginManager().addPermission(null);
-		//event.getPlayer().getServer().getPluginManager().removePermission("");
+		String pN = event.getPlayer().getName();
+		this.confS.reloadCustomConfig();
 		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
-		if (/*mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true)*/true)
+		if (pN == "JesFot" || pN == "lydia_drew")
 		{
-			//mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
-			if (/*(int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50*/true)
+			if (pN == "JesFot")
 			{
-				//mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
-				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
-				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT+".jesfot", Classes.Prince.getAppel());
+			}
+			else
+			{
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT+".lydia_drew", Classes.Princess.getAppel());
+			}
+		}
+		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) == true)
+		{
+			this.confS.getCustomConfig().set("mppbase.logtimes."+pN.toLowerCase(), (this.confS.getCustomConfig().getInt("mppbase.logtimes."+pN.toLowerCase())+1));
+			if (this.confS.getCustomConfig().getInt("mppbase.logtimes."+pN.toLowerCase()) >= 50)
+			{
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB+"."+pN.toLowerCase(), Classes.Regular.getAppel());
+				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + pN);
+				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + pN);
 			}
 		}
 		else
 		{
-			//mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
-			//mpp.setMeta(event.getPlayer(), "MPPLogTimes", 1);
-			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
-			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
-			//mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Noobie);
+			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB+"."+pN, Classes.Noobie.getAppel());
+			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.MAIN+"."+pN, Classes.Noobie.getAppel());
+			this.confS.getCustomConfig().set("mppbase.registered."+pN, true);
+			this.confS.getCustomConfig().set("mppbase.logtimes."+pN, 1);
+			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + pN);
+			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + pN);
 		}
 	}
 	
@@ -163,14 +181,13 @@ public class MPlayerListener implements Listener
 			{
 				String name = stack.getItemMeta().getDisplayName();
 				Classes cl = ClassesUtils.getClasseByName(name);
-				//IClasses icl = cl.getNClasse();
-				/*if (mat == cl.getClasse().getItem())
+				if (mat == cl.getClasse().getItem())
 				{
-					ClassesUtils.addRank(name, event.getPlayer());
-					event.getPlayer().sendMessage("You clicked right !!!");
-					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place.");
+					ClassesUtils.addRank(name, event.getPlayer(), RankLevel.MAIN);
+					event.getPlayer().sendMessage("You become " + cl.getAppel());
+					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place and became " + cl.getAppel());
 					event.setCancelled(true);
-				}*/
+				}
 			}
 		}
 	}

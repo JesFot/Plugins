@@ -10,6 +10,7 @@ import fr.mpp.config.MConfig;
 public class ClassesUtils
 {
 	private static MetalPonyPlug mpp;
+	private static MConfig mco;
 	
 	public static boolean isInZone(Location loc)
 	{
@@ -85,34 +86,47 @@ public class ClassesUtils
 	public static void addRank(String name, Player player)
 	{
 		Classes cl = ClassesUtils.getClasseByName(name);
-		//player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
-		try
-		{
-			//mpp.setMeta(player, "MPPRank", cl);
-		}
-		catch (Exception e)
-		{
-			// Code ...
-		}
+		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN+"."+player.getName());
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD+"."+player.getName());
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD+"."+player.getName(), oldCl);
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN+"."+player.getName(), cl.getAppel());
+	}
+	public static void addRank(String name, Player player, RankLevel level)
+	{
+		String lvl = level.getName();
+		Classes cl = ClassesUtils.getClasseByName(name);
+		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		String oldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
+		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), oldCl);
+		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), cl.getAppel());
 	}
 	
-	public static Classes getRank(final Player player)
+	public static Classes getRank(final Player player, final String level)
 	{
-		return null;//(Classes)player.getMetadata("MPPRank").get(0).value();
+		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+level+"."+player.getName()));
+	}
+	
+	public static RankLevel getRankLevel(final String name, final String pName)
+	{
+		for (int i = 0; i < RankLevel.getHowMany(); i++)
+		{
+			RankLevel r = RankLevel.getRankByID(i);
+			if (mco.getCustomConfig().getString("mpp.rank."+r.getName()+"."+pName) == name)
+			{
+				return r;
+			}
+		}
+		return null;
 	}
 	
 	public static boolean passRank(final String name, Player player)
 	{
-		try
-		{
-			Classes clT = getRank(player);
-			//addRank(name, player);
-			//mpp.setMeta(player, "MPPRankOld", clT);
-			return true;
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		RankLevel rl = getRankLevel(name, player.getName());
+		Classes clT = getClasseByName(name);
+		Classes nCl = clT.getClasse().getNextRank();
+		mco.getCustomConfig().set("mpp.rank."+rl.getName()+"."+player.getName(), nCl.getAppel());
+		return true;
 	}
 }
