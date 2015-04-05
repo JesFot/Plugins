@@ -87,20 +87,25 @@ public class ClassesUtils
 	{
 		Classes cl = ClassesUtils.getClasseByName(name);
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
-		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN+"."+player.getName());
-		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD+"."+player.getName());
-		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD+"."+player.getName(), oldCl);
-		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN+"."+player.getName(), cl.getAppel());
+		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName());
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName());
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName(), oldCl);
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName(), cl.getAppel());
+		mco.saveCustomConfig();
 	}
 	public static void addRank(String name, Player player, RankLevel level)
 	{
 		String lvl = level.getName();
 		Classes cl = ClassesUtils.getClasseByName(name);
-		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		if (level == RankLevel.MAIN)
+		{
+			player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+		}
 		String oldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
 		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
 		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), oldCl);
 		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), cl.getAppel());
+		mco.saveCustomConfig();
 	}
 	
 	public static Classes getRank(final Player player, final String level)
@@ -127,6 +132,7 @@ public class ClassesUtils
 		Classes clT = getClasseByName(name);
 		Classes nCl = clT.getClasse().getNextRank();
 		mco.getCustomConfig().set("mpp.rank."+rl.getName()+"."+player.getName(), nCl.getAppel());
+		mco.saveCustomConfig();
 		return true;
 	}
 }

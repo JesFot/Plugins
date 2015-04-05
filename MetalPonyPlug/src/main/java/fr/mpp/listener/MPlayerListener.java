@@ -65,36 +65,38 @@ public class MPlayerListener implements Listener
 		String pN = event.getPlayer().getName();
 		this.confS.reloadCustomConfig();
 		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
-		if (pN == "JesFot" || pN == "lydia_drew")
+		if (pN.equalsIgnoreCase("JesFot") || pN.equalsIgnoreCase("lydia_drew"))
 		{
-			if (pN == "JesFot")
+			if (pN.equalsIgnoreCase("JesFot"))
 			{
-				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT+".jesfot", Classes.Prince.getAppel());
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".jesfot", Classes.Prince.getAppel());
+				event.getPlayer().sendMessage("LUL");
 			}
 			else
 			{
-				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT+".lydia_drew", Classes.Princess.getAppel());
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".lydia_drew", Classes.Princess.getAppel());
 			}
 		}
-		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) == true)
+		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) != false)
 		{
 			this.confS.getCustomConfig().set("mppbase.logtimes."+pN.toLowerCase(), (this.confS.getCustomConfig().getInt("mppbase.logtimes."+pN.toLowerCase())+1));
 			if (this.confS.getCustomConfig().getInt("mppbase.logtimes."+pN.toLowerCase()) >= 50)
 			{
-				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB+"."+pN.toLowerCase(), Classes.Regular.getAppel());
+				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB.getName()+"."+pN.toLowerCase(), Classes.Regular.getAppel());
 				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + pN);
 				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + pN);
 			}
 		}
 		else
 		{
-			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB+"."+pN, Classes.Noobie.getAppel());
-			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.MAIN+"."+pN, Classes.Noobie.getAppel());
-			this.confS.getCustomConfig().set("mppbase.registered."+pN, true);
-			this.confS.getCustomConfig().set("mppbase.logtimes."+pN, 1);
+			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB.getName()+"."+pN.toLowerCase(), Classes.Noobie.getAppel());
+			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+pN.toLowerCase(), Classes.Noobie.getAppel());
+			this.confS.getCustomConfig().set("mppbase.registered."+pN.toLowerCase(), true);
+			this.confS.getCustomConfig().set("mppbase.logtimes."+pN.toLowerCase(), 1);
 			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + pN);
 			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + pN);
 		}
+		this.confS.saveCustomConfig();
 	}
 	
 	@EventHandler
