@@ -91,10 +91,10 @@ public class ClassesUtils
 	public void addRank(Classes cl, Player player)
 	{
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
-		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName());
-		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName());
-		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName(), oldCl);
-		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName(), cl.getAppel());
+		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName().toLowerCase());
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName().toLowerCase());
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName().toLowerCase(), oldCl);
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName().toLowerCase(), cl.getAppel());
 		mco.saveCustomConfig();
 	}
 	public void addRank(Classes cl, Player player, RankLevel level)
@@ -105,16 +105,16 @@ public class ClassesUtils
 			addRank(cl, player);
 			return;
 		}
-		String oldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
-		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName());
-		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName(), oldCl);
-		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), cl.getAppel());
+		String oldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName().toLowerCase());
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName().toLowerCase());
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName().toLowerCase(), oldCl);
+		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName().toLowerCase(), cl.getAppel());
 		mco.saveCustomConfig();
 	}
 	
 	public Classes getRank(final Player player, final String level)
 	{
-		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+level+"."+player.getName()));
+		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+level+"."+player.getName().toLowerCase()));
 	}
 	
 	public RankLevel getRankLevel(final String name, final String pName)
@@ -122,7 +122,7 @@ public class ClassesUtils
 		for (int i = 0; i < RankLevel.getHowMany(); i++)
 		{
 			RankLevel r = RankLevel.getRankByID(i);
-			if (mco.getCustomConfig().getString("mpp.rank."+r.getName()+"."+pName) == name)
+			if (mco.getCustomConfig().getString("mpp.rank."+r.getName()+"."+pName.toLowerCase()) == name)
 			{
 				return r;
 			}
@@ -132,10 +132,10 @@ public class ClassesUtils
 	
 	public boolean passRank(final String name, Player player)
 	{
-		RankLevel rl = getRankLevel(name, player.getName());
+		RankLevel rl = getRankLevel(name, player.getName().toLowerCase());
 		Classes clT = getClasseByName(name);
 		Classes nCl = clT.getClasse().getNextRank();
-		mco.getCustomConfig().set("mpp.rank."+rl.getName()+"."+player.getName(), nCl.getAppel());
+		mco.getCustomConfig().set("mpp.rank."+rl.getName()+"."+player.getName().toLowerCase(), nCl.getAppel());
 		mco.saveCustomConfig();
 		return true;
 	}
