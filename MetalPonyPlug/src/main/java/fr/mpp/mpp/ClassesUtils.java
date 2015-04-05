@@ -98,7 +98,7 @@ public class ClassesUtils
 	
 	public static Classes getRank(final Player player)
 	{
-		return (Classes)player.getMetadata("MPPRank").get(0).value();
+		return null;//(Classes)player.getMetadata("MPPRank").get(0).value();
 	}
 	
 	public static boolean passRank(final String name, Player player)
@@ -106,8 +106,8 @@ public class ClassesUtils
 		try
 		{
 			Classes clT = getRank(player);
-			addRank(name, player);
-			mpp.setMeta(player, "MPPRankOld", clT);
+			//addRank(name, player);
+			//mpp.setMeta(player, "MPPRankOld", clT);
 			return true;
 		}
 		catch (Exception e)

@@ -3,6 +3,9 @@ main: fr.mpp.bukkit.BukkitPlugin
 version: 1.0 ALPHA
 description: Plugin for PonyMetalCraft server
 authors: ["JesFot"]
+permissions:
+  mpp:
+    assassin: true
 commands:
   testmpp:
     com: testmpp
@@ -12,3 +15,6 @@ commands:
     com: mpp
     description: MetalPonyPlug configuration
     usage: /<command> <reset|set> [all]
+  mpp-off:
+    description: Do Not Use IT
+    usage: /<command>

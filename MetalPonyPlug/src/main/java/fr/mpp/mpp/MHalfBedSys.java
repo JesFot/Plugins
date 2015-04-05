@@ -1,18 +1,32 @@
 package fr.mpp.mpp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import fr.mpp.MetalPonyPlug;
+
 public class MHalfBedSys
 {
+	private MetalPonyPlug mpp;
 	private List<Player> playersInBed;
-	private Player[] playersB = Bukkit.getOnlinePlayers();
-	private List<Player> players = Arrays.asList(playersB);
-	private int playersInBedInt = playersInBed.size();
-	private int totalPlayers = players.size();
+	private Player[] playersB;
+	private List<Player> players;
+	private int playersInBedInt;
+	private int totalPlayers;
+	
+	public MHalfBedSys(MetalPonyPlug mppl)
+	{
+		this.mpp = mppl;
+		this.playersInBed = new ArrayList<Player>();
+		this.playersB = Bukkit.getOnlinePlayers();
+		this.players = Arrays.asList(playersB);
+		this.playersInBedInt = playersInBed.size();
+		this.totalPlayers = players.size();
+	}
 	
 	public List<Player> getPlayersInBed()
 	{
@@ -97,7 +111,7 @@ public class MHalfBedSys
 	
 	public boolean hasHalfInBed()
 	{
-		if ((this.totalPlayers/2) >= this.playersInBedInt)
+		if ((this.totalPlayers/2) <= this.playersInBedInt)
 		{
 			return true;
 		}
@@ -110,10 +124,42 @@ public class MHalfBedSys
 		{
 			if (this.playersInBedInt == 1)
 			{
-				return "There is one person in his bed.";
+				return "There is [1/" + this.totalPlayers + "] player in his bed.";
 			}
-			return "There is no personn in bed.";
+			return "There is no player in bed.";
 		}
-		return "There are " + this.playersInBedInt + " in beds.";
+		return "There are [" + this.playersInBedInt + "/" + this.totalPlayers + "] players in beds.";
+	}
+	
+	public void passNight(final List<Player> ignored)
+	{
+		this.updatePlayers();
+		for (Player p : this.getPlayers())
+		{
+			if (ignored.contains(p))
+			{
+				continue;
+			}
+			else
+			{
+				p.setSleepingIgnored(true);
+			}
+			if (p.getWorld().getTime() <= 2)
+			{
+				this.mpp.broad("La nuit est terminée !");
+				this.endPassN();
+			}
+		}
+	}
+	public void endPassN()
+	{
+		if (this.hasHalfInBed())
+		{
+			return;
+		}
+		for (Player p : this.getPlayers())
+		{
+			p.setSleepingIgnored(false);
+		}
 	}
 }

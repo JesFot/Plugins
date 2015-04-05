@@ -43,7 +43,7 @@ public class MPlayerListener implements Listener
 	public MPlayerListener(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
-		this.mhbs = new MHalfBedSys();
+		this.mhbs = new MHalfBedSys(mppl);
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -59,23 +59,23 @@ public class MPlayerListener implements Listener
 		//event.getPlayer().getServer().getPluginManager().addPermission(null);
 		//event.getPlayer().getServer().getPluginManager().removePermission("");
 		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
-		if (mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true))
+		if (/*mpp.getMeta(event.getPlayer(), "MPPRegistered").equals(true)*/true)
 		{
-			mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
-			if ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50)
+			//mpp.setMeta(event.getPlayer(), "MPPLogTimes", ((int)mpp.getMeta(event.getPlayer(), "MPPLogTimes")+1));
+			if (/*(int)mpp.getMeta(event.getPlayer(), "MPPLogTimes") >= 50*/true)
 			{
-				mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
+				//mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Regular);
 				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
 				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + event.getPlayer().getName());
 			}
 		}
 		else
 		{
-			mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
-			mpp.setMeta(event.getPlayer(), "MPPLogTimes", 1);
+			//mpp.setMeta(event.getPlayer(), "MPPRegistered", true);
+			//mpp.setMeta(event.getPlayer(), "MPPLogTimes", 1);
 			event.getPlayer().setCustomName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
 			event.getPlayer().setDisplayName("[" + Classes.Noobie.getName() + "]" + event.getPlayer().getName());
-			mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Noobie);
+			//mpp.setMeta(event.getPlayer(), "MPPRankB", Classes.Noobie);
 		}
 	}
 	
@@ -187,12 +187,11 @@ public class MPlayerListener implements Listener
 		Player player = event.getPlayer();
 		this.mhbs.updatePlayers();
 		this.mhbs.addPlayerInBed(player);
+		player.getServer().broadcastMessage(this.mhbs.howManyInBedText());
 		if (this.mhbs.hasHalfInBed())
 		{
-			for (World w : (World[])this.mpp.getServer().getWorlds().toArray())
-			{
-				w.setTime(0);
-			}
+			this.mpp.broad("HalfInBed !!");
+			this.mhbs.passNight(this.mhbs.getPlayersInBed());
 		}
 	}
 	
@@ -202,6 +201,7 @@ public class MPlayerListener implements Listener
 		Player player = event.getPlayer();
 		this.mhbs.updatePlayers();
 		this.mhbs.removePlayerInBed(player);
+		this.mhbs.endPassN();
 	}
 	
 	@EventHandler

@@ -97,6 +97,11 @@ public class MetalPonyPlug
 	{
 		player.setMetadata(name, new FixedMetadataValue(this.getPlugin(), meta));
 	}
+	
+	public void broad(String msg)
+	{
+		this.server.broadcastMessage(msg);
+	}
 
 	public MConfig getConfig()
 	{
