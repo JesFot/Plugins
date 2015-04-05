@@ -26,6 +26,7 @@ public class MCommands
 		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand());
 		mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl));
 		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl));
+		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

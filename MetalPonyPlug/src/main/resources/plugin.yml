@@ -18,3 +18,6 @@ commands:
   mpp-off:
     description: Do Not Use IT
     usage: /<command>
+  mhome:
+    description: Set or teleport you at home, sweet home :p
+    usage: /<command> [set]
