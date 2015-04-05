@@ -139,30 +139,29 @@ public class MConfig
 		return confFile.getBoolean("mpp_active");
 	}
 
-	// int x = 395, y = 79, z = -27; //391
 	public static int getMaxX()
 	{
-		return 396;
+		return 400;//400
 	}
 	public static int getMaxY()
 	{
-		return 75;
+		return 75;//75
 	}
 	public static int getMaxZ()
 	{
-		return -40;
+		return -40;//-40
 	}
 	public static int getMinX()
 	{
-		return 400;
+		return 396;//396
 	}
 	public static int getMinY()
 	{
-		return 74;
+		return 74;//74
 	}
 	public static int getMinZ()
 	{
-		return -40;
+		return -40;//-40
 	}
 	public static int getMaxBX()
 	{
