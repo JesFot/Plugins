@@ -172,6 +172,7 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerClickEntity(final PlayerInteractEntityEvent event)
 	{
+		ClassesUtils cu = new ClassesUtils(this.confS);
 		Entity entity = event.getRightClicked();
 		if (entity instanceof ItemFrame)
 		{
@@ -185,7 +186,7 @@ public class MPlayerListener implements Listener
 				Classes cl = ClassesUtils.getClasseByName(name);
 				if (mat == cl.getClasse().getItem())
 				{
-					ClassesUtils.addRank(name, event.getPlayer(), RankLevel.MAIN);
+					cu.addRank(cl, event.getPlayer(), RankLevel.MAIN);
 					event.getPlayer().sendMessage("You become " + cl.getAppel());
 					mpp.getLogger().log(Level.INFO, event.getPlayer().getName() + " clicked at the right place and became " + cl.getAppel());
 					event.setCancelled(true);

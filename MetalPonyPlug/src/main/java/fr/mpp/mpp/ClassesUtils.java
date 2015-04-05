@@ -10,7 +10,12 @@ import fr.mpp.config.MConfig;
 public class ClassesUtils
 {
 	private static MetalPonyPlug mpp;
-	private static MConfig mco;
+	private MConfig mco;
+	
+	public ClassesUtils(MConfig mo)
+	{
+		this.mco = mo;
+	}
 	
 	public static boolean isInZone(Location loc)
 	{
@@ -83,9 +88,8 @@ public class ClassesUtils
 		return Classes.Default;
 	}
 	
-	public static void addRank(String name, Player player)
+	public void addRank(Classes cl, Player player)
 	{
-		Classes cl = ClassesUtils.getClasseByName(name);
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
 		String oldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName());
 		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName());
@@ -93,27 +97,27 @@ public class ClassesUtils
 		mco.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+player.getName(), cl.getAppel());
 		mco.saveCustomConfig();
 	}
-	public static void addRank(String name, Player player, RankLevel level)
+	public void addRank(Classes cl, Player player, RankLevel level)
 	{
 		String lvl = level.getName();
-		Classes cl = ClassesUtils.getClasseByName(name);
 		if (level == RankLevel.MAIN)
 		{
-			player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());
+			addRank(cl, player);
+			return;
 		}
 		String oldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
-		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName());
-		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), oldCl);
+		String oldOldCl = mco.getCustomConfig().getString("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName());
+		mco.getCustomConfig().set("mpp.rank."+RankLevel.OLD.getName()+"."+player.getName(), oldCl);
 		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName(), cl.getAppel());
 		mco.saveCustomConfig();
 	}
 	
-	public static Classes getRank(final Player player, final String level)
+	public Classes getRank(final Player player, final String level)
 	{
 		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+level+"."+player.getName()));
 	}
 	
-	public static RankLevel getRankLevel(final String name, final String pName)
+	public RankLevel getRankLevel(final String name, final String pName)
 	{
 		for (int i = 0; i < RankLevel.getHowMany(); i++)
 		{
@@ -126,7 +130,7 @@ public class ClassesUtils
 		return null;
 	}
 	
-	public static boolean passRank(final String name, Player player)
+	public boolean passRank(final String name, Player player)
 	{
 		RankLevel rl = getRankLevel(name, player.getName());
 		Classes clT = getClasseByName(name);

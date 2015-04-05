@@ -27,7 +27,7 @@ public class MConfig
 		this.confFile = file;
 		this.mpp = p_mpp;
 	}
-	
+
 	public void reloadCustomConfig()
 	{
 		if (this.customConfigFile == null)
