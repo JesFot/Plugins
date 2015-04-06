@@ -38,7 +38,6 @@ import fr.mpp.mpp.MHalfBedSys;
 import fr.mpp.mpp.RankLevel;
 import fr.mpp.utils.Locate;
 
-//@SuppressWarnings("unused")
 public class MPlayerListener implements Listener
 {
 	private final MetalPonyPlug mpp;
@@ -139,17 +138,7 @@ public class MPlayerListener implements Listener
 		{
 			if (action == rightClickAir)
 			{
-				/*if (event.getItem().getType().equals(Material.BREAD))
-				{
-					event.getPlayer().sendMessage("Pouet !!");
-					for (Player player : mpp.getServer().getOnlinePlayers())
-					{
-						if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
-						{
-							player.damage(20);
-						}
-					}
-				}*/
+				// Code ...
 				if (event.getItem().getType().equals(Material.ARROW))
 				{
 					Player player = event.getPlayer();
@@ -162,22 +151,12 @@ public class MPlayerListener implements Listener
 				{
 					event.getPlayer().sendMessage("[DEBUG] blup !!");
 					Block block = event.getClickedBlock();
-					/*Chest dchest = null;
-					if (block instanceof Chest)
-					{
-						dchest = (Chest)block;
-					}
-					else
-					{
-						//return;
-					}*/
 					Location bLoc = block.getLocation();
 					Location oLoc = this.confS.getLoc("mpp.origchest.location");
 					event.getPlayer().sendMessage("[DEBUG] loc1 : " + bLoc + "!; loc2 : " + oLoc);
 					if (Locate.compare2Loc(bLoc, oLoc))
 					{
 						event.getPlayer().sendMessage("[DEBUG] blapt !!");
-						//this.cs.saveInv(dchest);
 						event.setCancelled(true);
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}
@@ -188,17 +167,7 @@ public class MPlayerListener implements Listener
 		{
 			if (action == leftClickAir)
 			{
-				/*if (event.getItem().getType().equals(Material.BREAD))
-				{
-					event.getPlayer().sendMessage("Pouet !!");
-					for (Player player : mpp.getServer().getOnlinePlayers())
-					{
-						if (!player.getName().equalsIgnoreCase(event.getPlayer().getName()))
-						{
-							player.damage(20);
-						}
-					}
-				}*/
+				// Code ...
 			}
 			else
 			{

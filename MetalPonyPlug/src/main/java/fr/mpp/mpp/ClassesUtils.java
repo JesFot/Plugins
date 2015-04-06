@@ -19,14 +19,13 @@ public class ClassesUtils
 	
 	public static boolean isInZone(Location loc)
 	{
-		//395;79;-27;389;78;-27;
-		int mX = MConfig.getMaxX();//395;
-		int mY = MConfig.getMaxY();//79;
-		int mZ = MConfig.getMaxZ();//-27;
+		int mX = MConfig.getMaxX();
+		int mY = MConfig.getMaxY();
+		int mZ = MConfig.getMaxZ();
 
-		int miX = MConfig.getMinX();//391;
-		int miY = MConfig.getMinY();//78;
-		int miZ = MConfig.getMinZ();//-27;
+		int miX = MConfig.getMinX();
+		int miY = MConfig.getMinY();
+		int miZ = MConfig.getMinZ();
 
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();
@@ -47,13 +46,13 @@ public class ClassesUtils
 	
 	public static boolean iInBlockZone(Location loc)
 	{
-		int mX = MConfig.getMaxBX();//395;
-		int mY = MConfig.getMaxBY();//79;
-		int mZ = MConfig.getMaxBZ();//-27;
+		int mX = MConfig.getMaxBX();
+		int mY = MConfig.getMaxBY();
+		int mZ = MConfig.getMaxBZ();
 
-		int miX = MConfig.getMinBX();//391;
-		int miY = MConfig.getMinBY();//78;
-		int miZ = MConfig.getMinBZ();//-27;
+		int miX = MConfig.getMinBX();
+		int miY = MConfig.getMinBY();
+		int miZ = MConfig.getMinBZ();
 
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();

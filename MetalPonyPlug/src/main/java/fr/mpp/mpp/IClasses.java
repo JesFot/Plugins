@@ -2,7 +2,7 @@ package fr.mpp.mpp;
 
 import org.bukkit.Material;
 
-/*
+/**
  * Interface for all Ranks
  */
 public interface IClasses
