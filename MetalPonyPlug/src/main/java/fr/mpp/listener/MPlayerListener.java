@@ -35,6 +35,7 @@ import fr.mpp.config.MConfig;
 import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
+import fr.mpp.mpp.ComunSys;
 import fr.mpp.mpp.IClasses;
 import fr.mpp.mpp.MHalfBedSys;
 import fr.mpp.mpp.RankLevel;
@@ -45,12 +46,14 @@ public class MPlayerListener implements Listener
 	private final MetalPonyPlug mpp;
 	private MConfig confS;
 	private final MHalfBedSys mhbs;
+	private ComunSys cs;
 	
 	public MPlayerListener(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
 		this.confS = this.mpp.getConfig();
 		this.mhbs = new MHalfBedSys(mppl);
+		this.cs = new ComunSys();
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -140,6 +143,11 @@ public class MPlayerListener implements Listener
 						}
 					}
 				}*/
+				if (event.getItem().getType().equals(Material.ARROW))
+				{
+					Player player = event.getPlayer();
+					player.openInventory(this.cs.getCInv());
+				}
 			}
 			else
 			{
@@ -245,7 +253,12 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerGMChange(final PlayerGameModeChangeEvent event)
 	{
-		// Code ...
+		ClassesUtils cu = new ClassesUtils(this.confS);
+		Player player = event.getPlayer();
+		if (cu.getRank(player, RankLevel.STATUT).getClasse().hasPrivilege())
+		{
+			return;
+		}
 	}
 
 	@EventHandler

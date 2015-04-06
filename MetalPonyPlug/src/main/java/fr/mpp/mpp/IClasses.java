@@ -22,8 +22,10 @@ public interface IClasses
 	public Classes getNextRank();
 	public void setNextRank(Classes rank);
 	
-	public int getLevel();
-	public void addLevel(int level);
-	public int incrLevel();
-	public void setLevel(int level);
+	public int getMaxLevel();
+	public void addMaxLevel(int level);
+	public void setMaxLevel(int level);
+	
+	public boolean hasPrivilege();
+	public void setPrivilege(boolean privi);
 }

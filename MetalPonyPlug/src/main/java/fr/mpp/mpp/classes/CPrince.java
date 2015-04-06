@@ -14,12 +14,14 @@ public class CPrince extends CClasses implements IClasses
 	private int level;
 	private Material material;
 	private Classes nextRank;
+	private boolean privilege;
 	
 	public CPrince()
 	{
-		this.level = 1;
+		this.level = 2;
 		this.material = null;
 		this.nextRank = Classes.Null;
+		this.privilege = true;
 	}
 
 	@Override
@@ -81,26 +83,19 @@ public class CPrince extends CClasses implements IClasses
 	}
 
 	@Override
-	public int getLevel()
+	public int getMaxLevel()
 	{
 		return this.level;
 	}
 	
 	@Override
-	public void addLevel(int level)
+	public void addMaxLevel(int level)
 	{
 		this.level += level;
 	}
-	
-	@Override
-	public int incrLevel()
-	{
-		this.level += 1;
-		return this.level;
-	}
 
 	@Override
-	public void setLevel(int level)
+	public void setMaxLevel(int level)
 	{
 		this.level = level;
 	}
@@ -115,5 +110,17 @@ public class CPrince extends CClasses implements IClasses
 	public void setItem(Material mat)
 	{
 		this.material = mat;
+	}
+	
+	@Override
+	public boolean hasPrivilege()
+	{
+		return this.privilege;
+	}
+	
+	@Override
+	public void setPrivilege(boolean privi)
+	{
+		this.privilege = privi;
 	}
 }

@@ -116,4 +116,34 @@ public class CKami extends CClasses implements IClasses
 	{
 		this.material = mat;
 	}
+
+	@Override
+	public int getMaxLevel() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void addMaxLevel(int level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setMaxLevel(int level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean hasPrivilege() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPrivilege(boolean privi) {
+		// TODO Auto-generated method stub
+		
+	}
 }

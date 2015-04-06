@@ -112,9 +112,10 @@ public class ClassesUtils
 		mco.saveCustomConfig();
 	}
 	
-	public Classes getRank(final Player player, final String level)
+	public Classes getRank(final Player player, final RankLevel level)
 	{
-		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+level+"."+player.getName().toLowerCase()));
+		String lvl = level.getName();
+		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName().toLowerCase()));
 	}
 	
 	public RankLevel getRankLevel(final String name, final String pName)
