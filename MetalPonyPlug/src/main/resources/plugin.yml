@@ -21,3 +21,6 @@ commands:
   mhome:
     description: Set or teleport you at home, sweet home :p
     usage: /<command> [set]
+  mppsetchest:
+    description: Set the chest
+    usage: /<command>

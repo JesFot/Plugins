@@ -6,6 +6,9 @@ import java.util.logging.Level;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -151,7 +154,27 @@ public class MPlayerListener implements Listener
 			}
 			else
 			{
-				//Code ...
+				if (event.getClickedBlock().getType().equals(Material.CHEST))
+				{
+					Block block = event.getClickedBlock();
+					DoubleChest dchest = null;
+					if (block instanceof DoubleChest)
+					{
+						dchest = (DoubleChest)block;
+					}
+					else
+					{
+						return;
+					}
+					Location bLoc = dchest.getLocation();
+					Location oLoc = this.confS.getLoc("mpp.origchest.location");
+					if (bLoc.equals(oLoc))
+					{
+						this.cs.saveInv(dchest);
+						event.setCancelled(true);
+						event.getPlayer().openInventory(this.cs.getCInv());
+					}
+				}
 			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)

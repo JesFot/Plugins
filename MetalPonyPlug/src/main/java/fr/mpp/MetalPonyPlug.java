@@ -50,6 +50,7 @@ public class MetalPonyPlug
 	public void onDisable()
 	{
 		logger.log(Level.INFO, "Plugin stop.");
+		this.config.saveCustomConfig();
 		plugin.saveConfig();
 	}
 	
