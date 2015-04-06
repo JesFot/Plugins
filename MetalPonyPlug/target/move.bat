@@ -1,2 +1,2 @@
-copy "./MetalPonyPlug-1.0-ALPHA.jar" "C:/Users/Cyril/Minecraft/Bukkit 1.8/plugins/MetalPonyPlug-1.0-ALPHA.jar"
+copy "./MetalPonyPlug-3.5-BETA.jar" "C:/Users/Cyril/Minecraft/Bukkit 1.8/plugins/MetalPonyPlug-3.5-BETA.jar"
 PAUSE
