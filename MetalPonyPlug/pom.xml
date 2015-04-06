@@ -4,7 +4,7 @@
 
   <groupId>metalponyplug</groupId>
   <artifactId>MetalPonyPlug</artifactId>
-  <version>1.0-ALPHA</version>
+  <version>3.5-BETA</version>
   <packaging>jar</packaging>
 
   <name>MetalPonyPlug</name>

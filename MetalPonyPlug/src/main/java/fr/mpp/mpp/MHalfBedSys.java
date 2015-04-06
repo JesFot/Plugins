@@ -15,8 +15,8 @@ public class MHalfBedSys
 	private List<Player> playersInBed;
 	private Player[] playersB;
 	private List<Player> players;
-	private int playersInBedInt;
-	private int totalPlayers;
+	private double playersInBedInt;
+	private double totalPlayers;
 	
 	public MHalfBedSys(MetalPonyPlug mppl)
 	{
@@ -100,11 +100,11 @@ public class MHalfBedSys
 		return false;
 	}
 	
-	public int getPlayersInBedInt()
+	public double getPlayersInBedInt()
 	{
 		return this.playersInBedInt;
 	}
-	public int getOnlinesPlayers()
+	public double getOnlinesPlayers()
 	{
 		return this.totalPlayers;
 	}
