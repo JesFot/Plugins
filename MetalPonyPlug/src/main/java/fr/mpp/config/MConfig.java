@@ -28,6 +28,9 @@ public class MConfig
 		this.mpp = p_mpp;
 	}
 
+	/**
+	 * This will reload the 'save' file.
+	 */
 	public void reloadCustomConfig()
 	{
 		if (this.customConfigFile == null)
@@ -51,6 +54,10 @@ public class MConfig
 			this.customConfig.setDefaults(defConfig);
 		}
 	}
+	/**
+	 * 
+	 * @return the save configuration file.
+	 */
 	public FileConfiguration getCustomConfig()
 	{
 	    if (this.customConfig == null)
@@ -86,11 +93,22 @@ public class MConfig
 		}
 	}
 	
+	/**
+	 * Get the main configuration file (config.yml)
+	 * 
+	 * @return the main configuration file
+	 */
 	public FileConfiguration getConf()
 	{
 		return this.confFile;
 	}
 	
+	/**
+	 * This will register in the save data config a location
+	 * 
+	 * @param name - The name of the location
+	 * @param loc - The location to save
+	 */
 	public void storeLoc(String name, Location loc)
 	{
 		name = name.toLowerCase();
@@ -105,6 +123,12 @@ public class MConfig
 		this.saveCustomConfig();
 	}
 	
+	/**
+	 * This will return you a stored location, registered before by {@code} storeLoc(name, loc) {@code}
+	 * 
+	 * @param name - The name of the location
+	 * @return The location requested if exists
+	 */
 	public Location getLoc(String name)
 	{
 		name = name.toLowerCase();
