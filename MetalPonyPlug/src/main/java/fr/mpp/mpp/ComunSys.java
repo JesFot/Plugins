@@ -1,6 +1,6 @@
 package fr.mpp.mpp;
 
-import org.bukkit.block.DoubleChest;
+import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 
 import fr.mpp.utils.ItemInventory;
@@ -23,7 +23,7 @@ public class ComunSys
 		this.inventaireCommun = inv;
 	}
 	
-	public void saveInv(DoubleChest dchest)
+	public void saveInv(Chest dchest)
 	{
 		dchest.getInventory().clear();
 		dchest.getInventory().setContents(this.getCInv().getContents());

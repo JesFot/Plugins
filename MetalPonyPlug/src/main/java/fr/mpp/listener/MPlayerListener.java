@@ -1,14 +1,10 @@
 package fr.mpp.listener;
 
-import java.lang.reflect.Constructor;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.Chest;
-import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -35,15 +31,14 @@ import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.config.MConfig;
-import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
 import fr.mpp.mpp.ComunSys;
-import fr.mpp.mpp.IClasses;
 import fr.mpp.mpp.MHalfBedSys;
 import fr.mpp.mpp.RankLevel;
+import fr.mpp.utils.Locate;
 
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 public class MPlayerListener implements Listener
 {
 	private final MetalPonyPlug mpp;
@@ -76,11 +71,16 @@ public class MPlayerListener implements Listener
 			if (pN.equalsIgnoreCase("JesFot"))
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".jesfot", Classes.Prince.getAppel());
-				event.getPlayer().sendMessage("LUL");
+				event.getPlayer().sendMessage("Vous etes Prince.");
+				event.getPlayer().setCustomName("[" + Classes.Prince.getClasse().getDisplayName() + "]" + pN);
+				event.setJoinMessage("The Prince joined the game.");
 			}
 			else
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".lydia_drew", Classes.Princess.getAppel());
+				event.getPlayer().sendMessage("Vous etes Princesse.");
+				event.getPlayer().setCustomName("[" + Classes.Princess.getClasse().getDisplayName() + "]" + pN);
+				event.setJoinMessage("The Princesse joined the game.");
 			}
 		}
 		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) != false)
@@ -92,6 +92,10 @@ public class MPlayerListener implements Listener
 				event.getPlayer().setCustomName("[" + Classes.Regular.getName() + "]" + pN);
 				event.getPlayer().setDisplayName("[" + Classes.Regular.getName() + "]" + pN);
 			}
+			String c = this.confS.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+pN.toLowerCase());
+			Classes cl = ClassesUtils.getClasseByAppelName(c);
+			event.getPlayer().setCustomName("[" + cl.getName() + "]" + pN);
+			event.getPlayer().setDisplayName("[" + cl.getName() + "]" + pN);
 		}
 		else
 		{
@@ -156,21 +160,24 @@ public class MPlayerListener implements Listener
 			{
 				if (event.getClickedBlock().getType().equals(Material.CHEST))
 				{
+					event.getPlayer().sendMessage("[DEBUG] blup !!");
 					Block block = event.getClickedBlock();
-					DoubleChest dchest = null;
-					if (block instanceof DoubleChest)
+					/*Chest dchest = null;
+					if (block instanceof Chest)
 					{
-						dchest = (DoubleChest)block;
+						dchest = (Chest)block;
 					}
 					else
 					{
-						return;
-					}
-					Location bLoc = dchest.getLocation();
+						//return;
+					}*/
+					Location bLoc = block.getLocation();
 					Location oLoc = this.confS.getLoc("mpp.origchest.location");
-					if (bLoc.equals(oLoc))
+					event.getPlayer().sendMessage("[DEBUG] loc1 : " + bLoc + "!; loc2 : " + oLoc);
+					if (Locate.compare2Loc(bLoc, oLoc))
 					{
-						this.cs.saveInv(dchest);
+						event.getPlayer().sendMessage("[DEBUG] blapt !!");
+						//this.cs.saveInv(dchest);
 						event.setCancelled(true);
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}

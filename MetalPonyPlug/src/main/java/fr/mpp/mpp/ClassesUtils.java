@@ -88,6 +88,22 @@ public class ClassesUtils
 		return Classes.Default;
 	}
 	
+	public static Classes getClasseByAppelName(final String name)
+	{
+		if (name == null || name == "")
+		{
+			return Classes.Default;
+		}
+		for (Classes c : Classes.values())
+		{
+			if (name.equalsIgnoreCase(c.getAppel()))
+			{
+				return c;
+			}
+		}
+		return Classes.Default;
+	}
+	
 	public void addRank(Classes cl, Player player)
 	{
 		player.setDisplayName(cl.getClasse().getDisplayName() + player.getName());

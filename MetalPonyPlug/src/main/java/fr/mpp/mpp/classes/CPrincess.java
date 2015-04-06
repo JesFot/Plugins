@@ -1,5 +1,6 @@
 package fr.mpp.mpp.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import fr.mpp.mpp.CClasses;
@@ -34,6 +35,7 @@ public class CPrincess extends CClasses implements IClasses
 	public void setName(String name)
 	{
 		this.name = name;
+		this.displayName = ChatColor.BOLD + "[" + name + "]" + ChatColor.RESET;
 	}
 	
 	@Override
