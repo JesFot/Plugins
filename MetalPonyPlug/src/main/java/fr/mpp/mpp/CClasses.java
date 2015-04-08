@@ -1,8 +1,9 @@
 package fr.mpp.mpp;
 
-public abstract class CClasses implements IClasses
-{
+import fr.mpp.perm.MPermissions;
 
+public abstract class CClasses extends MPermissions implements IClasses
+{
 	public void setLevel(int level) {
 		// TODO Auto-generated method stub
 		

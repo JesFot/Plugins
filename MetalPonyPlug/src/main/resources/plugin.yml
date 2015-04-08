@@ -24,3 +24,6 @@ commands:
   mppsetchest:
     description: Set the chest
     usage: /<command>
+  mtpa:
+    description: Tpa
+    usage: /<command> [player] <target>
