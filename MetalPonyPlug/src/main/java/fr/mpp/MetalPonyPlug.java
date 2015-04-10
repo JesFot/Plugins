@@ -17,12 +17,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.mpp.bukkit.BukkitPlugin;
 import fr.mpp.command.MCommands;
 import fr.mpp.config.MConfig;
+import fr.mpp.perm.MPermissions;
 
 public class MetalPonyPlug
 {
 	private FileConfiguration conf;
 	private MCommands coms;
 	private MConfig config;
+	private MPermissions perms;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -44,6 +46,7 @@ public class MetalPonyPlug
 		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);
+		this.perms = new MPermissions();
 		coms.regCommands();
 	}
 	
@@ -107,6 +110,11 @@ public class MetalPonyPlug
 	public MConfig getConfig()
 	{
 		return config;
+	}
+	
+	public MPermissions getPerm()
+	{
+		return perms;
 	}
 	
 	public Server getServer()

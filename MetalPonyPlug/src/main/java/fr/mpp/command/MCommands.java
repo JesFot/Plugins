@@ -32,11 +32,12 @@ public class MCommands
 	public void regCommands(MetalPonyPlug mppl)
 	{
 		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand()); // Comand to test that the plugin is active
-		mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl)); // Main command, will add more fonctionalities
+		//mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl)); // Main command, will add more fonctionalities
 		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl)); // Switch off the plugin, doesn't function
 		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with /mhome set to set
 		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl));
 		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl));
+		mppl.getPlugin().getCommand("elecmaire").setExecutor(new MelecMaireCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener

@@ -87,4 +87,14 @@ public class MPermissions
 			this.hMap.get(player.getUniqueId()).unsetPermission(perm);
 		}
 	}
+	
+	public boolean getPerm(Player player, String name)
+	{
+		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
+	}
+	public boolean getPerm(Player player, Permission perm)
+	{
+		String name = perm.getName();
+		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
+	}
 }

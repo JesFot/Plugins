@@ -19,17 +19,15 @@ public class MppCommand implements CommandExecutor
 
 	private void resetPlugin()
 	{
-		// Code ...
+		this.mpp.getConfig().saveDefaultConfig();
 	}
 
 	private void resetPlayer(CommandSender sender)
 	{
 		if (sender instanceof Player)
 		{
-			Player player = (Player)sender;
-			mpp.setMeta(player, "MPPRankB", null);
-			mpp.setMeta(player, "MPPLogTimes", 0);
-			mpp.setMeta(player, "MPPRegistered", false);
+			//Player player = (Player)sender;
+			//this.mpp.getConfig().saveDefaultConfig();
 		}
 		else
 		{
@@ -59,7 +57,7 @@ public class MppCommand implements CommandExecutor
 			{
 				return;
 			}
-			mpp.setMeta(target, "MPP" + args[2], args[3]);
+			//mpp.setMeta(target, "MPP" + args[2], args[3]);
 		}
 	}
 
