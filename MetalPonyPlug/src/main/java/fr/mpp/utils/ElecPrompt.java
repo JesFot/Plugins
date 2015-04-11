@@ -29,60 +29,67 @@ public class ElecPrompt extends ValidatingPrompt
     protected Prompt acceptValidatedInput(ConversationContext context, String in)
     {
     	Player test = (Player)context.getForWhom();
-    	in = test.getName() + " says " + in;
-    	test.sendMessage("Blub");
-    	test.chat("Test ! chat()");
     	this.mpp.getConfig().reloadCustomConfig();
     	
+    	String[] args = {""};
     	boolean end = false;
-    	Player player;
-    	player = (Player)context.getSessionData("player");
-    	player.sendMessage("Blop !");
-        context.setSessionData("data", in + "; Crotte");
-        String[] args = in.split(" ");
-        context.setSessionData("data", in + "; " + args[0] + "; " + args.toString());
+    	if (!in.contains(" "))
+    	{
+    		args[0] = in;
+    	}
+    	else
+    	{
+            args = in.split(" ");
+    	}
+        //test.chat(in + "; " + args[0] + " , " + args[1] + "; " + test.getName());
+        context.setSessionData("data", in);
+        if(args[0].equalsIgnoreCase("help"))
+        {
+        	test.sendRawMessage("Usage : present, vote <player> or propose <player>");
+        }
         if(args[0].equalsIgnoreCase("vote"))
         {
         	if (args.length == 2)
         	{
         		Player pl = MPlayer.getPlayerByName(args[1]);
-        		if (this.mpp.getConfig().getCustomConfig().getStringList("mpp.vote.present").contains(args[1]))
+        		if (this.mpp.getConfig().getCustomConfig().getStringList("mpp.vote.present").contains(args[1].toLowerCase()))
         		{
         			this.mpp.getConfig().getCustomConfig().set("mpp.vote.onair."+pl.getName().toLowerCase(),this.mpp.getConfig().getCustomConfig().getInt("mpp.vote.onair."+pl.getName().toLowerCase())+1);
-                	player.sendMessage("A voté !");
+                	test.sendRawMessage("A voté !");
         		}
         		else
         		{
-        			player.sendMessage("Vous ne pouvez pas voter pour cette personne.");
+        			test.sendRawMessage("Vous ne pouvez pas voter pour cette personne.");
         		}
         	}
         }
-        else if (args[0].equalsIgnoreCase("present") || in.contains("present"))
+        else if (args[0].equalsIgnoreCase("present"))
         {
-        	context.setSessionData("data", in + "; In present");
         	List<String> tmp = this.mpp.getConfig().getCustomConfig().getStringList("mpp.vote.present");
-        	if (!tmp.contains(player.getName().toLowerCase()))
+        	if (!tmp.contains(test.getName().toLowerCase()))
         	{
-            	tmp.add(player.getName().toLowerCase());
+            	tmp.add(test.getName().toLowerCase());
         		this.mpp.getConfig().getCustomConfig().set("mpp.vote.present", tmp);
-        		context.setSessionData("data", player.getDisplayName()+" se presente .");
-            	player.sendMessage("Vous vous présentez !");
+        		context.setSessionData("data", test.getDisplayName()+" se presente.");
+        		test.chat(test.getDisplayName() + " se présente.");
+            	test.sendRawMessage("Vous vous présentez !");
         	}
         	else
         	{
-        		context.setSessionData("data", player.getDisplayName()+" tente de se re-presenter.");
-        		player.sendMessage("Vous vous etes déjà presenté.");
+        		test.sendRawMessage("Vous vous etes déjà presenté.");
         	}
         }
         else if (args[0].equalsIgnoreCase("propose"))
         {
-        	context.setSessionData("data", in + args.length);
         	if (args.length == 2)
         	{
         		Player pla = MPlayer.getPlayerByName(args[1]);
-        		pla.sendMessage("Quelqu'un veut que vous vous presetiez (/elecmaire present)");
-        		pla.chat("Test ! chat()");
+        		pla.sendRawMessage("Quelqu'un veut que vous vous presetiez (type present)");
         	}
+        }
+        else if (args[0].equalsIgnoreCase("exit"))
+        {
+        	end = true;
         }
         
         this.mpp.getConfig().saveCustomConfig();

@@ -2,6 +2,7 @@ package fr.mpp.listener;
 
 import java.util.logging.Level;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -72,14 +73,14 @@ public class MPlayerListener implements Listener
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".jesfot", Classes.Prince.getAppel());
 				event.getPlayer().sendMessage("Vous etes Prince.");
 				event.getPlayer().setCustomName("[" + Classes.Prince.getClasse().getDisplayName() + "]" + pN);
-				event.setJoinMessage("The Prince joined the game.");
+				event.setJoinMessage(ChatColor.YELLOW + "The Prince joined the game.");
 			}
 			else
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".lydia_drew", Classes.Princess.getAppel());
 				event.getPlayer().sendMessage("Vous etes Princesse.");
 				event.getPlayer().setCustomName("[" + Classes.Princess.getClasse().getDisplayName() + "]" + pN);
-				event.setJoinMessage("The Princesse joined the game.");
+				event.setJoinMessage(ChatColor.YELLOW + "The Princesse joined the game.");
 			}
 		}
 		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) != false)
