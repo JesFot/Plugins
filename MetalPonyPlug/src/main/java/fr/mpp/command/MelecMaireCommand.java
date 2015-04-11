@@ -45,7 +45,7 @@ public class MelecMaireCommand implements CommandExecutor
 			sender.sendMessage("You must be a player...");
 			return true;
 		}
-		if (args[0].equalsIgnoreCase("start"))
+		if (args.length == 1 && args[0].equalsIgnoreCase("start"))
 		{
 			//
 		}

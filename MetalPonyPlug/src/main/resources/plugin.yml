@@ -29,5 +29,5 @@ commands:
     usage: /<command> [player] <target>
   elecmaire:
     description: Make an election
-    usage: /<command>
+    usage: /<command> <start>
     alias: [maire, election]
