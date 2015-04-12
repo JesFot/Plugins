@@ -87,10 +87,10 @@ public class MelectionsCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args)
 	{
-		/*if (!alias.equalsIgnoreCase("elecmaire") || !alias.equalsIgnoreCase("maire") || !alias.equalsIgnoreCase("election"))
+		if (!cmd.getName().equalsIgnoreCase("election"))
 		{
 			return false;
-		}*/
+		}
 		if (sender instanceof Player)
 		{
 			//
@@ -100,7 +100,7 @@ public class MelectionsCommand implements CommandExecutor
 			sender.sendMessage("You must be a player...");
 			return true;
 		}
-		if (args.length == 1)
+		if (args.length == 1 || args.length == 2)
 		{
 			//
 		}
@@ -117,6 +117,18 @@ public class MelectionsCommand implements CommandExecutor
 				{
 					String type = args[1];
 					this.statu = type;
+				}
+				else
+				{
+					sender.sendMessage(ChatColor.RED + this.usageMessage);
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length == 1)
+				{
+					//
 				}
 				else
 				{
