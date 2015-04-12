@@ -186,7 +186,7 @@ public class MelectionsCommand implements CommandExecutor
 			@Override
 			public String getPrefix(ConversationContext context)
 			{
-				return ChatColor.GREEN + "Elections" + ChatColor.WHITE + " ";
+				return ChatColor.GREEN + "Elections" + ChatColor.RESET + " ";
 			}
 		}).withInitialSessionData(hMap).withLocalEcho(false);
 		
