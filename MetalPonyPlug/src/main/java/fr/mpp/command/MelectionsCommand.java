@@ -114,6 +114,7 @@ public class MelectionsCommand implements CommandExecutor
     		}
 			if (this.votesN >= this.playersN)
 			{
+				this.parent.mpp.broad("Le vote est terminé, tout le monde à voté.");
 				return true;
 			}
 			return false;
