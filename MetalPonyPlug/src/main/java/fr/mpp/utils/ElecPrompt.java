@@ -1,7 +1,5 @@
 package fr.mpp.utils;
 
-import java.util.Map;
-
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
@@ -24,7 +22,14 @@ public class ElecPrompt extends ValidatingPrompt
     @Override
     public String getPromptText(ConversationContext context)
     {
-        return "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Session: " + context.getSessionData("data");
+    	String tmp1 = "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Initial: " + this.dat.msgsC.get("msgStart");
+    	String tmp2 = "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Session: " + context.getSessionData("data");
+    	if ((int)context.getSessionData("times") == 0)
+    	{
+    		return tmp1;
+    	}
+    	context.setSessionData("times", (int)context.getSessionData("times") + 1);
+    	return tmp2;
     }
  
     @Override
@@ -43,49 +48,32 @@ public class ElecPrompt extends ValidatingPrompt
             args = in.split(" ");
     	}
         context.setSessionData("data", in);
-        if(args[0].equalsIgnoreCase("help"))
+        if (args[0].equalsIgnoreCase("help"))
         {
         	test.sendRawMessage("Usage : present, vote <player> or propose <player>");
         }
-        if(args[0].equalsIgnoreCase("vote"))
+        else if (args[0].equalsIgnoreCase("startmsg"))
+        {
+        	context.setSessionData("data", this.dat.msgsC.get("msgStart"));
+        }
+        else if (args[0].equalsIgnoreCase("vote"))
         {
         	if (args.length == 2)
         	{
         		Player pl = MPlayer.getPlayerByName(args[1]);
-        		if (this.dat.presented.get(pl))
-        		{
-        			this.dat.votes.replace(test, pl);
-        			test.sendRawMessage("A voté !");
-        		}
-        		else
-        		{
-        			test.sendRawMessage("Vous ne pouvez pas voter pour cette personne.");
-        		}
+        		end = this.dat.vote(test, pl, context);
         	}
         }
         else if (args[0].equalsIgnoreCase("present"))
         {
-        	Map<Player, Boolean> tmp = this.dat.presented;
-        	if (!tmp.get(test))
-        	{
-            	tmp.replace(test, Boolean.TRUE);
-        		context.setSessionData("data", test.getName()+" se presente.");
-        		this.dat.msgsC.replace("msgCommun", test.getDisplayName() + " se présente.");
-        		test.chat(test.getDisplayName() + " se présente.");
-            	test.sendRawMessage("Vous vous présentez !");
-        	}
-        	else
-        	{
-        		test.sendRawMessage("Vous vous etes déjà presenté.");
-        	}
+        	this.dat.present(test, context);
         }
         else if (args[0].equalsIgnoreCase("propose"))
         {
         	if (args.length == 2)
         	{
         		Player pla = MPlayer.getPlayerByName(args[1]);
-        		this.dat.proposed.replace(pla, this.dat.proposed.get(pla)+1);
-        		pla.sendRawMessage("Quelqu'un veut que vous vous presetiez (tapez 'present' dans l'interface election)");
+        		this.dat.propose(test, pla, context);
         	}
         }
         else if (args[0].equalsIgnoreCase("exit"))

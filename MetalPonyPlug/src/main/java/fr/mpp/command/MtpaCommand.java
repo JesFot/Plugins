@@ -3,7 +3,6 @@ package fr.mpp.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +16,7 @@ import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.utils.MPlayer;
 import fr.mpp.utils.TestPrompt;
 
 public class MtpaCommand implements CommandExecutor
@@ -30,7 +30,6 @@ public class MtpaCommand implements CommandExecutor
 		this.usageMessage = "/mtpa [player] <target>";
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
@@ -60,7 +59,7 @@ public class MtpaCommand implements CommandExecutor
 		}
 		else
 		{
-			player = Bukkit.getPlayerExact(args[0]);
+			player = MPlayer.getPlayerByName(args[0]);
 		}
 		
 		if (player == null)
@@ -71,7 +70,7 @@ public class MtpaCommand implements CommandExecutor
 		
 		if (args.length < 3)
 		{
-			Player target = Bukkit.getPlayerExact(args[args.length - 1]);
+			Player target = MPlayer.getPlayerByName(args[args.length - 1]);
 			if (target == null)
 			{
 				sender.sendMessage("Can't find player " + args[args.length - 1] + ". No tp.");

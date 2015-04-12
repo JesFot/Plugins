@@ -25,7 +25,7 @@ public class MelectionsCommand implements CommandExecutor
 {
 	private String usageMessage;
 	private MetalPonyPlug mpp;
-	public String statu;
+	private String statu;
 	private MelectionsCommand tis;
 	
 	public MelectionsCommand(MetalPonyPlug mppl)
@@ -39,10 +39,12 @@ public class MelectionsCommand implements CommandExecutor
 	public class Datas
 	{
 		public List<Player> players;
+		private int playersN;
 		public Map<String, String> msgsC = new HashMap<String, String>();
-		public Map<Player, Player> votes = new HashMap<Player, Player>();
-		public Map<Player, Boolean> presented = new HashMap<Player, Boolean>();
-		public Map<Player, Integer> proposed = new HashMap<Player, Integer>();
+		private Map<Player, Player> votes = new HashMap<Player, Player>();
+		private int votesN;
+		private Map<Player, Boolean> presented = new HashMap<Player, Boolean>();
+		private Map<Player, Integer> proposed = new HashMap<Player, Integer>();
 		public Map<String, Player> playersName = new HashMap<String, Player>();
 		private MelectionsCommand parent;
 		
@@ -50,6 +52,8 @@ public class MelectionsCommand implements CommandExecutor
 		{
 			this.parent = tis;
 			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
+			this.playersN = this.players.size();
+			this.votesN = 0;
 			for (Player pl : this.players)
 			{
 				this.presented.put(pl, Boolean.FALSE);
@@ -57,24 +61,62 @@ public class MelectionsCommand implements CommandExecutor
 				this.proposed.put(pl, 0);
 				this.playersName.put(pl.getName(), pl);
 			}
-			this.msgsC.put("msgCommun", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
+			this.msgsC.put("msgStart", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
 		}
 		public Datas(MelectionsCommand par)
 		{
 			this.parent = par;
 			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
+			this.playersN = this.players.size();
+			this.votesN = 0;
 			for (Player pl : this.players)
 			{
 				this.presented.put(pl, Boolean.FALSE);
 				this.proposed.put(pl, 0);
 				this.playersName.put(pl.getName(), pl);
 			}
-			this.msgsC.put("msgCommun", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
+			this.msgsC.put("msgStart", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
 		}
 		
 		public MelectionsCommand getParent()
 		{
 			return this.parent;
+		}
+		public void propose(Player source, Player cible, ConversationContext context)
+		{
+			this.proposed.replace(cible, this.proposed.get(cible)+1);
+			context.setSessionData("data", "Quelqu'un veut que vous vous presetiez (tapez 'present' dans l'interface election)");
+		}
+		public void present(Player player, ConversationContext context)
+		{
+			if (!this.presented.get(player))
+        	{
+				this.presented.replace(player, Boolean.TRUE);
+        		this.parent.mpp.broad(player.getDisplayName() + " se présente.");
+        		//player.sendRawMessage("Vous vous présentez !");
+        		context.setSessionData("data", "Vous vous présentez !");
+        	}
+        	else
+        	{
+        		context.setSessionData("data", "Vous vous etes déjà presenté.");
+        	}
+		}
+		public boolean vote(Player source, Player cible, ConversationContext context)
+		{
+			if (this.presented.get(cible))
+    		{
+    			this.votes.replace(source, cible);
+    			context.setSessionData("data", "A voté !");
+    		}
+    		else
+    		{
+    			context.setSessionData("data", "Vous ne pouvez pas voter pour cette personne.");
+    		}
+			if (this.votesN >= this.playersN)
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 	Datas dat = new Datas(this);
@@ -91,19 +133,13 @@ public class MelectionsCommand implements CommandExecutor
 		{
 			return false;
 		}
-		if (sender instanceof Player)
-		{
-			//
-		}
+		if (sender instanceof Player){}
 		else
 		{
 			sender.sendMessage("You must be a player...");
 			return true;
 		}
-		if (args.length == 1 || args.length == 2)
-		{
-			//
-		}
+		if (args.length == 1 || args.length == 2){}
 		else
 		{
 			sender.sendMessage(ChatColor.RED + this.usageMessage);
@@ -126,10 +162,7 @@ public class MelectionsCommand implements CommandExecutor
 			}
 			else
 			{
-				if (args.length == 1)
-				{
-					//
-				}
+				if (args.length == 1){}
 				else
 				{
 					sender.sendMessage(ChatColor.RED + this.usageMessage);
@@ -147,6 +180,7 @@ public class MelectionsCommand implements CommandExecutor
 		final Map<Object, Object> hMap = new HashMap<Object, Object>();
 		hMap.put("data", "Chat pour élire un " + this.statu + " ! tapez 'help' pour savoir quoi faire.");
 		hMap.put("player", (Player)sender);
+		hMap.put("times", 0);
 		factory = factory.withFirstPrompt(new ElecPrompt(this)).withPrefix(new ConversationPrefix(){
 			@Override
 			public String getPrefix(ConversationContext context)
@@ -180,19 +214,6 @@ public class MelectionsCommand implements CommandExecutor
 			Conversation convi = factory.buildConversation(pl);
 			convi.addConversationAbandonedListener(new ConvAL());
 			convi.begin();
-		}
-		
-		if (args.length >= 2)
-		{
-			//
-		}
-		else if (args.length == 1)
-		{
-			//
-		}
-		else
-		{
-			sender.sendMessage(ChatColor.RED + this.usageMessage);
 		}
 		return true;
 	}

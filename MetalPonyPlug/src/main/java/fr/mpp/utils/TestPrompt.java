@@ -12,7 +12,6 @@ public class TestPrompt extends ValidatingPrompt
     @Override
     public String getPromptText(ConversationContext context)
     {
-        //Bukkit.getLogger().info("hit get prompt text for TestPrompt");
         return "Reponse: " + context.getSessionData("data");
     }
  
@@ -22,20 +21,21 @@ public class TestPrompt extends ValidatingPrompt
     	Player player, target;
     	player = (Player)context.getSessionData("player");
     	target = (Player)context.getSessionData("target");
-        //Bukkit.getLogger().info("hit accept validated input for TestPrompt");
         context.setSessionData("data", in);
-        if(in.equalsIgnoreCase("y"))
+        if(in.equalsIgnoreCase("y") || in.equalsIgnoreCase("yes"))
         {
         	player.sendMessage("Accepted !");
-        	//Bukkit.getLogger().info("Accepted");
 			player.teleport(target, TeleportCause.COMMAND);
             return END_OF_CONVERSATION;
         }
-        else if (in.equalsIgnoreCase("n"))
+        else if (in.equalsIgnoreCase("n") || in.equalsIgnoreCase("non"))
         {
         	player.sendMessage("Refused !");
-        	//Bukkit.getLogger().info("Refused");
             return END_OF_CONVERSATION;
+        }
+        else
+        {
+        	context.getForWhom().sendRawMessage("You must give a response ! ([y/n])");
         }
 		return this;
     }
@@ -43,7 +43,6 @@ public class TestPrompt extends ValidatingPrompt
     @Override
     protected boolean isInputValid(ConversationContext context, String in)
     {
-        //Bukkit.getLogger().info("hit input valid for TestPrompt");
         return true;
     }
  
