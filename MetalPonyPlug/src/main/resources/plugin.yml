@@ -11,10 +11,10 @@ commands:
     com: testmpp
     description: Commande test.
     usage: /<command> [word]
-  mpp:
-    com: mpp
-    description: MetalPonyPlug configuration
-    usage: /<command> <reset|set> [all]
+  #mpp:
+    #com: mpp
+    #description: MetalPonyPlug configuration
+    #usage: /<command> <reset|set> [all]
   mpp-off:
     description: Do Not Use IT
     usage: /<command>

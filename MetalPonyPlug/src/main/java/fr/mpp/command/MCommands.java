@@ -33,11 +33,11 @@ public class MCommands
 	{
 		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand()); // Comand to test that the plugin is active
 		//mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl)); // Main command, will add more fonctionalities
-		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl)); // Switch off the plugin, doesn't function
-		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with /mhome set to set
-		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl));
-		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl));
-		mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl));
+		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl)); // Switch off the plugin
+		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with '/mhome set' to set
+		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl)); // Set the commun place chest
+		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl)); // Like /tpa of essentials but, ask method change
+		mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener

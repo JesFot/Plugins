@@ -32,7 +32,7 @@ public class MelectionsCommand implements CommandExecutor
 	{
 		this.mpp = mppl;
 		this.tis = this;
-		this.usageMessage = "Usage : /election <start>";
+		this.usageMessage = "Usage : /election <start> or /election <set> <type>";
 		this.statu = "maire";
 	}
 	
@@ -100,9 +100,30 @@ public class MelectionsCommand implements CommandExecutor
 			sender.sendMessage("You must be a player...");
 			return true;
 		}
-		if (args.length == 1 && args[0].equalsIgnoreCase("start"))
+		if (args.length == 1)
 		{
 			//
+		}
+		else
+		{
+			sender.sendMessage(ChatColor.RED + this.usageMessage);
+			return true;
+		}
+		if (args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("set"))
+		{
+			if (args[0].equalsIgnoreCase("set"))
+			{
+				if (args.length == 2)
+				{
+					String type = args[1];
+					this.statu = type;
+				}
+				else
+				{
+					sender.sendMessage(ChatColor.RED + this.usageMessage);
+					return true;
+				}
+			}
 		}
 		else
 		{
