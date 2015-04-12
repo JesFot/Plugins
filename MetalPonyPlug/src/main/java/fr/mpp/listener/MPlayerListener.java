@@ -72,14 +72,14 @@ public class MPlayerListener implements Listener
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".jesfot", Classes.Prince.getAppel());
 				event.getPlayer().sendMessage("Vous etes Prince.");
-				event.getPlayer().setCustomName("[" + Classes.Prince.getClasse().getDisplayName() + "]" + pN);
+				event.getPlayer().setCustomName(Classes.Prince.getClasse().getDisplayName() + pN);
 				event.setJoinMessage(ChatColor.YELLOW + "The Prince joined the game.");
 			}
 			else
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".lydia_drew", Classes.Princess.getAppel());
 				event.getPlayer().sendMessage("Vous etes Princesse.");
-				event.getPlayer().setCustomName("[" + Classes.Princess.getClasse().getDisplayName() + "]" + pN);
+				event.getPlayer().setCustomName(Classes.Princess.getClasse().getDisplayName() + pN);
 				event.setJoinMessage(ChatColor.YELLOW + "The Princesse joined the game.");
 			}
 		}
@@ -89,13 +89,13 @@ public class MPlayerListener implements Listener
 			if (this.confS.getCustomConfig().getInt("mppbase.logtimes."+pN.toLowerCase()) >= 50)
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.HAB.getName()+"."+pN.toLowerCase(), Classes.Regular.getAppel());
-				event.getPlayer().setCustomName("[" + Classes.Regular.getClasse().getDisplayName() + "]" + pN);
-				event.getPlayer().setDisplayName("[" + Classes.Regular.getClasse().getDisplayName() + "]" + pN);
+				event.getPlayer().setCustomName(Classes.Regular.getClasse().getDisplayName() + pN);
+				event.getPlayer().setDisplayName(Classes.Regular.getClasse().getDisplayName() + pN);
 			}
 			String c = this.confS.getCustomConfig().getString("mpp.rank."+RankLevel.MAIN.getName()+"."+pN.toLowerCase());
 			Classes cl = ClassesUtils.getClasseByAppelName(c);
-			event.getPlayer().setCustomName("[" + cl.getClasse().getDisplayName() + "]" + pN);
-			event.getPlayer().setDisplayName("[" + cl.getClasse().getDisplayName() + "]" + pN);
+			event.getPlayer().setCustomName(cl.getClasse().getDisplayName() + pN);
+			event.getPlayer().setDisplayName(cl.getClasse().getDisplayName() + pN);
 		}
 		else
 		{
@@ -103,8 +103,8 @@ public class MPlayerListener implements Listener
 			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+pN.toLowerCase(), Classes.Noobie.getAppel());
 			this.confS.getCustomConfig().set("mppbase.registered."+pN.toLowerCase(), true);
 			this.confS.getCustomConfig().set("mppbase.logtimes."+pN.toLowerCase(), 1);
-			event.getPlayer().setCustomName("[" + Classes.Noobie.getClasse().getDisplayName() + "]" + pN);
-			event.getPlayer().setDisplayName("[" + Classes.Noobie.getClasse().getDisplayName() + "]" + pN);
+			event.getPlayer().setCustomName(Classes.Noobie.getClasse().getDisplayName() + pN);
+			event.getPlayer().setDisplayName(Classes.Noobie.getClasse().getDisplayName() + pN);
 		}
 		this.confS.saveCustomConfig();
 	}
