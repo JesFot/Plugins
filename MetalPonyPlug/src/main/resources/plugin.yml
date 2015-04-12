@@ -27,7 +27,7 @@ commands:
   mtpa:
     description: Tpa
     usage: /<command> [player] <target>
-  elecmaire:
+  election:
     description: Make an election
     usage: /<command> <start>
-    alias: [maire, election]
+    alias: [maire, elecmaire]
