@@ -65,7 +65,6 @@ public class MPlayerListener implements Listener
 	{
 		String pN = event.getPlayer().getName();
 		this.confS.reloadCustomConfig();
-		//event.getPlayer().setDisplayName(ChatColor.BLUE + "[" + Classes.Assassin.getName() + "]<" + ChatColor.RESET + event.getPlayer().getName());
 		if (pN.equalsIgnoreCase("JesFot") || pN.equalsIgnoreCase("lydia_drew"))
 		{
 			if (pN.equalsIgnoreCase("JesFot"))
@@ -150,6 +149,7 @@ public class MPlayerListener implements Listener
 			{
 				if (event.getClickedBlock().getType().equals(Material.CHEST))
 				{
+					this.confS.reloadCustomConfig();
 					Block block = event.getClickedBlock();
 					Location bLoc = block.getLocation();
 					Location oLoc = this.confS.getLoc("mpp.origchest.location");

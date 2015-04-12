@@ -1,8 +1,11 @@
 package fr.mpp.command;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,15 +21,59 @@ import org.bukkit.entity.Player;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.utils.ElecPrompt;
 
-public class MelecMaireCommand implements CommandExecutor
+public class MelectionsCommand implements CommandExecutor
 {
 	private String usageMessage;
 	private MetalPonyPlug mpp;
+	public String statu;
+	private MelectionsCommand tis;
 	
-	public MelecMaireCommand(MetalPonyPlug mppl)
+	public MelectionsCommand(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
-		this.usageMessage = "Usage : /elecmaire <start>";
+		this.tis = this;
+		this.usageMessage = "Usage : /election <start>";
+		this.statu = "maire";
+	}
+	
+	public class Datas
+	{
+		public List<Player> players;
+		public Map<String, String> msgsC;
+		public Map<Player, Player> votes;
+		public Map<Player, Boolean> presented;
+		public Map<Player, String> proposed;
+		public Map<String, Player> playersName;
+		private MelectionsCommand parent;
+		
+		public Datas()
+		{
+			this(tis);
+		}
+		public Datas(MelectionsCommand par)
+		{
+			this.parent = par;
+			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
+			for (Player pl : this.players)
+			{
+				this.presented.put(pl, false);
+				this.votes.put(pl, null);
+				this.proposed.put(pl, "0");
+				this.playersName.put(pl.getName(), pl);
+			}
+			this.msgsC.put("msgCommun", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
+		}
+		
+		public MelectionsCommand getParent()
+		{
+			return this.parent;
+		}
+	}
+	Datas dat = new Datas(this);
+	
+	public Datas getDat()
+	{
+		return this.dat;
 	}
 
 	@Override
@@ -57,9 +104,9 @@ public class MelecMaireCommand implements CommandExecutor
 		
 		ConversationFactory factory = new ConversationFactory(this.mpp.getPlugin());
 		final Map<Object, Object> hMap = new HashMap<Object, Object>();
-		hMap.put("data", "Chat pour élire un maire ! tapez 'help' pour savoir quoi faire.");
+		hMap.put("data", "Chat pour élire un " + this.statu + " ! tapez 'help' pour savoir quoi faire.");
 		hMap.put("player", (Player)sender);
-		factory = factory.withFirstPrompt(new ElecPrompt(this.mpp)).withPrefix(new ConversationPrefix(){
+		factory = factory.withFirstPrompt(new ElecPrompt(this)).withPrefix(new ConversationPrefix(){
 			@Override
 			public String getPrefix(ConversationContext context)
 			{
@@ -86,18 +133,17 @@ public class MelecMaireCommand implements CommandExecutor
 				}
 			}
 		}
-		Conversation conv = factory.buildConversation((Player)sender);
-		conv.addConversationAbandonedListener(new ConvAL());
 		
-		/*for (Player pl : Bukkit.getOnlinePlayers())
+		for (Player pl : Bukkit.getOnlinePlayers())
 		{
 			if (pl.getName().equalsIgnoreCase(sender.getName()))
 			{
 				continue;
 			}
-			pl.beginConversation(conv);
-		}*/
-		conv.begin();
+			Conversation convi = factory.buildConversation(pl);
+			convi.addConversationAbandonedListener(new ConvAL());
+			convi.begin();
+		}
 		
 		if (args.length >= 2)
 		{

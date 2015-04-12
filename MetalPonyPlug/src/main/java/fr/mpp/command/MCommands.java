@@ -37,7 +37,7 @@ public class MCommands
 		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with /mhome set to set
 		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl));
 		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl));
-		mppl.getPlugin().getCommand("elecmaire").setExecutor(new MelecMaireCommand(mppl));
+		mppl.getPlugin().getCommand("elecmaire").setExecutor(new MelectionsCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener

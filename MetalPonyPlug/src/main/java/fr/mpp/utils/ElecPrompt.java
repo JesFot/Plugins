@@ -1,35 +1,36 @@
 package fr.mpp.utils;
 
-import java.util.List;
+import java.util.Map;
 
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
 import org.bukkit.entity.Player;
 
-import fr.mpp.MetalPonyPlug;
+import fr.mpp.command.MelectionsCommand;
+import fr.mpp.command.MelectionsCommand.Datas;
 
 public class ElecPrompt extends ValidatingPrompt
 {
-	private MetalPonyPlug mpp;
+	private MelectionsCommand parent;
+	private Datas dat;
 	
-	public ElecPrompt(MetalPonyPlug mppl)
+	public ElecPrompt(MelectionsCommand melec)
 	{
-		this.mpp = mppl;
+		this.parent = melec;
+		this.dat = this.parent.getDat();
 	}
  
     @Override
     public String getPromptText(ConversationContext context)
     {
-        //Bukkit.getLogger().info("hit get prompt text for TestPrompt");
-        return "[" + ((Player)context.getSessionData("player")).getDisplayName() + "] Vote Session: " + context.getSessionData("data");
+        return "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Session: " + context.getSessionData("data");
     }
  
     @Override
     protected Prompt acceptValidatedInput(ConversationContext context, String in)
     {
     	Player test = (Player)context.getForWhom();
-    	this.mpp.getConfig().reloadCustomConfig();
     	
     	String[] args = {""};
     	boolean end = false;
@@ -41,8 +42,7 @@ public class ElecPrompt extends ValidatingPrompt
     	{
             args = in.split(" ");
     	}
-        //test.chat(in + "; " + args[0] + " , " + args[1] + "; " + test.getName());
-        context.setSessionData("data", in);
+        context.setSessionData("data", in + "\n" + this.dat.msgsC.get("msgCommun"));
         if(args[0].equalsIgnoreCase("help"))
         {
         	test.sendRawMessage("Usage : present, vote <player> or propose <player>");
@@ -52,10 +52,10 @@ public class ElecPrompt extends ValidatingPrompt
         	if (args.length == 2)
         	{
         		Player pl = MPlayer.getPlayerByName(args[1]);
-        		if (this.mpp.getConfig().getCustomConfig().getStringList("mpp.vote.present").contains(args[1].toLowerCase()))
+        		if (this.dat.presented.get(pl))
         		{
-        			this.mpp.getConfig().getCustomConfig().set("mpp.vote.onair."+pl.getName().toLowerCase(),this.mpp.getConfig().getCustomConfig().getInt("mpp.vote.onair."+pl.getName().toLowerCase())+1);
-                	test.sendRawMessage("A voté !");
+        			this.dat.votes.replace(test, pl);
+        			test.sendRawMessage("A voté !");
         		}
         		else
         		{
@@ -65,12 +65,12 @@ public class ElecPrompt extends ValidatingPrompt
         }
         else if (args[0].equalsIgnoreCase("present"))
         {
-        	List<String> tmp = this.mpp.getConfig().getCustomConfig().getStringList("mpp.vote.present");
-        	if (!tmp.contains(test.getName().toLowerCase()))
+        	Map<Player, Boolean> tmp = this.dat.presented;
+        	if (!tmp.get(test))
         	{
-            	tmp.add(test.getName().toLowerCase());
-        		this.mpp.getConfig().getCustomConfig().set("mpp.vote.present", tmp);
-        		context.setSessionData("data", test.getDisplayName()+" se presente.");
+            	tmp.replace(test, true);
+        		context.setSessionData("data", test.getName()+" se presente.");
+        		this.dat.msgsC.replace("msgCommun", test.getDisplayName() + " se présente.");
         		test.chat(test.getDisplayName() + " se présente.");
             	test.sendRawMessage("Vous vous présentez !");
         	}
@@ -84,15 +84,14 @@ public class ElecPrompt extends ValidatingPrompt
         	if (args.length == 2)
         	{
         		Player pla = MPlayer.getPlayerByName(args[1]);
-        		pla.sendRawMessage("Quelqu'un veut que vous vous presetiez (type present)");
+        		this.dat.proposed.replace(pla, (this.dat.proposed.get(pla)+1).toString());
+        		pla.sendRawMessage("Quelqu'un veut que vous vous presetiez (tapez 'present' dans l'interface election)");
         	}
         }
         else if (args[0].equalsIgnoreCase("exit"))
         {
         	end = true;
         }
-        
-        this.mpp.getConfig().saveCustomConfig();
         
         if (end)
         {
@@ -104,7 +103,6 @@ public class ElecPrompt extends ValidatingPrompt
     @Override
     protected boolean isInputValid(ConversationContext context, String in)
     {
-        //Bukkit.getLogger().info("hit input valid for TestPrompt");
         return true;
     }
  
