@@ -39,16 +39,25 @@ public class MelectionsCommand implements CommandExecutor
 	public class Datas
 	{
 		public List<Player> players;
-		public Map<String, String> msgsC;
-		public Map<Player, Player> votes;
-		public Map<Player, Boolean> presented;
-		public Map<Player, String> proposed;
-		public Map<String, Player> playersName;
+		public Map<String, String> msgsC = new HashMap<String, String>();
+		public Map<Player, Player> votes = new HashMap<Player, Player>();
+		public Map<Player, Boolean> presented = new HashMap<Player, Boolean>();
+		public Map<Player, Integer> proposed = new HashMap<Player, Integer>();
+		public Map<String, Player> playersName = new HashMap<String, Player>();
 		private MelectionsCommand parent;
 		
 		public Datas()
 		{
-			this(tis);
+			this.parent = tis;
+			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
+			for (Player pl : this.players)
+			{
+				this.presented.put(pl, Boolean.FALSE);
+				this.votes.put(pl, null);
+				this.proposed.put(pl, 0);
+				this.playersName.put(pl.getName(), pl);
+			}
+			this.msgsC.put("msgCommun", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
 		}
 		public Datas(MelectionsCommand par)
 		{
@@ -56,9 +65,8 @@ public class MelectionsCommand implements CommandExecutor
 			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
 			for (Player pl : this.players)
 			{
-				this.presented.put(pl, false);
-				this.votes.put(pl, null);
-				this.proposed.put(pl, "0");
+				this.presented.put(pl, Boolean.FALSE);
+				this.proposed.put(pl, 0);
 				this.playersName.put(pl.getName(), pl);
 			}
 			this.msgsC.put("msgCommun", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
@@ -136,10 +144,6 @@ public class MelectionsCommand implements CommandExecutor
 		
 		for (Player pl : Bukkit.getOnlinePlayers())
 		{
-			if (pl.getName().equalsIgnoreCase(sender.getName()))
-			{
-				continue;
-			}
 			Conversation convi = factory.buildConversation(pl);
 			convi.addConversationAbandonedListener(new ConvAL());
 			convi.begin();
