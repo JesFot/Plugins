@@ -13,6 +13,11 @@ import fr.mpp.utils.MPlayer;
 public class TestmppCommand implements CommandExecutor
 {
 	private MetalPonyPlug mpp;
+	
+	public TestmppCommand(MetalPonyPlug mpp)
+	{
+		this.mpp = mpp;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

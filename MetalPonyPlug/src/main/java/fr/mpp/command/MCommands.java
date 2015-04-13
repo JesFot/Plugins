@@ -31,7 +31,7 @@ public class MCommands
 	 */
 	public void regCommands(MetalPonyPlug mppl)
 	{
-		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand()); // Comand to test that the plugin is active
+		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand(mppl)); // Comand to test that the plugin is active
 		//mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl)); // Main command, will add more fonctionalities
 		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl)); // Switch off the plugin
 		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with '/mhome set' to set
