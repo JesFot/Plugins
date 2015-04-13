@@ -1,0 +1,9 @@
+name: MetalPonyPlug_on
+main: fr.mppon.bukkit.BukkitPlugin
+version: 1.0
+description: Plugin for PonyMetalCraft server
+authors: ["JesFot"]
+commands:
+  mpp-on:
+    description: Do Not Use It
+    usage: /<command>
