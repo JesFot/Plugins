@@ -1,23 +1,21 @@
-package fr.mpp;
+package fr.mppon;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.mppon.bukkit.BukkitPlugin;
 import fr.mppon.command.MCommands;
 
-public class MetalPonyPlug
+public class MetalPonyPlug_on
 {
 	private MCommands coms;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	
-	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
+	public MetalPonyPlug_on(Server server, Logger logger, JavaPlugin plugin)
 	{
 		this.server = server;
 		this.plugin = plugin;

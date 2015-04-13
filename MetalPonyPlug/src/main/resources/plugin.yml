@@ -5,5 +5,5 @@ description: Plugin for PonyMetalCraft server
 authors: ["JesFot"]
 commands:
   mpp-on:
-    description: Do Not Use IT
+    description: Do Not Use It
     usage: /<command>

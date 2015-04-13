@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.mppon.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -7,9 +7,9 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import fr.mpp.bukkit.BukkitPlugin;
+import fr.mppon.bukkit.BukkitPlugin;
 
-public class MPluginListener implements Listener
+public class MListener implements Listener
 {
 	BukkitPlugin pl;
 	
