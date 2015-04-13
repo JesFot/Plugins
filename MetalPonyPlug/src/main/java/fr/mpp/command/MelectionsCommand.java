@@ -1,9 +1,11 @@
 package fr.mpp.command;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,7 +27,7 @@ public class MelectionsCommand implements CommandExecutor
 {
 	private String usageMessage;
 	private MetalPonyPlug mpp;
-	private String statu;
+	public String statu;
 	private MelectionsCommand tis;
 	
 	public MelectionsCommand(MetalPonyPlug mppl)
@@ -34,6 +36,11 @@ public class MelectionsCommand implements CommandExecutor
 		this.tis = this;
 		this.usageMessage = "Usage : /election <start> or /election <set> <type>";
 		this.statu = "maire";
+	}
+	
+	public MetalPonyPlug getMpp()
+	{
+		return this.mpp;
 	}
 	
 	public class Datas
@@ -82,10 +89,27 @@ public class MelectionsCommand implements CommandExecutor
 		{
 			return this.parent;
 		}
+		public Player getWiner()
+		{
+			Map<Player, Integer> count = new HashMap<Player, Integer>();
+			for (Player pl : this.votes.values())
+			{
+				count.put(pl, count.getOrDefault(pl, 0)+1);
+			}
+			int maxi = (Collections.max(count.values()));
+			for (Entry<Player, Integer> entry : count.entrySet())
+			{
+				if (entry.getValue() == maxi)
+				{
+					return entry.getKey();
+				}
+			}
+			return null;
+		}
 		public void propose(Player source, Player cible, ConversationContext context)
 		{
 			this.proposed.replace(cible, this.proposed.get(cible)+1);
-			context.setSessionData("data", "Quelqu'un veut que vous vous presetiez (tapez 'present' dans l'interface election)");
+			cible.sendRawMessage("Quelqu'un veut que vous vous presentiez (tapez 'present' dans l'interface election)");
 		}
 		public void present(Player player, ConversationContext context)
 		{
@@ -114,7 +138,7 @@ public class MelectionsCommand implements CommandExecutor
     		}
 			if (this.votesN >= this.playersN)
 			{
-				this.parent.mpp.broad("Le vote est terminé, tout le monde à voté.");
+				this.parent.mpp.broad("Le vote est terminé, tout le monde a voté.");
 				return true;
 			}
 			return false;

@@ -126,11 +126,42 @@ public class ClassesUtils
 		mco.getCustomConfig().set("mpp.rank."+lvl+"."+player.getName().toLowerCase(), cl.getAppel());
 		mco.saveCustomConfig();
 	}
+	public void setRank(Classes cl, Player player, RankLevel level)
+	{
+		mco.reloadCustomConfig();
+		String lvl = level.getName();
+		String root = "mpp.rank."+lvl+"."+player.getName().toLowerCase();
+		String oldCl = mco.getCustomConfig().getString(root);
+		mco.getCustomConfig().set(root, cl.getAppel());
+		mco.saveCustomConfig();
+	}
 	
 	public Classes getRank(final Player player, final RankLevel level)
 	{
 		String lvl = level.getName();
 		return getClasseByName(mco.getCustomConfig().getString("mpp.rank."+lvl+"."+player.getName().toLowerCase()));
+	}
+	
+	public RankLevel getRankAffich(final Player player)
+	{
+		mco.reloadCustomConfig();
+		String rank = mco.getCustomConfig().getString("mpp.aff.rank."+player.getName().toLowerCase()+".str");
+		RankLevel lvl = RankLevel.getRankByName(rank);
+		int idRank = mco.getCustomConfig().getInt("mpp.aff.rank."+player.getName().toLowerCase()+".id");
+		RankLevel lvlID = RankLevel.getRankByID(idRank);
+		mco.saveCustomConfig();
+		if (lvl.equals(lvlID))
+		{
+			return lvl;
+		}
+		return lvlID;
+	}
+	public void setRankAffich(final Player player, final RankLevel level)
+	{
+		mco.reloadCustomConfig();
+		mco.getCustomConfig().set("mpp.aff.rank."+player.getName().toLowerCase()+".str", level.getName());
+		mco.getCustomConfig().set("mpp.aff.rank."+player.getName().toLowerCase()+".id", level.getID());
+		mco.saveCustomConfig();
 	}
 	
 	public RankLevel getRankLevel(final String name, final String pName)

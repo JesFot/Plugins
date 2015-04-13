@@ -1,5 +1,6 @@
 package fr.mpp.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
@@ -7,6 +8,9 @@ import org.bukkit.entity.Player;
 
 import fr.mpp.command.MelectionsCommand;
 import fr.mpp.command.MelectionsCommand.Datas;
+import fr.mpp.mpp.Classes;
+import fr.mpp.mpp.ClassesUtils;
+import fr.mpp.mpp.RankLevel;
 
 public class ElecPrompt extends ValidatingPrompt
 {
@@ -62,6 +66,22 @@ public class ElecPrompt extends ValidatingPrompt
         	{
         		Player pl = MPlayer.getPlayerByName(args[1]);
         		end = this.dat.vote(test, pl, context);
+        		if (end)
+        		{
+        			Player plW = this.dat.getWiner();
+        			plW.sendMessage("Vous devenez " + this.parent.statu + " !!");
+        			ClassesUtils cu = new ClassesUtils(this.parent.getMpp().getConfig());
+        			Classes before = cu.getRank(plW, RankLevel.STATUT);
+        			if (before == Classes.Default)
+        			{
+        				cu.setRank(Classes.Maire, plW, RankLevel.STATUT);
+        			}
+        			if (cu.getRankAffich(plW) == RankLevel.STATUT)
+        			{
+        				plW.setCustomName(Classes.Maire.getClasse().getDisplayName() + plW.getCustomName());
+        				plW.setPlayerListName(ChatColor.DARK_BLUE + plW.getPlayerListName());
+        			}
+        		}
         	}
         }
         else if (args[0].equalsIgnoreCase("present"))

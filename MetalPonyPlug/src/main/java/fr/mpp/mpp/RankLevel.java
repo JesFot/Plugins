@@ -6,7 +6,7 @@ public enum RankLevel
 	HAB("hab", 1),
 	OLD("old", 2),
 	STATUT("statut", 3),
-	RIGHT("right", 4),
+	AFFICH("affich", 4),
 	MASK("mask", 5);
 	
 	private String name;
