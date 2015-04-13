@@ -1,33 +1,9 @@
-name: MetalPonyPlug
-main: fr.mpp.bukkit.BukkitPlugin
-version: 5.3
+name: MetalPonyPlug_on
+main: fr.mppon.bukkit.BukkitPlugin
+version: 1.0
 description: Plugin for PonyMetalCraft server
 authors: ["JesFot"]
-permissions:
-  mpp:
-    assassin: true
 commands:
-  testmpp:
-    com: testmpp
-    description: Commande test.
-    usage: /<command> [word]
-  #mpp:
-    #com: mpp
-    #description: MetalPonyPlug configuration
-    #usage: /<command> <reset|set> [all]
-  mpp-off:
+  mpp-on:
     description: Do Not Use IT
     usage: /<command>
-  mhome:
-    description: Set or teleport you at home, sweet home :p
-    usage: /<command> [set]
-  mppsetchest:
-    description: Set the chest
-    usage: /<command>
-  mtpa:
-    description: Tpa
-    usage: /<command> [player] <target>
-  election:
-    description: Make an election
-    usage: /<command> <start>
-    alias: [maire, elecmaire]
