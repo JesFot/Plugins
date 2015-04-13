@@ -45,6 +45,7 @@ public class MelectionsCommand implements CommandExecutor
 	
 	public class Datas
 	{
+		private String statut;
 		public List<Player> players;
 		private int playersN;
 		public Map<String, String> msgsC = new HashMap<String, String>();
@@ -58,6 +59,7 @@ public class MelectionsCommand implements CommandExecutor
 		public Datas()
 		{
 			this.parent = tis;
+			this.statut = statu;
 			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
 			this.playersN = this.players.size();
 			this.votesN = 0;
@@ -68,11 +70,12 @@ public class MelectionsCommand implements CommandExecutor
 				this.proposed.put(pl, 0);
 				this.playersName.put(pl.getName(), pl);
 			}
-			this.msgsC.put("msgStart", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
+			this.msgsC.put("msgStart", "Chat pour élire un " + this.statut + " ! tapez 'help' pour savoir quoi faire.");
 		}
 		public Datas(MelectionsCommand par)
 		{
 			this.parent = par;
+			this.statut = par.statu;
 			this.players = Arrays.asList(Bukkit.getOnlinePlayers());
 			this.playersN = this.players.size();
 			this.votesN = 0;
@@ -82,7 +85,7 @@ public class MelectionsCommand implements CommandExecutor
 				this.proposed.put(pl, 0);
 				this.playersName.put(pl.getName(), pl);
 			}
-			this.msgsC.put("msgStart", "Chat pour élire un " + this.parent.statu + " ! tapez 'help' pour savoir quoi faire.");
+			this.msgsC.put("msgStart", "Chat pour élire un " + this.statut + " ! tapez 'help' pour savoir quoi faire.");
 		}
 		
 		public MelectionsCommand getParent()

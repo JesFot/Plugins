@@ -26,13 +26,7 @@ public class ElecPrompt extends ValidatingPrompt
     @Override
     public String getPromptText(ConversationContext context)
     {
-    	String tmp1 = "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Initial: " + this.dat.msgsC.get("msgStart");
     	String tmp2 = "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Session: " + context.getSessionData("data");
-    	if ((int)context.getSessionData("times") == 0)
-    	{
-    		return tmp1;
-    	}
-    	context.setSessionData("times", (int)context.getSessionData("times") + 1);
     	return tmp2;
     }
  
