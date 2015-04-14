@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.permissions.Permission;
 
 import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
@@ -10,15 +11,16 @@ import fr.mpp.mpp.IClasses;
 public class CRedstoner extends CClasses implements IClasses
 {
 	private String name;
-	private String reason;
 	private String displayName;
-	private int level;
+	private int maxLevel;
 	private Material material;
 	private Classes nextRank;
+	private boolean privilege;
+	private Permission perm;
 	
 	public CRedstoner()
 	{
-		this.level = 1;
+		this.maxLevel = 1;
 		this.material = Material.REDSTONE;
 	}
 	
@@ -34,29 +36,17 @@ public class CRedstoner extends CClasses implements IClasses
 		this.name = name;
 		this.displayName = ChatColor.RED + "[" + this.name + "]" + ChatColor.RESET;
 	}
-	
+
 	@Override
 	public String getDisplayName()
 	{
 		return this.displayName;
 	}
-	
+
 	@Override
 	public void setDisplayName(String name)
 	{
 		this.displayName = name;
-	}
-
-	@Override
-	public String getReason()
-	{
-		return this.reason;
-	}
-
-	@Override
-	public void setReason(String reason)
-	{
-		this.reason = reason;
 	}
 	
 	@Override
@@ -82,28 +72,21 @@ public class CRedstoner extends CClasses implements IClasses
 	}
 
 	@Override
-	public int getLevel()
+	public int getMaxLevel()
 	{
-		return this.level;
-	}
-	
-	@Override
-	public void addLevel(int level)
-	{
-		this.level += level;
-	}
-	
-	@Override
-	public int incrLevel()
-	{
-		this.level += 1;
-		return this.level;
+		return this.maxLevel;
 	}
 
 	@Override
-	public void setLevel(int level)
+	public void setMaxLevel(int level)
 	{
-		this.level = level;
+		this.maxLevel = level;
+	}
+
+	@Override
+	public void addMaxLevel(int level)
+	{
+		this.maxLevel += level;
 	}
 
 	@Override
@@ -119,32 +102,26 @@ public class CRedstoner extends CClasses implements IClasses
 	}
 
 	@Override
-	public int getMaxLevel() {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean hasPrivilege()
+	{
+		return this.privilege;
 	}
 
 	@Override
-	public void addMaxLevel(int level) {
-		// TODO Auto-generated method stub
-		
+	public void setPrivilege(boolean privi)
+	{
+		this.privilege = privi;
 	}
 
 	@Override
-	public void setMaxLevel(int level) {
-		// TODO Auto-generated method stub
-		
+	public Permission getAttach()
+	{
+		return this.perm;
 	}
 
 	@Override
-	public boolean hasPrivilege() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setPrivilege(boolean privi) {
-		// TODO Auto-generated method stub
-		
+	public void setAttach(Permission attach)
+	{
+		this.perm = attach;
 	}
 }

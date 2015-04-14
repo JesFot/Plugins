@@ -2,6 +2,7 @@ package fr.mpp.mpp.classes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.permissions.Permission;
 
 import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
@@ -11,15 +12,15 @@ public class CPrincess extends CClasses implements IClasses
 {
 	private String name;
 	private String displayName;
-	private String reason;
-	private int level;
+	private int maxLevel;
 	private Material material;
 	private Classes nextRank;
 	private boolean privilege;
+	private Permission perm;
 	
 	public CPrincess()
 	{
-		this.level = 2;
+		this.maxLevel = 2;
 		this.material = null;
 		this.nextRank = Classes.Null;
 		this.privilege = true;
@@ -37,29 +38,17 @@ public class CPrincess extends CClasses implements IClasses
 		this.name = name;
 		this.displayName = ChatColor.BOLD + "[" + name + "]" + ChatColor.RESET;
 	}
-	
+
 	@Override
 	public String getDisplayName()
 	{
 		return this.displayName;
 	}
-	
+
 	@Override
 	public void setDisplayName(String name)
 	{
 		this.displayName = name;
-	}
-
-	@Override
-	public String getReason()
-	{
-		return this.reason;
-	}
-
-	@Override
-	public void setReason(String reason)
-	{
-		this.reason = reason;
 	}
 	
 	@Override
@@ -87,19 +76,19 @@ public class CPrincess extends CClasses implements IClasses
 	@Override
 	public int getMaxLevel()
 	{
-		return this.level;
-	}
-	
-	@Override
-	public void addMaxLevel(int level)
-	{
-		this.level += level;
+		return this.maxLevel;
 	}
 
 	@Override
 	public void setMaxLevel(int level)
 	{
-		this.level = level;
+		this.maxLevel = level;
+	}
+
+	@Override
+	public void addMaxLevel(int level)
+	{
+		this.maxLevel += level;
 	}
 
 	@Override
@@ -113,16 +102,28 @@ public class CPrincess extends CClasses implements IClasses
 	{
 		this.material = mat;
 	}
-	
+
 	@Override
 	public boolean hasPrivilege()
 	{
 		return this.privilege;
 	}
-	
+
 	@Override
 	public void setPrivilege(boolean privi)
 	{
 		this.privilege = privi;
+	}
+
+	@Override
+	public Permission getAttach()
+	{
+		return this.perm;
+	}
+
+	@Override
+	public void setAttach(Permission attach)
+	{
+		this.perm = attach;
 	}
 }

@@ -15,7 +15,21 @@ public class MPermissions
 	PermissionAttachment attachment;
 	static MetalPonyPlug mpp;
 	HashMap<UUID, PermissionAttachment> hMap;
-	
+
+	/*  #mpp.reload: op
+	  #mpp.timings: false
+
+	  #bukkit.command.kill: false
+	  #bukkit.command.kick: false
+	  #bukkit.command.ban.player: false
+	  #bukkit.command.ban.list: true
+	  #bukkit.command.unban.*: false
+	  #bukkit.command.ban.ip: false
+	  #bukkit.command.teleport: false
+	  #bukkit.command.give: false
+	  #bukkit.command.list: true
+	  #bukkit.command.time.*: false
+	*/
 	public MPermissions()
 	{
 		//
@@ -51,6 +65,10 @@ public class MPermissions
 		this.hMap.remove(player.getUniqueId());
 	}
 	
+	public PermissionAttachment getAttachment(Player player)
+	{
+		return hMap.get(player.getUniqueId());
+	}
 	public void setPerm(Player player, String name, boolean value)
 	{
 		if (this.hMap.containsKey(player.getUniqueId()))
@@ -96,5 +114,25 @@ public class MPermissions
 	{
 		String name = perm.getName();
 		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
+	}
+	
+	public class MPerm
+	{
+		private PermissionAttachment perm;
+		
+		public MPerm(PermissionAttachment att)
+		{
+			this.setPerm(att);
+		}
+
+		public PermissionAttachment getPerm()
+		{
+			return perm;
+		}
+
+		public void setPerm(PermissionAttachment perm)
+		{
+			this.perm = perm;
+		}
 	}
 }

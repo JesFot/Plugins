@@ -4,8 +4,34 @@ version: 5.4
 description: Plugin for PonyMetalCraft server
 authors: ["JesFot"]
 permissions:
-  mpp:
-    assassin: true
+  mpp.mpp.*:
+    description: All mpp commands
+    children:
+      mpp.mpp.testmpp: true
+      mpp.mpp.forall: true
+  mpp.mpp.testmpp:
+    description: Mpp testing command
+    default: true
+  mpp.mpp.forall:
+    description: Home and Tpa
+    default: true
+  mpp.setconf:
+    description: Config of mpp
+    default: false
+  mpp.info: #/plugins, version, help, list and others desillusions
+    description: Base commands
+    default: true
+  mpp.admin.*:
+    description: Admin commands
+    children:
+      mpp.admin.base: true
+      mpp.admin.advence: true
+  mpp.admin.base:
+    description: Basic admin commands
+    default: false
+  mpp.admin.advence:
+    description: Advenced admin commands
+    default: false
 commands:
   testmpp:
     com: testmpp
@@ -29,5 +55,5 @@ commands:
     usage: /<command> [player] <target>
   election:
     description: Make an election
-    usage: /<command> <start>
-    alias: [maire, elecmaire]
+    usage: /<command> <start>, /<command> <set> <type>
+    aliases: [maire, elecmaire]

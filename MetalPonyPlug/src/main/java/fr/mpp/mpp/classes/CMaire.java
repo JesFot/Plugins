@@ -1,6 +1,10 @@
 package fr.mpp.mpp.classes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Material;
+import org.bukkit.permissions.Permission;
 
 import fr.mpp.mpp.CClasses;
 import fr.mpp.mpp.Classes;
@@ -10,24 +14,29 @@ public class CMaire extends CClasses implements IClasses
 {
 	private String name;
 	private String displayName;
-	private String reason;
-	private int level;
+	private int maxLevel;
 	private Material material;
 	private Classes nextRank;
+	private boolean privilege;
+	private Permission attach;
 	
 	public CMaire()
 	{
-		this.level = 1;
+		this.maxLevel = 1;
 		this.material = null;
 		this.nextRank = Classes.Null;
+		this.privilege = false;
+		Map<String, Boolean> tmp = new HashMap<String, Boolean>();
+		tmp.put("", Boolean.TRUE);
+		this.attach = new Permission("cmairePerm", tmp);
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return this.name;
 	}
-
+	
 	@Override
 	public void setName(String name)
 	{
@@ -45,17 +54,17 @@ public class CMaire extends CClasses implements IClasses
 	{
 		this.displayName = name;
 	}
-
+	
 	@Override
-	public String getReason()
+	public Material getItem()
 	{
-		return this.reason;
+		return this.material;
 	}
-
+	
 	@Override
-	public void setReason(String reason)
+	public void setItem(Material mat)
 	{
-		this.reason = reason;
+		this.material = mat;
 	}
 	
 	@Override
@@ -79,71 +88,46 @@ public class CMaire extends CClasses implements IClasses
 	{
 		this.nextRank = rank;
 	}
-
+	
 	@Override
-	public int getLevel()
+	public int getMaxLevel()
 	{
-		return this.level;
+		return this.maxLevel;
 	}
 	
 	@Override
-	public void addLevel(int level)
+	public void addMaxLevel(int level)
 	{
-		this.level += level;
+		this.maxLevel += level;
 	}
 	
 	@Override
-	public int incrLevel()
+	public void setMaxLevel(int level)
 	{
-		this.level += 1;
-		return this.level;
+		this.maxLevel = level;
 	}
-
+	
 	@Override
-	public void setLevel(int level)
+	public boolean hasPrivilege()
 	{
-		this.level = level;
+		return this.privilege;
 	}
-
+	
 	@Override
-	public Material getItem()
+	public void setPrivilege(boolean privi)
 	{
-		return this.material;
+		this.privilege = privi;
 	}
-
+	
 	@Override
-	public void setItem(Material mat)
+	public Permission getAttach()
 	{
-		this.material = mat;
+		return this.attach;
 	}
-
+	
 	@Override
-	public int getMaxLevel() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void addMaxLevel(int level) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setMaxLevel(int level) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean hasPrivilege() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setPrivilege(boolean privi) {
-		// TODO Auto-generated method stub
-		
+	public void setAttach(Permission attach)
+	{
+		this.attach = attach;
 	}
 }
