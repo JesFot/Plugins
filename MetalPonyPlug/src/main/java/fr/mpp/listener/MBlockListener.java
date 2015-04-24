@@ -1,5 +1,7 @@
 package fr.mpp.listener;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,6 +13,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class MBlockListener implements Listener
 {
@@ -20,10 +23,15 @@ public class MBlockListener implements Listener
 		// Code ...
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBlockBreak(final BlockBreakEvent event)
 	{
-		// Code ...
+		if (event.getBlock().getType().equals(Material.EMERALD_ORE))
+		{
+			Block block = (Block)event.getBlock();
+			block.breakNaturally(new ItemStack(Material.DIAMOND, 4));
+			event.setExpToDrop(10);
+		}
 	}
 
 	@EventHandler
