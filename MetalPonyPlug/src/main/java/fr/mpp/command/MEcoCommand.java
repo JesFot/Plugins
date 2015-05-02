@@ -29,7 +29,7 @@ public class MEcoCommand implements CommandExecutor
 			{
 				p = true;
 				player = (Player)sender;
-				if(!mpp.getPerm().getPerm(player, "economy"))
+				if(!player.hasPermission("all"))
 				{
 					sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
 					return true;
@@ -39,10 +39,15 @@ public class MEcoCommand implements CommandExecutor
 			{
 				double dble = Double.valueOf(args[1]);
 				Player cible;
-				if(args[2] != null)
+				if(args.length >= 3)
 				{
 					String pname = args[2];
 					cible = MPlayer.getPlayerByName(pname);
+					if (cible == null)
+					{
+						sender.sendMessage("Design a connected player please.");
+						return true;
+					}
 				}
 				else if(p)
 				{

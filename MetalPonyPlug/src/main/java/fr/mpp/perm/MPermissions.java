@@ -1,8 +1,6 @@
 package fr.mpp.perm;
 
 import java.util.HashMap;
-import java.util.UUID;
-
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -12,9 +10,9 @@ import fr.mpp.MetalPonyPlug;
 
 public class MPermissions
 {
-	PermissionAttachment attachment;
-	static MetalPonyPlug mpp;
-	HashMap<UUID, PermissionAttachment> hMap;
+	protected PermissionAttachment attachment;
+	private static MetalPonyPlug mpp;
+	protected HashMap<String, PermissionAttachment> hMap;
 
 	/*  #mpp.reload: op
 	  #mpp.timings: false
@@ -46,45 +44,45 @@ public class MPermissions
 	
 	public PermissionAttachment addAttachment(Player player)
 	{
-		if (this.hMap.containsKey(player.getUniqueId()))
+		if (this.hMap.containsKey(player.getName()))
 		{
-			return this.hMap.get(player.getUniqueId());
+			return this.hMap.get(player.getName());
 		}
 		PermissionAttachment tmp = player.addAttachment(mpp.getPlugin());
-		this.hMap.put(player.getUniqueId(), tmp);
+		this.hMap.put(player.getName(), tmp);
 		return tmp;
 	}
 	public void removeAttachment(Player player)
 	{
-		if (!this.hMap.containsKey(player.getUniqueId()))
+		if (!this.hMap.containsKey(player.getName()))
 		{
 			return;
 		}
-		PermissionAttachment tmp = this.hMap.get(player.getUniqueId());
+		PermissionAttachment tmp = this.hMap.get(player.getName());
 		player.removeAttachment(tmp);
-		this.hMap.remove(player.getUniqueId());
+		this.hMap.remove(player.getName());
 	}
 	
 	public PermissionAttachment getAttachment(Player player)
 	{
-		return hMap.get(player.getUniqueId());
+		return hMap.get(player.getName());
 	}
 	public void setPerm(Player player, String name, boolean value)
 	{
-		if (this.hMap.containsKey(player.getUniqueId()))
+		if (this.hMap.containsKey(player.getName()))
 		{
-			this.hMap.get(player.getUniqueId()).setPermission(name, value);
+			this.hMap.get(player.getName()).setPermission(name, value);
 		}
 		else
 		{
-			this.hMap.put(player.getUniqueId(), new PermissionAttachment(mpp.getPlugin(), player)).setPermission(name, value);
+			this.hMap.put(player.getName(), new PermissionAttachment(mpp.getPlugin(), player)).setPermission(name, value);
 		}
 	}
 	public void setPerm(Player player, Permission perm, boolean value)
 	{
-		if (this.hMap.containsKey(player.getUniqueId()))
+		if (this.hMap.containsKey(player.getName()))
 		{
-			this.hMap.get(player.getUniqueId()).setPermission(perm, value);
+			this.hMap.get(player.getName()).setPermission(perm, value);
 		}
 		else
 		{
@@ -93,26 +91,26 @@ public class MPermissions
 	}
 	public void deletePerm(Player player, String name)
 	{
-		if (this.hMap.containsKey(player.getUniqueId()))
+		if (this.hMap.containsKey(player.getName()))
 		{
-			this.hMap.get(player.getUniqueId()).unsetPermission(name);
+			this.hMap.get(player.getName()).unsetPermission(name);
 		}
 	}
 	public void deletePerm(Player player, Permission perm)
 	{
-		if (this.hMap.containsKey(player.getUniqueId()))
+		if (this.hMap.containsKey(player.getName()))
 		{
-			this.hMap.get(player.getUniqueId()).unsetPermission(perm);
+			this.hMap.get(player.getName()).unsetPermission(perm);
 		}
 	}
 	
 	public boolean getPerm(Player player, String name)
 	{
-		if (this.hMap.get(player.getUniqueId()).getPermissions().get("all"))
+		if (this.hMap.get(player.getName()).getPermissions().get("all"))
 		{
 			return true;
 		}
-		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
+		return this.hMap.get(player.getName()).getPermissions().get(name);
 	}
 	public boolean getPerm(Player player, Permission perm)
 	{

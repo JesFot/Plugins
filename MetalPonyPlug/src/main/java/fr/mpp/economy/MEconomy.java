@@ -25,6 +25,14 @@ public class MEconomy
 	
 	public MPEconomy getEco(Player p_player)
 	{
+		if(p_player == null)
+		{
+			return null;
+		}
+		if(!playerExists(p_player))
+		{
+			addPlayer(p_player);
+		}
 		return this.eco.get(p_player);
 	}
 	
