@@ -57,3 +57,6 @@ commands:
     description: Make an election
     usage: /<command> <start>, /<command> <set> <type>
     aliases: [maire, elecmaire]
+  economy:
+    description: Modify economy system
+    usage: /<command> <set> <money> [player]

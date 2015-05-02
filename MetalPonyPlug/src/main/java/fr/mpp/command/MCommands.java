@@ -38,6 +38,7 @@ public class MCommands
 		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl)); // Set the commun place chest
 		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl)); // Like /tpa of essentials but, ask method change
 		mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
+		mppl.getPlugin().getCommand("economy").setExecutor(new MEcoCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener

@@ -1,0 +1,62 @@
+package fr.mpp.command;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import fr.mpp.MetalPonyPlug;
+import fr.mpp.utils.MPlayer;
+
+public class MEcoCommand implements CommandExecutor
+{
+	private MetalPonyPlug mpp;
+	
+	public MEcoCommand(MetalPonyPlug p_mpp)
+	{
+		this.mpp = p_mpp;
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String aliase, String[] args)
+	{
+		Player player = null;
+		boolean p = false;
+		if (cmd.getName().equalsIgnoreCase("economy"))
+		{
+			if(sender instanceof Player)
+			{
+				p = true;
+				player = (Player)sender;
+				if(!mpp.getPerm().getPerm(player, "economy"))
+				{
+					sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
+					return true;
+				}
+			}
+			if (args[0].equalsIgnoreCase("set"))
+			{
+				double dble = Double.valueOf(args[1]);
+				Player cible;
+				if(args[2] != null)
+				{
+					String pname = args[2];
+					cible = MPlayer.getPlayerByName(pname);
+				}
+				else if(p)
+				{
+					cible = (Player)sender;
+				}
+				else
+				{
+					sender.sendMessage("Give a third argument or be a player please");
+					return true;
+				}
+				this.mpp.getEconomy().getEco(cible).setMoney(dble);
+			}
+			return true;
+		}
+		return false;
+	}
+}

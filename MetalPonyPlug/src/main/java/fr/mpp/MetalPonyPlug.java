@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.mpp.bukkit.BukkitPlugin;
 import fr.mpp.command.MCommands;
 import fr.mpp.config.MConfig;
+import fr.mpp.economy.MEconomy;
 import fr.mpp.perm.MPermissions;
 
 public class MetalPonyPlug
@@ -24,6 +25,7 @@ public class MetalPonyPlug
 	private FileConfiguration conf;
 	private MCommands coms;
 	private MConfig config;
+	private MEconomy economy;
 	private MPermissions perms;
 	private final Server server;
 	private final Logger logger;
@@ -47,6 +49,7 @@ public class MetalPonyPlug
 		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);
 		this.perms = new MPermissions();
+		this.economy = new MEconomy(this);
 		coms.regCommands();
 	}
 	
@@ -115,6 +118,11 @@ public class MetalPonyPlug
 	public MPermissions getPerm()
 	{
 		return perms;
+	}
+	
+	public MEconomy getEconomy()
+	{
+		return economy;
 	}
 	
 	public Server getServer()

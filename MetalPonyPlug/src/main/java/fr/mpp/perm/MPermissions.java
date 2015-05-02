@@ -108,12 +108,16 @@ public class MPermissions
 	
 	public boolean getPerm(Player player, String name)
 	{
+		if (this.hMap.get(player.getUniqueId()).getPermissions().get("all"))
+		{
+			return true;
+		}
 		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
 	}
 	public boolean getPerm(Player player, Permission perm)
 	{
 		String name = perm.getName();
-		return this.hMap.get(player.getUniqueId()).getPermissions().get(name);
+		return getPerm(player, name);
 	}
 	
 	public class MPerm

