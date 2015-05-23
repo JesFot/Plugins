@@ -19,6 +19,10 @@ public class EcoCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
+		if(label.equalsIgnoreCase("addme"))
+		{
+			//
+		}
 		if(sender instanceof Player)
 		{
 			Player player = (Player)sender;
