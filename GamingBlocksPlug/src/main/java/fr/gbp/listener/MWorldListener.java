@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.gbp.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

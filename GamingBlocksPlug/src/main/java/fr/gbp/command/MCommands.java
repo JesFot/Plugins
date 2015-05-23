@@ -1,27 +1,27 @@
-package fr.mpp.command;
+package fr.gbp.command;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import fr.mpp.MetalPonyPlug;
+import fr.gbp.GamingBlocksPlug;
 
 public class MCommands
 {
-	private final MetalPonyPlug mpp;
+	private final GamingBlocksPlug gbp;
 	
-	public MCommands(MetalPonyPlug metalpp)
+	public MCommands(GamingBlocksPlug gamingbp)
 	{
-		this.mpp = metalpp;
+		this.gbp = gamingbp;
 	}
 	
 	public void regCommands()
 	{
-		this.regCommands(mpp);
+		this.regCommands(gbp);
 	}
 	
-	public void regCommands(MetalPonyPlug mppl)
+	public void regCommands(GamingBlocksPlug gbpl)
 	{
-		mppl.getPlugin().getCommand("testmpp").setExecutor(new TestmppCommand());
+		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestgbpCommand());
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

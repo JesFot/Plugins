@@ -1,4 +1,4 @@
-package fr.mpp.bukkit;
+package fr.gbp.bukkit;
 
 import java.util.logging.Level;
 
@@ -8,28 +8,28 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.mpp.MetalPonyPlug;
-import fr.mpp.listener.*;
-import fr.mpp.RefString;
+import fr.gbp.GamingBlocksPlug;
+import fr.gbp.listener.*;
+import fr.gbp.RefString;
 
 public class BukkitPlugin extends JavaPlugin
 {
-	private MetalPonyPlug mpp;
+	private GamingBlocksPlug gbp;
 	
 	@Override
 	public void onLoad()
 	{
-		MetalPonyPlug.onLoad();
+		GamingBlocksPlug.onLoad();
 	}
 	
 	@Override
 	public void onEnable()
 	{
 		final PluginManager pm = this.getServer().getPluginManager();
-		mpp = new MetalPonyPlug(getServer(), getLogger(), this);
+		gbp = new GamingBlocksPlug(getServer(), getLogger(), this);
 		try
 		{
-			mpp.onEnable();
+			gbp.onEnable();
 		}
 		catch (RuntimeException ex)
 		{
@@ -57,13 +57,13 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return mpp.onCommand(sender, cmd, label, args);
+		return gbp.onCommand(sender, cmd, label, args);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		mpp.onDisable();
+		gbp.onDisable();
 	}
 	
 	public void stopPlugin()
