@@ -1,4 +1,4 @@
-package fr.mpp;
+package fr.gbp;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.mpp.bukkit.BukkitPlugin;
-import fr.mpp.command.MCommands;
+import fr.gbp.bukkit.BukkitPlugin;
+import fr.gbp.command.MCommands;
 
-public class MetalPonyPlug
+public class GamingBlocksPlug
 {
 	private FileConfiguration conf;
 	private MCommands coms;
@@ -20,7 +20,7 @@ public class MetalPonyPlug
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	
-	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
+	public GamingBlocksPlug(Server server, Logger logger, JavaPlugin plugin)
 	{
 		this.server = server;
 		this.plugin = plugin;
