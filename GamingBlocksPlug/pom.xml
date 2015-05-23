@@ -4,7 +4,7 @@
 
   <groupId>gamingblocksplug</groupId>
   <artifactId>GamingBlocksPlug</artifactId>
-  <version>1.0-ALPHA</version>
+  <version>2.5-BETA</version>
   <packaging>jar</packaging>
 
   <name>GamingBlocksPlug</name>

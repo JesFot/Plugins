@@ -1,6 +1,6 @@
 name: GamingBlocksPlug
 main: fr.gbp.bukkit.BukkitPlugin
-version: 1.0 ALPHA
+version: 2.5 BETA
 description: Plugin for GamingBlocks server
 authors: ["JesFot"]
 commands:

@@ -11,11 +11,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.gbp.bukkit.BukkitPlugin;
 import fr.gbp.command.MCommands;
+import fr.gbp.config.MConfig;
+import fr.gbp.economy.Money;
 
 public class GamingBlocksPlug
 {
 	private FileConfiguration conf;
 	private MCommands coms;
+	private MConfig config;
+	private Money money;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -35,12 +39,15 @@ public class GamingBlocksPlug
 	public void onEnable()
 	{
 		this.conf = plugin.getConfig();
+		this.config = new MConfig(conf, this);
 		this.coms = new MCommands(this);
+		this.money = new Money(this);
 		coms.regCommands();
 	}
 	
 	public void onDisable()
 	{
+		this.config.saveCustomConfig();
 		plugin.saveConfig();
 	}
 	
@@ -52,6 +59,21 @@ public class GamingBlocksPlug
 	public List<String> getConfig(String name)
 	{
 		return this.conf.getStringList(name);
+	}
+	
+	public void broad(String msg)
+	{
+		this.server.broadcastMessage(msg);
+	}
+
+	public MConfig getConfig()
+	{
+		return config;
+	}
+	
+	public Money getMoney()
+	{
+		return this.money;
 	}
 	
 	public Server getServer()
