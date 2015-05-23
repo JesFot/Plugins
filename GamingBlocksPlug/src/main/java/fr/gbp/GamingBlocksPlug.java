@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.gbp.bukkit.BukkitPlugin;
 import fr.gbp.command.MCommands;
 import fr.gbp.config.MConfig;
+import fr.gbp.economy.MEconomy;
 import fr.gbp.economy.Money;
 
 public class GamingBlocksPlug
@@ -19,6 +20,7 @@ public class GamingBlocksPlug
 	private FileConfiguration conf;
 	private MCommands coms;
 	private MConfig config;
+	private MEconomy economy;
 	private Money money;
 	private final Server server;
 	private final Logger logger;
@@ -40,7 +42,9 @@ public class GamingBlocksPlug
 	{
 		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
+		this.config.reloadCustomConfig();
 		this.coms = new MCommands(this);
+		this.economy = new MEconomy(this);
 		this.money = new Money(this);
 		coms.regCommands();
 	}
@@ -71,9 +75,14 @@ public class GamingBlocksPlug
 		return config;
 	}
 	
+	public MEconomy getEconomy()
+	{
+		return economy;
+	}
+	
 	public Money getMoney()
 	{
-		return this.money;
+		return money;
 	}
 	
 	public Server getServer()

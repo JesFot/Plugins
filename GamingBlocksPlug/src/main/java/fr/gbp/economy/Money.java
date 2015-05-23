@@ -17,7 +17,7 @@ public class Money
 
 	public double getBasics()
 	{
-		this.gbp.getConfig().reloadCustomConfig();
+		//this.gbp.getConfig().reloadCustomConfig();
 		return this.gbp.getConfig().getCustomConfig().getDouble("economy.basemoney", this.baseMon);
 	}
 }

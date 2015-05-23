@@ -38,16 +38,18 @@ public class MConfig
 		}
 		this.customConfig = YamlConfiguration.loadConfiguration(this.customConfigFile);
 
-		Reader defConfigStream = null;
+		Reader defConfigStream = new InputStreamReader(null);
+		@SuppressWarnings("resource")
+		Reader r2d2 = new InputStreamReader(null);
 		try
 		{
 			defConfigStream = new InputStreamReader(this.gbp.getPlugin().getResource("gbpConfig.yml"), "UTF8");
 		}
 		catch (UnsupportedEncodingException e)
-		{
+		{this.gbp.broad("Unsuported format !");
 			e.printStackTrace();
 		}
-		if (defConfigStream != null)
+		if (defConfigStream != r2d2)
 		{
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
 			this.customConfig.setDefaults(defConfig);
