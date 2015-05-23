@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>metalponyplug</groupId>
-  <artifactId>MetalPonyPlug</artifactId>
+  <groupId>gamingblocksplug</groupId>
+  <artifactId>GamingBlocksPlug</artifactId>
   <version>1.0-ALPHA</version>
   <packaging>jar</packaging>
 
-  <name>MetalPonyPlug</name>
+  <name>GamingBlocksPlug</name>
   <url>http://maven.apache.org</url>
   
   <build>
