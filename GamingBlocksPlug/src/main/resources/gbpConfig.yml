@@ -1,0 +1,33 @@
+mpp:
+  rank:
+    statut:
+      jesfot: Prince
+    hab:
+      jesfot: Noobie
+      jesfot2: Noobie
+      overmind: Noobie
+    main:
+      jesfot: Noobie
+      jesfot2: Noobie
+      overmind: Noobie
+  origchest:
+    location: holy2 , 372.0 , 83.0 , -25.0 , 0.0 , 0.0
+  vote:
+    present:
+    - jesfot
+    onair:
+      jesfot: 1
+mppbase:
+  registered:
+    jesfot: true
+    jesfot2: true
+    overmind: true
+  logtimes:
+    jesfot: 49
+    jesfot2: 6
+    overmind: 1
+mpphome:
+  jesfot: holy2 , -239.28092446388536 , 127.0 , 106.20461069243417 , 42.450005 , 184.4997
+eco:
+  money:
+    jesfot: 1000.0

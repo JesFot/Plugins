@@ -38,9 +38,8 @@ public class MConfig
 		}
 		this.customConfig = YamlConfiguration.loadConfiguration(this.customConfigFile);
 
-		Reader defConfigStream = new InputStreamReader(null);
-		@SuppressWarnings("resource")
-		Reader r2d2 = new InputStreamReader(null);
+		Reader defConfigStream = null;
+		Reader r2d2 = null;
 		try
 		{
 			defConfigStream = new InputStreamReader(this.gbp.getPlugin().getResource("gbpConfig.yml"), "UTF8");

@@ -20,6 +20,7 @@ public class PEconomy
 		this.pnamelc = this.player.getName().toLowerCase();
 		this.money = this.gbp.getMoney().getBasics();
 		this.config = this.gbp.getConfig();
+		this.storeMoney();
 	}
 	
 	public double getBalance()
@@ -27,13 +28,13 @@ public class PEconomy
 		return this.money;
 	}
 	
-	public void storeMoney(Player player)
+	public void storeMoney()
 	{
 		this.config.getCustomConfig().set("economy."+this.pnamelc+".balance", this.money);
 		this.config.saveCustomConfig();
 	}
 	
-	public double getStoredMoney(Player player)
+	public double getStoredMoney()
 	{
 		this.config.reloadCustomConfig();
 		this.money = this.config.getCustomConfig().getDouble("economy."+this.pnamelc+".balance");
