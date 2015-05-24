@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,6 +47,10 @@ public class GamingBlocksPlug
 		this.coms = new MCommands(this);
 		this.economy = new MEconomy(this);
 		this.money = new Money(this);
+		for(World w : this.server.getWorlds())
+		{
+			w.setAutoSave(true);
+		}
 		coms.regCommands();
 	}
 	

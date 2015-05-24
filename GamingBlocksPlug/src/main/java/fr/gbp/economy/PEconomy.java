@@ -40,6 +40,12 @@ public class PEconomy
 		this.storeMoney();
 	}
 	
+	public void add(double p_money)
+	{
+		this.money += p_money;
+		this.storeMoney();
+	}
+	
 	public void storeMoney()
 	{
 		this.config.getCustomConfig().set("economy."+this.pnamelc+".balance", this.money);

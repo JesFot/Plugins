@@ -62,4 +62,10 @@ public class MEconomy
 		}
 		return false;
 	}
+
+	public void salary(String type, Player player)
+	{
+		double sal = this.gbp.getMoney().getSalary(type);
+		this.eco.get(player).add(sal);
+	}
 }
