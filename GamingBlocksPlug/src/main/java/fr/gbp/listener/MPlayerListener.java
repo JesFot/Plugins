@@ -18,8 +18,18 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import fr.gbp.GamingBlocksPlug;
+import fr.gbp.utils.ItemInventory;
+
 public class MPlayerListener implements Listener
 {
+	private GamingBlocksPlug gbp;
+	
+	public MPlayerListener(GamingBlocksPlug p_gbp)
+	{
+		this.gbp = p_gbp;
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogin(PlayerLoginEvent event)
 	{
@@ -57,7 +67,7 @@ public class MPlayerListener implements Listener
 		{
 			if(event.getMaterial().equals(Material.DEAD_BUSH))
 			{
-				event.getPlayer().sendMessage("[DEBUG] ok. Right click with dead bush.");
+				ItemInventory.openPlayerInv(event.getPlayer(), this.gbp.getEconomy().getPEco(event.getPlayer()).getInventory());
 				event.setCancelled(true);
 			}
 		}
