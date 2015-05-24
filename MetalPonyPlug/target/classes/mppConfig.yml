@@ -1,0 +1,16 @@
+mpp_null: false
+mpp:
+  aff:
+    rank:
+      jesfot:
+        str: affich
+        id: 3
+      lydia_drew:
+        str: statut
+        id: 3
+      polm:
+        str: main
+        id: 0
+      overmind:
+        str: mask
+        id: 5
