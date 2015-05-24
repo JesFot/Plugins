@@ -53,10 +53,11 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
+		this.gbp.getConfig().reloadCustomConfig();
 		int i = this.gbp.getConfig().getCustomConfig().getInt("salary.time", 0);
 		for(World world : this.gbp.getServer().getWorlds())
 		{
-			if(world.getTime() >= 13000 && i == 0)
+			if(world.getTime() >= 23999 && i == 0)
 			{
 				i = 1;
 				for(Player player : this.gbp.getServer().getOnlinePlayers())
@@ -64,11 +65,12 @@ public class MPlayerListener implements Listener
 					this.gbp.getEconomy().salary("daily", player);
 				}
 			}
-			if(world.getTime() < 13000)
+			if(world.getTime() < 24000)
 			{
 				i = 0;
 			}
 			this.gbp.getConfig().getCustomConfig().set("salary.time", i);
+			this.gbp.getConfig().saveCustomConfig();
 		}
 	}
 
