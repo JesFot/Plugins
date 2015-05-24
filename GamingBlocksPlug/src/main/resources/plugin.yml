@@ -17,3 +17,6 @@ commands:
   toolb:
     description: Give you the bank acces tool
     usage: /<command>
+  gtpa:
+    description: Same as /tpa in Essentials
+    usage: /<command> <player>
