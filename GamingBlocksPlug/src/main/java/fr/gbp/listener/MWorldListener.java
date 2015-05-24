@@ -42,9 +42,11 @@ public class MWorldListener implements Listener
 	{
 		World world = event.getWorld();
 		long day = world.getFullTime()/24000;
+		this.gbp.broad("World saved ! " + world.getName());
 		long lastday = this.gbp.getConfig().getCustomConfig().getLong("worldsave.pay.lastday", 0);
 		if(lastday != day)
 		{
+			this.gbp.broad("lastday!=day !");
 			this.gbp.getConfig().getCustomConfig().set("worldsave.pay.lastday", day);
 			for(Player player : world.getPlayers())
 			{
