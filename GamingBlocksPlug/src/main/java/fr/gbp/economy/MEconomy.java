@@ -66,6 +66,9 @@ public class MEconomy
 	public void salary(String type, Player player)
 	{
 		double sal = this.gbp.getMoney().getSalary(type);
-		this.eco.get(player).add(sal);
+		if(this.playerExists(player))
+		{
+			this.eco.get(player).add(sal);
+		}
 	}
 }
