@@ -70,6 +70,10 @@ public class EcoCommand implements CommandExecutor
 		}
 		else if(label.equalsIgnoreCase("acount"))
 		{
+			if(args.length < 1)
+			{
+				return false;
+			}
 			if(args[0].equalsIgnoreCase("reset"))
 			{
 				return resetAcount(sender, isP);
