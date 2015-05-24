@@ -29,7 +29,10 @@ public class MBlockListener implements Listener
 		if (event.getBlock().getType().equals(Material.EMERALD_ORE))
 		{
 			Block block = (Block)event.getBlock();
-			block.breakNaturally(new ItemStack(Material.DIAMOND, 4));
+			event.setCancelled(true);
+			block.setType(Material.AIR);
+			ItemStack diam = new ItemStack(Material.DIAMOND, 4);
+			block.getLocation().getWorld().dropItem(block.getLocation(), diam);
 			event.setExpToDrop(10);
 		}
 	}
