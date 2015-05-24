@@ -1,6 +1,6 @@
 name: GamingBlocksPlug
 main: fr.gbp.bukkit.BukkitPlugin
-version: 2.5 BETA
+version: 3.6 BETA
 description: Plugin for GamingBlocks server
 authors: ["JesFot"]
 commands:
@@ -11,3 +11,6 @@ commands:
   addme:
     description: Add you to the economy system
     usage: /<command>
+  acount:
+    description: Manage your acount !
+    usage: /<command> <reset>

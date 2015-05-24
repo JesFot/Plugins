@@ -23,6 +23,7 @@ public class MCommands
 	{
 		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestgbpCommand());
 		gbpl.getPlugin().getCommand("addme").setExecutor(new EcoCommand(gbpl));
+		gbpl.getPlugin().getCommand("acount").setExecutor(new EcoCommand(gbpl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

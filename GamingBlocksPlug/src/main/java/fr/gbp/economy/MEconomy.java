@@ -41,6 +41,17 @@ public class MEconomy
 		return this.eco.containsKey(player);
 	}
 	
+	public boolean resetPlayer(Player player)
+	{
+		if(this.playerExists(player))
+		{
+			this.eco.get(player).resetMoney();
+			return true;
+		}
+		this.addPlayer(player);
+		return false;
+	}
+	
 	public boolean removePlayer(Player player)
 	{
 		if(this.playerExists(player))
