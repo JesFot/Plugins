@@ -28,6 +28,11 @@ public class PEconomy
 		return this.money;
 	}
 	
+	public void setBalance(double p_money)
+	{
+		this.money = p_money;
+	}
+	
 	public void storeMoney()
 	{
 		this.config.getCustomConfig().set("economy."+this.pnamelc+".balance", this.money);

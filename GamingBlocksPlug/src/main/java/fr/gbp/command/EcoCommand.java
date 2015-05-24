@@ -59,6 +59,38 @@ public class EcoCommand implements CommandExecutor
 			return true;
 		}
 	}
+	
+	private boolean getBalance(CommandSender sender, boolean isPlayer)
+	{
+		if(!isPlayer)
+		{
+			sender.sendMessage(ChatColor.RED + "You do not have any acount because you are the server. Do ot try again");
+		}
+		else
+		{
+			Player player = (Player)sender;
+			double acount = this.gbp.getEconomy().getPEco(player).getBalance();
+			player.sendMessage("You have " + acount + "$ on your acount.");
+		}
+		return true;
+	}
+	
+	private boolean setBalance(CommandSender sender, boolean isPlayer, String[] args)
+	{
+		if(!isPlayer)
+		{
+			sender.sendMessage(ChatColor.RED + "You do not have any acount because you are the server.");
+		}
+		else
+		{
+			Player player = (Player)sender;
+			double mon = Double.valueOf(args[1]);
+			this.gbp.getEconomy().getPEco(player).setBalance(mon);
+			double actual = this.gbp.getEconomy().getPEco(player).getBalance();
+			player.sendMessage("You have now " + actual + "$ on your acount.");
+		}
+		return true;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -77,6 +109,18 @@ public class EcoCommand implements CommandExecutor
 			if(args[0].equalsIgnoreCase("reset"))
 			{
 				return resetAcount(sender, isP);
+			}
+			else if(args[0].equalsIgnoreCase("get"))
+			{
+				return getBalance(sender, isP);
+			}
+			else if(args[0].equalsIgnoreCase("setb"))
+			{
+				if(args.length < 2)
+				{
+					return false;
+				}
+				return setBalance(sender, isP, args);
 			}
 		}
 		return false;

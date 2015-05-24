@@ -1,8 +1,10 @@
 package fr.gbp.listener;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -48,10 +50,17 @@ public class MPlayerListener implements Listener
 		// Code ...
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onRightClick(PlayerInteractEvent event)
 	{
-		// Code ...
+		if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+		{
+			if(event.getMaterial().equals(Material.DEAD_BUSH))
+			{
+				event.getPlayer().sendMessage("[DEBUG] ok. Right click with dead bush.");
+				event.setCancelled(true);
+			}
+		}
 	}
 	
 	@EventHandler
