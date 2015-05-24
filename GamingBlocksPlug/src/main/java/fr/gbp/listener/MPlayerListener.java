@@ -54,7 +54,7 @@ public class MPlayerListener implements Listener
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
 		this.gbp.getConfig().reloadCustomConfig();
-		int i = this.gbp.getConfig().getCustomConfig().getInt("salary.time", 0);
+		int i = this.gbp.getConfig().getCustomConfig().getInt("salary.time");
 		for(World world : this.gbp.getServer().getWorlds())
 		{
 			if(world.getTime() >= 23999 && i == 0)
