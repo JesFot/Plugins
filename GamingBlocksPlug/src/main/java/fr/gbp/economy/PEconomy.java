@@ -21,7 +21,7 @@ public class PEconomy
 	{
 		this.gbp = p_gbp;
 		this.player = p_player;
-		this.inv = ItemInventory.createItemandInv(Material.EMERALD, 4, "Money", "", "You Bank", 5);
+		this.inv = ItemInventory.createItemandInv(Material.EMERALD, 4, "Money", "", "Your Bank", 5);
 		this.pnamelc = this.player.getName().toLowerCase();
 		this.money = this.gbp.getMoney().getBasics();
 		this.config = this.gbp.getConfig();
