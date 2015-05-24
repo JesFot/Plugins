@@ -1,6 +1,6 @@
 name: GamingBlocksPlug
 main: fr.gbp.bukkit.BukkitPlugin
-version: 3.6 BETA
+version: 4.2
 description: Plugin for GamingBlocks server
 authors: ["JesFot"]
 commands:
@@ -22,7 +22,7 @@ commands:
     usage: /<command> <player>
   bank:
     description: Bank user management command
-    usage: /<command> <pay> <Player>
+    usage: /<command> <pay> <Player> <amount>
   pay:
     description: Pay someone.
-    usage: /<command> <Player>
+    usage: /<command> <Player> <amount>
