@@ -42,9 +42,10 @@ public class Money
 
 	public double getSalary(String type)
 	{
+		this.gbp.getConfig().reloadCustomConfig();
 		if(type == "daily")
 		{
-			return 0.5;
+			return this.gbp.getConfig().getCustomConfig().getDouble("salary.daily", 5.0);
 		}
 		return 0;
 	}
