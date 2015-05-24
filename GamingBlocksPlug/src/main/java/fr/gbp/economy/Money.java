@@ -7,7 +7,7 @@ public class Money
 	private GamingBlocksPlug gbp;
 	
 	protected double emeraldsbyMon = 0.1;
-	protected double baseMon = 1000.0;
+	protected double baseMon = 100.0;
 	protected double monbyEm = 10.0;
 	
 	public Money(GamingBlocksPlug p_gbp)
