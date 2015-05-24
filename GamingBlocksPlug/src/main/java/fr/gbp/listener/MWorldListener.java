@@ -1,7 +1,5 @@
 package fr.gbp.listener;
 
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,15 +12,10 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-import fr.gbp.GamingBlocksPlug;
-
 public class MWorldListener implements Listener
 {
-	private GamingBlocksPlug gbp;
-	
-	public MWorldListener(GamingBlocksPlug p_gbp)
+	public MWorldListener()
 	{
-		this.gbp = p_gbp;
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -40,7 +33,7 @@ public class MWorldListener implements Listener
 	@EventHandler
 	public void onWorldSave(final WorldSaveEvent event)
 	{
-		World world = event.getWorld();
+		/*World world = event.getWorld();
 		long day = world.getFullTime()/24000;
 		this.gbp.broad("World saved ! " + world.getName());
 		long lastday = this.gbp.getConfig().getCustomConfig().getLong("worldsave.pay.lastday", 0);
@@ -52,7 +45,7 @@ public class MWorldListener implements Listener
 			{
 				this.gbp.getEconomy().salary("daily", player);
 			}
-		}
+		}*/
 	}
 
 	@EventHandler
