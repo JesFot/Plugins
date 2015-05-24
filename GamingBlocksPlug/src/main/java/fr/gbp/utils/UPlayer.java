@@ -22,11 +22,11 @@ public class UPlayer
 				pl = player;
 				break;
 			}
-			if (player.getCustomName().equalsIgnoreCase(name))
+			/*if (player.getCustomName().equalsIgnoreCase(name))
 			{
 				pl = player;
 				break;
-			}
+			}*/
 		}
 		return pl;
 	}
