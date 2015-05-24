@@ -1,6 +1,8 @@
 package fr.gbp.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,10 +21,10 @@ public class ItemInventory
 		{
 			meta.setDisplayName(name);
 		}
-		if (lore != "")
+		if (lore != null)
 		{
-			ArrayList<String> Lore = new ArrayList<String>();
-			Lore.add(lore);
+			List<String> Lore = new ArrayList<String>();
+			Lore = Arrays.asList(lore.split("\n"));
 			meta.setLore(Lore);
 		}
 		item.setItemMeta(meta);
