@@ -24,8 +24,9 @@ public class MCommands
 		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestgbpCommand());
 		gbpl.getPlugin().getCommand("addme").setExecutor(new EcoCommand(gbpl));
 		gbpl.getPlugin().getCommand("acount").setExecutor(new EcoCommand(gbpl));
-		//gbpl.getPlugin().getCommand("bank").setExecutor(new BankCommand());
-		gbpl.getPlugin().getCommand("toolb").setExecutor(new BankCommand());
+		gbpl.getPlugin().getCommand("pay").setExecutor(new BankCommand(gbpl));
+		gbpl.getPlugin().getCommand("bank").setExecutor(new BankCommand(gbpl));
+		gbpl.getPlugin().getCommand("toolb").setExecutor(new BankCommand(gbpl));
 		gbpl.getPlugin().getCommand("gtpa").setExecutor(new TpaCommand(gbpl));
 	}
 	
