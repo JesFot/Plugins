@@ -33,7 +33,7 @@ public class TpaCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if (!label.equalsIgnoreCase("mtpa"))
+		if (!label.equalsIgnoreCase("gtpa"))
 		{
 			return false;
 		}
