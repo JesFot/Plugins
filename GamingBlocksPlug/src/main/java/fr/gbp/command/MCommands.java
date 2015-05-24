@@ -26,6 +26,7 @@ public class MCommands
 		gbpl.getPlugin().getCommand("acount").setExecutor(new EcoCommand(gbpl));
 		//gbpl.getPlugin().getCommand("bank").setExecutor(new BankCommand());
 		gbpl.getPlugin().getCommand("toolb").setExecutor(new BankCommand());
+		gbpl.getPlugin().getCommand("gtpa").setExecutor(new TpaCommand(gbpl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
