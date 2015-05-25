@@ -27,7 +27,7 @@ public class TpaCommand implements CommandExecutor
 	public TpaCommand(GamingBlocksPlug gbp)
 	{
 		this.gbp = gbp;
-		this.usageMessage = "/mtpa [player] <target>";
+		this.usageMessage = "/gtpa [player] <target>";
 	}
 	
 	@Override

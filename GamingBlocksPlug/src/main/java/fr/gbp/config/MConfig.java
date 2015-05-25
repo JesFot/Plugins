@@ -184,6 +184,7 @@ public class MConfig
 		{
 			if(i == null)
 			{
+				this.customConfig.set(containsPath+".i"+nb, null);
 				nb++;
 				continue;
 			}
@@ -195,11 +196,14 @@ public class MConfig
 			//i.getItemMeta(); //lore + display name
 			String dn = i.getItemMeta().getDisplayName();
 			String lo = "";
-			for(String str : i.getItemMeta().getLore())
+			if(i.getItemMeta().getLore() != null)
 			{
-				lo += str + " &? ";
+				for(String str : i.getItemMeta().getLore())
+				{
+					lo += str + " &? ";
+				}
+				lo = lo.substring(0, lo.length()-4);
 			}
-			lo = lo.substring(0, lo.length()-1);
 			String all = sl +" , "+ m +" , "+ a +" , "+ d +" , "+ s + " , "+ dn +" , "+lo;
 			this.customConfig.set(containsPath+".i"+nb, all);
 			if(!this.customConfig.contains(containsPath+".i"+nb))
@@ -254,13 +258,25 @@ public class MConfig
 		}
 		for(int i=0; i<slots; i++)
 		{
+			if(!this.customConfig.contains(name+".con.i"+(i+1)))
+			{
+				continue;
+			}
 			String data = this.customConfig.getString(name+".con.i"+(i+1));
-			String datas[] = data.split(" , ");
+			String[] datas = data.split(" , ");
 			String[] lore = datas[datas.length-1].split(" &? ");
-			String Lore = null;
+			String Lore = "";
 			for (String str : lore)
 			{
 				Lore += str + "\n";
+			}
+			if(Lore.equalsIgnoreCase("\n") || Lore.equalsIgnoreCase("null\n") || Lore.equalsIgnoreCase("null\nnull") || Lore.equals(datas[5]+"\n"))
+			{
+				Lore = null;
+			}
+			if(datas[5].equalsIgnoreCase("null"))
+			{
+				datas[5] = (new ItemStack(Material.valueOf(datas[1]))).getItemMeta().getDisplayName();
 			}
 			ItemStack itemi = ItemInventory.createItem(Material.valueOf(datas[1]), datas[5], Lore);
 			itemi.setAmount(Integer.parseInt(datas[2]));
