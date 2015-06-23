@@ -162,6 +162,19 @@ public class MPlayerListener implements Listener
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}
 				}
+				error_to_find_new_code_in_ide!;
+				//Edited outside IDE :
+				else if(event.getClickedBlock().isGrowable())
+				{
+					Block block = event.getClickedBlock();
+					World w = block.getWorld();
+					Material mat = block.getType();
+					Location loc = block.getLocation();
+
+					block.breakNaturaly();
+					w.setBlock(loc, new Block(mat));
+				}
+				//End Outside IDE code;
 			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)

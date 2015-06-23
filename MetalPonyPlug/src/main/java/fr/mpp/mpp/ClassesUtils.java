@@ -181,6 +181,10 @@ public class ClassesUtils
 	{
 		RankLevel rl = getRankLevel(name, player.getName().toLowerCase());
 		Classes clT = getClasseByName(name);
+		if(!clT.getClasse().hasNextRank())
+		{
+			return false;
+		}
 		Classes nCl = clT.getClasse().getNextRank();
 		mco.getCustomConfig().set("mpp.rank."+rl.getName()+"."+player.getName().toLowerCase(), nCl.getAppel());
 		mco.saveCustomConfig();
