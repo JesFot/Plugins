@@ -129,6 +129,7 @@ public class MPlayerListener implements Listener
 		// Code ...
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
@@ -162,19 +163,15 @@ public class MPlayerListener implements Listener
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}
 				}
-				error_to_find_new_code_in_ide!;
-				//Edited outside IDE :
-				else if(event.getClickedBlock().isGrowable())
+				else if(event.getClickedBlock().getType().equals(Material.CROPS))
 				{
 					Block block = event.getClickedBlock();
-					World w = block.getWorld();
-					Material mat = block.getType();
 					Location loc = block.getLocation();
 
-					block.breakNaturaly();
-					w.setBlock(loc, new Block(mat));
+					block.breakNaturally();
+					loc.getWorld().getBlockAt(loc).setType(Material.CROPS);
+					loc.getWorld().getBlockAt(loc).setData(block.getData());
 				}
-				//End Outside IDE code;
 			}
 		}
 		else if (action == leftClickAir || action == leftClickBlock)
