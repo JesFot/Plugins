@@ -130,7 +130,8 @@ public class MPlayerListener implements Listener
 	{
 		// Code ...
 	}
-	
+
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
@@ -147,6 +148,7 @@ public class MPlayerListener implements Listener
 				if (event.getItem().getType().equals(Material.ARROW))
 				{
 					Player player = event.getPlayer();
+					this.cs.setCInv(this.confS.getInventory("mpp.origchest.inv"));
 					player.openInventory(this.cs.getCInv());
 				}
 			}
@@ -174,13 +176,14 @@ public class MPlayerListener implements Listener
 					{
 						Block block = event.getClickedBlock();
 						Location loc = block.getLocation();
-						@SuppressWarnings("deprecation")
 						boolean cr = CropState.getByData(block.getData()).equals(CropState.RIPE);
 						
 						if(cr)
 						{
+							Material m = block.getType();
 							block.breakNaturally();
-							loc.getWorld().getBlockAt(loc).setType(event.getClickedBlock().getType());
+							loc.getWorld().getBlockAt(loc).setType(m);
+							//loc.getWorld().getBlockAt(loc).setData(block.getData());
 						}
 					}
 				}

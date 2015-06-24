@@ -9,10 +9,14 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.utils.ItemInventory;
 
 public class MConfig
 {
@@ -156,6 +160,135 @@ public class MConfig
 			this.saveCustomConfig();
 			return null;
 		}
+	}
+	
+	/**
+	 * This will register in the save data config an inventory
+	 * 
+	 * @param name - The name of the inventory
+	 * @param inv - The inventory to store
+	 */
+	public void storeInventory(String name, Inventory inv)
+	{
+		name = name.toLowerCase();
+		String invpath = name + ".inv";
+		String containsPath = name + ".con";
+		
+		name = inv.getName();
+		int lines = inv.getSize()/9;
+		
+		String minv = name +" , "+ lines;
+		this.customConfig.set(invpath, minv);
+
+		int nb = 1;
+		for(ItemStack i : inv.getContents())
+		{
+			if(i == null)
+			{
+				this.customConfig.set(containsPath+".i"+nb, null);
+				nb++;
+				continue;
+			}
+			int sl = inv.first(i);
+			int a = i.getAmount();
+			short d = i.getDurability();
+			String m = i.getType().toString();
+			int s = i.getMaxStackSize(); // not util
+			//i.getItemMeta(); //lore + display name
+			String dn = i.getItemMeta().getDisplayName();
+			String lo = "";
+			if(i.getItemMeta().getLore() != null)
+			{
+				for(String str : i.getItemMeta().getLore())
+				{
+					lo += str + " &? ";
+				}
+				lo = lo.substring(0, lo.length()-4);
+			}
+			String all = sl +" , "+ m +" , "+ a +" , "+ d +" , "+ s + " , "+ dn +" , "+lo;
+			this.customConfig.set(containsPath+".i"+nb, all);
+			if(!this.customConfig.contains(containsPath+".i"+nb))
+			{
+				this.customConfig.createSection(containsPath+".i"+nb);
+			}
+			this.customConfig.set(containsPath+".i"+nb, all);
+			nb++;
+		}
+		if(!this.customConfig.contains(invpath))
+		{
+			this.customConfig.createSection(invpath);
+		}
+		this.customConfig.set(invpath, minv);
+		this.saveCustomConfig();
+	}
+	//example:
+	//Inventory inv = ItemInventory.createItemandInv(Material.APPLE, 0, "still", "lorem ipsum\nme re", "invName", 3);
+	//ItemInventory.createIteminInv(Material.BONE, inv, 3, "alive", "dolor sit amet\nvoila");
+	//inv.getItem(3).setAmount(5);
+	//this.config.storeInventory("test.inv.un", inv);
+	
+	/**
+	 * This will return you a stored inventory, registered before by {@code} storeInventory(name, inv) {@code}
+	 * 
+	 * @param name - The name of the inventory
+	 * @return The inventory requested if exists
+	 */
+	public Inventory getInventory(String name)
+	{
+		boolean invOnly = false;
+		name = name.toLowerCase();
+		this.reloadCustomConfig();
+		String keyinv = this.getCustomConfig().getString(name+".inv");
+		if (keyinv == null || keyinv == "")
+		{
+			this.mpp.getLogger().log(Level.WARNING, "[MConfig:243] KeyInv is null");
+			return null;
+		}
+		String keycon= this.getCustomConfig().getString(name+".con");
+		if (keycon == null || keycon == "")
+		{
+			this.mpp.getLogger().log(Level.INFO, "[MConfig:249] KeyContents is null");
+			invOnly = true;
+		}
+		String invInfos[] = keyinv.split(" , ");
+		int slots = Integer.parseInt(invInfos[1])*9;
+		Inventory inv = ItemInventory.createInventory(invInfos[0], Integer.parseInt(invInfos[1]));
+		if(invOnly)
+		{
+			return inv;
+		}
+		for(int i=0; i<slots; i++)
+		{
+			if(!this.customConfig.contains(name+".con.i"+(i+1)))
+			{
+				continue;
+			}
+			String data = this.customConfig.getString(name+".con.i"+(i+1));
+			String[] datas = data.split(" , ");
+			String[] lore = datas[datas.length-1].split(" &? ");
+			String Lore = "";
+			for (String str : lore)
+			{
+				Lore += str + "\n";
+			}
+			if(Lore.equalsIgnoreCase("\n") || Lore.equalsIgnoreCase("null\n") || Lore.equalsIgnoreCase("null\nnull") || Lore.equals(datas[5]+"\n"))
+			{
+				Lore = null;
+			}
+			if(datas[5].equalsIgnoreCase("null"))
+			{
+				datas[5] = (new ItemStack(Material.valueOf(datas[1]))).getItemMeta().getDisplayName();
+			}
+			ItemStack itemi = ItemInventory.createItem(Material.valueOf(datas[1]), datas[5], Lore);
+			itemi.setAmount(Integer.parseInt(datas[2]));
+			itemi.setDurability(Short.parseShort(datas[3]));
+			if(i != Integer.parseInt(datas[0]))
+			{
+				//
+			}
+			ItemInventory.addItemtoInventory(itemi, inv, i);
+		}
+		return inv;
 	}
 	
 	public boolean getMppActive()

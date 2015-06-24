@@ -62,11 +62,13 @@ public class BukkitPlugin extends JavaPlugin
 		final MBlockListener blockListener = new MBlockListener();
 		final MEntityListener entityListener = new MEntityListener();
 		final MPlayerListener playerListener = new MPlayerListener(this.mpp);
+		final MInventoryListener inventoryListener = new MInventoryListener(this.mpp);
 		
 		pm.registerEvents(pluginListener, this);
 		pm.registerEvents(blockListener, this);
 		pm.registerEvents(entityListener, this);
 		pm.registerEvents(playerListener, this);
+		pm.registerEvents(inventoryListener, this);
 	}
 	
 	@Override
