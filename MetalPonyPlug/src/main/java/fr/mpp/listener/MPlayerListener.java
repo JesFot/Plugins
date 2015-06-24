@@ -180,7 +180,7 @@ public class MPlayerListener implements Listener
 						if(cr)
 						{
 							block.breakNaturally();
-							loc.getWorld().getBlockAt(loc).setType(Material.CROPS);
+							loc.getWorld().getBlockAt(loc).setType(event.getClickedBlock().getType());
 						}
 					}
 				}
