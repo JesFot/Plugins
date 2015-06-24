@@ -1,6 +1,7 @@
 package fr.mpp.utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -56,5 +57,34 @@ public class ItemInventory
 	public static void openPlayerInv(Player player, Inventory inv)
 	{
 		player.openInventory(inv);
+	}
+	
+	public static boolean isHoe(Material mat)
+	{
+		if(mat.equals(Material.WOOD_HOE)||mat.equals(Material.IRON_HOE)||mat.equals(Material.GOLD_HOE)||mat.equals(Material.DIAMOND_HOE)||mat.equals(Material.STONE_HOE))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isEqual(Material source, List<Material> compare)
+	{
+		if(compare.contains(source))
+		{
+			return true;
+		}
+		return false;
+	}
+	public static boolean isEqual(Material source, Material[] compare)
+	{
+		for(Material m : compare)
+		{
+			if(m.equals(source))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

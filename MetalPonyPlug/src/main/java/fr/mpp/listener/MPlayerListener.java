@@ -3,6 +3,7 @@ package fr.mpp.listener;
 import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
+import org.bukkit.CropState;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -37,6 +38,7 @@ import fr.mpp.mpp.ClassesUtils;
 import fr.mpp.mpp.ComunSys;
 import fr.mpp.mpp.MHalfBedSys;
 import fr.mpp.mpp.RankLevel;
+import fr.mpp.utils.ItemInventory;
 import fr.mpp.utils.Locate;
 
 public class MPlayerListener implements Listener
@@ -129,7 +131,6 @@ public class MPlayerListener implements Listener
 		// Code ...
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerClick(PlayerInteractEvent event)
 	{
@@ -163,14 +164,25 @@ public class MPlayerListener implements Listener
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}
 				}
-				else if(event.getClickedBlock().getType().equals(Material.CROPS))
+				else if(ItemInventory.isEqual(event.getClickedBlock().getType(), new Material[]{Material.CROPS, Material.CARROT, Material.POTATO}))
 				{
-					Block block = event.getClickedBlock();
-					Location loc = block.getLocation();
-
-					block.breakNaturally();
-					loc.getWorld().getBlockAt(loc).setType(Material.CROPS);
-					loc.getWorld().getBlockAt(loc).setData(block.getData());
+					if(!event.hasItem())
+					{
+						//
+					}
+					else if(ItemInventory.isHoe(event.getItem().getType()))
+					{
+						Block block = event.getClickedBlock();
+						Location loc = block.getLocation();
+						@SuppressWarnings("deprecation")
+						boolean cr = CropState.getByData(block.getData()).equals(CropState.RIPE);
+						
+						if(cr)
+						{
+							block.breakNaturally();
+							loc.getWorld().getBlockAt(loc).setType(Material.CROPS);
+						}
+					}
 				}
 			}
 		}
