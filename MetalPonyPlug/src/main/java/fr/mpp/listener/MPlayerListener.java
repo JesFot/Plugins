@@ -116,7 +116,7 @@ public class MPlayerListener implements Listener
 		if(this.confS.getCustomConfig().contains("logmsg") && this.confS.getCustomConfig().getString("logmsg") != null)
 		{
 			String logmsg = this.confS.getCustomConfig().getString("logmsg");
-			String[] logmsgs = logmsg.contains("\n") ? logmsg.split("\n") : new String[]{logmsg};
+			String[] logmsgs = logmsg.split(" n ");
 			//event.getPlayer().sendMessage(ChatColor.GOLD + this.confS.getCustomConfig().getString("logmsg"));
 			for(String str : logmsgs)
 			{

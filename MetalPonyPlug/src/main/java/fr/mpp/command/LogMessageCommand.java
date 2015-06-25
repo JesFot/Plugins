@@ -28,7 +28,19 @@ public class LogMessageCommand implements CommandExecutor
 		if(args.length == 0)
 		{
 			this.mpp.getConfig().reloadCustomConfig();
-			sender.sendMessage(this.mpp.getConfig().getCustomConfig().getString("logmsg", ""));
+			if(this.mpp.getConfig().getCustomConfig().contains("logmsg") && this.mpp.getConfig().getCustomConfig().getString("logmsg") != null)
+			{
+				String logmsg = this.mpp.getConfig().getCustomConfig().getString("logmsg");
+				String[] logmsgs = logmsg.split(" n ");
+				for(String str : logmsgs)
+				{
+					sender.sendMessage(ChatColor.GOLD + str);
+				}
+			}
+			else
+			{
+				sender.sendMessage(ChatColor.BOLD + "No log-message registered");
+			}
 		}
 		else if(args.length >= 2)
 		{
