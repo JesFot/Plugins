@@ -62,3 +62,7 @@ commands:
   economy:
     description: Modify economy system
     usage: /<command> <set> <money> [player]
+  logmessage:
+    description: Show or set the login message
+    usage: /<command> [set <text...>]
+    aliases: [logmsg, lmessage]

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -24,6 +26,8 @@ public class MConfig
 	private FileConfiguration confFile;
 	private FileConfiguration customConfig = null;
 	private File customConfigFile = null;
+	private Map<String, File> configFiles = new HashMap<String, File>();
+	private Map<String, FileConfiguration> configs = new HashMap<String, FileConfiguration>();
 	private static final int x = 0, y = 0, z = -1;
 
 	public MConfig(FileConfiguration file, MetalPonyPlug p_mpp)
@@ -343,5 +347,70 @@ public class MConfig
 	public static int getMinBZ()
 	{
 		return getMinZ()-z;
+	}
+	
+	/**
+	 * This will reload the 'save' file.
+	 */
+	public void reloadAConfig(String name)
+	{
+		if (!this.configFiles.containsKey(name))
+		{
+			this.configFiles.put(name, new File(this.mpp.getPlugin().getDataFolder(), name));
+		}
+		this.configs.put(name, YamlConfiguration.loadConfiguration(this.configFiles.get(name)));
+
+		Reader defConfigStream = null;
+		try
+		{
+			defConfigStream = new InputStreamReader(this.mpp.getPlugin().getResource(name), "UTF8");
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		if (defConfigStream != null)
+		{
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			this.configs.get(name).setDefaults(defConfig);
+		}
+	}
+	/**
+	 * 
+	 * @return the save configuration file.
+	 */
+	public FileConfiguration getAConfig(String name)
+	{
+	    if (!this.configs.containsKey(name))
+	    {
+	        this.reloadAConfig(name);
+	    }
+	    return this.configs.get(name);
+	}
+	public void saveAConfig(String name)
+	{
+		if (!this.configs.containsKey(name) || !this.configFiles.containsKey(name))
+		{
+			return;
+		}
+		try
+		{
+			this.getAConfig(name).save(this.configFiles.get(name));
+		}
+		catch (IOException ex)
+		{
+			this.mpp.getLogger().log(Level.SEVERE, "Could not save config to " + this.configFiles.get(name), ex);
+		}
+	}
+	public void saveADefaultConfig(String name)
+	{
+		if (!this.configFiles.containsKey(name))
+		{
+			this.configFiles.put(name, new File(this.mpp.getPlugin().getDataFolder(), name));
+		}
+		if (!this.configFiles.get(name).exists())
+		{
+			this.mpp.getPlugin().saveResource(name, false);
+		}
 	}
 }

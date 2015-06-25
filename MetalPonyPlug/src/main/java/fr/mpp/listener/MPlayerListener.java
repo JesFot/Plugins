@@ -111,6 +111,12 @@ public class MPlayerListener implements Listener
 			event.getPlayer().setDisplayName(Classes.Noobie.getClasse().getDisplayName() + pN);
 		}
 		this.confS.saveCustomConfig();
+		
+		this.confS.reloadCustomConfig();
+		if(this.confS.getCustomConfig().contains("logmsg") && this.confS.getCustomConfig().getString("logmsg") != null)
+		{
+			event.getPlayer().sendMessage(ChatColor.GOLD + this.confS.getCustomConfig().getString("logmsg"));
+		}
 	}
 	
 	@EventHandler
