@@ -1,0 +1,13 @@
+Changes:
+ - Added changelog file
+ - Added /logmessage (/logmsg | /lmessage) to set or see the login message
+ - Added /h and /home as aliases of /mhome
+ - Added /tpa as aliase of /mtpa
+ - Added multiple home ex: '/h set' or '/h city set' and '/h' or '/h city' to be teleported
+ 
+ - Update : now store commun chest
+ 
+ - Removed /election command and election system
+ - Removed /mppsetchest that was not util
+ 
+ - BUGS : commun storage seems buged, items were remove from inventory. On server restart ?
