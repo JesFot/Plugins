@@ -40,6 +40,10 @@ public class LogMessageCommand implements CommandExecutor
 			String msg = "";
 			for(int i = 1; i < args.length; i++)
 			{
+				if(args[i].toLowerCase().startsWith("http"))
+				{
+					args[i] = ChatColor.BLUE + "" + ChatColor.UNDERLINE + args[i] + ChatColor.RESET;
+				}
 				msg += args[i] + " ";
 			}
 			this.mpp.getConfig().getCustomConfig().set("logmsg", msg);

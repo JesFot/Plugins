@@ -115,7 +115,13 @@ public class MPlayerListener implements Listener
 		this.confS.reloadCustomConfig();
 		if(this.confS.getCustomConfig().contains("logmsg") && this.confS.getCustomConfig().getString("logmsg") != null)
 		{
-			event.getPlayer().sendMessage(ChatColor.GOLD + this.confS.getCustomConfig().getString("logmsg"));
+			String logmsg = this.confS.getCustomConfig().getString("logmsg");
+			String[] logmsgs = logmsg.contains("\n") ? logmsg.split("\n") : new String[]{logmsg};
+			//event.getPlayer().sendMessage(ChatColor.GOLD + this.confS.getCustomConfig().getString("logmsg"));
+			for(String str : logmsgs)
+			{
+				event.getPlayer().sendMessage(ChatColor.GOLD + str);
+			}
 		}
 	}
 	
