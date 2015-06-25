@@ -6,6 +6,7 @@ Changes:
  - Added multiple home ex: '/h set' or '/h city set' and '/h' or '/h city' to be teleported
  
  - Update : now store commun chest
+ - Now display the 'logmessage' on login just upper the 'X joined the game'
  
  - Removed /election command and election system
  - Removed /mppsetchest that was not util
