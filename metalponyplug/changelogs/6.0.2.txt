@@ -1,6 +1,6 @@
 Changes:
  - Added changelog file
- - Added /logmessage (/logmsg | /lmessage) to set or see the login message
+ - Added /logmessage (/logmsg | /lmessage) to set or see the login message (view link *)
  - Added /h and /home as aliases of /mhome
  - Added /tpa as aliase of /mtpa
  - Added multiple home ex: '/h set' or '/h city set' and '/h' or '/h city' to be teleported
@@ -12,3 +12,6 @@ Changes:
  - Removed /mppsetchest that was not util
  
  - BUGS : commun storage seems buged, items were remove from inventory. On server restart ?
+
+
+*https://raw.githubusercontent.com/JesFot/Plugins/master/metalponyplug/usages/logmessage.txt
