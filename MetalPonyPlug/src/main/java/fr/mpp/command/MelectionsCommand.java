@@ -1,41 +1,25 @@
 package fr.mpp.command;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.conversations.Conversation;
-import org.bukkit.conversations.ConversationAbandonedEvent;
-import org.bukkit.conversations.ConversationAbandonedListener;
-import org.bukkit.conversations.ConversationContext;
-import org.bukkit.conversations.ConversationFactory;
-import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
-import fr.mpp.utils.ElecPrompt;
 
 public class MelectionsCommand implements CommandExecutor
 {
 	private String usageMessage;
 	private MetalPonyPlug mpp;
 	public String statu;
-	private MelectionsCommand tis;
+	//private MelectionsCommand tis;
 	
 	public MelectionsCommand(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
-		this.tis = this;
-		this.usageMessage = "Usage : /election <start> or /election <set> <type>";
-		this.statu = "maire";
+		//this.tis = this;
+		this.usageMessage = "Usage : /election <start>";
 	}
 	
 	public MetalPonyPlug getMpp()
@@ -43,7 +27,7 @@ public class MelectionsCommand implements CommandExecutor
 		return this.mpp;
 	}
 	
-	public class Datas
+	/*public class Datas
 	{
 		private String statut;
 		public List<Player> players;
@@ -133,11 +117,11 @@ public class MelectionsCommand implements CommandExecutor
 			if (this.presented.get(cible))
     		{
     			this.votes.replace(source, cible);
-    			context.setSessionData("data", "A voté !");
+    			source.sendRawMessage("A voté !");
     		}
     		else
     		{
-    			context.setSessionData("data", "Vous ne pouvez pas voter pour cette personne.");
+    			source.sendRawMessage("Vous ne pouvez pas voter pour cette personne.");
     		}
 			if (this.votesN >= this.playersN)
 			{
@@ -152,7 +136,7 @@ public class MelectionsCommand implements CommandExecutor
 	public Datas getDat()
 	{
 		return this.dat;
-	}
+	}*/
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args)
@@ -161,10 +145,9 @@ public class MelectionsCommand implements CommandExecutor
 		{
 			return false;
 		}
-		if (sender instanceof Player){}
-		else
+		if (!(sender instanceof Player))
 		{
-			sender.sendMessage("You must be a player...");
+			sender.sendMessage(ChatColor.RED + "You must be a player...");
 			return true;
 		}
 		if (args.length == 1 || args.length == 2){}
@@ -173,29 +156,12 @@ public class MelectionsCommand implements CommandExecutor
 			sender.sendMessage(ChatColor.RED + this.usageMessage);
 			return true;
 		}
-		if (args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("set"))
+		if (args[0].equalsIgnoreCase("start"))
 		{
-			if (args[0].equalsIgnoreCase("set"))
+			if (args.length != 1)
 			{
-				if (args.length == 2)
-				{
-					String type = args[1];
-					this.statu = type;
-				}
-				else
-				{
-					sender.sendMessage(ChatColor.RED + this.usageMessage);
-					return true;
-				}
-			}
-			else
-			{
-				if (args.length == 1){}
-				else
-				{
-					sender.sendMessage(ChatColor.RED + this.usageMessage);
-					return true;
-				}
+				sender.sendMessage(ChatColor.RED + this.usageMessage);
+				return true;
 			}
 		}
 		else
@@ -204,45 +170,46 @@ public class MelectionsCommand implements CommandExecutor
 			return true;
 		}
 		
-		ConversationFactory factory = new ConversationFactory(this.mpp.getPlugin());
+		this.mpp.broad("L'éléction commance pour élire un " + this.statu + "! tapez '/elec help' pour savoir quoi faire.");
+		
+		/*ConversationFactory factory = new ConversationFactory(this.mpp.getPlugin());
 		final Map<Object, Object> hMap = new HashMap<Object, Object>();
 		hMap.put("data", "Chat pour élire un " + this.statu + " ! tapez 'help' pour savoir quoi faire.");
 		hMap.put("player", (Player)sender);
-		hMap.put("times", 0);
-		factory = factory.withFirstPrompt(new ElecPrompt(this)).withPrefix(new ConversationPrefix(){
-			@Override
-			public String getPrefix(ConversationContext context)
-			{
-				return ChatColor.GREEN + "Elections" + ChatColor.RESET + " ";
-			}
-		}).withInitialSessionData(hMap).withLocalEcho(false);
+		hMap.put("times", 0);*/
 		
-		class ConvAL implements ConversationAbandonedListener
+		/*for (Player pl : Bukkit.getOnlinePlayers())
 		{
-			@Override
-			public void conversationAbandoned(ConversationAbandonedEvent event)
+			Conversation convi = factory.withFirstPrompt(new ElecPrompt(this)).withPrefix(new ConversationPrefix()
 			{
-				if (event.gracefulExit())
+				@Override
+				public String getPrefix(ConversationContext context)
 				{
-					//mpp.getLogger().info("graceful exit");
+					return ChatColor.GREEN + "Elections" + ChatColor.RESET + " ";
 				}
-				try
+			}).withInitialSessionData(hMap).withLocalEcho(false).buildConversation(pl);
+			convi.addConversationAbandonedListener(new ConversationAbandonedListener()
+			{
+				@Override
+				public void conversationAbandoned(ConversationAbandonedEvent event)
 				{
-					//mpp.getLogger().info("Canceller" + event.getCanceller().toString());
+					if(event.gracefulExit())
+					{
+						// Code ...
+					}
+					try
+					{
+						// Code ...
+					}
+					catch(NullPointerException n)
+					{
+						// Code ...
+					}
 				}
-				catch (NullPointerException n)
-				{
-					//mpp.getLogger().info("null Canceller");
-				}
-			}
-		}
-		
-		for (Player pl : Bukkit.getOnlinePlayers())
-		{
-			Conversation convi = factory.buildConversation(pl);
-			convi.addConversationAbandonedListener(new ConvAL());
+			});
 			convi.begin();
-		}
+		}*/
+		Command.broadcastCommandMessage(sender, "Started election for a "+this.statu+".");
 		return true;
 	}
 }

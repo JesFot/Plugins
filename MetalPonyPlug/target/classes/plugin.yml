@@ -45,18 +45,20 @@ commands:
     description: Do Not Use IT
     usage: /<command>
   mhome:
-    description: Set or teleport you at home, sweet home :p
-    usage: /<command> [set]
-  mppsetchest:
-    description: Set the chest
-    usage: /<command>
+    description: Set or teleport you at a home, sweet home :p
+    usage: /<command> [homeName] [set]
+    aliases: [home, h]
+  #mppsetchest:
+    #description: Set the chest
+    #usage: /<command>
   mtpa:
     description: Tpa
     usage: /<command> [player] <target>
-  election:
-    description: Make an election
-    usage: /<command> <start>, /<command> <set> <type>
-    aliases: [maire, elecmaire]
+    aliases: [tpa]
+  #election:
+    #description: Make an election
+    #usage: /<command> <start>, /<command> <set> <type>
+    #aliases: [maire, elecmaire]
   economy:
     description: Modify economy system
     usage: /<command> <set> <money> [player]

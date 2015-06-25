@@ -35,9 +35,9 @@ public class MCommands
 		//mppl.getPlugin().getCommand("mpp").setExecutor(new MppCommand(mppl)); // Main command, will add more fonctionalities
 		mppl.getPlugin().getCommand("mpp-off").setExecutor(new MppOffCommand(mppl)); // Switch off the plugin
 		mppl.getPlugin().getCommand("mhome").setExecutor(new MHomeCommand(mppl)); // Like /home of essentials with '/mhome set' to set
-		mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl)); // Set the commun place chest
+		//mppl.getPlugin().getCommand("mppsetchest").setExecutor(new MppChestCommand(mppl)); // Set the commun place chest
 		mppl.getPlugin().getCommand("mtpa").setExecutor(new MtpaCommand(mppl)); // Like /tpa of essentials but, ask method change
-		mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
+		//mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
 		mppl.getPlugin().getCommand("economy").setExecutor(new MEcoCommand(mppl));
 	}
 	

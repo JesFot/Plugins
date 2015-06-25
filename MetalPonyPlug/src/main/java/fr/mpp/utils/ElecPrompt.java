@@ -1,42 +1,36 @@
 package fr.mpp.utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
 import org.bukkit.entity.Player;
 
 import fr.mpp.command.MelectionsCommand;
-import fr.mpp.command.MelectionsCommand.Datas;
-import fr.mpp.mpp.Classes;
-import fr.mpp.mpp.ClassesUtils;
-import fr.mpp.mpp.RankLevel;
 
 public class ElecPrompt extends ValidatingPrompt
 {
-	private MelectionsCommand parent;
-	private Datas dat;
+	/*private MelectionsCommand parent;
+	//private Datas dat;*/
 	
 	public ElecPrompt(MelectionsCommand melec)
 	{
-		this.parent = melec;
-		this.dat = this.parent.getDat();
+		//this.parent = melec;
+		//this.dat = this.parent.getDat();
 	}
  
     @Override
     public String getPromptText(ConversationContext context)
     {
-    	String tmp2 = "[" + ((Player)context.getSessionData("player")).getName() + "] Vote Session: " + context.getSessionData("data");
+    	String tmp2 = "[" + ((Player)context.getForWhom()).getName() + "] Vote Session: " + context.getSessionData("data");
     	return tmp2;
     }
  
     @Override
     protected Prompt acceptValidatedInput(ConversationContext context, String in)
     {
-    	Player test = (Player)context.getForWhom();
+    	/*Player test = (Player)context.getForWhom();
     	
     	String[] args = {""};
-    	boolean end = false;
     	if (!in.contains(" "))
     	{
     		args[0] = in;
@@ -52,18 +46,18 @@ public class ElecPrompt extends ValidatingPrompt
         }
         else if (args[0].equalsIgnoreCase("startmsg"))
         {
-        	context.setSessionData("data", this.dat.msgsC.get("msgStart"));
+        	//context.setSessionData("data", this.dat.msgsC.get("msgStart"));
+        	test.sendRawMessage(this.dat.msgsC.get("msgStart"));
         }
         else if (args[0].equalsIgnoreCase("vote"))
         {
         	if (args.length == 2)
         	{
         		Player pl = MPlayer.getPlayerByName(args[1]);
-        		end = this.dat.vote(test, pl, context);
-        		if (end)
+        		if (this.dat.vote(test, pl, context))
         		{
         			Player plW = this.dat.getWiner();
-        			plW.sendMessage("Vous devenez " + this.parent.statu + " !!");
+        			plW.sendRawMessage("Vous devenez " + this.parent.statu + " !!");
         			ClassesUtils cu = new ClassesUtils(this.parent.getMpp().getConfig());
         			Classes before = cu.getRank(plW, RankLevel.STATUT);
         			if (before == Classes.Default)
@@ -75,6 +69,7 @@ public class ElecPrompt extends ValidatingPrompt
         				plW.setCustomName(Classes.Maire.getClasse().getDisplayName() + plW.getCustomName());
         				plW.setPlayerListName(ChatColor.DARK_BLUE + plW.getPlayerListName());
         			}
+                	return END_OF_CONVERSATION;
         		}
         	}
         }
@@ -92,20 +87,15 @@ public class ElecPrompt extends ValidatingPrompt
         }
         else if (args[0].equalsIgnoreCase("exit"))
         {
-        	end = true;
-        }
-        
-        if (end)
-        {
         	return END_OF_CONVERSATION;
-        }
+        }*/
 		return this;
     }
  
     @Override
     protected boolean isInputValid(ConversationContext context, String in)
     {
-        return true;
+        return false;
     }
  
 }

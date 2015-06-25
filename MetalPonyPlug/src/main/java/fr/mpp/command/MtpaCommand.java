@@ -33,7 +33,8 @@ public class MtpaCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if (!label.equalsIgnoreCase("mtpa"))
+		this.usageMessage = "/"+label+" [player] <target>";
+		if (!cmd.getName().equalsIgnoreCase("mtpa"))
 		{
 			return false;
 		}
