@@ -178,7 +178,7 @@ public class MPlayerListener implements Listener
 						event.getPlayer().openInventory(this.cs.getCInv());
 					}
 				}
-				else if(ItemInventory.isEqual(event.getClickedBlock().getType(), new Material[]{Material.CROPS, Material.CARROT, Material.POTATO}))
+				else if(ItemInventory.isEqual(event.getClickedBlock().getType(), new Material[]{Material.CROPS, Material.CARROT, Material.POTATO, Material.NETHER_WARTS}))
 				{
 					if(!event.hasItem())
 					{
@@ -195,7 +195,6 @@ public class MPlayerListener implements Listener
 							Material m = block.getType();
 							block.breakNaturally();
 							loc.getWorld().getBlockAt(loc).setType(m);
-							//loc.getWorld().getBlockAt(loc).setData(block.getData());
 						}
 					}
 				}
