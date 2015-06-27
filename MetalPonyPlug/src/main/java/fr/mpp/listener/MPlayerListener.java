@@ -188,7 +188,8 @@ public class MPlayerListener implements Listener
 					{
 						Block block = event.getClickedBlock();
 						Location loc = block.getLocation();
-						boolean cr = CropState.getByData(block.getData()).equals(CropState.RIPE);
+						boolean cr = block.getType()!=Material.NETHER_WARTS?CropState.getByData(block.getData()).equals(CropState.RIPE):
+							CropState.getByData(block.getData()).equals(CropState.SMALL);
 						
 						if(cr)
 						{
