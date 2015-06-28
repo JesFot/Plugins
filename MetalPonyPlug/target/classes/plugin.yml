@@ -1,6 +1,6 @@
 name: MetalPonyPlug
 main: fr.mpp.bukkit.BukkitPlugin
-version: 6.0.4
+version: 6.0.5
 description: Plugin for PonyMetalCraft server
 authors: ["JesFot"]
 permissions:

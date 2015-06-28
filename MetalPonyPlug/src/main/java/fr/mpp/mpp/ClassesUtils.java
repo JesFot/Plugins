@@ -79,7 +79,7 @@ public class ClassesUtils
 		}
 		for (Classes c : Classes.values())
 		{
-			if (name.equalsIgnoreCase(c.getClasse().getName()))
+			if (name.equalsIgnoreCase(c.getName()))
 			{
 				return c;
 			}
@@ -161,6 +161,7 @@ public class ClassesUtils
 		mco.reloadCustomConfig();
 		mco.getCustomConfig().set("mpp.aff.rank."+player.getName().toLowerCase()+".str", level.getName());
 		mco.getCustomConfig().set("mpp.aff.rank."+player.getName().toLowerCase()+".id", level.getID());
+		player.setDisplayName(this.getRank(player, level).getClasse().getDisplayName() + player.getName());
 		mco.saveCustomConfig();
 	}
 	
