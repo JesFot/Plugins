@@ -2,6 +2,8 @@ package fr.mpp.quests;
 
 public abstract class Quest
 {
+	private String player;
+	
 	private String name;
 	private String shortDescription;
 	private String description;
@@ -10,6 +12,11 @@ public abstract class Quest
 	private int requireLevelMin;
 	
 	private QuestType type = QuestType.NULL;
+	
+	public Quest(String p_player)
+	{
+		this.player = p_player;
+	}
 	
 	public void setQuestType(QuestType p_type)
 	{
@@ -23,6 +30,11 @@ public abstract class Quest
 	public QuestType setQuestType()
 	{
 		return this.type;
+	}
+	
+	public String getPlayerName()
+	{
+		return this.player;
 	}
 	
 	public String getName()

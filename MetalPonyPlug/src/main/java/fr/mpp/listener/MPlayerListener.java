@@ -32,6 +32,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.citys.Prince;
 import fr.mpp.config.MConfig;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;
@@ -78,6 +79,7 @@ public class MPlayerListener implements Listener
 				event.getPlayer().sendMessage("Vous etes Prince.");
 				event.getPlayer().setCustomName(Classes.Prince.getClasse().getDisplayName() + pN);
 				event.setJoinMessage(ChatColor.YELLOW + "The Prince joined the game.");
+				//this.mpp.mainCity.setPrince(new Prince(event.getPlayer()));
 			}
 			else
 			{
@@ -85,6 +87,7 @@ public class MPlayerListener implements Listener
 				event.getPlayer().sendMessage("Vous etes Princesse.");
 				event.getPlayer().setCustomName(Classes.Princess.getClasse().getDisplayName() + pN);
 				event.setJoinMessage(ChatColor.YELLOW + "The Princesse joined the game.");
+				//this.mpp.mainCity.setPrincesse(new Prince(event.getPlayer()));
 			}
 		}
 		if (this.confS.getCustomConfig().getBoolean("mppbase.registered."+pN.toLowerCase()) != false)
@@ -111,6 +114,8 @@ public class MPlayerListener implements Listener
 			event.getPlayer().setDisplayName(Classes.Noobie.getClasse().getDisplayName() + pN);
 		}
 		this.confS.saveCustomConfig();
+		
+		//this.mpp.mainCity.addCityzen(event.getPlayer());
 		
 		this.confS.reloadCustomConfig();
 		if(this.confS.getCustomConfig().contains("logmsg") && this.confS.getCustomConfig().getString("logmsg") != null)

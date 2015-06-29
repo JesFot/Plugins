@@ -66,3 +66,7 @@ commands:
     description: Show or set the login message
     usage: /<command> [set <text...>]
     aliases: [logmsg, lmessage]
+  opencity:
+    description: Open a door of a city
+    usage: /<command> <doorID> [open|close]
+    aliases: [ouvrir]

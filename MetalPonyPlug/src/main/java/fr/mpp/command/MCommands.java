@@ -40,6 +40,7 @@ public class MCommands
 		//mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
 		mppl.getPlugin().getCommand("economy").setExecutor(new MEcoCommand(mppl));
 		mppl.getPlugin().getCommand("logmessage").setExecutor(new LogMessageCommand(mppl));
+		mppl.getPlugin().getCommand("opencity").setExecutor(new OpenCityCommand(mppl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener
