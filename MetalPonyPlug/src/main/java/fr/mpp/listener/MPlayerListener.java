@@ -32,7 +32,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.MetalPonyPlug;
-import fr.mpp.citys.Prince;
 import fr.mpp.config.MConfig;
 import fr.mpp.mpp.Classes;
 import fr.mpp.mpp.ClassesUtils;

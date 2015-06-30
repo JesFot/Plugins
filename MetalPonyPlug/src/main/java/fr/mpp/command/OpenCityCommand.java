@@ -7,10 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
-import fr.mpp.citys.Cityzen;
 
 public class OpenCityCommand implements CommandExecutor
 {
+	@SuppressWarnings("unused")
 	private MetalPonyPlug mpp;
 	private String usageMessage;
 	

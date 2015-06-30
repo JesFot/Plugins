@@ -59,7 +59,7 @@ public class BukkitPlugin extends JavaPlugin
 			return;
 		}
 		final MPluginListener pluginListener = new MPluginListener();
-		final MBlockListener blockListener = new MBlockListener();
+		final MBlockListener blockListener = new MBlockListener(this.mpp);
 		final MEntityListener entityListener = new MEntityListener();
 		final MPlayerListener playerListener = new MPlayerListener(this.mpp);
 		final MInventoryListener inventoryListener = new MInventoryListener(this.mpp);

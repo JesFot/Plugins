@@ -15,7 +15,6 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.mpp.bukkit.BukkitPlugin;
-import fr.mpp.citys.MCity;
 import fr.mpp.command.MCommands;
 import fr.mpp.config.MConfig;
 import fr.mpp.economy.MEconomy;
@@ -31,7 +30,6 @@ public class MetalPonyPlug
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
-	//public MCity mainCity;
 	
 	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
 	{
@@ -52,7 +50,6 @@ public class MetalPonyPlug
 		this.coms = new MCommands(this);
 		this.perms = new MPermissions();
 		this.economy = new MEconomy(this);
-		//this.mainCity = new MCity("main", this.server.getWorlds().get(0));
 		coms.regCommands();
 	}
 	

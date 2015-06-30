@@ -2,6 +2,8 @@ package fr.mpp.listener;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -15,17 +17,52 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.inventory.ItemStack;
 
+import fr.mpp.mpp.MSecurityWallSys;
+import fr.mpp.MetalPonyPlug;
+import fr.mpp.mpp.ClassesUtils;
+import fr.mpp.mpp.RankLevel;
+import fr.mpp.mpp.Classes;
+
 public class MBlockListener implements Listener
 {
+	private MSecurityWallSys sws;
+	private MetalPonyPlug mpp;
+	
+	public MBlockListener(MetalPonyPlug mppl)
+	{
+		this.mpp = mppl;
+		this.sws = new MSecurityWallSys(mppl);
+	}
+	
 	@EventHandler(priority = EventPriority.LOW)
 	public void onBlockPlace(final BlockPlaceEvent event)
 	{
-		// Code ...
+		if(event.getBlockPlaced().getState() instanceof Sign)
+		{
+			Sign s = (Sign)event.getBlockPlaced().getState();
+			if(s.getLine(1).equalsIgnoreCase("[Security_wall]"))
+			{
+				Player p = event.getPlayer();
+				ClassesUtils cu = new ClassesUtils(this.mpp.getConfig());
+				Classes c = cu.getRank(p, RankLevel.STATUT);
+				if(!(c == Classes.Maire || c == Classes.Prince || c == Classes.Princess))
+				{
+					event.setCancelled(true);
+					p.sendMessage("[Security_wall] You donnot have the right access to make a wall.");
+				}
+			}
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onBlockBreak(final BlockBreakEvent event)
 	{
+		this.sws.setBaseLocation(event.getBlock().getLocation());
+		this.sws.updateBlocks();
+		if(this.sws.isWall())
+		{
+			event.setCancelled(true);
+		}
 		if (event.getBlock().getType().equals(Material.EMERALD_ORE))
 		{
 			Block block = (Block)event.getBlock();
