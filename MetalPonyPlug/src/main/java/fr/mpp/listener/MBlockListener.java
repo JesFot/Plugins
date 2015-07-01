@@ -1,5 +1,6 @@
 package fr.mpp.listener;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -59,7 +60,7 @@ public class MBlockListener implements Listener
 	{
 		this.sws.setBaseLocation(event.getBlock().getLocation());
 		this.sws.updateBlocks();
-		if(this.sws.isWall())
+		if(this.sws.isWall() && !(event.getPlayer().getItemInHand().isSimilar(new ItemStack(Material.STICK)) && event.getPlayer().getGameMode().equals(GameMode.CREATIVE)))
 		{
 			event.setCancelled(true);
 		}
@@ -69,7 +70,10 @@ public class MBlockListener implements Listener
 			event.setCancelled(true);
 			block.setType(Material.AIR);
 			ItemStack diam = new ItemStack(Material.DIAMOND, 4);
-			block.getLocation().getWorld().dropItem(block.getLocation(), diam);
+			if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE))
+			{
+				block.getLocation().getWorld().dropItem(block.getLocation(), diam);
+			}
 			event.setExpToDrop(10);
 		}
 	}

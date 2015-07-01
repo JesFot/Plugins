@@ -104,7 +104,7 @@ public class MSecurityWallSys
 		for(int i = 0; i < this.blocks.size(); i++)
 		{
 			Block tmp = this.blocks.get(i);
-			if(tmp.getType().equals(Material.SIGN))
+			if(tmp.getType().equals(Material.WALL_SIGN) || tmp.getType().equals(Material.SIGN_POST))
 			{
 				Sign sign = (Sign)tmp.getState();
 				if(sign.getLine(1).equalsIgnoreCase("[Security_wall]"))
