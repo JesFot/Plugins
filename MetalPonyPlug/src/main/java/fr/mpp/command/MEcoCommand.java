@@ -35,7 +35,40 @@ public class MEcoCommand implements CommandExecutor
 					return true;
 				}
 			}
-			if (args[0].equalsIgnoreCase("set"))
+			if(args.length <= 0)
+			{
+				if(!p)
+				{
+					sender.sendMessage("Console, please review usage ...");
+					return true;
+				}
+				player.sendMessage("You have actually "+this.mpp.getEconomy().getEco(player).getMoney()+this.mpp.getEconomy().getSym()+".");
+			}
+			else
+			{
+				if(args[0].equalsIgnoreCase("pay"))
+				{
+					if(args.length == 3)
+					{
+						Player target = MPlayer.getPlayerByName(args[1]);
+						if (target == null)
+						{
+							sender.sendMessage("Design a connected player please.");
+							return true;
+						}
+						double dble = Double.valueOf(args[2]);
+						if(p)
+						{
+							this.mpp.getEconomy().pay(player, target, dble);
+							target.sendMessage(player.getDisplayName()+" give you "+dble+this.mpp.getEconomy().getSym()+".");
+							player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" at "+target.getDisplayName()+".");
+						}
+						return true;
+					}
+					
+				}
+			}
+			/*if (args[0].equalsIgnoreCase("set"))
 			{
 				double dble = Double.valueOf(args[1]);
 				Player cible;
@@ -59,7 +92,7 @@ public class MEcoCommand implements CommandExecutor
 					return true;
 				}
 				this.mpp.getEconomy().getEco(cible).setMoney(dble);
-			}
+			}*/
 			return true;
 		}
 		return false;

@@ -11,6 +11,12 @@ public class MEconomy
 {
 	protected Map<Player, MPEconomy> eco;
 	private MetalPonyPlug mpp;
+	protected String ecoSym = "$";
+	
+	public String getSym()
+	{
+		return this.ecoSym.toString();
+	}
 	
 	public MEconomy(MetalPonyPlug p_mpp)
 	{
@@ -20,6 +26,10 @@ public class MEconomy
 	
 	public void addPlayer(Player p_player)
 	{
+		if(this.playerExists(p_player))
+		{
+			return;
+		}
 		this.eco.put(p_player, new MPEconomy(this.mpp, p_player));
 	}
 	
@@ -34,6 +44,37 @@ public class MEconomy
 			addPlayer(p_player);
 		}
 		return this.eco.get(p_player);
+	}
+	
+	public boolean pay(Player source, Player target, double amount)
+	{
+		if(this.getEco(source).getMoney() < amount)
+		{
+			return false;
+		}
+		this.getEco(source).setMoney(this.getEco(source).getMoney()-amount);
+		this.getEco(target).setMoney(this.getEco(target).getMoney()-amount);
+		return true;
+	}
+	
+	public int toEM(double amount)
+	{
+		return (int)(amount/10);
+	}
+	
+	public double toMY(int emerald)
+	{
+		return emerald*10;
+	}
+	
+	public void removeMoney(Player player, double amount)
+	{
+		this.getEco(player).setMoney(this.getEco(player).getMoney()-amount);
+	}
+	
+	public void removeMoneyEM(Player player, int amount)
+	{
+		this.getEco(player).setMoney(this.getEco(player).getMoney()-(this.toMY(amount)));
 	}
 	
 	public boolean playerExists(Player p_player)

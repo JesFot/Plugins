@@ -113,6 +113,7 @@ public class MPlayerListener implements Listener
 			event.getPlayer().setDisplayName(Classes.Noobie.getClasse().getDisplayName() + pN);
 		}
 		this.confS.saveCustomConfig();
+		this.mpp.getEconomy().addPlayer(event.getPlayer());
 		
 		//this.mpp.mainCity.addCityzen(event.getPlayer());
 		

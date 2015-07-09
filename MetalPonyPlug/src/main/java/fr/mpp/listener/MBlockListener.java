@@ -16,6 +16,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fr.mpp.mpp.MSecurityWallSys;
@@ -42,6 +43,25 @@ public class MBlockListener implements Listener
 		{
 			Sign s = (Sign)event.getBlockPlaced().getState();
 			if(s.getLine(1).equalsIgnoreCase("[Security_wall]"))
+			{
+				Player p = event.getPlayer();
+				ClassesUtils cu = new ClassesUtils(this.mpp.getConfig());
+				Classes c = cu.getRank(p, RankLevel.STATUT);
+				if(!(c == Classes.Maire || c == Classes.Prince || c == Classes.Princess))
+				{
+					event.setCancelled(true);
+					p.sendMessage("[Security_wall] You donnot have the right access to make a wall.");
+				}
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onSignUpdate(final SignChangeEvent event)
+	{
+		if(event.getBlock().getState() instanceof Sign)
+		{
+			if(event.getLine(1).equalsIgnoreCase("[Security_wall]"))
 			{
 				Player p = event.getPlayer();
 				ClassesUtils cu = new ClassesUtils(this.mpp.getConfig());

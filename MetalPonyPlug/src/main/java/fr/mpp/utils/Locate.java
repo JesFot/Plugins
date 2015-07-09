@@ -98,4 +98,45 @@ public class Locate
 		
 		return false;
 	}
+	
+	public static boolean isInZone(Location loc, Location start, Location end)
+	{
+		World w1, w2, w3;
+		int x1, x2, x3;
+		int y1, y2, y3;
+		int z1, z2, z3;
+		
+		w1 = start.getWorld();
+		w2 = end.getWorld();
+		w3 = loc.getWorld();
+		
+		x1 = start.getBlockX();
+		y1 = start.getBlockY();
+		z1 = start.getBlockZ();
+		
+		x2 = end.getBlockX();
+		y2 = end.getBlockY();
+		z2 = end.getBlockZ();
+
+		x3 = loc.getBlockX();
+		y3 = loc.getBlockY();
+		z3 = loc.getBlockZ();
+		
+		if(compare2LocB(start, end))
+		{
+			return compare2LocB(loc, start);
+		}
+		
+		if(((x3<=x2 && x3>=x1) || (x3>=x2 && x3<=x1)) && w2 == w3 && w1 == w2)
+		{
+			if((y3<=y2 && y3>=y1) || (y3>=y2 && y3<=y1))
+			{
+				if((z3<=z2 && z3>=z1) || (z3>=z2 && z3<=z1))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
