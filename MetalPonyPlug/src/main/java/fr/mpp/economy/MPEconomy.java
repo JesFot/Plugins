@@ -33,7 +33,7 @@ public class MPEconomy
 	public void resetMoney()
 	{
 		this.config.reloadCustomConfig();
-		Double baseM = this.config.getCustomConfig().getDouble("eco.basemoney", 0);
+		Double baseM = this.config.getCustomConfig().getDouble("eco.basemoney", 100);
 		this.config.getCustomConfig().set("eco.money."+player.getName().toLowerCase(), baseM);
 		this.config.saveCustomConfig();
 	}

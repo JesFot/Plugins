@@ -29,11 +29,11 @@ public class MEcoCommand implements CommandExecutor
 			{
 				p = true;
 				player = (Player)sender;
-				if(!player.hasPermission("all"))
+				/*if(!player.hasPermission("all"))
 				{
 					sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
 					return true;
-				}
+				}*/
 			}
 			if(args.length <= 0)
 			{
@@ -66,6 +66,16 @@ public class MEcoCommand implements CommandExecutor
 						return true;
 					}
 					
+				}
+				else if(args[0].equalsIgnoreCase("reset"))
+				{
+					if(!player.hasPermission("all"))
+					{
+						sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
+						return true;
+					}
+					Player tgt = MPlayer.getPlayerByName(args[1]);
+					this.mpp.getEconomy().getEco(tgt).resetMoney();
 				}
 			}
 			/*if (args[0].equalsIgnoreCase("set"))

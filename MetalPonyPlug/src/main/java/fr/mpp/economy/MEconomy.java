@@ -53,7 +53,7 @@ public class MEconomy
 			return false;
 		}
 		this.getEco(source).setMoney(this.getEco(source).getMoney()-amount);
-		this.getEco(target).setMoney(this.getEco(target).getMoney()-amount);
+		this.getEco(target).setMoney(this.getEco(target).getMoney()+amount);
 		return true;
 	}
 	
