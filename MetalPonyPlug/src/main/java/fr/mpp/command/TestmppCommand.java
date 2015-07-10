@@ -66,7 +66,7 @@ public class TestmppCommand implements CommandExecutor
 				String w = args[2];
 				Player pl = null;
 				Player pls[] = {};
-				if(args[3].startsWith("@"))
+				if(args.length == 4 && args[3].startsWith("@"))
 				{
 					Location start = null;
 					if(sender instanceof BlockCommandSender)
