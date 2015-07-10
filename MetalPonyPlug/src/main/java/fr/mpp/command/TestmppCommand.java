@@ -3,6 +3,7 @@ package fr.mpp.command;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -63,13 +64,57 @@ public class TestmppCommand implements CommandExecutor
 			else if(args[0].equalsIgnoreCase("world") && args[1].equalsIgnoreCase("tp"))
 			{
 				String w = args[2];
-				World world = this.mpp.getServer().getWorld(w);
-				if(sender instanceof Player)
+				Player pl = null;
+				Player pls[] = {};
+				if(args[3].startsWith("@"))
 				{
-					Player p = (Player)sender;
-					p.getLocation()/*.setWorld(world)*/;
-					Location spawn = world.getSpawnLocation();
-					p.teleport(spawn);
+					Location start = null;
+					if(sender instanceof BlockCommandSender)
+					{
+						BlockCommandSender commandB = (BlockCommandSender)sender;
+						start = commandB.getBlock().getLocation();
+					}
+					else if(sender instanceof Player)
+					{
+						Player myPlayer = (Player)sender;
+						start = myPlayer.getLocation();
+					}
+					else
+					{
+						if(args[3].startsWith("@p"))
+						{
+							sender.sendMessage("Nope.");
+							return true;
+						}
+						else
+						{
+							start = new Location(this.mpp.getServer().getWorlds().get(0), 0, 0, 0);
+						}
+					}
+					pls = MPlayer.getPlayerByRep(args[3], start);
+					if(pls.length == 1)
+					{
+						pl = pls[0];
+					}
+				}
+				else
+				{
+					pl = (args.length==4 ? MPlayer.getPlayerByName(args[3]) : ((sender instanceof Player) ? (Player)sender : null));
+				}
+				World world = this.mpp.getServer().getWorld(w);
+				Location spawn = world.getSpawnLocation();
+				if(pl != null)
+				{
+					Location old = (world.getPlayers().contains(pl) ? world.getPlayers().get(world.getPlayers().indexOf(pl)).getLocation() : spawn);
+					pl.teleport(old);
+				}
+				else if(pls.length >= 2)
+				{
+					for(Player p : pls)
+					{
+						Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
+						p.teleport(old);
+					}
 				}
 			}
 			

@@ -290,7 +290,8 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChangeWorld(final PlayerChangedWorldEvent event)
 	{
-		// Code ...
+		//World dest = event.getPlayer().getWorld();
+		//dest.get
 	}
 
 	@EventHandler
