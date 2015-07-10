@@ -1,5 +1,8 @@
 package fr.mpp.command;
 
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,6 +45,31 @@ public class TestmppCommand implements CommandExecutor
 					Player player = MPlayer.getPlayerByName(pl);
 					ClassesUtils cu = new ClassesUtils(this.mpp.getConfig());
 					cu.setRankAffich(player, RankLevel.getRankByID(afiich));
+				}
+			}
+			else if(args[0].equalsIgnoreCase("world") && args[1].equalsIgnoreCase("set"))
+			{
+				String w = args[2];
+				String act = args[3];
+				if(act.equalsIgnoreCase("load"))
+				{
+					this.mpp.getServer().createWorld(new WorldCreator(w));
+				}
+				else if(act.equalsIgnoreCase("unload"))
+				{
+					this.mpp.getServer().unloadWorld(w, true);
+				}
+			}
+			else if(args[0].equalsIgnoreCase("world") && args[1].equalsIgnoreCase("tp"))
+			{
+				String w = args[2];
+				World world = this.mpp.getServer().getWorld(w);
+				if(sender instanceof Player)
+				{
+					Player p = (Player)sender;
+					p.getLocation()/*.setWorld(world)*/;
+					Location spawn = world.getSpawnLocation();
+					p.teleport(spawn);
 				}
 			}
 			

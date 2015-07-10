@@ -277,7 +277,8 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerQuit(final PlayerQuitEvent event)
 	{
-		// Code ...
+		long time = System.currentTimeMillis()-event.getPlayer().getLastPlayed();
+		event.setQuitMessage(event.getQuitMessage()+" T="+time);
 	}
 
 	@EventHandler
