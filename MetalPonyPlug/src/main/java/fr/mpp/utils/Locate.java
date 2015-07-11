@@ -139,4 +139,12 @@ public class Locate
 		}
 		return false;
 	}
+	public static double getDist(Location loc1, Location loc2)
+	{
+		if(loc1.getWorld() != loc2.getWorld())
+		{
+			return 0.0;
+		}
+		return loc1.distanceSquared(loc2);
+	}
 }
