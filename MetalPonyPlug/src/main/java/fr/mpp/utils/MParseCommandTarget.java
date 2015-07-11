@@ -1,5 +1,7 @@
 package fr.mpp.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 enum TargetType
@@ -51,14 +54,64 @@ enum SenderType
 	COMMANDBLOCK;
 }
 
+class DatasArgs
+{
+	public double minRange;
+	public double range;
+	public double x;
+	public double y;
+	public double z;
+	
+	public double gamemode;
+	public double maxPlayers;
+	public int maxLevel;
+	public int minLevel;
+	
+	public Map<String, Double> scoreMin;
+	public Map<String, Double> scoreMax;
+	
+	public List<String> team;
+	public List<String> name;
+	public List<EntityType> type;
+	
+	public void assign(String key, String value)
+	{
+		if(key.length() == 4)
+		{
+			if(key=="team")
+			{
+				team.add(value);
+			}
+			else if(key=="name")
+			{
+				name.add(value);
+			}
+			else if(key=="type")
+			{
+				type.add(EntityType.valueOf(value));
+			}
+		}
+	}
+}
+
 public class MParseCommandTarget
 {
 	protected String targetMsg;
 	protected String at;
 	protected String arguments;
+	// New
+	protected String fullMessage;
 	protected CommandSender sender;
 	protected TargetType type;
 	protected SenderType sType;
+	
+	protected Player player;
+	protected ConsoleCommandSender console;
+	protected BlockCommandSender comamndBlock;
+	
+	protected Map<String, String> argumentList;
+	
+	// End New
 	
 	protected Location location = null;
 	
@@ -67,7 +120,7 @@ public class MParseCommandTarget
 	public MParseCommandTarget(final String message)
 	{
 		this.targetMsg = message;
-		this.at = message.substring(0, 3);
+		this.at = message.substring(0, 2);
 		this.type = TargetType.getType(message.charAt(1));
 		this.arguments = message.substring(2);
 	}
@@ -77,14 +130,60 @@ public class MParseCommandTarget
 		if(cmdSender instanceof Player)
 		{
 			this.sType = SenderType.PLAYER;
+			this.player = (Player)cmdSender;
 		}
 		else if(cmdSender instanceof ConsoleCommandSender)
 		{
 			this.sType = SenderType.CONSOLE;
+			this.console = (ConsoleCommandSender)cmdSender;
 		}
 		else if(cmdSender instanceof BlockCommandSender)
 		{
 			this.sType = SenderType.COMMANDBLOCK;
+			this.comamndBlock = (BlockCommandSender)cmdSender;
+		}
+		this.sender = cmdSender;
+		this.fullMessage = arg;
+		String atX = arg.split("[")[0];
+		this.type = TargetType.getType(atX.charAt(1));
+		String rest = arg.split("[")[1].split("]")[0];
+		List<String> args = Arrays.asList(rest.split(" , "));
+		List<String> args2 = new ArrayList<String>();
+		for(String a : args)
+		{
+			if(a.contains(", "))
+			{
+				String as[] = a.split(", ");
+				for(String b : as)
+				{
+					args2.add(b);
+				}
+			}
+			else
+			{
+				args2.add(a);
+			}
+		}
+		List<String> args3 = new ArrayList<String>();
+		for(String a : args2)
+		{
+			if(a.contains(","))
+			{
+				String as[] = a.split(",");
+				for(String b : as)
+				{
+					args3.add(b);
+				}
+			}
+			else
+			{
+				args3.add(a);
+			}
+		}
+		for(String a : args3)
+		{
+			String map[] = a.split("=", 2);
+			this.argumentList.put(map[0], map[1]);
 		}
 	}
 	

@@ -94,6 +94,7 @@ public class TestmppCommand implements CommandExecutor
 					pls = MPlayer.getPlayerByRep(args[3], start);
 					if(pls.length == 1)
 					{
+						this.mpp.broad("[DEBUG] pls.length == 1");
 						pl = pls[0];
 					}
 				}
@@ -105,11 +106,13 @@ public class TestmppCommand implements CommandExecutor
 				Location spawn = world.getSpawnLocation();
 				if(pl != null)
 				{
+					this.mpp.broad("[DEBUG] pl != null");
 					Location old = (world.getPlayers().contains(pl) ? world.getPlayers().get(world.getPlayers().indexOf(pl)).getLocation() : spawn);
 					pl.teleport(old);
 				}
 				else if(pls.length >= 2)
 				{
+					this.mpp.broad("[DEBUG] pls.length >= 2");
 					for(Player p : pls)
 					{
 						Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);

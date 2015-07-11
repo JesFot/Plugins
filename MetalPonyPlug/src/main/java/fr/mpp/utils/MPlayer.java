@@ -98,7 +98,6 @@ public class MPlayer
 	}
 	public static Player[] getPlayerByRep(String rep, Location start)
 	{
-		String type = (String)(rep.charAt(0)+rep.charAt(1)+"");
 		Player pls[] = {};
 		MParseCommandTarget mpct = new MParseCommandTarget(rep, start);
 		if(mpct.multipleTargets())
@@ -117,20 +116,20 @@ public class MPlayer
 		{
 			Bukkit.broadcastMessage("Simple target");
 		}
-		switch(type)
+		switch(mpct.type.charac)
 		{
-		case "@p":
-			pls[0] = getProximityPlayer(start);
+		case 'p':
+			pls = new Player[]{getProximityPlayer(start)};
 			return pls;
-		case "@r":
-			pls[0] = getRandomPlayer(start.getWorld());
+		case 'r':
+			pls = new Player[]{getRandomPlayer(start.getWorld())};
 			return pls;
-		case "@e":
-		case "@a":
+		case 'e':
+		case 'a':
 			pls = Bukkit.getOnlinePlayers();
 			return pls;
 		default:
-			return null;
+			return pls;
 		}
 	}
 }
