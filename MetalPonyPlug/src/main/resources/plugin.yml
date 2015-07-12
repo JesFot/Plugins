@@ -48,9 +48,6 @@ commands:
     description: Set or teleport you at a home, sweet home :p
     usage: /<command> [homeName] [set]
     aliases: [home, h]
-  #mppsetchest:
-    #description: Set the chest
-    #usage: /<command>
   mtpa:
     description: Tpa
     usage: /<command> [player] <target>
@@ -60,13 +57,14 @@ commands:
     #usage: /<command> <start>, /<command> <set> <type>
     #aliases: [maire, elecmaire]
   economy:
-    description: Modify economy system
-    usage: /<command> <set> <money> [player]
+    description: See your money or pay someone
+    usage: /<command> [pay <player> <money>]
+    aliases: [eco]
   logmessage:
     description: Show or set the login message
     usage: /<command> [set <text...>]
     aliases: [logmsg, lmessage]
-  opencity:
-    description: Open a door of a city
-    usage: /<command> <doorID> [open|close]
-    aliases: [ouvrir]
+#  opencity:
+#    description: Open a door of a city
+#    usage: /<command> <doorID> [open|close]
+#    aliases: [ouvrir]

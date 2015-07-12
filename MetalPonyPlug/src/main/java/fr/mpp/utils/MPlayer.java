@@ -100,22 +100,6 @@ public class MPlayer
 	{
 		Player pls[] = {};
 		MParseCommandTarget mpct = new MParseCommandTarget(rep, start);
-		if(mpct.multipleTargets())
-		{
-			Bukkit.broadcastMessage("Multiple targets");
-			if(mpct.targetIsPlayer())
-			{
-				Bukkit.broadcastMessage("It's players");
-			}
-			else
-			{
-				Bukkit.broadcastMessage("All entitys targeted");
-			}
-		}
-		else
-		{
-			Bukkit.broadcastMessage("Simple target");
-		}
 		switch(mpct.type.charac)
 		{
 		case 'p':

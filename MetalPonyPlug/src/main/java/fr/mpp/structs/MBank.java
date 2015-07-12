@@ -13,6 +13,8 @@ public class MBank
 {
 	protected Location inZoneStart;
 	protected Location inZoneEnd;
+	protected double range;
+	protected boolean useRange;
 	
 	public MBank()
 	{
@@ -21,15 +23,22 @@ public class MBank
 	
 	public int howManyPlayersIn()
 	{
-		int tmp = 0;
-		for(Player player : Bukkit.getOnlinePlayers())
+		if(!this.useRange)
 		{
-			if(Locate.isInZone(player.getLocation(), this.inZoneStart, this.inZoneEnd))
+			int tmp = 0;
+			for(Player player : Bukkit.getOnlinePlayers())
 			{
-				tmp++;
+				if(Locate.isInZone(player.getLocation(), this.inZoneStart, this.inZoneEnd))
+				{
+					tmp++;
+				}
 			}
+			return tmp;
 		}
-		return tmp;
+		else
+		{
+			return 0;
+		}
 	}
 	
 	public Player[] getPlayers()

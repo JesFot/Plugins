@@ -139,12 +139,23 @@ public class Locate
 		}
 		return false;
 	}
+	public static boolean isInZoneR(Location loc, Location center, double range)
+	{
+		double dist = getDist(loc, center);
+		if(dist <= range+0.5)
+		{
+			return true;
+		}
+		return false;
+	}
 	public static double getDist(Location loc1, Location loc2)
 	{
+		Location loc3 = loc2.clone();
 		if(loc1.getWorld() != loc2.getWorld())
 		{
-			return 0.0;
+			loc3.setWorld(loc1.getWorld());
+			return loc1.distance(loc3)+1000000.001;
 		}
-		return loc1.distanceSquared(loc2);
+		return loc1.distance(loc3);
 	}
 }

@@ -52,9 +52,21 @@ public class TestmppCommand implements CommandExecutor
 			{
 				String w = args[2];
 				String act = args[3];
+				String seed = "";
+				if(args.length == 5)
+				{
+					seed = args[4];
+				}
 				if(act.equalsIgnoreCase("load"))
 				{
-					this.mpp.getServer().createWorld(new WorldCreator(w));
+					if(seed != "")
+					{
+						this.mpp.getServer().createWorld(new WorldCreator(w).seed(Long.valueOf(seed)));
+					}
+					else
+					{
+						this.mpp.getServer().createWorld(new WorldCreator(w));
+					}
 				}
 				else if(act.equalsIgnoreCase("unload"))
 				{
@@ -94,7 +106,6 @@ public class TestmppCommand implements CommandExecutor
 					pls = MPlayer.getPlayerByRep(args[3], start);
 					if(pls.length == 1)
 					{
-						this.mpp.broad("[DEBUG] pls.length == 1");
 						pl = pls[0];
 					}
 				}
@@ -106,13 +117,11 @@ public class TestmppCommand implements CommandExecutor
 				Location spawn = world.getSpawnLocation();
 				if(pl != null)
 				{
-					this.mpp.broad("[DEBUG] pl != null");
 					Location old = (world.getPlayers().contains(pl) ? world.getPlayers().get(world.getPlayers().indexOf(pl)).getLocation() : spawn);
 					pl.teleport(old);
 				}
 				else if(pls.length >= 2)
 				{
-					this.mpp.broad("[DEBUG] pls.length >= 2");
 					for(Player p : pls)
 					{
 						Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
