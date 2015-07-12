@@ -65,12 +65,12 @@ public class TestmppCommand implements CommandExecutor
 					if(args[5].equalsIgnoreCase("nether"))
 					{
 						env = World.Environment.NETHER;
-						w += "_nether";
+						w += w.endsWith("_nether") ? "" : "_nether";
 					}
 					else if(args[5].equalsIgnoreCase("end"))
 					{
 						env = World.Environment.THE_END;
-						w += "_end";
+						w += w.endsWith("_end") ? "" : "_end";
 					}
 					else if(args[5].equalsIgnoreCase("normal"))
 					{
