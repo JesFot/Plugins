@@ -61,7 +61,7 @@ public class TestmppCommand implements CommandExecutor
 				{
 					if(seed != "")
 					{
-						this.mpp.getServer().createWorld(new WorldCreator(w).seed(Long.valueOf(seed)));
+						this.mpp.getServer().createWorld(new WorldCreator(w).seed(Long.parseLong(seed, 36)));
 					}
 					else
 					{
