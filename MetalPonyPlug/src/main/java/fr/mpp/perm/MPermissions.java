@@ -1,6 +1,9 @@
 package fr.mpp.perm;
 
 import java.util.HashMap;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -117,6 +120,38 @@ public class MPermissions
 		String name = perm.getName();
 		return getPerm(player, name);
 	}
+	
+	public static boolean testPermission(CommandSender target, String permission, String permissionMessage)
+	{
+        if (testPermissionSilent(target, permission)) {
+            return true;
+        }
+
+        if (permissionMessage == null) {
+            target.sendMessage(ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
+        } else if (permissionMessage.length() != 0) {
+            for (String line : permissionMessage.replace("<permission>", permission).split("\n")) {
+                target.sendMessage(line);
+            }
+        }
+
+        return false;
+    }
+	
+	public static boolean testPermissionSilent(CommandSender target, String permission)
+	{
+        if ((permission == null) || (permission.length() == 0)) {
+            return true;
+        }
+
+        for (String p : permission.split(";")) {
+            if (target.hasPermission(p)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 	
 	public class MPerm
 	{

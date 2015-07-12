@@ -64,6 +64,9 @@ commands:
     description: Show or set the login message
     usage: /<command> [set <text...>]
     aliases: [logmsg, lmessage]
+  seed:
+    description: Shows the world seed
+    usage: /<command>
 #  opencity:
 #    description: Open a door of a city
 #    usage: /<command> <doorID> [open|close]

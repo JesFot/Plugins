@@ -40,6 +40,8 @@ public class MCommands
 		//mppl.getPlugin().getCommand("election").setExecutor(new MelectionsCommand(mppl)); // This make an election conversation
 		mppl.getPlugin().getCommand("economy").setExecutor(new MEcoCommand(mppl));
 		mppl.getPlugin().getCommand("logmessage").setExecutor(new LogMessageCommand(mppl));
+		mppl.getPlugin().getCommand("seed").setExecutor(new MSeedCommand());
+		mppl.getPlugin().getCommand("seed").setTabCompleter(new MSeedCommand());
 		//mppl.getPlugin().getCommand("opencity").setExecutor(new OpenCityCommand(mppl));
 	}
 	

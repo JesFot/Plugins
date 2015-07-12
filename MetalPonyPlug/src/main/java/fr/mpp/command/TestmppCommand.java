@@ -3,6 +3,7 @@ package fr.mpp.command;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -53,15 +54,51 @@ public class TestmppCommand implements CommandExecutor
 				String w = args[2];
 				String act = args[3];
 				String seed = "";
-				if(args.length == 5)
+				WorldType wType = WorldType.NORMAL;
+				World.Environment env = World.Environment.NORMAL;
+				if(args.length >= 5)
 				{
 					seed = args[4];
+				}
+				if(args.length >= 6)
+				{
+					if(args[5].equalsIgnoreCase("nether"))
+					{
+						env = World.Environment.NETHER;
+						w += "_nether";
+					}
+					else if(args[5].equalsIgnoreCase("end"))
+					{
+						env = World.Environment.THE_END;
+						w += "_end";
+					}
+					else if(args[5].equalsIgnoreCase("normal"))
+					{
+						env = World.Environment.NORMAL;
+						w += "";
+					}
+				}
+				if(args.length >= 7)
+				{
+					if(args[6].equalsIgnoreCase("normal"))
+					{
+						wType = WorldType.NORMAL;
+					}
+					else if(args[6].equalsIgnoreCase("flat"))
+					{
+						wType = WorldType.FLAT;
+					}
+					else if(args[6].equalsIgnoreCase("large"))
+					{
+						wType = WorldType.LARGE_BIOMES;
+					}
 				}
 				if(act.equalsIgnoreCase("load"))
 				{
 					if(seed != "")
 					{
-						this.mpp.getServer().createWorld(new WorldCreator(w).seed(Long.parseLong(seed, 36)));
+						this.mpp.getServer().createWorld(new WorldCreator(w).environment(env).type(wType).seed(Long.parseLong(seed, 36)));
+						sender.sendMessage("Seed : "+Long.parseLong(seed, 36)+", "+Long.toString(Long.parseLong(seed, 36), 36));
 					}
 					else
 					{
@@ -70,6 +107,19 @@ public class TestmppCommand implements CommandExecutor
 				}
 				else if(act.equalsIgnoreCase("unload"))
 				{
+					World world = this.mpp.getServer().getWorld(w);
+					if(world == null)
+					{
+						world = this.mpp.getServer().getWorld(w+="_nether");
+						if(world == null)
+						{
+							world = this.mpp.getServer().getWorld(w+="_end");
+							if(world == null)
+							{
+								//
+							}
+						}
+					}
 					this.mpp.getServer().unloadWorld(w, true);
 				}
 			}
@@ -114,6 +164,19 @@ public class TestmppCommand implements CommandExecutor
 					pl = (args.length==4 ? MPlayer.getPlayerByName(args[3]) : ((sender instanceof Player) ? (Player)sender : null));
 				}
 				World world = this.mpp.getServer().getWorld(w);
+				if(world == null)
+				{
+					world = this.mpp.getServer().getWorld(w+"_nether");
+					if(world == null)
+					{
+						world = this.mpp.getServer().getWorld(w+"_end");
+						if(world == null)
+						{
+							sender.sendMessage("Nope.");
+							return true;
+						}
+					}
+				}
 				Location spawn = world.getSpawnLocation();
 				if(pl != null)
 				{
