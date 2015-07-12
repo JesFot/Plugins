@@ -1,5 +1,9 @@
 package fr.mpp.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -190,6 +194,19 @@ public class TestmppCommand implements CommandExecutor
 						Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
 						p.teleport(old);
 					}
+				}
+			}
+			else if(args[0].equalsIgnoreCase("world") && args[1].equalsIgnoreCase("list") && args[2].equalsIgnoreCase("all"))
+			{
+				List<String> all = new ArrayList<String>();
+				for(World tmp : this.mpp.getServer().getWorlds())
+				{
+					all.add(tmp.getName());
+				}
+				sender.sendMessage(ChatColor.DARK_PURPLE+"All loaded worlds :");
+				for(String msg : all)
+				{
+					sender.sendMessage(ChatColor.DARK_GREEN+" - "+msg);
 				}
 			}
 			
