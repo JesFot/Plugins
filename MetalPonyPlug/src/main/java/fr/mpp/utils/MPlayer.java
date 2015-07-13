@@ -116,4 +116,19 @@ public class MPlayer
 			return pls;
 		}
 	}
+	public static String concateTable(String[] args)
+	{
+		String result = "[";
+		int i = 0;
+		for(String str : args)
+		{
+			i++;
+			result += "\""+str+"\"";
+			if(!(i == args.length))
+			{
+				result += ", ";
+			}
+		}
+		return (result + "]");
+	}
 }

@@ -84,6 +84,20 @@ public class MEcoCommand implements CommandExecutor
 					Player tgt = MPlayer.getPlayerByName(args[1]);
 					this.mpp.getEconomy().getEco(tgt).resetMoney();
 				}
+				else if(args[0].equalsIgnoreCase("code"))
+				{
+					if(!p)
+					{
+						sender.sendMessage("Console, please review usage ...");
+						return true;
+					}
+					if(args.length >= 2)
+					{
+						int d = Integer.parseInt(args[1]);
+						this.mpp.getConfig().getCustomConfig().set("eco.codes."+player.getName().toLowerCase(), d);
+						this.mpp.getConfig().saveCustomConfig();
+					}
+				}
 			}
 			/*if (args[0].equalsIgnoreCase("set"))
 			{

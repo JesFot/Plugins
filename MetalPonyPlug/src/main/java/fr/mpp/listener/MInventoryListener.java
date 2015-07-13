@@ -60,19 +60,24 @@ public class MInventoryListener implements Listener
 	@EventHandler
 	public void onClickInventory(InventoryClickEvent event)
 	{
+		if(event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null ||
+				event.getCurrentItem().getItemMeta().getDisplayName() == null)
+		{
+			return;
+		}
 		if(event.getInventory().contains(Material.TORCH, 42) &&
 				event.getInventory().getItem(0).getItemMeta().getDisplayName().equalsIgnoreCase("Bank"))
 		{
 			this.memo.setInventory(event.getInventory());
 			if(event.getCurrentItem().getAmount()<=1 && event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("1"))
 			{
-				this.memo.enterCodedigit(1);
+				this.memo.enterCodeDigit(1);
 			}
-			else if(event.getCurrentItem().getAmount() <= 9)
+			else if(event.getCurrentItem().getAmount() <= 9 && event.getCurrentItem().getAmount() > 1)
 			{
-				this.memo.enterCodedigit(event.getCurrentItem().getAmount());
+				this.memo.enterCodeDigit(event.getCurrentItem().getAmount());
 			}
-			else if(event.getCurrentItem().getAmount() == 1)
+			if(event.getCurrentItem().getAmount() == 1)
 			{
 				String name = event.getCurrentItem().getItemMeta().getDisplayName();
 				if(name.equalsIgnoreCase("Cancel"))
