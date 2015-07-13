@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.economy.MEcoMenu;
 import fr.mpp.utils.MPlayer;
 
 public class MEcoCommand implements CommandExecutor
@@ -67,9 +68,15 @@ public class MEcoCommand implements CommandExecutor
 					}
 					
 				}
+				else if(args[0].equalsIgnoreCase("inventory"))
+				{
+					if(!p)
+						return true;
+					player.openInventory(MEcoMenu.getInvCode());
+				}
 				else if(args[0].equalsIgnoreCase("reset"))
 				{
-					if(!player.hasPermission("all"))
+					if(!sender.hasPermission("all"))
 					{
 						sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
 						return true;

@@ -16,6 +16,27 @@ public class MEcoMenu
 	protected Inventory i4 = ItemInventory.createInventory("Bank Menu 4", 6);
 	protected Inventory i5 = ItemInventory.createInventory("Bank Menu 5", 6);
 	
+	public static Inventory getInvCode()
+	{
+		Inventory i = ItemInventory.createItemandInv(Material.WOOD_DOOR, 53, "Quitter",
+				"Cliquez ici\npour quitter ce menu", "Do your Code here", 6);
+		ItemInventory.createIteminInv(Material.TORCH, i, 0, "Bank", "", 42);
+		ItemInventory.createIteminInv(Material.TORCH, i, 8, "Bank", "", 42);
+		ItemInventory.createIteminInv(Material.GOLD_INGOT, i, 17, "Back", "Erase code");
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 21, "1", "");
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 22, "2", "", 2);
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 23, "3", "", 3);
+		ItemInventory.createIteminInv(Material.REDSTONE_BLOCK, i, 28, "Cancel", "Cancel and clear");
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 30, "4", "", 4);
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 31, "5", "", 5);
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 32, "6", "", 6);
+		ItemInventory.createIteminInv(Material.EMERALD_BLOCK, i, 34, "Validate", "Validate Code and clear");
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 39, "7", "", 7);
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 40, "8", "", 8);
+		ItemInventory.createIteminInv(Material.IRON_INGOT, i, 41, "9", "", 9);
+		return i;
+	}
+	
 	public class ClickOnItem implements Listener
 	{
 		public MEcoMenu parent;

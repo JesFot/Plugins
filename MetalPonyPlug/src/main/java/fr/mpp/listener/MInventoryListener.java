@@ -1,5 +1,6 @@
 package fr.mpp.listener;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -13,14 +14,17 @@ import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 
 import fr.mpp.MetalPonyPlug;
+import fr.mpp.economy.MMemory;
 
 public class MInventoryListener implements Listener
 {
 	private MetalPonyPlug mpp;
+	private MMemory memo;
 	
 	public MInventoryListener(MetalPonyPlug p_mpp)
 	{
 		this.mpp = p_mpp;
+		memo = new MMemory(p_mpp);
 	}
 	
 	@EventHandler
@@ -56,7 +60,41 @@ public class MInventoryListener implements Listener
 	@EventHandler
 	public void onClickInventory(InventoryClickEvent event)
 	{
-		// Code ...
+		if(event.getInventory().contains(Material.TORCH, 42) &&
+				event.getInventory().getItem(0).getItemMeta().getDisplayName().equalsIgnoreCase("Bank"))
+		{
+			this.memo.setInventory(event.getInventory());
+			if(event.getCurrentItem().getAmount()<=1 && event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("1"))
+			{
+				this.memo.enterCodedigit(1);
+			}
+			else if(event.getCurrentItem().getAmount() <= 9)
+			{
+				this.memo.enterCodedigit(event.getCurrentItem().getAmount());
+			}
+			else if(event.getCurrentItem().getAmount() == 1)
+			{
+				String name = event.getCurrentItem().getItemMeta().getDisplayName();
+				if(name.equalsIgnoreCase("Cancel"))
+				{
+					this.memo.cancel();
+				}
+				else if(name.equalsIgnoreCase("Validate"))
+				{
+					this.memo.validate(event.getWhoClicked().getName());
+				}
+				else if(name.equalsIgnoreCase("Back"))
+				{
+					this.memo.back();
+				}
+				else if(name.equalsIgnoreCase("quitter"))
+				{
+					this.memo.cancel();
+					event.getWhoClicked().closeInventory();
+				}
+			}
+			event.setCancelled(true);
+		}
 	}
 	
 	@EventHandler
