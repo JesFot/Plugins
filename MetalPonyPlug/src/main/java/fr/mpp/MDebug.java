@@ -5,6 +5,7 @@ public class MDebug
 {
 	protected MetalPonyPlug mpp;
 	protected boolean debugLog, debugPlayer;
+	public int level = 20;
 	
 	public MDebug(MetalPonyPlug mppl)
 	{
@@ -31,5 +32,14 @@ public class MDebug
 		{
 			this.mpp.getLogger().info("[Mpp - DEBUG] "+message);
 		}
+	}
+
+	public void broad(String message, int im)
+	{
+		if(!(im <= level))
+		{
+			return;
+		}
+		this.mpp.broad("[DEBUG]"+message);
 	}
 }

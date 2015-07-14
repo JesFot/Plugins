@@ -48,6 +48,24 @@ public class MEconomy
 	
 	public boolean pay(Player source, Player target, double amount)
 	{
+		if(source == target)
+		{
+			return false;
+		}
+		if((Double)amount == null || amount <= 0.1)
+		{
+			return false;
+		}
+		if(source == null)
+		{
+			this.getEco(target).setMoney(this.getEco(target).getMoney()+amount);
+			return true;
+		}
+		if(target == null)
+		{
+			this.getEco(source).setMoney(this.getEco(source).getMoney()-amount);
+			return true;
+		}
 		if(this.getEco(source).getMoney() < amount)
 		{
 			return false;

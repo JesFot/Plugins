@@ -40,7 +40,7 @@ public class MEcoCommand implements CommandExecutor
 			{
 				if(!p)
 				{
-					sender.sendMessage("Console, please review usage ...");
+					sender.sendMessage("Console, You have infinity money.");
 					return true;
 				}
 				player.sendMessage("You have actually "+this.mpp.getEconomy().getEco(player).getMoney()+this.mpp.getEconomy().getSym()+".");
@@ -51,18 +51,33 @@ public class MEcoCommand implements CommandExecutor
 				{
 					if(args.length == 3)
 					{
+						double dble = Double.valueOf(args[2]);
 						Player target = MPlayer.getPlayerByName(args[1]);
 						if (target == null)
 						{
+							if(args[1].equalsIgnoreCase("console"))
+							{
+								if(p)
+								{
+									this.mpp.getEconomy().pay(player, null, dble);
+									sender.sendMessage("You removed "+dble+this.mpp.getEconomy().getSym()+" from your acount.");
+								}
+								return true;
+							}
 							sender.sendMessage("Design a connected player please.");
 							return true;
 						}
-						double dble = Double.valueOf(args[2]);
 						if(p)
 						{
 							this.mpp.getEconomy().pay(player, target, dble);
 							target.sendMessage(player.getDisplayName()+" give you "+dble+this.mpp.getEconomy().getSym()+".");
-							player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" at "+target.getDisplayName()+".");
+							player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getDisplayName()+".");
+						}
+						else
+						{
+							this.mpp.getEconomy().pay(null, target, dble);
+							target.sendMessage("The Console give you "+dble+this.mpp.getEconomy().getSym()+".");
+							sender.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getDisplayName()+".");
 						}
 						return true;
 					}
@@ -101,7 +116,9 @@ public class MEcoCommand implements CommandExecutor
 				}
 				else
 				{
-					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" [pay|inventory|<code <Code>>]");
+					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" [inventory]");
+					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" <pay> <Player>");
+					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" <code> <new_Code(7chars)>");
 				}
 			}
 			/*if (args[0].equalsIgnoreCase("set"))

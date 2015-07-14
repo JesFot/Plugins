@@ -1,6 +1,7 @@
 package fr.mpp.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,14 @@ import org.bukkit.entity.Player;
 
 public class MPlayer
 {
+	public static List<Player> getOnlinePlayers()
+	{
+		return Arrays.asList(Bukkit.getOnlinePlayers());
+	}
+	public static List<OfflinePlayer> getOfflinePlayers()
+	{
+		return Arrays.asList(Bukkit.getOfflinePlayers());
+	}
 	public static Player getPlayerByName(String name)
 	{
 		Player pl = null;
@@ -41,7 +50,7 @@ public class MPlayer
 		}
 		return pl;
 	}
-	public static Player getPlayerByNameOff(String name)
+	public static OfflinePlayer getPlayerByNameOff(String name)
 	{
 		OfflinePlayer pl = null;
 		
@@ -53,7 +62,7 @@ public class MPlayer
 				break;
 			}
 		}
-		return (Player)pl;
+		return pl;
 	}
 	public static Player getProximityPlayer(Location start)
 	{

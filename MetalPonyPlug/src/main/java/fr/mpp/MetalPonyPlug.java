@@ -13,11 +13,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import fr.mpp.bukkit.BukkitPlugin;
 import fr.mpp.command.MCommands;
 import fr.mpp.config.MConfig;
 import fr.mpp.economy.MEconomy;
+import fr.mpp.economy.MMensual;
 import fr.mpp.perm.MPermissions;
 
 public class MetalPonyPlug
@@ -31,6 +33,8 @@ public class MetalPonyPlug
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	public static MDebug debug;
+	public BukkitTask mensual;
+	protected final MPP mpp = new MPP();
 	
 	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
 	{
@@ -55,6 +59,8 @@ public class MetalPonyPlug
 		setDebug(new MDebug(this));
 		debug.setDebugLog(true);
 		debug.setPlayerDebugLog(false);
+		MPP.setMetalPonyPlug(this);
+		this.mensual = new MMensual(this).start();
 	}
 	
 	public void onDisable()
