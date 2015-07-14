@@ -3,7 +3,6 @@ package fr.mpp.economy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -251,14 +250,16 @@ public class MMemory
 	public boolean compare2List(List<Integer> a, String b)
 	{
 		List<Integer> lst = new ArrayList<Integer>();
-		Bukkit.broadcastMessage("Hy, \""+MPlayer.concateTable(b.split(""))+"\"");
 		for(String ch : b.split(""))
 		{
-			if(ch == "")
+			try
 			{
-				continue;
+				lst.add(Integer.parseInt(ch));
 			}
-			lst.add(Integer.parseInt(ch));
+			catch(IllegalArgumentException ex)
+			{
+				MetalPonyPlug.getDebug().broad("IllegalArgumentException : \""+ch+"\"");
+			}
 		}
 		for(int c = 0; c < a.size(); c++)
 		{

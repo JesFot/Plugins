@@ -96,7 +96,12 @@ public class MEcoCommand implements CommandExecutor
 						int d = Integer.parseInt(args[1]);
 						this.mpp.getConfig().getCustomConfig().set("eco.codes."+player.getName().toLowerCase(), d);
 						this.mpp.getConfig().saveCustomConfig();
+						player.sendMessage("Your code has been changed.");
 					}
+				}
+				else
+				{
+					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" [pay|inventory|<code <Code>>]");
 				}
 			}
 			/*if (args[0].equalsIgnoreCase("set"))

@@ -30,6 +30,7 @@ public class MetalPonyPlug
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
+	public static MDebug debug;
 	
 	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
 	{
@@ -51,6 +52,9 @@ public class MetalPonyPlug
 		this.perms = new MPermissions();
 		this.economy = new MEconomy(this);
 		coms.regCommands();
+		setDebug(new MDebug(this));
+		debug.setDebugLog(true);
+		debug.setPlayerDebugLog(false);
 	}
 	
 	public void onDisable()
@@ -138,6 +142,16 @@ public class MetalPonyPlug
 	public JavaPlugin getPlugin()
 	{
 		return plugin;
+	}
+	
+	public static MDebug getDebug()
+	{
+		return debug;
+	}
+	
+	public static void setDebug(MDebug p_debug)
+	{
+		debug = p_debug;
 	}
 	
 	public BukkitPlugin getThisPlugin()
