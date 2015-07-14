@@ -180,10 +180,12 @@ public class MMemory
 	
 	public void validate(String player)
 	{
+		this.config.reloadCustomConfig();
 		if(!this.config.getCustomConfig().contains("eco.codes."+player.toLowerCase()))
 		{
 			this.config.getCustomConfig().createSection("eco.codes."+player.toLowerCase());
 			this.config.getCustomConfig().set("eco.codes."+player.toLowerCase(), 123456);
+			this.config.saveCustomConfig();
 		}
 		String code = this.config.getCustomConfig().getString("eco.codes."+player.toLowerCase(), "00");
 		if(code.length() == this.ints.size())
@@ -252,6 +254,10 @@ public class MMemory
 		Bukkit.broadcastMessage("Hy, \""+MPlayer.concateTable(b.split(""))+"\"");
 		for(String ch : b.split(""))
 		{
+			if(ch == "")
+			{
+				continue;
+			}
 			lst.add(Integer.parseInt(ch));
 		}
 		for(int c = 0; c < a.size(); c++)
