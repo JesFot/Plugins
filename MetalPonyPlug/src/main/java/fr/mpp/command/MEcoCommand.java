@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.mpp.MText.MLang;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.economy.MEcoMenu;
 import fr.mpp.utils.MPlayer;
@@ -64,7 +65,14 @@ public class MEcoCommand implements CommandExecutor
 								}
 								return true;
 							}
-							sender.sendMessage("Design a connected player please.");
+							int idL = -1;
+							if(sender instanceof Player)
+							{
+								this.mpp.getConfig().reloadCustomConfig();
+								idL = this.mpp.getConfig().getCustomConfig().getInt("mppbase.lang."+((Player)sender).getName().toLowerCase(),
+										-1);
+							}
+							sender.sendMessage(this.mpp.getLang().get("player.notfound", MLang.getByID(idL)));
 							return true;
 						}
 						if(p)

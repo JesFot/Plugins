@@ -31,6 +31,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
+import fr.mpp.MText.MLang;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.config.MConfig;
 import fr.mpp.mpp.Classes;
@@ -109,6 +110,7 @@ public class MPlayerListener implements Listener
 			this.confS.getCustomConfig().set("mpp.rank."+RankLevel.MAIN.getName()+"."+pN.toLowerCase(), Classes.Noobie.getAppel());
 			this.confS.getCustomConfig().set("mppbase.registered."+pN.toLowerCase(), true);
 			this.confS.getCustomConfig().set("mppbase.logtimes."+pN.toLowerCase(), 1);
+			this.confS.getCustomConfig().set("mppbase.lang."+pN.toLowerCase(), MLang.DEFAULT.getID());
 			event.getPlayer().setCustomName(Classes.Noobie.getClasse().getDisplayName() + pN);
 			event.getPlayer().setDisplayName(Classes.Noobie.getClasse().getDisplayName() + pN);
 		}
@@ -139,7 +141,14 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
-		// Code ...
+		if(this.mpp.getBuilds().getBank().isNewInBank(event.getPlayer()))
+		{
+			this.mpp.getBuilds().getBank().playerEnter(event.getPlayer());
+		}
+		else if(this.mpp.getBuilds().getBank().isOldInBank(event.getPlayer()))
+		{
+			this.mpp.getBuilds().getBank().playerLeave(event.getPlayer());
+		}
 	}
 
 	@EventHandler
@@ -260,7 +269,7 @@ public class MPlayerListener implements Listener
 		player.getServer().broadcastMessage(this.mhbs.howManyInBedText());
 		if (this.mhbs.hasHalfInBed())
 		{
-			this.mpp.broad("HalfInBed !!");
+			this.mpp.broad(this.mpp.getLang().get("hib", "HalfInBed !!"));
 			this.mhbs.passNight(this.mhbs.getPlayersInBed());
 		}
 	}

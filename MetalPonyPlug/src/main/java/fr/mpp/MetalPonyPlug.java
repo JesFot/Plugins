@@ -18,15 +18,18 @@ import org.bukkit.scheduler.BukkitTask;
 import fr.mpp.bukkit.BukkitPlugin;
 import fr.mpp.command.MCommands;
 import fr.mpp.config.MConfig;
+import fr.mpp.config.MLang;
 import fr.mpp.economy.MEconomy;
 import fr.mpp.economy.MMensual;
 import fr.mpp.perm.MPermissions;
+import fr.mpp.structs.MGeneralBuilds;
 
 public class MetalPonyPlug
 {
 	private FileConfiguration conf;
 	private MCommands coms;
 	private MConfig config;
+	private MLang lang;
 	private MEconomy economy;
 	private MPermissions perms;
 	private final Server server;
@@ -34,6 +37,7 @@ public class MetalPonyPlug
 	private final JavaPlugin plugin;
 	public static MDebug debug;
 	public BukkitTask mensual;
+	private MGeneralBuilds generalBuilds;
 	protected final MPP mpp = new MPP();
 	
 	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
@@ -52,6 +56,7 @@ public class MetalPonyPlug
 	{
 		this.conf = plugin.getConfig();
 		this.config = new MConfig(conf, this);
+		this.lang = new MLang(this);
 		this.coms = new MCommands(this);
 		this.perms = new MPermissions();
 		this.economy = new MEconomy(this);
@@ -60,6 +65,7 @@ public class MetalPonyPlug
 		debug.setDebugLog(true);
 		debug.setPlayerDebugLog(false);
 		MPP.setMetalPonyPlug(this);
+		this.generalBuilds = new MGeneralBuilds();
 		this.mensual = new MMensual(this).start();
 	}
 	
@@ -125,6 +131,11 @@ public class MetalPonyPlug
 		return config;
 	}
 	
+	public MLang getLang()
+	{
+		return lang;
+	}
+	
 	public MPermissions getPerm()
 	{
 		return perms;
@@ -158,6 +169,20 @@ public class MetalPonyPlug
 	public static void setDebug(MDebug p_debug)
 	{
 		debug = p_debug;
+	}
+	
+	public MGeneralBuilds getGeneralBuilds()
+	{
+		return this.generalBuilds;
+	}
+	public MGeneralBuilds getBuilds()
+	{
+		return this.getGeneralBuilds();
+	}
+	
+	public void setGeneralBuilds(MGeneralBuilds builds)
+	{
+		this.generalBuilds = builds;
 	}
 	
 	public BukkitPlugin getThisPlugin()

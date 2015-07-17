@@ -42,6 +42,7 @@ public class MCommands
 		mppl.getPlugin().getCommand("logmessage").setExecutor(new LogMessageCommand(mppl));
 		mppl.getPlugin().getCommand("seed").setExecutor(new MSeedCommand());
 		mppl.getPlugin().getCommand("seed").setTabCompleter(new MSeedCommand());
+		mppl.getPlugin().getCommand("language").setExecutor(new MLangCommand(mppl));
 		//mppl.getPlugin().getCommand("opencity").setExecutor(new OpenCityCommand(mppl));
 	}
 	

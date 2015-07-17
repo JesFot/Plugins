@@ -67,6 +67,10 @@ commands:
   seed:
     description: Shows the world seed
     usage: /<command>
+  language:
+    description: change system language
+    usage: /<command> <Language_name>
+    aliases: [lang]
 #  opencity:
 #    description: Open a door of a city
 #    usage: /<command> <doorID> [open|close]
