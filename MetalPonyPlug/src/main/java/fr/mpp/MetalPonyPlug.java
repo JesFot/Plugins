@@ -22,6 +22,7 @@ import fr.mpp.config.MLang;
 import fr.mpp.economy.MEconomy;
 import fr.mpp.economy.MMensual;
 import fr.mpp.perm.MPermissions;
+import fr.mpp.quests.MQuest;
 import fr.mpp.structs.MGeneralBuilds;
 
 public class MetalPonyPlug
@@ -32,6 +33,7 @@ public class MetalPonyPlug
 	private MLang lang;
 	private MEconomy economy;
 	private MPermissions perms;
+	private MQuest quest;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -59,6 +61,7 @@ public class MetalPonyPlug
 		this.lang = new MLang(this);
 		this.coms = new MCommands(this);
 		this.perms = new MPermissions();
+		this.quest = new MQuest();
 		this.economy = new MEconomy(this);
 		coms.regCommands();
 		setDebug(new MDebug(this));
@@ -139,6 +142,11 @@ public class MetalPonyPlug
 	public MPermissions getPerm()
 	{
 		return perms;
+	}
+	
+	public MQuest getQuest()
+	{
+		return quest;
 	}
 	
 	public MEconomy getEconomy()

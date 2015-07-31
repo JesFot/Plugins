@@ -33,7 +33,11 @@ public class TestmppCommand implements CommandExecutor
 	{
 		if (label.equalsIgnoreCase("testmpp"))
 		{
-			if (args[0].equalsIgnoreCase("setting") && args[1].equalsIgnoreCase("set"))
+			if(args.length == 0)
+			{
+				//
+			}
+			else if (args[0].equalsIgnoreCase("setting") && args[1].equalsIgnoreCase("set"))
 			{
 				String truc = args[2];
 				if (truc.equalsIgnoreCase("affich"))
