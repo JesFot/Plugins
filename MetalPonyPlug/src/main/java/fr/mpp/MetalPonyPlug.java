@@ -24,6 +24,7 @@ import fr.mpp.economy.MMensual;
 import fr.mpp.perm.MPermissions;
 import fr.mpp.quests.MQuest;
 import fr.mpp.structs.MGeneralBuilds;
+import fr.mpp.utils.MVarObject;
 
 public class MetalPonyPlug
 {
@@ -40,6 +41,7 @@ public class MetalPonyPlug
 	public static MDebug debug;
 	public BukkitTask mensual;
 	private MGeneralBuilds generalBuilds;
+	private MVarObject mvo;
 	protected final MPP mpp = new MPP();
 	
 	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
@@ -70,6 +72,8 @@ public class MetalPonyPlug
 		MPP.setMetalPonyPlug(this);
 		this.generalBuilds = new MGeneralBuilds();
 		this.mensual = new MMensual(this).start();
+		this.mvo = new MVarObject();
+		this.mvo.storeBool("plugin", true);
 	}
 	
 	public void onDisable()
@@ -191,6 +195,11 @@ public class MetalPonyPlug
 	public void setGeneralBuilds(MGeneralBuilds builds)
 	{
 		this.generalBuilds = builds;
+	}
+	
+	public MVarObject getMVO()
+	{
+		return mvo;
 	}
 	
 	public BukkitPlugin getThisPlugin()

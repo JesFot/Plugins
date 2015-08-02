@@ -257,7 +257,20 @@ public class MPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
-		// Code ...
+		String msg = "";
+		if(event.getMessage().contains("${"))
+		{
+			for(String arg : event.getMessage().split(" "))
+			{
+				if(arg.startsWith("${") && arg.endsWith("}"))
+				{
+					String var = arg.substring(2, arg.length()-1);
+					arg = this.mpp.getMVO().getToString(var);
+				}
+				msg += arg + " ";
+			}
+			event.setMessage(msg.substring(0, msg.length()-1));
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)

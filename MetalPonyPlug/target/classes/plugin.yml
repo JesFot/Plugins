@@ -43,6 +43,7 @@ commands:
     #usage: /<command> <reset|set> [all]
   mpp-off:
     description: Do Not Use IT
+    permission: op
     usage: /<command>
   mhome:
     description: Set or teleport you at a home, sweet home :p
@@ -71,6 +72,13 @@ commands:
     description: change system language
     usage: /<command> <Language_name>
     aliases: [lang]
+  world:
+    description: world edit
+    usage: /<command> ...
+    aliases : [worlds]
+  var:
+    description: Set or see variables
+    usage: /<command> <valueName> or /<command> set <valueName> <type> <value>
 #  opencity:
 #    description: Open a door of a city
 #    usage: /<command> <doorID> [open|close]
