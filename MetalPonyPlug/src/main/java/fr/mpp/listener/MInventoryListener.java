@@ -1,6 +1,7 @@
 package fr.mpp.listener;
 
 import org.bukkit.Material;
+import org.bukkit.block.Chest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -12,6 +13,7 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.economy.MMemory;
@@ -54,7 +56,19 @@ public class MInventoryListener implements Listener
 	@EventHandler
 	public void onOpenInventory(InventoryOpenEvent event)
 	{
-		// Code ...
+		InventoryHolder holder = event.getInventory().getHolder();
+		if(holder instanceof Chest)
+		{
+			Chest block = (Chest)holder;
+			if(block.hasMetadata("Lock")/* && block.getMetadata("Lock").get(0).value() != ""*/)
+			{
+				this.mpp.broad("coucou");
+				if(event.getPlayer().getInventory().getItemInHand().getItemMeta().getDisplayName().equals("MasterKey_w0hr654g6q5rg6f546er"))
+				{
+					event.getPlayer().openInventory(event.getInventory());
+				}
+			}
+		}
 	}
 	
 	@EventHandler
