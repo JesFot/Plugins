@@ -45,6 +45,7 @@ public class MCommands
 		mppl.getPlugin().getCommand("language").setExecutor(new MLangCommand(mppl));
 		mppl.getPlugin().getCommand("world").setExecutor(new MWorldCommand(mppl));
 		mppl.getPlugin().getCommand("var").setExecutor(new MVarCommand(mppl));
+		mppl.getPlugin().getCommand("mtpc").setExecutor(new MTpcCommand());
 		//mppl.getPlugin().getCommand("opencity").setExecutor(new OpenCityCommand(mppl));
 	}
 	

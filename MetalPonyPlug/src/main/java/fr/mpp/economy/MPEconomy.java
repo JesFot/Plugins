@@ -1,17 +1,16 @@
 package fr.mpp.economy;
 
-import org.bukkit.entity.Player;
-
+import org.bukkit.OfflinePlayer;
 import fr.mpp.MetalPonyPlug;
 import fr.mpp.config.MConfig;
 
 public class MPEconomy
 {
 	private MetalPonyPlug mpp;
-	private Player player;
+	private OfflinePlayer player;
 	private MConfig config;
 	
-	public MPEconomy(MetalPonyPlug p_mpp, Player p_player)
+	public MPEconomy(MetalPonyPlug p_mpp, OfflinePlayer p_player)
 	{
 		this.mpp = p_mpp;
 		this.player = p_player;

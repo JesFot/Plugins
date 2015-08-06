@@ -1,6 +1,7 @@
 package fr.mpp.command;
 
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -53,7 +54,11 @@ public class MEcoCommand implements CommandExecutor
 					if(args.length == 3)
 					{
 						double dble = Double.valueOf(args[2]);
-						Player target = MPlayer.getPlayerByName(args[1]);
+						OfflinePlayer target = MPlayer.getPlayerByName(args[1]);
+						if(target == null)
+						{
+							target = MPlayer.getPlayerByNameOff(args[1]);
+						}
 						if (target == null)
 						{
 							if(args[1].equalsIgnoreCase("console"))
@@ -78,14 +83,24 @@ public class MEcoCommand implements CommandExecutor
 						if(p)
 						{
 							this.mpp.getEconomy().pay(player, target, dble);
-							target.sendMessage(player.getDisplayName()+" give you "+dble+this.mpp.getEconomy().getSym()+".");
-							player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getDisplayName()+".");
+							if(target.isOnline())
+							{
+								((Player)target).sendMessage(player.getDisplayName()+" give you "+dble+this.mpp.getEconomy().getSym()+".");
+								player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+((Player)target).getDisplayName()+".");
+							}
+							else
+								player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getName()+".");
 						}
 						else
 						{
 							this.mpp.getEconomy().pay(null, target, dble);
-							target.sendMessage("The Console give you "+dble+this.mpp.getEconomy().getSym()+".");
-							sender.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getDisplayName()+".");
+							if(target.isOnline())
+							{
+								((Player)target).sendMessage("The Console give you "+dble+this.mpp.getEconomy().getSym()+".");
+								sender.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+((Player)target).getDisplayName()+".");
+							}
+							else
+								player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getName()+".");
 						}
 						return true;
 					}

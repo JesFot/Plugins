@@ -79,6 +79,9 @@ commands:
   var:
     description: Set or see variables
     usage: /<command> <valueName> or /<command> set <valueName> <type> <value>
+  mtpc:
+    description: Teleports the given player (or yourself) to coordinates
+    usage: /<command> [player] <x> <y> <z>
 #  opencity:
 #    description: Open a door of a city
 #    usage: /<command> <doorID> [open|close]

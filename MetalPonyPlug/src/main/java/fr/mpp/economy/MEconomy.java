@@ -3,13 +3,14 @@ package fr.mpp.economy;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import fr.mpp.MetalPonyPlug;
 
 public class MEconomy
 {
-	protected Map<Player, MPEconomy> eco;
+	protected Map<OfflinePlayer, MPEconomy> eco;
 	private MetalPonyPlug mpp;
 	protected String ecoSym = "$";
 	
@@ -20,33 +21,33 @@ public class MEconomy
 	
 	public MEconomy(MetalPonyPlug p_mpp)
 	{
-		this.eco = new HashMap<Player, MPEconomy>();
+		this.eco = new HashMap<OfflinePlayer, MPEconomy>();
 		this.mpp = p_mpp;
 	}
 	
-	public void addPlayer(Player p_player)
+	public void addPlayer(OfflinePlayer target)
 	{
-		if(this.playerExists(p_player))
+		if(this.playerExists(target))
 		{
 			return;
 		}
-		this.eco.put(p_player, new MPEconomy(this.mpp, p_player));
+		this.eco.put(target, new MPEconomy(this.mpp, target));
 	}
 	
-	public MPEconomy getEco(Player p_player)
+	public MPEconomy getEco(OfflinePlayer target)
 	{
-		if(p_player == null)
+		if(target == null)
 		{
 			return null;
 		}
-		if(!playerExists(p_player))
+		if(!playerExists(target))
 		{
-			addPlayer(p_player);
+			addPlayer(target);
 		}
-		return this.eco.get(p_player);
+		return this.eco.get(target);
 	}
 	
-	public boolean pay(Player source, Player target, double amount)
+	public boolean pay(Player source, OfflinePlayer target, double amount)
 	{
 		if(source == target)
 		{
@@ -95,9 +96,9 @@ public class MEconomy
 		this.getEco(player).setMoney(this.getEco(player).getMoney()-(this.toMY(amount)));
 	}
 	
-	public boolean playerExists(Player p_player)
+	public boolean playerExists(OfflinePlayer target)
 	{
-		return this.eco.containsKey(p_player);
+		return this.eco.containsKey(target);
 	}
 	
 	public void removePlayer(Player p_player)
