@@ -75,7 +75,7 @@ public class MTpcCommand implements CommandExecutor
             player.teleport(playerLocation, TeleportCause.COMMAND);
             Command.broadcastCommandMessage(sender, String.format("Teleported %s to %.2f, %.2f, %.2f", player.getDisplayName(), x, y, z));
         }
-		return false;
+		return true;
 	}
 	
 	private double getCoordinate(CommandSender sender, double current, String input)

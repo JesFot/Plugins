@@ -73,7 +73,7 @@ commands:
     usage: /<command> <Language_name>
     aliases: [lang]
   world:
-    description: world edit
+    description: world changer method
     usage: /<command> ...
     aliases : [worlds]
   var:
