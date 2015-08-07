@@ -49,7 +49,7 @@ public class BukkitPlugin extends JavaPlugin
 		{
 			getLogger().log(Level.SEVERE, "The file is broken and " + RefString.NAME + " can't open it. " + RefString.NAME + " is now disabled.");
 			getLogger().log(Level.SEVERE, ex.toString());
-			getLogger().log(Level.SEVERE, "", ex);
+			//getLogger().log(Level.SEVERE, "", ex);
 			pm.registerEvents(new CrashListener(), this);
 			for (Player player : getServer().getOnlinePlayers())
 			{
