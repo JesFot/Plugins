@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.bukkit.Bukkit;
-
 import fr.mpp.config.MVarConfig;
 
 public class MVarObject
@@ -221,7 +219,6 @@ public class MVarObject
 		Set<String> values = this.varConfig.getVarConfig().getKeys(false);
 		for(String key : values)
 		{
-			Bukkit.broadcastMessage(this.varConfig.getVarConfig().getString("mom"));
 			String obj = this.varConfig.getVarConfig().getString(key).split(";")[0];
 			String type = this.varConfig.getVarConfig().getString(key).split(";")[1];
 			switch(type)
