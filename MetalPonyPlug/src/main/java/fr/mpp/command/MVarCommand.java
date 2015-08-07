@@ -47,7 +47,17 @@ public class MVarCommand implements CommandExecutor
 					this.mpp.getMVO().storeFloat(name, Float.parseFloat(value));
 					break;
 				}
-				sender.sendMessage("Oki.");
+				sender.sendMessage("Registered.");
+				this.mpp.getMVO().storeToFile();
+			}
+		}
+		else if(args.length == 2)
+		{
+			if(args[0].equalsIgnoreCase("unset"))
+			{
+				String name = args[1];
+				this.mpp.getMVO().remove(name);
+				sender.sendMessage("Unseted.");
 			}
 		}
 		else if(args.length == 1)

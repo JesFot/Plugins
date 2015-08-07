@@ -3,9 +3,21 @@ package fr.mpp.utils;
 import java.lang.instrument.IllegalClassFormatException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import org.bukkit.Bukkit;
+
+import fr.mpp.config.MVarConfig;
 
 public class MVarObject
 {
+	private MVarConfig varConfig;
+	
+	public MVarObject(MVarConfig p_varConfig)
+	{
+		this.varConfig = p_varConfig;
+	}
+	
 	public enum ObjType
 	{
 		Object,
@@ -182,5 +194,60 @@ public class MVarObject
 		default:
 			return null;
 		}
+	}
+	
+	public void storeToFile()
+	{
+		Set<String> values = this.varConfig.getVarConfig().getKeys(true);
+		for(String key : values)
+		{
+			this.varConfig.getVarConfig().set(key, null);
+		}
+		this.varConfig.getVarConfig().set("plugin", "false;boolean");
+		for(String n : this.store.keySet())
+		{
+			if(!n.equalsIgnoreCase("plugin"))
+			{
+				this.varConfig.getVarConfig().set(n, (this.getToString(n)+";"+this.getType(n).toString()).toString());
+			}
+		}
+		this.varConfig.saveVarConfig();
+	}
+	
+	public void getFromFile()
+	{
+		this.varConfig.reloadVarConfig();
+		this.store.clear();
+		Set<String> values = this.varConfig.getVarConfig().getKeys(false);
+		for(String key : values)
+		{
+			Bukkit.broadcastMessage(this.varConfig.getVarConfig().getString("mom"));
+			String obj = this.varConfig.getVarConfig().getString(key).split(";")[0];
+			String type = this.varConfig.getVarConfig().getString(key).split(";")[1];
+			switch(type)
+			{
+			case "string":
+				this.storeString(key, obj);
+				break;
+			case "integer":
+				this.storeInt(key, Integer.parseInt(obj));
+				break;
+			case "boolean":
+				this.storeBool(key, Boolean.getBoolean(obj.toLowerCase()));
+				break;
+			case "float":
+				this.storeFloat(key, Float.parseFloat(obj));
+				break;
+			default:
+				this.storeObject(key, new ObjData((Object)obj, ObjType.Object));
+				break;
+			}
+		}
+	}
+
+	public void remove(String name)
+	{
+		this.store.remove(name);
+		this.storeToFile();
 	}
 }

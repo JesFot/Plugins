@@ -260,16 +260,16 @@ public class MPlayerListener implements Listener
 		String msg = "";
 		if(event.getMessage().contains("${"))
 		{
-			for(String arg : event.getMessage().split(" "))
+			for(String arg : event.getMessage().split("$"))
 			{
-				if(arg.startsWith("${") && arg.endsWith("}"))
+				if(arg.startsWith("{") && arg.contains("}"))
 				{
-					String var = arg.substring(2, arg.length()-1);
+					String var = arg.substring(1, arg.indexOf("}"));
 					arg = this.mpp.getMVO().getToString(var);
 				}
-				msg += arg + " ";
+				msg += arg + "";
 			}
-			event.setMessage(msg.substring(0, msg.length()-1));
+			event.setMessage(msg);
 		}
 	}
 	

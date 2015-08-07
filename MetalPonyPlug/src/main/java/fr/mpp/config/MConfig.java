@@ -29,11 +29,18 @@ public class MConfig
 	private Map<String, File> configFiles = new HashMap<String, File>();
 	private Map<String, FileConfiguration> configs = new HashMap<String, FileConfiguration>();
 	private static final int x = 0, y = 0, z = -1;
+	private MVarConfig varConfig;
 
 	public MConfig(FileConfiguration file, MetalPonyPlug p_mpp)
 	{
 		this.confFile = file;
 		this.mpp = p_mpp;
+		this.varConfig = new MVarConfig(p_mpp);
+	}
+	
+	public MVarConfig getVarConfig()
+	{
+		return this.varConfig;
 	}
 
 	/**

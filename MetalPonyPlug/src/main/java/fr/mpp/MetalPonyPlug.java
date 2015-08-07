@@ -72,7 +72,8 @@ public class MetalPonyPlug
 		MPP.setMetalPonyPlug(this);
 		this.generalBuilds = new MGeneralBuilds();
 		this.mensual = new MMensual(this).start();
-		this.mvo = new MVarObject();
+		this.mvo = new MVarObject(this.config.getVarConfig());
+		this.mvo.getFromFile();
 		this.mvo.storeBool("plugin", true);
 	}
 	
