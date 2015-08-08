@@ -41,7 +41,8 @@ public class MCommands
 		//empl.getPlugin().getCommand("seed").setExecutor(new MSeedCommand());
 		//empl.getPlugin().getCommand("seed").setTabCompleter(new MSeedCommand());
 		//empl.getPlugin().getCommand("world").setExecutor(new MWorldCommand(empl));
-		empl.getPlugin().getCommand("var").setExecutor(new MVarCommand(empl));
+		MVarCommand varCommand = new MVarCommand(empl);
+		empl.getPlugin().getCommand("var").setExecutor(varCommand);
 		//empl.getPlugin().getCommand("mtpc").setExecutor(new MTpcCommand());
 	}
 	

@@ -1,7 +1,9 @@
 package me.emp.command;
 
 import me.emp.EliryumPlug;
+import me.emp.perms.EPermissions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,6 +28,11 @@ public class MVarCommand implements CommandExecutor
 		{
 			if(args[0].equalsIgnoreCase("set"))
 			{
+				if(!EPermissions.testPermission(sender, "Eliryum.var.set", ChatColor.RED + "You are not allowed to use the /var set command. "
+						+ "Sorry, please contact an administrator if you believe that is an error."))
+				{
+					return true;
+				}
 				String name = args[1];
 				String type = args[2].toLowerCase();
 				String value = args[3];
@@ -55,12 +62,23 @@ public class MVarCommand implements CommandExecutor
 		{
 			if(args[0].equalsIgnoreCase("unset"))
 			{
+				if(!EPermissions.testPermission(sender, "Eliryum.var.set", ChatColor.RED + "You are not allowed to use the /var unset command. "
+						+ "Sorry, please contact an administrator if you believe that is an error."))
+				{
+					return true;
+				}
 				String name = args[1];
 				this.emp.getMVO().remove(name);
 			}
 		}
 		else if(args.length == 1)
 		{
+			if(!EPermissions.testPermission(sender, "Eliryum.var.view", ChatColor.RED
+					+ "You are not allowed to use the /var <<name>> command. ".replace("<name>", args[0])
+					+ "Sorry, please contact an administrator if you believe that is an error."))
+			{
+				return true;
+			}
 			sender.sendMessage("Value: "+this.emp.getMVO().getToString(args[0]));
 		}
 		return true;

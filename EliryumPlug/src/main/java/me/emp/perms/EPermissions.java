@@ -16,8 +16,10 @@ public class EPermissions
 	private EliryumPlug emp;
 	protected HashMap<String, PermissionAttachment> paMap;
 	protected HashMap<String, Permission> pMap;
-	protected Permission AllEliryumPlug = new Permission("Eliryum.all", "all EliryumPlug commands", PermissionDefault.OP, null);
-	protected Permission SwitchCommand = new Permission("Eliryum.switch", "permission for the 'Switch' commands", PermissionDefault.OP, null);
+	protected Permission SwitchCommand = new Permission("Eliryum.switch", "permission for the 'Switch' command", PermissionDefault.OP, null);
+	protected Permission ViewVarCommand = new Permission("Eliryum.var.view", "permission for the 'var' command", PermissionDefault.TRUE, null);
+	protected Permission SetVarCommand = new Permission("Eliryum.var.set", "permission for the 'var set' command", PermissionDefault.TRUE, null);
+	protected Permission UseVarCommand = new Permission("Eliryum.var.use", "permission for use defined variables", PermissionDefault.TRUE, null);
 	
 	public EPermissions(EliryumPlug p_emp)
 	{
@@ -26,11 +28,11 @@ public class EPermissions
 	
 	public void myPerms()
 	{
-		this.SwitchCommand.addParent(this.AllEliryumPlug, true);
-		
 		this.collectPerms();
-		this.pMap.put(this.AllEliryumPlug.getName(), this.AllEliryumPlug);
 		this.pMap.put(this.SwitchCommand.getName(), this.SwitchCommand);
+		this.pMap.put(this.ViewVarCommand.getName(), this.ViewVarCommand);
+		this.pMap.put(this.SetVarCommand.getName(), this.SetVarCommand);
+		this.pMap.put(this.UseVarCommand.getName(), this.UseVarCommand);
 		this.registerAllPerms();
 	}
 	
@@ -78,13 +80,13 @@ public class EPermissions
 		{
 			target.sendMessage(ChatColor.RED+
 					"I'm sorry, but you do not have permission to perform this command. "
-					+ "Please contact the server administrators if you believe that this is in error.");
+					+ "Please contact the server administrators if you believe that this is an error.");
 		}
 		else if(permissionMessage.length() != 0)
 		{
 			for(String line : permissionMessage.replace("<permission>", permission).split("\n"))
 			{
-				target.sendMessage(line.replace("$c", ChatColor.RED+"").replace("$r", ChatColor.RESET+""));
+				target.sendMessage(line);
 			}
 		}
 		return false;

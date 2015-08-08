@@ -4,6 +4,9 @@ import me.emp.EliryumPlug;
 import me.emp.mpp.MHalfBedSys;
 //import me.emp.utils.ItemInventory;
 
+import me.emp.perms.EPermissions;
+
+import org.bukkit.ChatColor;
 //import org.bukkit.CropState;
 //import org.bukkit.Location;
 //import org.bukkit.Material;
@@ -138,12 +141,17 @@ public class MPlayerListener implements Listener
 		String msg = "";
 		if(event.getMessage().contains("${") && event.getMessage().contains("}"))
 		{
+			if(!EPermissions.testPermission(event.getPlayer(), "Eliryum.var.use", ChatColor.RED + "You are not allowed to use any variables. "
+					+ "Sorry, please contact an administrator if you believe that is an error."))
+			{
+				return;
+			}
 			for(String arg : event.getMessage().split("\\$"))
 			{
 				if(arg.startsWith("{") && arg.contains("}"))
 				{
 					String var = arg.substring(1, arg.indexOf("}"));
-					arg = this.emp.getMVO().getToString(var);
+					arg = this.emp.getMVO().getToString(var)+((arg.endsWith("}") && arg.indexOf("}")==arg.length()-1) ? "" : arg.substring(arg.indexOf("}")+1));
 				}
 				msg += arg + "";
 			}
