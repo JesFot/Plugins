@@ -1,0 +1,13 @@
+name: EliryumPlug
+main: me.emp.bukkit.BukkitPlugin
+version: 1.1.5
+description: Plugin made for Eliryum server
+authors: ["JesFot"]
+commands:
+  switch:
+    description: Enable or disable plugin
+    #permission: Eliryum.switch
+    usage: /<command> <pluginName> <on|off>
+  var:
+    description: Variables command
+    usage: /<command> <varName> or /<command> set <varName> <type> <value> or /<command> unset <varName>
