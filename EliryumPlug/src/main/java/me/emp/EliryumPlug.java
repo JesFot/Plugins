@@ -64,12 +64,12 @@ public class EliryumPlug
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return MCommands.onCommand(sender, cmd, label, args);
+		return this.coms.onCommand(sender, cmd, label, args);
 	}
 	
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
-		return MCommands.onTabComplete(sender, command, alias, args);
+		return this.coms.onTabComplete(sender, command, alias, args);
 	}
 	
 	public List<String> getConfig(String name)

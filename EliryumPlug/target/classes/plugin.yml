@@ -1,7 +1,7 @@
 name: EliryumPlug
 main: me.emp.bukkit.BukkitPlugin
-version: 1.1.5
-description: Plugin made for Eliryum server
+version: 1.2.4
+description: Plugin made for the Eliryum server
 authors: ["JesFot"]
 commands:
   switch:
@@ -11,3 +11,7 @@ commands:
   var:
     description: Variables command
     usage: /<command> <varName> or /<command> set <varName> <type> <value> or /<command> unset <varName>
+  mask:
+    description: Make you vanished for other players
+    usage: /<command>
+    aliases: [vanish, disepear, flogout]

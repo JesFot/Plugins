@@ -43,15 +43,17 @@ public class MCommands
 		//empl.getPlugin().getCommand("world").setExecutor(new MWorldCommand(empl));
 		MVarCommand varCommand = new MVarCommand(empl);
 		empl.getPlugin().getCommand("var").setExecutor(varCommand);
+		MMaskCommand maskCommand = new MMaskCommand(empl);
+		empl.getPlugin().getCommand("mask").setExecutor(maskCommand);
 		//empl.getPlugin().getCommand("mtpc").setExecutor(new MTpcCommand());
 	}
 	
-	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) // Like command (detect cheat) listener
 	{
 		return false;
 	}
 	
-	public static List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
 		return null;
 	}

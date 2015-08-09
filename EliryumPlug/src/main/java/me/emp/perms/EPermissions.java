@@ -6,6 +6,7 @@ import me.emp.EliryumPlug;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionDefault;
@@ -20,6 +21,9 @@ public class EPermissions
 	protected Permission ViewVarCommand = new Permission("Eliryum.var.view", "permission for the 'var' command", PermissionDefault.TRUE, null);
 	protected Permission SetVarCommand = new Permission("Eliryum.var.set", "permission for the 'var set' command", PermissionDefault.TRUE, null);
 	protected Permission UseVarCommand = new Permission("Eliryum.var.use", "permission for use defined variables", PermissionDefault.TRUE, null);
+	protected Permission UseMaskCommand = new Permission("Eliryum.mask.use", "permission for the 'mask' command", PermissionDefault.OP, null);
+	protected Permission SeeMaskCommand = new Permission("Eliryum.mask.seeAll", "permission for see masked non-admin players", PermissionDefault.OP, null);
+	protected Permission SeeAdminMaskCommand = new Permission("Eliryum.mask.seeAdmin", "permission for see masked admins", PermissionDefault.OP, null);
 	
 	public EPermissions(EliryumPlug p_emp)
 	{
@@ -33,6 +37,9 @@ public class EPermissions
 		this.pMap.put(this.ViewVarCommand.getName(), this.ViewVarCommand);
 		this.pMap.put(this.SetVarCommand.getName(), this.SetVarCommand);
 		this.pMap.put(this.UseVarCommand.getName(), this.UseVarCommand);
+		this.pMap.put(this.UseMaskCommand.getName(), this.UseMaskCommand);
+		this.pMap.put(this.SeeMaskCommand.getName(), this.SeeMaskCommand);
+		this.pMap.put(this.SeeAdminMaskCommand.getName(), this.SeeAdminMaskCommand);
 		this.registerAllPerms();
 	}
 	
@@ -94,6 +101,14 @@ public class EPermissions
 	
 	public static boolean testPermissionSilent(CommandSender target, String permission)
 	{
+		if(target instanceof ConsoleCommandSender)
+		{
+			return true;
+		}
+		if(target.isOp())
+		{
+			return true;
+		}
 		if((permission == null) || (permission.length() == 0))
 		{
 			return true;

@@ -4,7 +4,7 @@
 
   <groupId>eliryumplug</groupId>
   <artifactId>EliryumPlug</artifactId>
-  <version>1.1.5</version>
+  <version>1.2.4</version>
   <packaging>jar</packaging>
 
   <name>EliryumPlug</name>

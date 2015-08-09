@@ -56,6 +56,21 @@ public class MPlayerListener implements Listener
 		{
 			event.getPlayer().addAttachment(this.emp.getPlugin()).setPermission("Eliryum.switch", true);
 		}*/
+		for(Player connected : this.emp.getServer().getOnlinePlayers())
+		{
+			if(emp.getConfig().getCustomConfig().getBoolean("hidenplayers."+connected.getName().toLowerCase(), false))
+			{
+				if(EPermissions.testPermissionSilent(event.getPlayer(), "Eliryum.mask.seeAll") && !connected.isOp())
+				{
+					continue;
+				}
+				if(EPermissions.testPermissionSilent(event.getPlayer(), "Eliryum.mask.seeAdmin") && connected.isOp())
+				{
+					continue;
+				}
+				event.getPlayer().hidePlayer(connected);
+			}
+		}
 	}
 	
 	@EventHandler
