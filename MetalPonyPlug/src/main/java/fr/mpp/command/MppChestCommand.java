@@ -13,12 +13,10 @@ import fr.mpp.perm.MPermissions;
 public class MppChestCommand implements CommandExecutor
 {
 	private MetalPonyPlug mpp;
-	private MPermissions mPerm;
 	
 	public MppChestCommand(MetalPonyPlug mppl)
 	{
 		this.mpp = mppl;
-		this.mPerm = mppl.getPerm();
 	}
 
 	@Override
@@ -27,7 +25,7 @@ public class MppChestCommand implements CommandExecutor
 		if (sender instanceof Player)
 		{
 			Player player = (Player)sender;
-			if (mPerm.getPerm(player, "mpp.low.chest"))
+			if (MPermissions.testPermissionSilent(player, "mpp.low.chest"))
 			{
 				player.sendMessage(ChatColor.RED + "You are not allowed to perform this command");
 				return true;

@@ -100,7 +100,7 @@ public class MEcoCommand implements CommandExecutor
 								sender.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+((Player)target).getDisplayName()+".");
 							}
 							else
-								player.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getName()+".");
+								sender.sendMessage("You gave "+dble+this.mpp.getEconomy().getSym()+" to "+target.getName()+".");
 						}
 						return true;
 					}
@@ -144,31 +144,6 @@ public class MEcoCommand implements CommandExecutor
 					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+aliase+" <code> <new_Code(7chars)>");
 				}
 			}
-			/*if (args[0].equalsIgnoreCase("set"))
-			{
-				double dble = Double.valueOf(args[1]);
-				Player cible;
-				if(args.length >= 3)
-				{
-					String pname = args[2];
-					cible = MPlayer.getPlayerByName(pname);
-					if (cible == null)
-					{
-						sender.sendMessage("Design a connected player please.");
-						return true;
-					}
-				}
-				else if(p)
-				{
-					cible = (Player)sender;
-				}
-				else
-				{
-					sender.sendMessage("Give a third argument or be a player please");
-					return true;
-				}
-				this.mpp.getEconomy().getEco(cible).setMoney(dble);
-			}*/
 			return true;
 		}
 		return false;

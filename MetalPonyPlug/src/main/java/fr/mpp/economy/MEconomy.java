@@ -40,9 +40,9 @@ public class MEconomy
 		{
 			return null;
 		}
-		if(!playerExists(target))
+		if(!this.playerExists(target))
 		{
-			addPlayer(target);
+			this.addPlayer(target);
 		}
 		return this.eco.get(target);
 	}
@@ -59,41 +59,26 @@ public class MEconomy
 		}
 		if(source == null)
 		{
-			this.getEco(target).setMoney(this.getEco(target).getMoney()+amount);
+			this.getEco(target).add(amount);
 			return true;
 		}
 		if(target == null)
 		{
-			this.getEco(source).setMoney(this.getEco(source).getMoney()-amount);
+			this.getEco(source).remove(amount);
 			return true;
 		}
 		if(this.getEco(source).getMoney() < amount)
 		{
 			return false;
 		}
-		this.getEco(source).setMoney(this.getEco(source).getMoney()-amount);
-		this.getEco(target).setMoney(this.getEco(target).getMoney()+amount);
+		this.getEco(source).remove(amount);
+		this.getEco(target).add(amount);
 		return true;
-	}
-	
-	public int toEM(double amount)
-	{
-		return (int)(amount/10);
-	}
-	
-	public double toMY(int emerald)
-	{
-		return emerald*10;
-	}
-	
-	public void removeMoney(Player player, double amount)
-	{
-		this.getEco(player).setMoney(this.getEco(player).getMoney()-amount);
 	}
 	
 	public void removeMoneyEM(Player player, int amount)
 	{
-		this.getEco(player).setMoney(this.getEco(player).getMoney()-(this.toMY(amount)));
+		this.getEco(player).remove(this.mpp.getMoney().toMoney(amount));
 	}
 	
 	public boolean playerExists(OfflinePlayer target)
@@ -101,12 +86,24 @@ public class MEconomy
 		return this.eco.containsKey(target);
 	}
 	
-	public void removePlayer(Player p_player)
+	public boolean removePlayer(Player p_player)
 	{
 		if(playerExists(p_player))
 		{
 			this.eco.get(p_player).removeMoney();
 			this.eco.remove(p_player);
+			return true;
 		}
+		return false;
+	}
+	
+	public MEconomy salary(String type, Player target)
+	{
+		double sal = this.mpp.getMoney().getSalary(type);
+		if(this.playerExists(target))
+		{
+			this.getEco(target).add(sal);
+		}
+		return this;
 	}
 }
