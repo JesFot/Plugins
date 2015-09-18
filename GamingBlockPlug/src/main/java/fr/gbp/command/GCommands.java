@@ -24,6 +24,10 @@ public class GCommands
 	public void regCommands(GamingBlockPlug gbpl)
 	{
 		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestgbpCommand());
+		gbpl.getPlugin().getCommand("gtpa").setExecutor(new GTpaCommand(gbpl));
+		GHomeCommand ghome = new GHomeCommand(gbpl);
+		gbpl.getPlugin().getCommand("ghome").setExecutor(ghome);
+		gbpl.getPlugin().getCommand("ghome").setTabCompleter(ghome);
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

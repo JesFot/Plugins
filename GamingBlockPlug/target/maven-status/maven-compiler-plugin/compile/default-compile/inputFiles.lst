@@ -6,9 +6,12 @@ C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gb
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\CrashListener.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\GWorldUtil.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\ItemInventory.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\prompts\TpaPrompt.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GHomeCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\GWorldListener.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\UPlayer.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GCommands.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GTpaCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\RefString.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\GamingBlockPlug.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\GPluginListener.java

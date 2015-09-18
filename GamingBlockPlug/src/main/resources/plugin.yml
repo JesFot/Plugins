@@ -7,3 +7,11 @@ commands:
   testgbp:
     description: Commande test.
     usage: /<command> [word]
+  gtpa:
+    description: Same as tpa in essentials
+    usage: /<command> <targetPlayer>
+    aliases: [tpa]
+  ghome:
+    description: Same as home in essentials
+    usage: /<command> [set] | /<command> <locName> [set]
+    aliases: [home, h]
