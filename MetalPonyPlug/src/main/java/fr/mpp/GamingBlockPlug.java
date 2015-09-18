@@ -1,4 +1,4 @@
-package fr.mpp;
+package fr.gbp;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,18 +9,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.mpp.bukkit.BukkitPlugin;
-import fr.mpp.command.MCommands;
+import fr.gbp.bukkit.BukkitPlugin;
+import fr.gbp.command.MCommands;
 
-public class MetalPonyPlug
+public class GamingBlockPlug
 {
 	private FileConfiguration conf;
-	private MCommands coms;
+	private GCommands coms;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	
-	public MetalPonyPlug(Server server, Logger logger, JavaPlugin plugin)
+	public GamingBlockPlug(Server server, Logger logger, JavaPlugin plugin)
 	{
 		this.server = server;
 		this.plugin = plugin;
@@ -35,7 +35,7 @@ public class MetalPonyPlug
 	public void onEnable()
 	{
 		this.conf = plugin.getConfig();
-		this.coms = new MCommands(this);
+		this.coms = new GCommands(this);
 		coms.regCommands();
 	}
 	
@@ -46,7 +46,7 @@ public class MetalPonyPlug
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return MCommands.onCommand(sender, cmd, label, args);
+		return GCommands.onCommand(sender, cmd, label, args);
 	}
 	
 	public List<String> getConfig(String name)
