@@ -1,10 +1,10 @@
-name: MetalPonyPlug
-main: fr.mpp.bukkit.BukkitPlugin
+name: GamingBlockPlug
+main: fr.gbp.bukkit.BukkitPlugin
 version: 1.0 ALPHA
-description: Plugin for PonyMetalCraft server
+description: Plugin for Gaming Block server
 authors: ["JesFot"]
 commands:
-  testmpp:
-    com: testmpp
+  testgbp:
+    com: testgbp
     description: Commande test.
     usage: /<command> [word]
