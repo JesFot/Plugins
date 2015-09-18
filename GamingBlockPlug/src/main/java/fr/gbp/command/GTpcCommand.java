@@ -28,7 +28,7 @@ public class GTpcCommand implements CommandExecutor
         if(args.length < 3 || args.length > 4)
         {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
-            return false;
+            return true;
         }
         
         Player player;
