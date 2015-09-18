@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.gbp.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 
-public class MBlockListener implements Listener
+public class GBlockListener implements Listener
 {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onBlockPlace(final BlockPlaceEvent event)
