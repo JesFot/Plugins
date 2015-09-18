@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.gbp.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -12,7 +12,7 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-public class MWorldListener implements Listener
+public class GWorldListener implements Listener
 {
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onWorldInit(final WorldInitEvent event)
