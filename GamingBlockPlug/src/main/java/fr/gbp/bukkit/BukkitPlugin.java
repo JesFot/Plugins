@@ -34,7 +34,7 @@ public class BukkitPlugin extends JavaPlugin
 		try
 		{
 			getLogger().log(Level.INFO, "Plugin start !!");
-			this.onEnable();
+			this.gbp.onEnable();
 		}
 		catch(RuntimeException ex)
 		{
