@@ -15,3 +15,6 @@ commands:
     description: Same as home in essentials
     usage: /<command> [set] | /<command> <locName> [set]
     aliases: [home, h]
+  gtpc:
+    description: Teleportation to coordinates
+    usage: /<command> [player] <x> <y> <z>
