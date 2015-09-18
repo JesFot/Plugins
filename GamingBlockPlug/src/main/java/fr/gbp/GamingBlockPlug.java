@@ -9,8 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.gbp.bukkit.BukkitPlugin;
-import fr.gbp.command.MCommands;
+import fr.gbp.command.GCommands;
 
 public class GamingBlockPlug
 {
@@ -20,11 +19,11 @@ public class GamingBlockPlug
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	
-	public GamingBlockPlug(Server server, Logger logger, JavaPlugin plugin)
+	public GamingBlockPlug(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
-		this.server = server;
-		this.plugin = plugin;
-		this.logger = logger;
+		this.server = p_server;
+		this.logger = p_logger;
+		this.plugin = p_plugin;
 	}
 	
 	public static void onLoad()
@@ -34,14 +33,14 @@ public class GamingBlockPlug
 	
 	public void onEnable()
 	{
-		this.conf = plugin.getConfig();
+		this.conf = this.plugin.getConfig();
 		this.coms = new GCommands(this);
 		coms.regCommands();
 	}
 	
 	public void onDisable()
 	{
-		plugin.saveConfig();
+		this.plugin.saveConfig();
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -67,10 +66,5 @@ public class GamingBlockPlug
 	public JavaPlugin getPlugin()
 	{
 		return plugin;
-	}
-	
-	public BukkitPlugin getThisPlugin()
-	{
-		return new BukkitPlugin();
 	}
 }

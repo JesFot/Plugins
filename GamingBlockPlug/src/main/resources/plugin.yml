@@ -1,10 +1,9 @@
 name: GamingBlockPlug
 main: fr.gbp.bukkit.BukkitPlugin
 version: 1.0 ALPHA
-description: Plugin for Gaming Block server
+description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
   testgbp:
-    com: testgbp
     description: Commande test.
     usage: /<command> [word]

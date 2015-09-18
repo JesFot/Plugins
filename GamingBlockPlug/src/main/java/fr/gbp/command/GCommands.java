@@ -3,25 +3,25 @@ package fr.gbp.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import fr.gbp.MetalPonyPlug;
+import fr.gbp.GamingBlockPlug;
 
 public class GCommands
 {
 	private final GamingBlockPlug gbp;
 	
-	public GCommands(GamingBlockPlug gamingbp)
+	public GCommands(GamingBlockPlug p_gbp)
 	{
-		this.gbp = gamingbp;
+		this.gbp = p_gbp;
 	}
 	
 	public void regCommands()
 	{
-		this.regCommands(gbp);
+		this.regCommands(this.gbp);
 	}
 	
-	public void regCommands(MetalPonyPlug gbpl)
+	public void regCommands(GamingBlockPlug gbpl)
 	{
-		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestmppCommand());
+		gbpl.getPlugin().getCommand("testgbp").setExecutor(new TestgbpCommand());
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

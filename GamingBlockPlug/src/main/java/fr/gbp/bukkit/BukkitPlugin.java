@@ -8,9 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.gbp.MetalPonyPlug;
-import fr.gbp.listener.*;
+import fr.gbp.GamingBlockPlug;
 import fr.gbp.RefString;
+import fr.gbp.listener.CrashListener;
+import fr.gbp.listener.GBlockListener;
+import fr.gbp.listener.GEntityListener;
+import fr.gbp.listener.GPlayerListener;
+import fr.gbp.listener.GPluginListener;
 
 public class BukkitPlugin extends JavaPlugin
 {
@@ -26,12 +30,12 @@ public class BukkitPlugin extends JavaPlugin
 	public void onEnable()
 	{
 		final PluginManager pm = this.getServer().getPluginManager();
-		gbp = new GamingBlockPlug(getServer(), getLogger(), this);
+		this.gbp = new GamingBlockPlug(getServer(), getLogger(), this);
 		try
 		{
-			gbp.onEnable();
+			this.onEnable();
 		}
-		catch (RuntimeException ex)
+		catch(RuntimeException ex)
 		{
 			getLogger().log(Level.SEVERE, "The file is broken and " + RefString.NAME + " can't open it. " + RefString.NAME + " is now disabled.");
 			getLogger().log(Level.SEVERE, ex.toString());
@@ -57,13 +61,13 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		return gbp.onCommand(sender, cmd, label, args);
+		return this.gbp.onCommand(sender, cmd, label, args);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		gbp.onDisable();
+		this.gbp.onDisable();
 	}
 	
 	public void stopPlugin()
