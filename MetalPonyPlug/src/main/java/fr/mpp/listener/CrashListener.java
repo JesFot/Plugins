@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.gbp.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import fr.mpp.RefString;
+import fr.gbp.RefString;
 
 public class CrashListener implements Listener
 {
@@ -19,7 +19,7 @@ public class CrashListener implements Listener
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerCommand(final PlayerCommandPreprocessEvent event)
 	{
-		if (event.getMessage().equalsIgnoreCase("metalponyplug") || event.getMessage().equalsIgnoreCase("/metalponyplug"))
+		if (event.getMessage().equalsIgnoreCase("gamingblockplug") || event.getMessage().equalsIgnoreCase("/gamingblockplug"))
 		{
 			event.getPlayer().sendMessage(RefString.NAME + " failed to load.");
 			event.setCancelled(true);
