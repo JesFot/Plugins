@@ -33,6 +33,7 @@ public class BukkitPlugin extends JavaPlugin
 		this.gbp = new GamingBlockPlug(getServer(), getLogger(), this);
 		try
 		{
+			getLogger().log(Level.INFO, "Plugin start !!");
 			this.onEnable();
 		}
 		catch(RuntimeException ex)

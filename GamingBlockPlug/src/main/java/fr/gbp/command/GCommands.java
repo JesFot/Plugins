@@ -1,5 +1,7 @@
 package fr.gbp.command;
 
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -27,5 +29,10 @@ public class GCommands
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		return true;
+	}
+	
+	public static List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	{
+		return null;
 	}
 }
