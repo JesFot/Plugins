@@ -1,4 +1,4 @@
-package fr.mpp.listener;
+package fr.gbp.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 
-public class MEntityListener implements Listener
+public class GEntityListener implements Listener
 {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onEntityDamage(final EntityDamageByEntityEvent event)
