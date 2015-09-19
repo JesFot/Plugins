@@ -29,6 +29,7 @@ public class GCommands
 		gbpl.getPlugin().getCommand("ghome").setExecutor(ghome);
 		gbpl.getPlugin().getCommand("ghome").setTabCompleter(ghome);
 		gbpl.getPlugin().getCommand("gtpc").setExecutor(new GTpcCommand());
+		gbpl.getPlugin().getCommand("giveperm").setExecutor(new GGivePermsCommand(gbpl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

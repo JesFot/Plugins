@@ -1,5 +1,6 @@
 package fr.gbp.listener;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -72,7 +73,7 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
-		// Code ...
+		event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)

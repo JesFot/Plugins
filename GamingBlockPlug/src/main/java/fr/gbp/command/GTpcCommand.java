@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.UPlayer;
 
 public class GTpcCommand implements CommandExecutor
@@ -25,6 +26,16 @@ public class GTpcCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
+		if(!cmd.getName().equalsIgnoreCase("gtpc"))
+		{
+			return false;
+		}
+		
+		if(!GPermissions.testPermission(sender, "GamingBlockPlug.tpc", null))
+		{
+			return true;
+		}
+		
         if(args.length < 3 || args.length > 4)
         {
             sender.sendMessage(ChatColor.RED + "Usage: " + usageMessage);
