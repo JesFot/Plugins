@@ -135,7 +135,7 @@ public class GHalfBedSys
 			return this.gbp.getLang().get("hibs.nop", "There is no player in bed.");
 		}
 		return this.gbp.getLang().get("hibs.pp", "There are [<playersinbed>/<totalplayer>] players in beds.").replace("<totalplayer>", ""+this.totalPlayers)
-				.replace("<playersinbed>", ""+this.totalPlayers);
+				.replace("<playersinbed>", ""+this.playersInBedInt);
 	}
 	
 	public void passNight(final List<Player> ignored)

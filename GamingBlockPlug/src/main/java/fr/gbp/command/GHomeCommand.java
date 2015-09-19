@@ -33,6 +33,7 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 		
 		if(sender instanceof Player)
 		{
+			this.gbp.getConfig().reloadCustomConfig();
 			Player player = (Player)sender;
 			Location ploc = player.getLocation();
 			if(args.length >= 2)
@@ -41,6 +42,7 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 				{
 					String locName = "gbphome." + player.getName().toLowerCase() + "." + args[0];
 					this.gbp.getConfig().storeLoc(locName, ploc);
+					this.gbp.getConfig().saveCustomConfig();
 					return true;
 				}
 			}
@@ -49,6 +51,7 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 				if(args[0].equalsIgnoreCase("set"))
 				{
 					this.gbp.getConfig().storeLoc("gbphome.base." + player.getName().toLowerCase(), ploc);
+					this.gbp.getConfig().saveCustomConfig();
 				}
 				else
 				{
@@ -99,6 +102,7 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 			return null;
 		}
 		
+		this.gbp.getConfig().reloadCustomConfig();
 		Player player = (Player)sender;
 		
 		if(args.length == 2)
