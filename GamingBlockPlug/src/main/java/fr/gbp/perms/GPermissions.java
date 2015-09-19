@@ -18,8 +18,8 @@ import fr.gbp.RefString;
 public class GPermissions
 {	
 	private GamingBlockPlug gbp;
-	protected HashMap<UUID, PermissionAttachment> paMap;
-	protected HashMap<String, Permission> pMap;
+	protected HashMap<UUID, PermissionAttachment> paMap = new HashMap<UUID, PermissionAttachment>();
+	protected HashMap<String, Permission> pMap = new HashMap<String, Permission>();
 	
 	// Permissions :
 	protected Permission UseTpcCommand = new Permission("GamingBlockPlug.tpc", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
