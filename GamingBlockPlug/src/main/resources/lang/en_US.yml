@@ -1,0 +1,6 @@
+hibs:
+  onep: There is [1/<totalplayer>] player in a bed.
+  nop: There is no player in bed.
+  pp: There are [<playersinbed>/<totalplayer>] players in beds.
+  hib: Half is in bed !
+  np: Night finish.

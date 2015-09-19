@@ -1,10 +1,13 @@
 package fr.gbp.listener;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,8 +19,20 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import fr.gbp.GamingBlockPlug;
+import fr.gbp.utils.GHalfBedSys;
+
 public class GPlayerListener implements Listener
 {
+	private final GamingBlockPlug gbp;
+	private final GHalfBedSys ghbs;
+	
+	public GPlayerListener(GamingBlockPlug p_gbp)
+	{
+		this.gbp = p_gbp;
+		this.ghbs = new GHalfBedSys(p_gbp);
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogin(PlayerLoginEvent event)
 	{
@@ -58,6 +73,26 @@ public class GPlayerListener implements Listener
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
 		// Code ...
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayergoBed(final PlayerBedEnterEvent event)
+	{
+		Player player = event.getPlayer();
+		this.ghbs.updatePlayers().addPlayerInBed(player);
+		player.getServer().broadcastMessage(this.ghbs.howManyInBedText());
+		if(this.ghbs.hasHalfInBed())
+		{
+			this.gbp.broad(this.gbp.getLang().get("hibs.hib", "HalfInBed !!"));
+			this.ghbs.passNight(this.ghbs.getPlayersInBed());
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
+	{
+		Player player = event.getPlayer();
+		this.ghbs.updatePlayers().removePlayerInBed(player).endPassNight();
 	}
 	
 	@EventHandler

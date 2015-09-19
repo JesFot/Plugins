@@ -13,12 +13,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.gbp.bukkit.BukkitPlugin;
 import fr.gbp.command.GCommands;
 import fr.gbp.config.GConfig;
+import fr.gbp.config.GLang;
+import fr.gbp.utils.GText.MLang;
 
 public class GamingBlockPlug
 {
 	private FileConfiguration conf;
 	private GCommands coms;
 	private GConfig config;
+	private GLang lang;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -40,6 +43,9 @@ public class GamingBlockPlug
 		this.conf = this.plugin.getConfig();
 		this.coms = new GCommands(this);
 		this.config = new GConfig(this);
+		this.lang = new GLang(this);
+		this.config.reloadCustomConfig();
+		this.lang.setLang(MLang.getByID(this.config.getCustomConfig().getInt("lang", -1)));
 		coms.regCommands();
 	}
 	
@@ -73,6 +79,11 @@ public class GamingBlockPlug
 	public GConfig getConfig()
 	{
 		return config;
+	}
+	
+	public GLang getLang()
+	{
+		return lang;
 	}
 	
 	public Server getServer()

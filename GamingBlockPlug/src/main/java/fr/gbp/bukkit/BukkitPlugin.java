@@ -51,7 +51,7 @@ public class BukkitPlugin extends JavaPlugin
 		final GPluginListener pluginListener = new GPluginListener();
 		final GBlockListener blockListener = new GBlockListener();
 		final GEntityListener entityListener = new GEntityListener();
-		final GPlayerListener playerListener = new GPlayerListener();
+		final GPlayerListener playerListener = new GPlayerListener(this.gbp);
 		
 		pm.registerEvents(pluginListener, this);
 		pm.registerEvents(blockListener, this);

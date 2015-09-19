@@ -1,0 +1,6 @@
+hibs:
+  onep: Il y a [1/<totalplayer>] joueur dans un lit.
+  nop: Persone n'est au lit.
+  pp: Il y a [<playersinbed>/<totalplayer>] joueurs dans leurs lits.
+  hib: La moitié est au lit !
+  np: Nuit terminée.
