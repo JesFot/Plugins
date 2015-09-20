@@ -13,6 +13,7 @@ import fr.gbp.RefString;
 import fr.gbp.listener.CrashListener;
 import fr.gbp.listener.GBlockListener;
 import fr.gbp.listener.GEntityListener;
+import fr.gbp.listener.GInventoryListener;
 import fr.gbp.listener.GPlayerListener;
 import fr.gbp.listener.GPluginListener;
 
@@ -40,6 +41,7 @@ public class BukkitPlugin extends JavaPlugin
 		{
 			getLogger().log(Level.SEVERE, "The file is broken and " + RefString.NAME + " can't open it. " + RefString.NAME + " is now disabled.");
 			getLogger().log(Level.SEVERE, ex.toString());
+			getLogger().log(Level.SEVERE, "", ex);
 			pm.registerEvents(new CrashListener(), this);
 			for (Player player : getServer().getOnlinePlayers())
 			{
@@ -52,11 +54,13 @@ public class BukkitPlugin extends JavaPlugin
 		final GBlockListener blockListener = new GBlockListener();
 		final GEntityListener entityListener = new GEntityListener();
 		final GPlayerListener playerListener = new GPlayerListener(this.gbp);
+		final GInventoryListener invListener = new GInventoryListener(this.gbp);
 		
 		pm.registerEvents(pluginListener, this);
 		pm.registerEvents(blockListener, this);
 		pm.registerEvents(entityListener, this);
 		pm.registerEvents(playerListener, this);
+		pm.registerEvents(invListener, this);
 	}
 	
 	@Override

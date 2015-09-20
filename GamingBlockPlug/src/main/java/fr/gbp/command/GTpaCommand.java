@@ -16,7 +16,7 @@ import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
 
 import fr.gbp.GamingBlockPlug;
-import fr.gbp.command.prompts.TpaPrompt;
+import fr.gbp.command.helpers.TpaPrompt;
 import fr.gbp.utils.UPlayer;
 
 public class GTpaCommand implements CommandExecutor

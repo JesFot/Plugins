@@ -1,4 +1,4 @@
-package fr.gbp.command.prompts;
+package fr.gbp.command.helpers;
 
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;

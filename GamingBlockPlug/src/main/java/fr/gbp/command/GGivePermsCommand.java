@@ -44,11 +44,16 @@ public class GGivePermsCommand implements CommandExecutor
 			boolean minus = perm.startsWith("-");
 			if(minus)
 			{
-				perm.substring(1);
+				perm = perm.substring(1);
 			}
 			if(sender instanceof Player)
 			{
 				Player player = (Player)sender;
+				if(this.gbp.getPerms().getPerm(perm) == null)
+				{
+					sender.sendMessage("Please verify this permission.");
+					return true;
+				}
 				this.gbp.getPermissions().setPerm(player, this.gbp.getPerms().getPerm(perm), !minus);
 			}
 			else
@@ -62,7 +67,7 @@ public class GGivePermsCommand implements CommandExecutor
 			boolean minus = perm.startsWith("-");
 			if(minus)
 			{
-				perm.substring(1);
+				perm = perm.substring(1);
 			}
 			Player player = UPlayer.getPlayerByName(args[0]);
 			if(player == null)

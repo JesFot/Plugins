@@ -1,6 +1,8 @@
 package fr.gbp.perms;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.ChatColor;
@@ -47,18 +49,26 @@ public class GPermissions
 		return this.paMap.get(player.getUniqueId());
 	}
 	
-	public PermissionAttachment setPerm(Player player, Permission perm, boolean value)
+	public PermissionAttachment setPerm(Player player, Set<Permission> set, boolean value)
 	{
 		if(!this.paMap.containsKey(player.getUniqueId()))
 		{
 			this.addPlayer(player);
 		}
-		this.paMap.get(player.getUniqueId()).setPermission(perm, value);
+		for(Permission p : set)
+		{
+			this.paMap.get(player.getUniqueId()).setPermission(p, value);
+		}
 		return this.paMap.get(player.getUniqueId());
 	}
 	
-	public Permission getPerm(String name)
+	public Set<Permission> getPerm(String name)
 	{
+		Set<Permission> res = new HashSet<Permission>();
+		if(name == "*")
+		{
+			return this.gbp.getServer().getPluginManager().getPermissions();
+		}
 		Permission result = this.gbp.getServer().getPluginManager().getPermission(name);
 		if(result == null)
 		{
@@ -74,7 +84,8 @@ public class GPermissions
 				return null;
 			}
 		}
-		return result;
+		res.add(result);
+		return res;
 	}
 	
 	public void regPerm(Permission perm)

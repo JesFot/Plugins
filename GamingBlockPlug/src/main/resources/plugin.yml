@@ -21,3 +21,9 @@ commands:
   giveperm:
     description: manage permissions
     usage: /<command> [player] <[-]permission>
+  toolb:
+    description: toolb
+    usage: /<command>
+  addme:
+    description: addme
+    usage: /<command>

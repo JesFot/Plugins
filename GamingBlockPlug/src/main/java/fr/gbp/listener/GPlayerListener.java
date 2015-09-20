@@ -1,10 +1,12 @@
 package fr.gbp.listener;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
@@ -22,6 +24,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.utils.GHalfBedSys;
+import fr.gbp.utils.ItemInventory;
 
 public class GPlayerListener implements Listener
 {
@@ -67,7 +70,14 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent event)
 	{
-		// Code ...
+		if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+		{
+			if(event.getMaterial().equals(Material.DEAD_BUSH))
+			{
+				ItemInventory.openPlayerInv(event.getPlayer(), this.gbp.getEconomy().getPEco(event.getPlayer()).getInventory());
+				event.setCancelled(true);
+			}
+		}
 	}
 	
 	@EventHandler

@@ -30,6 +30,10 @@ public class GCommands
 		gbpl.getPlugin().getCommand("ghome").setTabCompleter(ghome);
 		gbpl.getPlugin().getCommand("gtpc").setExecutor(new GTpcCommand());
 		gbpl.getPlugin().getCommand("giveperm").setExecutor(new GGivePermsCommand(gbpl));
+		
+		//Bank
+		gbpl.getPlugin().getCommand("toolb").setExecutor(new GEcoCommands(gbpl));
+		gbpl.getPlugin().getCommand("addme").setExecutor(new GEcoCommands(gbpl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

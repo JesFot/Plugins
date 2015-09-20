@@ -4,3 +4,5 @@ hibs:
   pp: Il y a [<playersinbed>/<totalplayer>] joueurs dans leurs lits.
   hib: La moitié est au lit !
   np: Nuit terminée.
+player:
+  notfound: Le joueur n'a pas été trouvé.

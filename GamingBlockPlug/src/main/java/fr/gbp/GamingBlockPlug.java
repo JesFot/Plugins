@@ -14,6 +14,8 @@ import fr.gbp.bukkit.BukkitPlugin;
 import fr.gbp.command.GCommands;
 import fr.gbp.config.GConfig;
 import fr.gbp.config.GLang;
+import fr.gbp.economy.GEconomy;
+import fr.gbp.economy.Money;
 import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.GText.MLang;
 
@@ -24,6 +26,8 @@ public class GamingBlockPlug
 	private GConfig config;
 	private GLang lang;
 	private GPermissions permissions;
+	private Money money;
+	private GEconomy economy;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -47,6 +51,8 @@ public class GamingBlockPlug
 		this.config = new GConfig(this);
 		this.lang = new GLang(this);
 		this.permissions = new GPermissions(this);
+		this.money = new Money(this);
+		this.economy = new GEconomy(this);
 		this.config.reloadCustomConfig();
 		this.lang.setLang(MLang.getByID(this.config.getCustomConfig().getInt("lang", -1)));
 		coms.regCommands();
@@ -96,6 +102,16 @@ public class GamingBlockPlug
 	public GPermissions getPerms()
 	{
 		return getPermissions();
+	}
+	
+	public Money getMoney()
+	{
+		return money;
+	}
+	
+	public GEconomy getEconomy()
+	{
+		return economy;
 	}
 	
 	public Server getServer()
