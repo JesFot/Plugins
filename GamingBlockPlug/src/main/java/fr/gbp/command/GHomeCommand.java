@@ -52,6 +52,7 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 				{
 					this.gbp.getConfig().storeLoc("gbphome.base." + player.getName().toLowerCase(), ploc);
 					this.gbp.getConfig().saveCustomConfig();
+					return true;
 				}
 				else
 				{

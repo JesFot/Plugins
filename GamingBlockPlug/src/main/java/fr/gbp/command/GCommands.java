@@ -33,7 +33,7 @@ public class GCommands
 		
 		//Bank
 		gbpl.getPlugin().getCommand("toolb").setExecutor(new GEcoCommands(gbpl));
-		gbpl.getPlugin().getCommand("addme").setExecutor(new GEcoCommands(gbpl));
+		gbpl.getPlugin().getCommand("economy").setExecutor(new GEcoCommands(gbpl));
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

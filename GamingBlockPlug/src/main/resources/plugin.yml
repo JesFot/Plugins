@@ -24,6 +24,7 @@ commands:
   toolb:
     description: toolb
     usage: /<command>
-  addme:
-    description: addme
-    usage: /<command>
+  economy:
+    description: Manage your economy
+    usage: /<command> [pay <player> <amount>] | /<command> inventory
+    aliases: [eco, ecmy]

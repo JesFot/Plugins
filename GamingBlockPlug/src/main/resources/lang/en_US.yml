@@ -4,5 +4,14 @@ hibs:
   pp: There are [<playersinbed>/<totalplayer>] players in beds.
   hib: Half is in bed !
   np: Night finish.
+economy:
+  balance: You have actually <money>.
+  autoremove: You removed <money> from your account.
+  receive: <player> give you <money>.
+  send: You gave <money> to <player>.
+  receivefromc: The Console give you <money>.
 player:
   notfound: Player not found.
+console:
+  noinv: You do not have an inventory.
+  infmoney: Console, you have infinity money.

@@ -11,6 +11,7 @@ import fr.gbp.utils.ItemInventory;
 public class PEconomy
 {
 	private GamingBlockPlug gbp;
+	private Inventory menu;
 	private Inventory inv;
 	private OfflinePlayer player;
 	private String pnamelc;
@@ -21,6 +22,8 @@ public class PEconomy
 	{
 		this.gbp = p_gbp;
 		this.player = target;
+		this.menu = ItemInventory.createItemandInv(Material.EMERALD, 0, "Bank", "", "Bank Menu", 2);
+		ItemInventory.createIteminInv(Material.APPLE, this.menu, 9, "Commun Chest", "");
 		if(this.gbp.getConfig().getCustomConfig().contains("banksys.inventories."+this.player.getName().toLowerCase()))
 		{
 			this.inv = this.gbp.getConfig().getInventory("banksys.inventories."+this.player.getName().toLowerCase());
@@ -32,6 +35,10 @@ public class PEconomy
 		this.pnamelc = this.player.getName().toLowerCase();
 		this.money = this.gbp.getMoney().getBasics();
 		this.config = this.gbp.getConfig();
+		if(this.gbp.getConfig().getCustomConfig().contains("economy."+this.pnamelc+".balance"))
+		{
+			this.getStoredMoney();
+		}
 		this.storeMoney();
 	}
 	
@@ -74,6 +81,11 @@ public class PEconomy
 	public Inventory getInventory()
 	{
 		return this.inv;
+	}
+	
+	public Inventory getMenu()
+	{
+		return this.menu;
 	}
 	
 	public void resetMoney()

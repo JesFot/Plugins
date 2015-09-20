@@ -26,6 +26,7 @@ public class GPermissions
 	// Permissions :
 	protected Permission UseTpcCommand = new Permission("GamingBlockPlug.tpc", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
 	protected Permission UseGivePermsCommand = new Permission("GamingBlockPlug.giveperms", "permission for the give permissions", PermissionDefault.OP, null);
+	protected Permission EcoResetCommand = new Permission("GamingBlockPlug.economy.reset", "permission for reset accounts", PermissionDefault.OP, null);
 	// End permissions
 	
 	public GPermissions(GamingBlockPlug p_gbp)
@@ -39,6 +40,7 @@ public class GPermissions
 		// Registering perms :
 		this.regPerm(this.UseTpcCommand);
 		this.regPerm(this.UseGivePermsCommand);
+		this.regPerm(this.EcoResetCommand);
 		// End registering
 		this.registerAllPerms();
 	}

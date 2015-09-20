@@ -53,6 +53,8 @@ public class GamingBlockPlug
 		this.permissions = new GPermissions(this);
 		this.money = new Money(this);
 		this.economy = new GEconomy(this);
+		
+		this.permissions.myPerms();
 		this.config.reloadCustomConfig();
 		this.lang.setLang(MLang.getByID(this.config.getCustomConfig().getInt("lang", -1)));
 		coms.regCommands();

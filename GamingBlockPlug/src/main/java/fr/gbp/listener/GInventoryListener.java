@@ -17,15 +17,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import fr.gbp.GamingBlockPlug;
+import fr.gbp.utils.CommunSys;
 import fr.gbp.utils.ItemInventory;
 
 public class GInventoryListener implements Listener
 {
-	GamingBlockPlug gbp;
+	private GamingBlockPlug gbp;
+	private CommunSys cs;
 	
 	public GInventoryListener(GamingBlockPlug p_gbp)
 	{
 		this.gbp = p_gbp;
+		this.cs = new CommunSys();
 	}
 	
 	@EventHandler
@@ -72,27 +75,25 @@ public class GInventoryListener implements Listener
 		{
 			return;
 		}
-		if(source.getName().equalsIgnoreCase(this.gbp.getEconomy().getPEco(player).getInventory().getName()))
+		if(source.getName().equalsIgnoreCase(this.gbp.getEconomy().getPEco(player).getMenu().getName()))
 		{
 			if(item.getType().equals(Material.EMERALD))
 			{
-				if(item.getItemMeta().getDisplayName().equalsIgnoreCase("Money"))
+				int slot = event.getSlot();
+				if(slot <= this.gbp.getEconomy().getPEco(player).getMenu().getSize())
 				{
-					int slot = event.getSlot();
-					if(slot <= this.gbp.getEconomy().getPEco(player).getInventory().getSize())
-					{
-						if(item2.getType().equals(Material.AIR))
-						{
-							if(this.gbp.getEconomy().getPEco(player).getBalance() >= 10.0)
-							{
-								this.gbp.getEconomy().getPEco(player).remove(10.0);
-								ItemStack i = ItemInventory.createItem(Material.EMERALD, "Money", null);
-								i.setAmount(1);
-								player.setItemOnCursor(i);
-								event.setCancelled(true);
-							}
-						}
-					}
+					event.setCancelled(true);
+					ItemInventory.openPlayerInv(player, this.gbp.getEconomy().getPEco(player).getInventory());
+				}
+			}
+			else if(item.getType().equals(Material.APPLE))
+			{
+				int slot = event.getSlot();
+				if(slot <= this.gbp.getEconomy().getPEco(player).getMenu().getSize())
+				{
+					event.setCancelled(true);
+					this.cs.setCInv(this.gbp.getConfig().getInventory("gbp.origchest.inv"));
+					ItemInventory.openPlayerInv(player, this.cs.getCInv());
 				}
 			}
 		}
@@ -115,6 +116,10 @@ public class GInventoryListener implements Listener
 		{
 			this.gbp.getConfig().storeInventory("banksys.inventories."+player.getName().toLowerCase(), inventory);
 			//player.sendMessage("Your bank has been saved");
+		}
+		else if(inventoryName.toLowerCase().contains("commun"))
+		{
+			this.gbp.getConfig().storeInventory("gbp.origchest.inv", inventory);
 		}
 	}
 }

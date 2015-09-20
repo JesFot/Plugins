@@ -4,5 +4,14 @@ hibs:
   pp: Il y a [<playersinbed>/<totalplayer>] joueurs dans leurs lits.
   hib: La moitié est au lit !
   np: Nuit terminée.
+economy:
+  balance: Vous avez actuellement <money>.
+  autoremove: Vous jetez <money>.
+  receive: <player> vous donne <money>.
+  send: Vous donnez <money> à <player>.
+  receivefromc: La Console vous donne <money>.
 player:
   notfound: Le joueur n'a pas été trouvé.
+console:
+  noinv: Vous n'avez pas d'inventaire.
+  infmoney: La Console a argent infini.

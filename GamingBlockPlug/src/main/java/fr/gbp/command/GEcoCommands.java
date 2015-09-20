@@ -1,6 +1,5 @@
 package fr.gbp.command;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,28 +22,18 @@ public class GEcoCommands implements CommandExecutor
 	 */
 	private GamingBlockPlug gbp;
 	private EcoHelper ecoh;
-	private String usageBMessage;
-	private String usagePMessage;
-	private String usageAMessage;
 	
 	public GEcoCommands(GamingBlockPlug plugin)
 	{
 		this.gbp = plugin;
 		this.ecoh = new EcoHelper(this.gbp);
-		this.usageBMessage = "/bank <pay> <player> <amount>";
-		this.usagePMessage = "/pay <player> <amount>";
-		this.usageAMessage = "/account <get>";
 	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		boolean isPlayer = (sender instanceof Player);
-		if(cmd.getName().equalsIgnoreCase("addme"))
-		{
-			return this.ecoh.addme(sender, isPlayer);
-		}
-		else if(cmd.getName().equalsIgnoreCase("toolb"))
+		if(cmd.getName().equalsIgnoreCase("toolb"))
 		{
 			if(!isPlayer)
 			{
@@ -55,7 +44,13 @@ public class GEcoCommands implements CommandExecutor
 			player.getInventory().addItem(new ItemStack(Material.DEAD_BUSH));
 			return true;
 		}
-		sender.sendMessage(ChatColor.RED + "Usage: " + this.usagePMessage);
+		else if(cmd.getName().equalsIgnoreCase("economy"))
+		{
+			return ecoh.economy(sender, cmd, label, args);
+		}
+		
+		
+		sender.sendMessage("what ?");
 		return true;
 	}
 }

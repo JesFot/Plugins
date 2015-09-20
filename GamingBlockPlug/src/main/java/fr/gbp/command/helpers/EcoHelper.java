@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.gbp.GamingBlockPlug;
+import fr.gbp.perms.GPermissions;
+import fr.gbp.utils.ItemInventory;
 import fr.gbp.utils.UPlayer;
 
 public class EcoHelper
@@ -16,28 +18,6 @@ public class EcoHelper
 	public EcoHelper(GamingBlockPlug plugin)
 	{
 		this.gbp = plugin;
-	}
-	
-	public boolean addme(CommandSender sender, boolean isPlayer)
-	{
-		if(!isPlayer)
-		{
-			sender.sendMessage(ChatColor.RED + "You must be a player to execute this command, the server do not need any money.");
-			return true;
-		}
-		else
-		{
-			Player player = (Player)sender;
-			player.sendMessage("You will be added to the money memory...");
-			if(this.gbp.getEconomy().playerExists(player))
-			{
-				player.sendMessage("You already have an account.");
-				return true;
-			}
-			this.gbp.getEconomy().addPlayer(player);
-			player.sendMessage("You have been added to money memory.");
-			return true;
-		}
 	}
 	
 	public boolean economy(CommandSender sender, Command cmd, String alias, String[] args)
@@ -60,10 +40,11 @@ public class EcoHelper
 			{
 				if(!p)
 				{
-					sender.sendMessage("Console, You have infinity money.");
+					sender.sendMessage(this.gbp.getLang().get("console.infmoney"));
 					return true;
 				}
-				player.sendMessage("You have actually "+this.gbp.getEconomy().getPEco(player).getBalance()+this.gbp.getMoney().getSym()+".");
+				player.sendMessage(this.gbp.getLang().get("economy.balance").replace("<money>", this.gbp.getEconomy().getPEco(player).getBalance()+this.gbp.getMoney().getSym()));
+				return true;
 			}
 			else
 			{
@@ -84,7 +65,7 @@ public class EcoHelper
 								if(p)
 								{
 									this.gbp.getEconomy().pay(player, null, dble);
-									sender.sendMessage("You removed "+dble+this.gbp.getMoney().getSym()+" from your acount.");
+									sender.sendMessage(this.gbp.getLang().get("economy.autoremove").replace("<money>", dble+this.gbp.getMoney().getSym()));
 								}
 								return true;
 							}
@@ -96,44 +77,57 @@ public class EcoHelper
 							this.gbp.getEconomy().pay(player, target, dble);
 							if(target.isOnline())
 							{
-								((Player)target).sendMessage(player.getDisplayName()+" give you "+dble+this.gbp.getMoney().getSym()+".");
-								player.sendMessage("You gave "+dble+this.gbp.getMoney().getSym()+" to "+((Player)target).getDisplayName()+".");
+								((Player)target).sendMessage(this.gbp.getLang().get("economy.receive").replace("<money>", dble+this.gbp.getMoney().getSym())
+										.replace("<player>", player.getDisplayName()));
+								player.sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", dble+this.gbp.getMoney().getSym())
+										.replace("<player>", ((Player)target).getDisplayName()));
 							}
 							else
-								player.sendMessage("You gave "+dble+this.gbp.getMoney().getSym()+" to "+target.getName()+".");
+								player.sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", dble+this.gbp.getMoney().getSym())
+										.replace("<player>", target.getName()));
 						}
 						else
 						{
 							this.gbp.getEconomy().pay(null, target, dble);
 							if(target.isOnline())
 							{
-								((Player)target).sendMessage("The Console give you "+dble+this.gbp.getMoney().getSym()+".");
-								sender.sendMessage("You gave "+dble+this.gbp.getMoney().getSym()+" to "+((Player)target).getDisplayName()+".");
+								((Player)target).sendMessage(this.gbp.getLang().get("economy.receivefromc").replace("<money>", dble+this.gbp.getMoney().getSym()));
+								sender.sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", dble+this.gbp.getMoney().getSym())
+										.replace("<player>", ((Player)target).getDisplayName()));
 							}
 							else
-								sender.sendMessage("You gave "+dble+this.gbp.getMoney().getSym()+" to "+target.getName()+".");
+								sender.sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", dble+this.gbp.getMoney().getSym())
+										.replace("<player>", target.getName()));
 						}
 						return true;
 					}
 					
 				}
-				else if(args[0].equalsIgnoreCase("reset"))
+				else if(args[0].equalsIgnoreCase("inventory"))
 				{
-					if(!sender.hasPermission("GamingBlockPlug.economy.reset"))
+					if(!p)
+						return true;
+					ItemInventory.openPlayerInv(player, this.gbp.getEconomy().getPEco(player).getMenu());
+					return true;
+				}
+				else if(args[0].equalsIgnoreCase("reset") && args.length == 2)
+				{
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.reset", null))
 					{
-						sender.sendMessage(ChatColor.DARK_RED + "You do not have the rights to perform this command.");
 						return true;
 					}
 					Player tgt = UPlayer.getPlayerByName(args[1]);
 					this.gbp.getEconomy().getPEco(tgt).resetMoney();
+					return true;
 				}
-				else
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset"))
 				{
-					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+alias);
-					sender.sendMessage(ChatColor.DARK_RED+"Usage: /"+alias+" <pay> <Player>");
+					sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [reset | pay <player> <amount>]");
+					return true;
 				}
+				sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>]");
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
