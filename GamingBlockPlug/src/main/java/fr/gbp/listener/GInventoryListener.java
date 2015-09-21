@@ -66,9 +66,7 @@ public class GInventoryListener implements Listener
 	{
 		Inventory source = event.getInventory();;
 		ItemStack item = event.getCurrentItem();
-		//String sItem = item!=null&&item.getType()!=null ? item.getType().toString() : "none";
 		ItemStack item2 = event.getCursor();
-		//String sItem2 = item2!=null&&item2.getType()!=null ? item2.getType().toString() : "none";
 		HumanEntity human = event.getWhoClicked();
 		Player player = (Player)human;
 		if(item==null || item2==null)
@@ -92,7 +90,7 @@ public class GInventoryListener implements Listener
 				if(slot <= this.gbp.getEconomy().getPEco(player).getMenu().getSize())
 				{
 					event.setCancelled(true);
-					this.cs.setCInv(this.gbp.getConfig().getInventory("gbp.origchest.inv"));
+					this.cs.setCInv(this.gbp.getConfig().getInventory("gbp.commun.inv"));
 					ItemInventory.openPlayerInv(player, this.cs.getCInv());
 				}
 			}
@@ -115,11 +113,10 @@ public class GInventoryListener implements Listener
 		if(inventoryName.toLowerCase().contains("bank"))
 		{
 			this.gbp.getConfig().storeInventory("banksys.inventories."+player.getName().toLowerCase(), inventory);
-			//player.sendMessage("Your bank has been saved");
 		}
 		else if(inventoryName.toLowerCase().contains("commun"))
 		{
-			this.gbp.getConfig().storeInventory("gbp.origchest.inv", inventory);
+			this.gbp.getConfig().storeInventory("gbp.commun.inv", inventory);
 		}
 	}
 }
