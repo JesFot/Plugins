@@ -74,7 +74,7 @@ public class GPlayerListener implements Listener
 		{
 			if(event.getMaterial().equals(Material.DEAD_BUSH))
 			{
-				ItemInventory.openPlayerInv(event.getPlayer(), this.gbp.getEconomy().getPEco(event.getPlayer()).getInventory());
+				ItemInventory.openPlayerInv(event.getPlayer(), this.gbp.getEconomy().getPEco(event.getPlayer()).getMenu());
 				event.setCancelled(true);
 			}
 		}

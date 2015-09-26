@@ -30,6 +30,9 @@ public class GCommands
 		gbpl.getPlugin().getCommand("ghome").setTabCompleter(ghome);
 		gbpl.getPlugin().getCommand("gtpc").setExecutor(new GTpcCommand());
 		gbpl.getPlugin().getCommand("giveperm").setExecutor(new GGivePermsCommand(gbpl));
+		GWorldCommand gworld = new GWorldCommand(gbpl);
+		gbpl.getPlugin().getCommand("world").setExecutor(gworld);
+		gbpl.getPlugin().getCommand("world").setTabCompleter(gworld);
 		
 		//Bank
 		gbpl.getPlugin().getCommand("toolb").setExecutor(new GEcoCommands(gbpl));

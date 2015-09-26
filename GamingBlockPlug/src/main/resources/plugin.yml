@@ -28,3 +28,6 @@ commands:
     description: Manage your economy
     usage: /<command> [pay <player> <amount>] | /<command> inventory
     aliases: [eco, ecmy]
+  world:
+    description: Navigate between worlds.
+    usage: /<command> list | /<command> tp <worldName> | /<command> set <worldName> <load|unload> [newSeed] [Env] [Type]
