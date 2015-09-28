@@ -30,7 +30,7 @@ public class PEconomy
 		}
 		else
 		{
-			this.inv = ItemInventory.createItemandInv(Material.EMERALD, 4, "Money", "", "Your Bank", 5);
+			this.inv = ItemInventory.createItemandInv(Material.EMERALD, 4, "Money", "", "Your Bank_", 5);
 		}
 		this.pnamelc = this.player.getName().toLowerCase();
 		this.money = this.gbp.getMoney().getBasics();

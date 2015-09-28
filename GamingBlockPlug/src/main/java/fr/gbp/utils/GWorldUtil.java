@@ -120,7 +120,11 @@ public class GWorldUtil
 					start = new Location(gbp.getServer().getWorlds().get(0), 0, 0, 0);
 				}
 			}
-			pls = UPlayer.getPlayerByRep(argument, start);
+			pls = GParseCommandTarget.test(sender, argument).toArray(new Player[]{});
+			if(pls == null)
+			{
+				pls = UPlayer.getPlayerByRep(argument, start);
+			}
 		}
 		else
 		{

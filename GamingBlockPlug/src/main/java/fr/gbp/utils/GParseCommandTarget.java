@@ -14,6 +14,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.ICommandListener;
+import net.minecraft.server.v1_8_R3.PlayerSelector;
+
 enum TargetType
 {
 	RANDOM('r'),
@@ -123,6 +127,26 @@ public class GParseCommandTarget
 		this.at = message.substring(0, 2);
 		this.type = TargetType.getType(message.charAt(1));
 		this.arguments = message.substring(2);
+	}
+	
+	public static List<Player> test(CommandSender mySender, String myArgument)
+	{
+		if(!PlayerSelector.isPattern(myArgument))
+		{
+			return null;
+		}
+		final ICommandListener mcListener = GUtils.getListener(mySender);
+		List<Player> pls = new ArrayList<Player>();
+		if(!myArgument.contains("["))
+		{
+			myArgument += "[0,0,0]";
+		}
+		for(EntityPlayer o : PlayerSelector.getPlayers(mcListener, myArgument, EntityPlayer.class))
+		{
+			pls.add(((EntityPlayer)o).getBukkitEntity());
+			continue;
+		}
+		return pls;
 	}
 	
 	public GParseCommandTarget(final String arg, CommandSender cmdSender)
@@ -239,6 +263,26 @@ public class GParseCommandTarget
 		}
 		if(this.type==TargetType.CLOSESTS)
 		{
+			if(this.argumentList.containsKey("name"))
+			{
+				if(this.argumentList.containsKey("r"))
+				{
+					Player prox = UPlayer.getPlayerByName(this.argumentList.get("name"));
+					if(prox.getLocation().distanceSquared(location) > Integer.parseInt(this.argumentList.get("r")))
+					{
+						return null;
+					}
+				}
+				return UPlayer.getPlayerByName(this.argumentList.get("name"));
+			}
+			if(this.argumentList.containsKey("r"))
+			{
+				Player prox = UPlayer.getProximityPlayer(this.location);
+				if(prox.getLocation().distanceSquared(location) > Integer.parseInt(this.argumentList.get("r")))
+				{
+					return null;
+				}
+			}
 			return UPlayer.getProximityPlayer(this.location);
 		}
 		else if(this.type==TargetType.RANDOM)

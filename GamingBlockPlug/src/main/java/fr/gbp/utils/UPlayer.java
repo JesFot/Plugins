@@ -15,7 +15,7 @@ public class UPlayer
 {
 	public static List<Player> getOnlinePlayers()
 	{
-		return Arrays.asList(Bukkit.getOnlinePlayers());
+		return Arrays.asList(Bukkit.getOnlinePlayers().toArray(new Player[]{}));
 	}
 	public static List<OfflinePlayer> getOfflinePlayers()
 	{
@@ -119,7 +119,7 @@ public class UPlayer
 			return pls;
 		case 'e':
 		case 'a':
-			pls = Bukkit.getOnlinePlayers();
+			pls = Bukkit.getOnlinePlayers().toArray(new Player[]{});
 			return pls;
 		default:
 			return pls;

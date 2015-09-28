@@ -110,7 +110,7 @@ public class GInventoryListener implements Listener
 		Player player = (Player)human;
 		Inventory inventory = event.getInventory();
 		String inventoryName = inventory.getName();
-		if(inventoryName.toLowerCase().contains("bank"))
+		if(inventoryName.toLowerCase().contains("bank_"))
 		{
 			this.gbp.getConfig().storeInventory("banksys.inventories."+player.getName().toLowerCase(), inventory);
 		}

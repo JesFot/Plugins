@@ -22,7 +22,7 @@ public class GHalfBedSys
 	{
 		this.gbp = p_gbp;
 		this.playersInBed = new ArrayList<Player>();
-		this.playersB = Bukkit.getOnlinePlayers();
+		this.playersB = Bukkit.getOnlinePlayers().toArray(new Player[]{});
 		this.players = Arrays.asList(playersB);
 		this.playersInBedInt = playersInBed.size();
 		this.totalPlayers = players.size();
@@ -50,7 +50,7 @@ public class GHalfBedSys
 	
 	public GHalfBedSys updatePlayers()
 	{
-		this.playersB = Bukkit.getOnlinePlayers();
+		this.playersB = Bukkit.getOnlinePlayers().toArray(new Player[]{});
 		this.players = Arrays.asList(this.playersB);
 		this.totalPlayers = this.players.size();
 		return this;
