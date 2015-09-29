@@ -1,14 +1,10 @@
 package fr.gbp.utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class UPlayer
@@ -64,7 +60,7 @@ public class UPlayer
 		}
 		return pl;
 	}
-	public static Player getProximityPlayer(Location start)
+	/*public static Player getProximityPlayer(Location start)
 	{
 		if(start.getWorld().getPlayers().size() <= 0)
 		{
@@ -104,27 +100,7 @@ public class UPlayer
 		}
 		int r = new Random().nextInt(w.getPlayers().size());
 		return w.getPlayers().get(r);
-	}
-	public static Player[] getPlayerByRep(String rep, Location start)
-	{
-		Player pls[] = {};
-		GParseCommandTarget mpct = new GParseCommandTarget(rep, start);
-		switch(mpct.type.charac)
-		{
-		case 'p':
-			pls = new Player[]{getProximityPlayer(start)};
-			return pls;
-		case 'r':
-			pls = new Player[]{getRandomPlayer(start.getWorld())};
-			return pls;
-		case 'e':
-		case 'a':
-			pls = Bukkit.getOnlinePlayers().toArray(new Player[]{});
-			return pls;
-		default:
-			return pls;
-		}
-	}
+	}*/
 	public static String concateTable(String[] args)
 	{
 		String result = "[";

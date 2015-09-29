@@ -1,10 +1,10 @@
 package fr.gbp.utils;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -97,33 +97,10 @@ public class GWorldUtil
 		Player[] pls = {};
 		if(argument.startsWith("@"))
 		{
-			Location start = null;
-			if(sender instanceof BlockCommandSender)
-			{
-				BlockCommandSender commandB = (BlockCommandSender)sender;
-				start = commandB.getBlock().getLocation();
-			}
-			else if(sender instanceof Player)
-			{
-				Player myPlayer = (Player)sender;
-				start = myPlayer.getLocation();
-			}
-			else
-			{
-				if(argument.startsWith("@p"))
-				{
-					sender.sendMessage("Nope.");
-					return;
-				}
-				else
-				{
-					start = new Location(gbp.getServer().getWorlds().get(0), 0, 0, 0);
-				}
-			}
-			pls = GParseCommandTarget.test(sender, argument).toArray(new Player[]{});
+			pls = GParseCommandTarget.getPlayers(sender, argument).toArray(new Player[]{});
 			if(pls == null)
 			{
-				pls = UPlayer.getPlayerByRep(argument, start);
+				sender.sendMessage(ChatColor.RED + "Player not found.");
 			}
 		}
 		else
