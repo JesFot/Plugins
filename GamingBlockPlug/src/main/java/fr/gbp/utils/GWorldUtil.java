@@ -100,7 +100,7 @@ public class GWorldUtil
 			pls = GParseCommandTarget.getPlayers(sender, argument).toArray(new Player[]{});
 			if(pls == null)
 			{
-				sender.sendMessage(ChatColor.RED + "Player not found.");
+				sender.sendMessage(ChatColor.RED + gbp.getLang().get("player.notfound"));
 			}
 		}
 		else

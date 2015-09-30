@@ -18,6 +18,7 @@ commands:
   gtpc:
     description: Teleportation to coordinates
     usage: /<command> [player] <x> <y> <z>
+    aliases: [tpc]
   giveperm:
     description: manage permissions
     usage: /<command> [player] <[-]permission>

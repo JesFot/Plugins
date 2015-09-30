@@ -1,4 +1,5 @@
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\GUtils.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\scoreboards\CriteriaType.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GLangCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\GBlockListener.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\CrashListener.java
@@ -18,6 +19,7 @@ C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gb
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GWorldCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\economy\PEconomy.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\Locate.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\scoreboards\GScoreBoard.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\listener\GPlayerListener.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\helpers\TpaPrompt.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\TestgbpCommand.java

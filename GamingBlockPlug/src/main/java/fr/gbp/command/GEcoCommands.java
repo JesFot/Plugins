@@ -37,7 +37,7 @@ public class GEcoCommands implements CommandExecutor
 		{
 			if(!isPlayer)
 			{
-				sender.sendMessage("You do not have an inventory.");
+				sender.sendMessage(this.gbp.getLang().get("console.noinv"));
 				return false;
 			}
 			Player player = (Player)sender;

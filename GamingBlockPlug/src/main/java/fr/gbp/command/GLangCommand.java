@@ -26,6 +26,7 @@ public class GLangCommand implements CommandExecutor
 				this.gbp.getConfig().reloadCustomConfig();
 				this.gbp.getConfig().getCustomConfig().set("lang", id);
 				this.gbp.getConfig().saveCustomConfig();
+				this.gbp.getConfig().reloadCustomConfig();
 				return true;
 			}
 			return false;

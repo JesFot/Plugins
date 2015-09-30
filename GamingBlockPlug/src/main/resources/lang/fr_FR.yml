@@ -10,8 +10,12 @@ economy:
   receive: <player> vous donne <money>.
   send: Vous donnez <money> à <player>.
   receivefromc: La Console vous donne <money>.
+perms:
+  notfound: Verifiez cette permission.
 player:
   notfound: Le joueur n'a pas été trouvé.
 console:
   noinv: Vous n'avez pas d'inventaire.
   infmoney: La Console a argent infini.
+  missplayer: Donnez le nom d'un joueur ou soyez un en un.
+  onlypls: Seul les joueurs peuvent utiliser cette commande.

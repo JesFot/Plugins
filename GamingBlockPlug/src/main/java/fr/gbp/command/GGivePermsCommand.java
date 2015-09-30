@@ -51,14 +51,14 @@ public class GGivePermsCommand implements CommandExecutor
 				Player player = (Player)sender;
 				if(this.gbp.getPerms().getPerm(perm) == null)
 				{
-					sender.sendMessage("Please verify this permission.");
+					sender.sendMessage(this.gbp.getLang().get("perms.notfound"));
 					return true;
 				}
 				this.gbp.getPermissions().setPerm(player, this.gbp.getPerms().getPerm(perm), !minus);
 			}
 			else
 			{
-				sender.sendMessage("Please provide a player or be a player.");
+				sender.sendMessage(this.gbp.getLang().get("console.missplayer"));
 			}
 		}
 		else
@@ -72,12 +72,12 @@ public class GGivePermsCommand implements CommandExecutor
 			Player player = UPlayer.getPlayerByName(args[0]);
 			if(player == null)
 			{
-				sender.sendMessage("Please provide an existing player.");
+				sender.sendMessage(this.gbp.getLang().get("player.notfound"));
 				return true;
 			}
 			if(this.gbp.getPerms().getPerm(perm) == null)
 			{
-				sender.sendMessage("Please verify this permission.");
+				sender.sendMessage(this.gbp.getLang().get("perms.notfound"));
 				return true;
 			}
 			this.gbp.getPermissions().setPerm(player, this.gbp.getPerms().getPerm(perm), !minus);

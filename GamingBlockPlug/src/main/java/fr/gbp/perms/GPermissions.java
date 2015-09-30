@@ -24,7 +24,9 @@ public class GPermissions
 	protected HashMap<String, Permission> pMap = new HashMap<String, Permission>();
 	
 	// Permissions :
-	protected Permission UseTpcCommand = new Permission("GamingBlockPlug.tpc", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
+	protected Permission UseTpcCommand = new Permission("GamingBlockPlug.tpc.use", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
+	protected Permission TargetTpcCommand = new Permission("GamingBlockPlug.tpc.target", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
+	protected Permission GTpcCommand = new Permission("GamingBlockPlug.tpc.*", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
 	protected Permission UseGivePermsCommand = new Permission("GamingBlockPlug.giveperms", "permission for the give permissions", PermissionDefault.OP, null);
 	protected Permission EcoResetCommand = new Permission("GamingBlockPlug.economy.reset", "permission for reset accounts", PermissionDefault.OP, null);
 	// End permissions
@@ -36,9 +38,12 @@ public class GPermissions
 	
 	public void myPerms()
 	{
+		this.UseTpcCommand.addParent(GTpcCommand, true);
+		this.TargetTpcCommand.addParent(GTpcCommand, true);
 		this.collectPerms();
 		// Registering perms :
 		this.regPerm(this.UseTpcCommand);
+		this.regPerm(this.TargetTpcCommand);
 		this.regPerm(this.UseGivePermsCommand);
 		this.regPerm(this.EcoResetCommand);
 		// End registering
@@ -76,11 +81,20 @@ public class GPermissions
 		{
 			switch(name)
 			{
-			case "GamingBlockPlug.tpc":
+			case "GamingBlockPlug.economy.reset":
+				result = this.EcoResetCommand;
+				break;
+			case "GamingBlockPlug.tpc.target":
+				result = this.TargetTpcCommand;
+				break;
+			case "GamingBlockPlug.tpc.use":
 				result = this.UseTpcCommand;
 				break;
 			case "GamingBlockPlug.giveperms":
 				result = this.UseGivePermsCommand;
+				break;
+			case "GamingBlockPlug.tpc.*":
+				result = this.GTpcCommand;
 				break;
 			default:
 				return null;

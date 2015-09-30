@@ -10,9 +10,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.scoreboard.Objective;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.utils.GWorldUtil;
+import fr.gbp.utils.scoreboards.CriteriaType;
+import fr.gbp.utils.scoreboards.GScoreBoard;
 
 public class GWorldCommand implements CommandExecutor, TabCompleter
 {
@@ -93,6 +96,16 @@ public class GWorldCommand implements CommandExecutor, TabCompleter
 			else if(args[0].equalsIgnoreCase("tp") && args.length >= 2)
 			{
 				GWorldUtil.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]);
+				Objective worldObj;
+				if(!GScoreBoard.getInstance().objectiveExists("world_identification"))
+				{
+					worldObj = GScoreBoard.getInstance().createObjective("world_identification", CriteriaType.Dummy);
+				}
+				else
+				{
+					worldObj = GScoreBoard.getInstance().getMainScoreboard().getObjective("world_identification");
+				}
+				GScoreBoard.setScore(worldObj, sender.getName(), 0);
 			}
 			else if(args[0].equalsIgnoreCase("list"))
 			{

@@ -31,7 +31,7 @@ public class GTpcCommand implements CommandExecutor
 			return false;
 		}
 		
-		if(!GPermissions.testPermission(sender, "GamingBlockPlug.tpc", null))
+		if(!GPermissions.testPermission(sender, "GamingBlockPlug.tpc.use", null))
 		{
 			return true;
 		}
@@ -56,9 +56,21 @@ public class GTpcCommand implements CommandExecutor
                 return true;
             }
         }
-        else
+        else if(GPermissions.testPermission(sender, "GamingBlockPlug.tpc.target", "I'm sorry, but you do not have permission to target a player in this command. "
+        		+ "Please contact the server administrators if you believe that this is an error."))
         {
             player = UPlayer.getPlayerByName(args[0]);
+        }
+        else
+        {
+        	if(sender instanceof Player)
+        	{
+        		player = (Player)sender;
+        	}
+        	else
+        	{
+        		player = null;
+        	}
         }
         if(player == null)
         {
