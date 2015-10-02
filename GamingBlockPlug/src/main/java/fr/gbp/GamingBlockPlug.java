@@ -14,6 +14,7 @@ import fr.gbp.bukkit.BukkitPlugin;
 import fr.gbp.command.GCommands;
 import fr.gbp.config.GConfig;
 import fr.gbp.config.GLang;
+import fr.gbp.config.GWorldDatas;
 import fr.gbp.economy.GEconomy;
 import fr.gbp.economy.Money;
 import fr.gbp.perms.GPermissions;
@@ -25,6 +26,7 @@ public class GamingBlockPlug
 	private GCommands coms;
 	private GConfig config;
 	private GLang lang;
+	private GWorldDatas worldsConfig;
 	private GPermissions permissions;
 	private Money money;
 	private GEconomy economy;
@@ -50,6 +52,7 @@ public class GamingBlockPlug
 		this.coms = new GCommands(this);
 		this.config = new GConfig(this);
 		this.lang = new GLang(this);
+		this.worldsConfig = new GWorldDatas(this);
 		this.permissions = new GPermissions(this);
 		this.money = new Money(this);
 		this.economy = new GEconomy(this);
@@ -94,6 +97,11 @@ public class GamingBlockPlug
 	public GLang getLang()
 	{
 		return lang;
+	}
+	
+	public GWorldDatas getWorldsConfig()
+	{
+		return worldsConfig;
 	}
 	
 	public GPermissions getPermissions()

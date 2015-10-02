@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+GamingBlockPlug/src/main/java/fr/gbp/utils/old_GParseCommandTarget.java
 
 # External tool builders
 .externalToolBuilders/
@@ -214,3 +215,4 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/GamingBlockPlug/
