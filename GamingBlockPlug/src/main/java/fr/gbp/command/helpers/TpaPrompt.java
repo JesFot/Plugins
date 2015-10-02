@@ -25,6 +25,12 @@ public class TpaPrompt extends ValidatingPrompt {
 		{
 			context.setSessionData("data", "yes");
 			player.sendMessage("Accepted !");
+			if(!player.getWorld().equals(target.getWorld()))
+			{
+				player.sendMessage("Refused because target is in another world.");
+				target.sendRawMessage("You are not in the same world.");
+				return END_OF_CONVERSATION;
+			}
 			player.teleport(target, TeleportCause.COMMAND);
 			return END_OF_CONVERSATION;
 		}

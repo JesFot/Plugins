@@ -62,6 +62,11 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 						sender.sendMessage("This location do not exists.");
 						return true;
 					}
+					if(!player.getWorld().equals(loc.getWorld()))
+					{
+						sender.sendMessage("You cannot teleport your self beetween worlds.");
+						return true;
+					}
 					player.teleport(loc, TeleportCause.PLUGIN);
 					player.sendMessage("You were teleported to your home, good luck !");
 					return true;
@@ -73,6 +78,11 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 				if(loc == null)
 				{
 					sender.sendMessage("You did not register any base home !");
+					return true;
+				}
+				if(!player.getWorld().equals(loc.getWorld()))
+				{
+					sender.sendMessage("You cannot teleport your self beetween worlds.");
 					return true;
 				}
 				player.teleport(loc, TeleportCause.PLUGIN);

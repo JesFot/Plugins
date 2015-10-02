@@ -42,6 +42,13 @@ public class GWorldUtil
 			gbp.getConfig().getCustomConfig().createSection("worlds.list."+name);
 			gbp.getConfig().getCustomConfig().set("worlds.list."+name, last);
 		}
+		gbp.getWorldsConfig().reloadWorldConfig(name+".yml");
+		if(!gbp.getWorldsConfig().getWorldConfig(name+".yml").contains("id"))
+		{
+			gbp.getWorldsConfig().getWorldConfig(name+".yml").createSection("id");
+			gbp.getWorldsConfig().getWorldConfig(name+".yml").set("id", last);
+			gbp.getWorldsConfig().saveWorldConfig(name+".yml");
+		}
 		if(!gbp.getConfig().getCustomConfig().contains("worlds.last"))
 		{
 			gbp.getConfig().getCustomConfig().createSection("worlds.last");
@@ -92,18 +99,20 @@ public class GWorldUtil
 				}
 			}
 		}
-		Location spawn = world.getSpawnLocation();
+		//Location spawn = world.getSpawnLocation();
 		if(player.length == 1)
 		{
-			Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
-			player[0].teleport(old);
+			Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+player[0].getName().toLowerCase(), world.getName()+".yml");
+			//Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
+			player[0].teleport(pre_old);
 		}
 		else if(player.length >= 2)
 		{
 			for(Player p : player)
 			{
-				Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
-				p.teleport(old);
+				Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+p.getName().toLowerCase(), world.getName()+".yml");
+				//Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
+				p.teleport(pre_old);
 			}
 		}
 	}
@@ -140,6 +149,7 @@ public class GWorldUtil
 			gbp.getWorldsConfig().storeInventory("inventories.ender."+pl.getName().toLowerCase(), pl.getEnderChest(), tmp+".yml");
 			gbp.getWorldsConfig().storeInventory("inventories.bank."+pl.getName().toLowerCase(), gbp.getEconomy().getPEco(pl).getInventory(), tmp+".yml");
 			gbp.getWorldsConfig().storeInventory("inventories.norm."+pl.getName().toLowerCase(), pl.getInventory(), tmp+".yml");
+			gbp.getWorldsConfig().storeLoc("locations.last."+pl.getName().toLowerCase(), pl.getLocation(), tmp+".yml");
 			GScoreBoard.setScore(worldObj, pl.getName(), gbp.getConfig().getCustomConfig().getInt("worlds.list."+tmp, -1));
 		}
 		
