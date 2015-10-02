@@ -99,20 +99,20 @@ public class GWorldUtil
 				}
 			}
 		}
-		//Location spawn = world.getSpawnLocation();
+		Location spawn = world.getSpawnLocation();
 		if(player.length == 1)
 		{
-			Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+player[0].getName().toLowerCase(), world.getName()+".yml");
-			//Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
-			player[0].teleport(pre_old);
+			//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+player[0].getName().toLowerCase(), world.getName()+".yml");
+			Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
+			player[0].teleport(/*pre_*/old);
 		}
 		else if(player.length >= 2)
 		{
 			for(Player p : player)
 			{
-				Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+p.getName().toLowerCase(), world.getName()+".yml");
-				//Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
-				p.teleport(pre_old);
+				//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+p.getName().toLowerCase(), world.getName()+".yml");
+				Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
+				p.teleport(/*pre_*/old);
 			}
 		}
 	}
