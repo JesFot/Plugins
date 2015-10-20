@@ -6,12 +6,12 @@
   <script type="text/javascript">
     function coucou()
     {
-      var tmp = "display:none";
-      if(document.getElementById('nones').attributes.style.value.contains('none'))
+      var tmp = "none";
+      if(document.getElementById('nones').attributes.style.display == "none"))
       {
-        tmp = "display:yes";
+        tmp = "yes";
       }
-      document.getElementById('nones').attributes.style.value = tmp;
+      document.getElementById('nones').attributes.style.display = tmp;
     }
   </script>
 </head>
