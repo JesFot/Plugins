@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.gbp.bukkit.BukkitPlugin
-version: 1.0 ALPHA
+version: 1.3 ALPHA
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -32,3 +32,7 @@ commands:
   world:
     description: Navigate between worlds.
     usage: /<command> list | /<command> tp <worldName> | /<command> set <worldName> <load|unload> [newSeed] [Env] [Type]
+  gmask:
+    description: allows you to make yourself invisible
+    usage: /<command>
+    aliases: [mask, vanish, offline]

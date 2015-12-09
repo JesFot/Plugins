@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import fr.gbp.GamingBlockPlug;
+import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.GHalfBedSys;
 import fr.gbp.utils.ItemInventory;
 
@@ -46,7 +47,21 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		// Code ...
+		for(Player connected : this.gbp.getServer().getOnlinePlayers())
+		{
+			if(this.gbp.getConfig().getCustomConfig().getBoolean("hidenplayers."+connected.getName().toLowerCase(), false))
+			{
+				if(GPermissions.testPermissionSilent(event.getPlayer(), "GamingBlockPlug.mask.seeAll") && !connected.isOp())
+				{
+					continue;
+				}
+				if(GPermissions.testPermissionSilent(event.getPlayer(), "GamingBlockPlug.mask.seeAdmin") && connected.isOp())
+				{
+					continue;
+				}
+				event.getPlayer().hidePlayer(connected);
+			}
+		}
 	}
 	
 	@EventHandler

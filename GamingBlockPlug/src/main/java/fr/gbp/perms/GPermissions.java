@@ -29,6 +29,10 @@ public class GPermissions
 	protected Permission GTpcCommand = new Permission("GamingBlockPlug.tpc.*", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
 	protected Permission UseGivePermsCommand = new Permission("GamingBlockPlug.giveperms", "permission for the give permissions", PermissionDefault.OP, null);
 	protected Permission EcoResetCommand = new Permission("GamingBlockPlug.economy.reset", "permission for reset accounts", PermissionDefault.OP, null);
+	protected Permission MaskCommand = new Permission("GamingBlockPlug.mask.*", "permission for all depends of the 'mask' command", PermissionDefault.OP, null);
+	protected Permission UseMaskCommand = new Permission("GamingBlockPlug.mask.use", "permission for the 'mask' command", PermissionDefault.OP, null);
+	protected Permission SeeMaskCommand = new Permission("GamingBlockPlug.mask.seeAll", "permission for see masked non-admin players", PermissionDefault.OP, null);
+	protected Permission SeeAdminMaskCommand = new Permission("GamingBlockPlug.mask.seeAdmin", "permission for see masked admins", PermissionDefault.OP, null);
 	// End permissions
 	
 	public GPermissions(GamingBlockPlug p_gbp)
@@ -40,11 +44,17 @@ public class GPermissions
 	{
 		this.UseTpcCommand.addParent(GTpcCommand, true);
 		this.TargetTpcCommand.addParent(GTpcCommand, true);
+		this.UseMaskCommand.addParent(MaskCommand, true);
+		this.SeeMaskCommand.addParent(MaskCommand, true);
+		this.SeeAdminMaskCommand.addParent(MaskCommand, true);
 		this.collectPerms();
 		// Registering perms :
 		this.regPerm(this.UseTpcCommand);
 		this.regPerm(this.TargetTpcCommand);
 		this.regPerm(this.UseGivePermsCommand);
+		this.regPerm(this.UseMaskCommand);
+		this.regPerm(this.SeeMaskCommand);
+		this.regPerm(this.SeeAdminMaskCommand);
 		this.regPerm(this.EcoResetCommand);
 		// End registering
 		this.registerAllPerms();
@@ -165,6 +175,29 @@ public class GPermissions
 		return false;
 	}
 	
+	public static boolean testPermission(CommandSender target, String permission, String permissionMessage, boolean adminByPass)
+	{
+		if(testPermissionSilent(target, permission, adminByPass))
+		{
+			return true;
+		}
+		
+		if(permissionMessage == null)
+		{
+			target.sendMessage(ChatColor.RED+
+					"I'm sorry, but you do not have permission to perform this command. "
+					+ "Please contact the server administrators if you believe that this is an error.");
+		}
+		else if(permissionMessage.length() != 0)
+		{
+			for(String line : permissionMessage.replace("<permission>", permission).split("\n"))
+			{
+				target.sendMessage(line);
+			}
+		}
+		return false;
+	}
+	
 	public static boolean testPermissionSilent(CommandSender target, String permission)
 	{
 		if(target instanceof ConsoleCommandSender)
@@ -177,6 +210,32 @@ public class GPermissions
 		}
 		
 		if(target.isOp() && RefString.OPISALL)
+		{
+			return true;
+		}
+		
+		for(String p : permission.split(";"))
+		{
+			if(target.hasPermission(p))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean testPermissionSilent(CommandSender target, String permission, boolean adminByPass)
+	{
+		if(target instanceof ConsoleCommandSender)
+		{
+			return true;
+		}
+		if((permission == null) || (permission.length() == 0))
+		{
+			return true;
+		}
+		
+		if(target.isOp() && adminByPass)
 		{
 			return true;
 		}

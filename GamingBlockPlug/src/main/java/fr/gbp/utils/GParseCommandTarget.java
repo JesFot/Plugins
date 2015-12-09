@@ -3,6 +3,8 @@ package fr.gbp.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -24,7 +26,21 @@ public class GParseCommandTarget
 		List<Player> pls = new ArrayList<Player>();
 		if(!myArgument.contains("["))
 		{
-			myArgument += "[0,0,0]";
+			if(myArgument.equalsIgnoreCase("@p"))
+			{
+				Location loc = new Location((World)mcListener.getWorld().getWorld(), mcListener.getChunkCoordinates().getX(), mcListener.getChunkCoordinates().getY(),
+						mcListener.getChunkCoordinates().getZ());
+				pls.add(UPlayer.getProximityPlayer(loc));
+			}
+			else if(myArgument.equalsIgnoreCase("@a"))
+			{
+				pls.addAll(UPlayer.getOnlinePlayers());
+			}
+			else if(myArgument.equalsIgnoreCase("@r"))
+			{
+				pls.add(UPlayer.getRandomPlayer((World)mcListener.getWorld().getWorld()));
+			}
+			return pls;
 		}
 		for(EntityPlayer o : PlayerSelector.getPlayers(mcListener, myArgument, EntityPlayer.class))
 		{

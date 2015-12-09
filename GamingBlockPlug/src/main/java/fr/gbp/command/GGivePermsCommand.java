@@ -27,7 +27,7 @@ public class GGivePermsCommand implements CommandExecutor
 			return false;
 		}
 		
-		if(!GPermissions.testPermission(sender, "GamingBlockPlug.giveperms", null))
+		if(!GPermissions.testPermission(sender, "GamingBlockPlug.giveperms", null, true))
 		{
 			return true;
 		}

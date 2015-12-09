@@ -1,16 +1,23 @@
 package fr.gbp.command;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.command.helpers.EcoHelper;
+import fr.gbp.perms.GPermissions;
+import fr.gbp.utils.UPlayer;
 
-public class GEcoCommands implements CommandExecutor
+public class GEcoCommands implements CommandExecutor, TabCompleter
 {
 	/*
 	 * Commands :
@@ -52,5 +59,51 @@ public class GEcoCommands implements CommandExecutor
 		
 		sender.sendMessage("what ?");
 		return true;
+	}
+	
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
+	{
+		List<String> result = new ArrayList<String>();
+		List<String> allP = new ArrayList<String>();
+		for(Player tmp : UPlayer.getOnlinePlayers())
+		{
+			allP.add(tmp.getName());
+		}
+		if(cmd.getName().equalsIgnoreCase("toolb"))
+		{
+			return Collections.emptyList();
+		}
+		else if(cmd.getName().equalsIgnoreCase("economy"))
+		{
+			switch(args.length)
+			{
+			case 1:
+				result.add("pay");
+				result.add("inventory");
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
+				{
+					result.add("reset");
+				}
+				break;
+			case 2:
+				if(args[0].equalsIgnoreCase("pay"))
+				{
+					result.addAll(allP);
+					result.add("console");
+				}
+				break;
+			}
+			List<String> response = new ArrayList<String>();
+			for(String res : result)
+			{
+				if(res.toLowerCase().startsWith(args[args.length - 1].toLowerCase()))
+				{
+					response.add(res);
+				}
+			}
+			return response;
+		}
+		return null;
 	}
 }

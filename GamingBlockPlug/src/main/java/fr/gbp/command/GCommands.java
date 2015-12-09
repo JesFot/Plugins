@@ -33,10 +33,16 @@ public class GCommands
 		GWorldCommand gworld = new GWorldCommand(gbpl);
 		gbpl.getPlugin().getCommand("world").setExecutor(gworld);
 		gbpl.getPlugin().getCommand("world").setTabCompleter(gworld);
+		GMaskCommand gmask = new GMaskCommand(gbpl);
+		gbpl.getPlugin().getCommand("gmask").setExecutor(gmask);
+		gbpl.getPlugin().getCommand("gmask").setTabCompleter(gmask);
 		
 		//Bank
-		gbpl.getPlugin().getCommand("toolb").setExecutor(new GEcoCommands(gbpl));
-		gbpl.getPlugin().getCommand("economy").setExecutor(new GEcoCommands(gbpl));
+		GEcoCommands economy = new GEcoCommands(gbpl);
+		gbpl.getPlugin().getCommand("toolb").setExecutor(economy);
+		gbpl.getPlugin().getCommand("toolb").setTabCompleter(economy);
+		gbpl.getPlugin().getCommand("economy").setExecutor(economy);
+		gbpl.getPlugin().getCommand("economy").setTabCompleter(economy);
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

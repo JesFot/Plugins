@@ -112,7 +112,7 @@ public class EcoHelper
 				}
 				else if(args[0].equalsIgnoreCase("reset") && args.length == 2)
 				{
-					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.reset", null))
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.reset", null, true))
 					{
 						return true;
 					}
@@ -120,7 +120,7 @@ public class EcoHelper
 					this.gbp.getEconomy().getPEco(tgt).resetMoney();
 					return true;
 				}
-				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset"))
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
 				{
 					sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [reset | pay <player> <amount>]");
 					return true;
