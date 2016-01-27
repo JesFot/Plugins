@@ -1,5 +1,7 @@
 package fr.gbp.utils;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -88,6 +90,7 @@ public class GWorldUtil
 	
 	public static void tpToWorld(GamingBlockPlug gbp, Player[] player, String worldName)
 	{
+		boolean keepInventories = false;
 		World world = gbp.getServer().getWorld(worldName);
 		if(world == null)
 		{
@@ -103,8 +106,19 @@ public class GWorldUtil
 			}
 		}
 		Location spawn = world.getSpawnLocation();
+		List<String> ws = gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getStringList("sameinv_worlds");
+		List<String> pws;
 		if(player.length == 1)
 		{
+			pws = gbp.getWorldsConfig().getWorldConfig(player[0].getWorld().getName()+".yml").getStringList("sameinv_worlds");
+			if(ws.contains(player[0].getWorld().getName().toLowerCase()))
+			{
+				keepInventories = true;
+			}
+			if(pws.contains(world.getName().toLowerCase()))
+			{
+				keepInventories = true;
+			}
 			String exWorld = player[0].getWorld().getName();
 			//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+player[0].getName().toLowerCase(), world.getName()+".yml");
 			Inventory ender = gbp.getWorldsConfig().getInventory("inventories.ender."+player[0].getName().toLowerCase(), world.getName()+".yml");
@@ -112,24 +126,27 @@ public class GWorldUtil
 			Inventory bank = gbp.getWorldsConfig().getInventory("inventories.bank."+player[0].getName().toLowerCase(), world.getName()+".yml");
 			float xp = NumberConversions.toFloat(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").get("levels."+player[0].getName().toLowerCase()+".exp", player[0].getExp()));
 			int lvl = gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getInt("levels."+player[0].getName().toLowerCase()+".lvl", player[0].getLevel());
-			if(norm != null)
+			if(!keepInventories)
 			{
-				player[0].getInventory().setContents(norm.getContents());
+				if(norm != null)
+				{
+					player[0].getInventory().setContents(norm.getContents());
+				}
+				if(ender != null)
+				{
+					player[0].getEnderChest().setContents(ender.getContents());
+				}
+				if(bank != null)
+				{
+					gbp.getEconomy().getPEco(player[0]).getInventory().setContents(bank.getContents());
+				}
+				if(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").contains("gamemode"))
+				{
+					player[0].setGameMode(GameMode.valueOf(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getString("gamemode", GameMode.SURVIVAL.toString())));
+				}
+				player[0].setExp(xp);
+				player[0].setLevel(lvl);
 			}
-			if(ender != null)
-			{
-				player[0].getEnderChest().setContents(ender.getContents());
-			}
-			if(bank != null)
-			{
-				gbp.getEconomy().getPEco(player[0]).getInventory().setContents(bank.getContents());
-			}
-			if(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").contains("gamemode"))
-			{
-				player[0].setGameMode(GameMode.valueOf(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getString("gamemode", GameMode.SURVIVAL.toString())));
-			}
-			player[0].setExp(xp);
-			player[0].setLevel(lvl);
 			Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
 			player[0].teleport(/*pre_*/old);
 			if(player[0].getServer().getWorld(exWorld).getPlayers().isEmpty())
@@ -141,31 +158,43 @@ public class GWorldUtil
 		{
 			for(Player p : player)
 			{
+				pws = gbp.getWorldsConfig().getWorldConfig(p.getWorld().getName()+".yml").getStringList("sameinv_worlds");
+				if(ws.contains(p.getWorld().getName().toLowerCase()))
+				{
+					keepInventories = true;
+				}
+				if(pws.contains(world.getName().toLowerCase()))
+				{
+					keepInventories = true;
+				}
 				String exWorld = p.getWorld().getName();
 				//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+p.getName().toLowerCase(), world.getName()+".yml");
-				Inventory ender = gbp.getWorldsConfig().getInventory("inventories.ender."+p.getName().toLowerCase(), world.getName()+".yml");
-				Inventory norm = gbp.getWorldsConfig().getInventory("inventories.norm."+p.getName().toLowerCase(), world.getName()+".yml");
-				Inventory bank = gbp.getWorldsConfig().getInventory("inventories.bank."+p.getName().toLowerCase(), world.getName()+".yml");
-				float xp = NumberConversions.toFloat(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").get("levels."+p.getName().toLowerCase()+".exp", p.getExp()));
-				int lvl = gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getInt("levels."+p.getName().toLowerCase()+".lvl", p.getLevel());
-				if(norm != null)
+				if(!keepInventories)
 				{
-					p.getInventory().setContents(norm.getContents());
+					Inventory ender = gbp.getWorldsConfig().getInventory("inventories.ender."+p.getName().toLowerCase(), world.getName()+".yml");
+					Inventory norm = gbp.getWorldsConfig().getInventory("inventories.norm."+p.getName().toLowerCase(), world.getName()+".yml");
+					Inventory bank = gbp.getWorldsConfig().getInventory("inventories.bank."+p.getName().toLowerCase(), world.getName()+".yml");
+					float xp = NumberConversions.toFloat(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").get("levels."+p.getName().toLowerCase()+".exp", p.getExp()));
+					int lvl = gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getInt("levels."+p.getName().toLowerCase()+".lvl", p.getLevel());
+					if(norm != null)
+					{
+						p.getInventory().setContents(norm.getContents());
+					}
+					if(ender != null)
+					{
+						p.getEnderChest().setContents(ender.getContents());
+					}
+					if(bank != null)
+					{
+						gbp.getEconomy().getPEco(p).getInventory().setContents(bank.getContents());
+					}
+					if(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").contains("gamemode"))
+					{
+						p.setGameMode(GameMode.valueOf(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getString("gamemode", GameMode.SURVIVAL.toString())));
+					}
+					p.setExp(xp);
+					p.setLevel(lvl);
 				}
-				if(ender != null)
-				{
-					p.getEnderChest().setContents(ender.getContents());
-				}
-				if(bank != null)
-				{
-					gbp.getEconomy().getPEco(p).getInventory().setContents(bank.getContents());
-				}
-				if(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").contains("gamemode"))
-				{
-					p.setGameMode(GameMode.valueOf(gbp.getWorldsConfig().getWorldConfig(world.getName()+".yml").getString("gamemode", GameMode.SURVIVAL.toString())));
-				}
-				p.setExp(xp);
-				p.setLevel(lvl);
 				Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
 				p.teleport(/*pre_*/old);
 				if(p.getServer().getWorld(exWorld).getPlayers().isEmpty())

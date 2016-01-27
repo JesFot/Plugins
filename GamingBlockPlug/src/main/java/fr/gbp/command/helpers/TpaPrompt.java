@@ -25,7 +25,12 @@ public class TpaPrompt extends ValidatingPrompt {
 		{
 			context.setSessionData("data", "yes");
 			player.sendMessage("Accepted !");
-			if(!player.getWorld().equals(target.getWorld()))
+			if(!player.getWorld().equals(target.getWorld()) && !player.getWorld().getName().equalsIgnoreCase(target.getWorld().getName()+"_nether")
+					 && !player.getWorld().getName().equalsIgnoreCase(target.getWorld().getName()+"_the_end")
+					 && !player.getWorld().getName().equalsIgnoreCase(target.getWorld().getName()+"_end")
+					 && !target.getWorld().getName().equalsIgnoreCase(player.getWorld().getName()+"_nether")
+					 && !target.getWorld().getName().equalsIgnoreCase(player.getWorld().getName()+"_the_end")
+					 && !target.getWorld().getName().equalsIgnoreCase(player.getWorld().getName()+"_end"))
 			{
 				player.sendMessage("Refused because target is in another world.");
 				target.sendRawMessage("You are not in the same world.");
