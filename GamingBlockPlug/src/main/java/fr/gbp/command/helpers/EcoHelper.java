@@ -137,22 +137,28 @@ public class EcoHelper
 					}
 					if(this.gbp.getEconomy().getPEco(player).hasEnough(dble))
 					{
+						this.gbp.getEconomy().getPEco(player).remove(dble);
 						double em = this.gbp.getMoney().getManyEmerald(dble);
 						int ems = this.gbp.getMoney().getEmerald(em);
 						ItemStack is = new ItemStack(Material.EMERALD, ems);
 						player.getInventory().addItem(is);
+						return true;
 					}
 					else
 					{
 						sender.sendMessage(this.gbp.getLang().get("economy.notenough"));
+						return true;
 					}
 				}
 				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
 				{
-					sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [reset | pay <player> <amount>]");
+					sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>] |"
+							+ " /"+alias+" reset <player> |"
+							+ " /"+alias+" TakeEm <amount>");
 					return true;
 				}
-				sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>]");
+				sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>] |"
+						+ " /"+alias+" TakeEm <amount>");
 				return true;
 			}
 		}
