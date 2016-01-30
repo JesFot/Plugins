@@ -54,9 +54,9 @@ public class GGivePermsCommand implements CommandExecutor
 					sender.sendMessage(this.gbp.getLang().get("perms.notfound"));
 					return true;
 				}
-				this.gbp.getPermissions().setPerm(player, this.gbp.getPerms().getPerm(perm), !minus);
 				sender.sendMessage(this.gbp.getLang().get("perms.changed").replaceAll("<perm>", perm)
 						.replaceAll("<value>", minus ? "false" : "true").replaceAll("<target>", player.getName()));
+				this.gbp.getPermissions().setPerm(player, this.gbp.getPerms().getPerm(perm), !minus);
 			}
 			else
 			{

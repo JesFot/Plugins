@@ -123,7 +123,7 @@ public class EcoHelper
 					sender.sendMessage("You reseted " + tgt.getName() + " balance.");
 					return true;
 				}
-				else if(args[0].equalsIgnoreCase("TakeEm") && args.length == 2)
+				else if((args[0].equalsIgnoreCase("TakeEm") || args[0].equalsIgnoreCase("te")) && args.length == 2)
 				{
 					double dble = Double.valueOf(args[1]);
 					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.passEm", null, true))
@@ -142,6 +142,32 @@ public class EcoHelper
 						int ems = this.gbp.getMoney().getEmerald(em);
 						ItemStack is = new ItemStack(Material.EMERALD, ems);
 						player.getInventory().addItem(is);
+						return true;
+					}
+					else
+					{
+						sender.sendMessage(this.gbp.getLang().get("economy.notenough"));
+						return true;
+					}
+				}
+				else if((args[0].equalsIgnoreCase("StoreEm") || args[0].equalsIgnoreCase("se")) && args.length == 2)
+				{
+					int dble = Integer.valueOf(args[1]);
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.passEm", null, true))
+					{
+						return true;
+					}
+					if(!p)
+					{
+						sender.sendMessage(this.gbp.getLang().get("console.noinv"));
+						return true;
+					}
+					double em = this.gbp.getMoney().getManyMoney(dble);
+					if(player.getInventory().containsAtLeast(new ItemStack(Material.EMERALD), dble))
+					{
+						ItemStack is = new ItemStack(Material.EMERALD, dble);
+						player.getInventory().remove(is);
+						this.gbp.getEconomy().getPEco(player).add(em);
 						return true;
 					}
 					else
