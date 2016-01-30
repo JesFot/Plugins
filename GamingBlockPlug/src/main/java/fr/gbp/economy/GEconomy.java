@@ -1,7 +1,10 @@
 package fr.gbp.economy;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -17,6 +20,24 @@ public class GEconomy
 	{
 		this.eco = new HashMap<OfflinePlayer, PEconomy>();
 		this.gbp = p_gbp;
+	}
+	
+	public List<String> getList()
+	{
+		List<String> result = new ArrayList<String>();
+		for(Entry<OfflinePlayer, PEconomy> e : this.eco.entrySet())
+		{
+			result.add(e.getKey().getName());
+		}
+		for(String str : this.gbp.getConfig().getCustomConfig().getConfigurationSection("banksys.inventories")
+				.getKeys(false))
+		{
+			if(!result.contains(str))
+			{
+				result.add(str);
+			}
+		}
+		return result;
 	}
 	
 	public void addPlayer(OfflinePlayer target)
