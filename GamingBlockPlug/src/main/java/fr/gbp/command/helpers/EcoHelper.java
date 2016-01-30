@@ -129,12 +129,8 @@ public class EcoHelper
 					{
 						return true;
 					}
-					OfflinePlayer tgt;
-					try
-					{
-						 tgt = UPlayer.getPlayerByNameOff(args[1]);
-					}
-					catch(Exception ex)
+					OfflinePlayer tgt = UPlayer.getPlayerByNameOff(args[1]);
+					if(tgt == null)
 					{
 						sender.sendMessage(this.gbp.getLang().get("player.notfound"));
 						return true;

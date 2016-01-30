@@ -54,7 +54,7 @@ public class UPlayer
 	{
 		OfflinePlayer pl = null;
 		
-		for (OfflinePlayer player : Bukkit.getOfflinePlayers())
+		for(OfflinePlayer player : Bukkit.getOfflinePlayers())
 		{
 			if (player.getName().equalsIgnoreCase(name))
 			{
