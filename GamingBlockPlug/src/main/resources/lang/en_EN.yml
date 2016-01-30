@@ -6,6 +6,7 @@ hibs:
   np: Night finish.
 economy:
   balance: You have actually <money>.
+  otherbalance: <player> have actually <money>.
   autoremove: You removed <money> from your account.
   receive: <player> give you <money>.
   send: You gave <money> to <player>.

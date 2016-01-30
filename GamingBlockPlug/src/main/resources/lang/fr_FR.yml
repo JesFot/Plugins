@@ -6,6 +6,7 @@ hibs:
   np: Nuit terminée.
 economy:
   balance: Vous avez actuellement <money>.
+  otherbalance: <player> possède actuellement <money>.
   autoremove: Vous jetez <money>.
   receive: <player> vous donne <money>.
   send: Vous donnez <money> à <player>.

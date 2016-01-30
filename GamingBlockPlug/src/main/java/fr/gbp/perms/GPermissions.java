@@ -29,6 +29,7 @@ public class GPermissions
 	protected Permission GTpcCommand = new Permission("GamingBlockPlug.tpc.*", "permission for the 'tpc' command", PermissionDefault.TRUE, null);
 	protected Permission UseGivePermsCommand = new Permission("GamingBlockPlug.giveperms", "permission for the give permissions", PermissionDefault.OP, null);
 	protected Permission EcoResetCommand = new Permission("GamingBlockPlug.economy.reset", "permission for reset accounts", PermissionDefault.OP, null);
+	protected Permission EcoSeeCommand = new Permission("GamingBlockPlug.economy.see", "permission for seeing other's accounts", PermissionDefault.OP, null);
 	protected Permission EcoGetEmCommand = new Permission("GamingBlockPlug.economy.passEm", "permission for convert emerald to money", PermissionDefault.TRUE, null);
 	protected Permission MaskCommand = new Permission("GamingBlockPlug.mask.*", "permission for all depends of the 'mask' command", PermissionDefault.OP, null);
 	protected Permission UseMaskCommand = new Permission("GamingBlockPlug.mask.use", "permission for the 'mask' command", PermissionDefault.OP, null);
@@ -57,6 +58,7 @@ public class GPermissions
 		this.regPerm(this.SeeMaskCommand);
 		this.regPerm(this.SeeAdminMaskCommand);
 		this.regPerm(this.EcoResetCommand);
+		this.regPerm(this.EcoSeeCommand);
 		this.regPerm(this.EcoGetEmCommand);
 		// End registering
 		this.registerAllPerms();

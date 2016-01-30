@@ -83,9 +83,13 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 				result.add("inventory");
 				result.add("TakeEm");
 				result.add("StoreEm");
-				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", false))
 				{
 					result.add("reset");
+				}
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.see", true))
+				{
+					result.add("see");
 				}
 				break;
 			case 2:
@@ -94,11 +98,16 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 					result.addAll(allP);
 					result.add("console");
 				}
-				else if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true) 
+				else if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", false) 
 						&& args[0].equalsIgnoreCase("reset"))
 				{
 					result.addAll(allP);
-				};
+				}
+				else if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.see", true) 
+						&& args[0].equalsIgnoreCase("see"))
+				{
+					result.addAll(allP);
+				}
 				break;
 			}
 			List<String> response = new ArrayList<String>();

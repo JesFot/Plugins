@@ -114,13 +114,27 @@ public class EcoHelper
 				}
 				else if(args[0].equalsIgnoreCase("reset") && args.length == 2)
 				{
-					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.reset", null, true))
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.reset", null, false))
 					{
 						return true;
 					}
 					Player tgt = UPlayer.getPlayerByName(args[1]);
 					this.gbp.getEconomy().getPEco(tgt).resetMoney();
 					sender.sendMessage("You reseted " + tgt.getName() + " balance.");
+					return true;
+				}
+				else if(args[0].equalsIgnoreCase("see") && args.length == 2)
+				{
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.see", null, true))
+					{
+						return true;
+					}
+					OfflinePlayer tgt = UPlayer.getPlayerByNameOff(args[1]);
+					double dble = this.gbp.getEconomy().getPEco(tgt).getBalance();
+					String tmp = this.gbp.getLang().get("economy.otherbalance")
+							.replaceAll("<money>", dble+this.gbp.getMoney().getSym()
+							.replaceAll("<player>", tgt.getName()));
+					sender.sendMessage(tmp);
 					return true;
 				}
 				else if((args[0].equalsIgnoreCase("TakeEm") || args[0].equalsIgnoreCase("te")) && args.length == 2)
@@ -185,15 +199,17 @@ public class EcoHelper
 						return true;
 					}
 				}
-				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
+				String usageMsg = ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>] "
+						+ " /"+alias+" TakeEm <amount>";
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", false))
 				{
-					sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>] |"
-							+ " /"+alias+" reset <player> |"
-							+ " /"+alias+" TakeEm <amount>");
-					return true;
+					usageMsg += " | /"+alias+" reset <player>";
 				}
-				sender.sendMessage(ChatColor.RED + "Usage: /"+alias+" [pay <player> <amount>] |"
-						+ " /"+alias+" TakeEm <amount>");
+				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.see", true))
+				{
+					usageMsg += " | /"+alias+" see <player>";
+				}
+				sender.sendMessage(usageMsg);
 				return true;
 			}
 		}
