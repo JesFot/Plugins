@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import fr.gbp.GamingBlockPlug;
+import fr.gbp.utils.UPlayer;
 
 public class GEconomy
 {
@@ -22,19 +22,23 @@ public class GEconomy
 		this.gbp = p_gbp;
 	}
 	
-	public List<String> getList()
+	public List<String> getList(List<String> except)
 	{
 		List<String> result = new ArrayList<String>();
-		for(Entry<OfflinePlayer, PEconomy> e : this.eco.entrySet())
-		{
-			result.add(e.getKey().getName());
-		}
 		for(String str : this.gbp.getConfig().getCustomConfig().getConfigurationSection("banksys.inventories")
 				.getKeys(false))
 		{
-			if(!result.contains(str))
+			boolean flag = true;
+			for(String s : except)
 			{
-				result.add(str);
+				if(s.equalsIgnoreCase(str))
+				{
+					flag = false;
+				}
+			}
+			if(flag)
+			{
+				result.add(UPlayer.getPlayerByNameOff(str).getName());
 			}
 		}
 		return result;

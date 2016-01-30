@@ -107,7 +107,7 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 						&& args[0].equalsIgnoreCase("see"))
 				{
 					result.addAll(allP);
-					result.addAll(this.gbp.getEconomy().getList());
+					result.addAll(this.gbp.getEconomy().getList(allP));
 				}
 				break;
 			}
