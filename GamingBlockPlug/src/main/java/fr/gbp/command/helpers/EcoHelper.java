@@ -137,9 +137,9 @@ public class EcoHelper
 					}
 					if(this.gbp.getEconomy().getPEco(player).hasEnough(dble))
 					{
-						this.gbp.getEconomy().getPEco(player).remove(dble);
 						double em = this.gbp.getMoney().getManyEmerald(dble);
 						int ems = this.gbp.getMoney().getEmerald(em);
+						this.gbp.getEconomy().getPEco(player).remove(this.gbp.getMoney().getManyMoney(ems));
 						ItemStack is = new ItemStack(Material.EMERALD, ems);
 						player.getInventory().addItem(is);
 						return true;
@@ -152,7 +152,16 @@ public class EcoHelper
 				}
 				else if((args[0].equalsIgnoreCase("StoreEm") || args[0].equalsIgnoreCase("se")) && args.length == 2)
 				{
-					int dble = Integer.valueOf(args[1]);
+					int dble;
+					try
+					{
+						 dble = Integer.valueOf(args[1]);
+					}
+					catch(Exception e)
+					{
+						sender.sendMessage("USE INTEGER PLEASE !!!");
+						return true;
+					}
 					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.passEm", null, true))
 					{
 						return true;
@@ -166,7 +175,7 @@ public class EcoHelper
 					if(player.getInventory().containsAtLeast(new ItemStack(Material.EMERALD), dble))
 					{
 						ItemStack is = new ItemStack(Material.EMERALD, dble);
-						player.getInventory().remove(is);
+						player.getInventory().removeItem(is);
 						this.gbp.getEconomy().getPEco(player).add(em);
 						return true;
 					}
