@@ -101,4 +101,14 @@ public class PEconomy
 		this.config.getCustomConfig().set("economy."+this.pnamelc+".balance", null);
 		this.config.saveCustomConfig();
 	}
+	
+	public boolean hasEnough(final double amount)
+	{
+		double result = this.getBalance();
+		if(result >= amount && amount >= 0)
+		{
+			return true;
+		}
+		return false;
+	}
 }

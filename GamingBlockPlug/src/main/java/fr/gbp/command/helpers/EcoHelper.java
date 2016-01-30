@@ -1,10 +1,12 @@
 package fr.gbp.command.helpers;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.perms.GPermissions;
@@ -118,7 +120,32 @@ public class EcoHelper
 					}
 					Player tgt = UPlayer.getPlayerByName(args[1]);
 					this.gbp.getEconomy().getPEco(tgt).resetMoney();
+					sender.sendMessage("You reseted " + tgt.getName() + " balance.");
 					return true;
+				}
+				else if(args[0].equalsIgnoreCase("TakeEm") && args.length == 2)
+				{
+					double dble = Double.valueOf(args[1]);
+					if(!GPermissions.testPermission(sender, "GamingBlockPlug.economy.passEm", null, true))
+					{
+						return true;
+					}
+					if(!p)
+					{
+						sender.sendMessage(this.gbp.getLang().get("console.noinv"));
+						return true;
+					}
+					if(this.gbp.getEconomy().getPEco(player).hasEnough(dble))
+					{
+						double em = this.gbp.getMoney().getManyEmerald(dble);
+						int ems = this.gbp.getMoney().getEmerald(em);
+						ItemStack is = new ItemStack(Material.EMERALD, ems);
+						player.getInventory().addItem(is);
+					}
+					else
+					{
+						sender.sendMessage(this.gbp.getLang().get("economy.notenough"));
+					}
 				}
 				if(GPermissions.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", true))
 				{

@@ -6,9 +6,8 @@ public class Money
 {
 	private GamingBlockPlug gbp;
 	
-	protected double emeraldsbyMon = 0.1;
 	protected double baseMon = 100.0;
-	protected double monbyEm = 10.0;
+	protected double monbyEm = 1.0;
 	protected String ecoSym = "$";
 	
 	public Money(GamingBlockPlug p_gbp)
@@ -29,12 +28,12 @@ public class Money
 	
 	public double getManyEmerald(double money)
 	{
-		return money * this.emeraldsbyMon;
+		return money * (1 / this.gbp.getConfig().getCustomConfig().getDouble("economy.monbyem", this.monbyEm));
 	}
 	
 	public double getManyMoney(int emerald)
 	{
-		return emerald * this.monbyEm;
+		return emerald * this.gbp.getConfig().getCustomConfig().getDouble("economy.monbyem", this.monbyEm);
 	}
 	
 	public int getEmerald(double emeralds)

@@ -10,8 +10,10 @@ economy:
   receive: <player> give you <money>.
   send: You gave <money> to <player>.
   receivefromc: The Console give you <money>.
+  notenough: You do not have enough money to do this.
 perms:
   notfound: Please verify this permission.
+  changed: The permission <perm> was set to <value> for player <target>.
 player:
   notfound: Player not found.
 console:
