@@ -132,8 +132,8 @@ public class EcoHelper
 					OfflinePlayer tgt = UPlayer.getPlayerByNameOff(args[1]);
 					double dble = this.gbp.getEconomy().getPEco(tgt).getBalance();
 					String tmp = this.gbp.getLang().get("economy.otherbalance")
-							.replace("<money>", dble+this.gbp.getMoney().getSym()
-							.replace("<player>", tgt.getName()));
+							.replace("<money>", dble+this.gbp.getMoney().getSym())
+							.replace("<player>", tgt.getName());
 					sender.sendMessage(tmp);
 					return true;
 				}
