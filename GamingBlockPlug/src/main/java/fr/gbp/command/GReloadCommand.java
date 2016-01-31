@@ -22,7 +22,7 @@ public class GReloadCommand implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(!cmd.getName().equalsIgnoreCase("reload"))
+		if(!cmd.getName().equalsIgnoreCase("greload"))
 		{
 			return false;
 		}

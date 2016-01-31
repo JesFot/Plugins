@@ -22,7 +22,7 @@ commands:
   giveperm:
     description: manage permissions
     usage: /<command> [player] <[-]permission>
-  reload:
+  greload:
     description: Reload the plugins
     usage: /<command> [time]
   toolb:

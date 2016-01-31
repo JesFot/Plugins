@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -199,19 +200,6 @@ public class GPlayerListener implements Listener
 			}
 		}
 		teams = teams.endsWith(" ") ? teams.substring(0, teams.length() - 1) : teams;
-		/*if(event.getPlayer().getName().equalsIgnoreCase("JesFot"))
-		{
-			result = "&a[Dev]";
-			pseudoColor = "&1";
-		}
-		String name = event.getPlayer().getName();
-		if(name.equalsIgnoreCase("wormsor") || name.equalsIgnoreCase("XxDiablo31xX")
-				|| name.equalsIgnoreCase("_scelete_") || name.equalsIgnoreCase("purfyde"))
-		{
-			result = "&1[Admin]";
-			teams = "&rNSWX";
-			pseudoColor = "&4";
-		}*/
 		String subTotal = (result + teams).replace("#$+", "");
 		String total = subTotal + pseudoColor;
 		if(subTotal.charAt(subTotal.length() - 2) == '&')
@@ -245,7 +233,10 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerQuit(final PlayerQuitEvent event)
 	{
-		// Code ...
+		if(this.gbp.getConfig().getCustomConfig().getBoolean("hidenplayers."+event.getPlayer().getName().toLowerCase(), false))
+		{
+			this.gbp.getConfig().getCustomConfig().set("hidenplayers."+event.getPlayer().getName().toLowerCase(), false);
+		}
 	}
 
 	@EventHandler
@@ -263,7 +254,14 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerGMChange(final PlayerGameModeChangeEvent event)
 	{
-		// Code ...
+		if(event.getNewGameMode().equals(GameMode.CREATIVE))
+		{
+			if(!event.getPlayer().isOp())
+			{
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(ChatColor.RED + "You are not allowed to be in creative mode.");
+			}
+		}
 	}
 
 	@EventHandler
