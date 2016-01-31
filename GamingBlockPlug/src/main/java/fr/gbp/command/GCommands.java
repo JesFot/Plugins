@@ -36,6 +36,7 @@ public class GCommands
 		GMaskCommand gmask = new GMaskCommand(gbpl);
 		gbpl.getPlugin().getCommand("gmask").setExecutor(gmask);
 		gbpl.getPlugin().getCommand("gmask").setTabCompleter(gmask);
+		gbpl.getPlugin().getCommand("reload").setExecutor(new GReloadCommand(gbpl));
 		
 		//Bank
 		GEcoCommands economy = new GEcoCommands(gbpl);

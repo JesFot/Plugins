@@ -1,5 +1,10 @@
 package fr.gbp.listener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -98,6 +103,104 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
+		Map<String, String> status = new HashMap<String, String>();
+		status.put("admin", "&4[Admin]");
+		status.put("dev", "&a[Dev]");
+		status.put("normal", "");
+		status.put("color_name", "&1");
+		if(this.gbp.getConfig().getCustomConfig().contains("chat.naming"))
+		{
+			for(String keys : this.gbp.getConfig().getCustomConfig().getConfigurationSection("chat.naming").getKeys(false))
+			{
+				String def = "";
+				if(keys.equalsIgnoreCase("admin"))
+				{
+					def = "&4[Admin]";
+				}
+				if(keys.equalsIgnoreCase("dev"))
+				{
+					def = "&a[Dev]";
+				}
+				if(keys.equalsIgnoreCase("color_name"))
+				{
+					def = "&1";
+				}
+				status.put(keys, this.gbp.getConfig().getCustomConfig().getString("caht.naming."+keys, def));
+			}
+		}
+		Map<String, List<String>> groups = new HashMap<String, List<String>>();
+		if(this.gbp.getConfig().getCustomConfig().contains("groups"))
+		{
+			for(String key : this.gbp.getConfig().getCustomConfig().getConfigurationSection("groups").getKeys(false))
+			{
+				List<String> names = this.gbp.getConfig().getCustomConfig().getStringList("groups."+key);
+				groups.put(key, names);
+			}
+		}
+		List<String> usersGroups = new ArrayList<String>();
+		if(!usersGroups.contains("admin") && event.getPlayer().isOp())
+		{
+			usersGroups.add("admin");
+		}
+		for(String groupName : groups.keySet())
+		{
+			for(String playerName : groups.get(groupName))
+			{
+				if(playerName.equals(event.getPlayer().getName()))
+				{
+					if(!usersGroups.contains(groupName))
+					{
+						usersGroups.add(groupName);
+					}
+				}
+			}
+		}
+		String result = "";
+		String teams = "+";
+		String pseudoColor = status.get("color_name");
+		List<String> usersTeams = new ArrayList<String>();
+		for(String group : usersGroups)
+		{
+			if(group.startsWith("team_"))
+			{
+				usersTeams.add(group);
+				usersGroups.remove(group);
+			}
+			else if(group.startsWith("color_"))
+			{
+				String color = group.substring(6);
+				ChatColor t = ChatColor.valueOf(color);
+				pseudoColor = "&"+t.getChar();
+				usersGroups.remove(group);
+			}
+			else
+			{
+				result = status.get(group) != null ? status.get(group) : result;
+			}
+		}
+		for(String str : usersTeams)
+		{
+			if(status.containsKey(str))
+			{
+				teams = status.get(str) + " ";
+			}
+		}
+		teams = teams.endsWith(" ") ? teams.substring(0, teams.length() - 1) : teams;
+		/*if(event.getPlayer().getName().equalsIgnoreCase("JesFot"))
+		{
+			result = "&a[Dev]";
+			pseudoColor = "&1";
+		}
+		String name = event.getPlayer().getName();
+		if(name.equalsIgnoreCase("wormsor") || name.equalsIgnoreCase("XxDiablo31xX")
+				|| name.equalsIgnoreCase("_scelete_") || name.equalsIgnoreCase("purfyde"))
+		{
+			result = "&1[Admin]";
+			teams = "&rNSWX";
+			pseudoColor = "&4";
+		}*/
+		String total = (result + teams + pseudoColor).replace("+", "");
+		event.setFormat(ChatColor.translateAlternateColorCodes('&', total+"<%1$s>&r %2$s"));
 		event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
 	}
 	
