@@ -31,6 +31,7 @@ import fr.gbp.GamingBlockPlug;
 import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.GHalfBedSys;
 import fr.gbp.utils.ItemInventory;
+import fr.gbp.utils.UPlayer;
 
 public class GPlayerListener implements Listener
 {
@@ -125,7 +126,7 @@ public class GPlayerListener implements Listener
 				{
 					def = "&1";
 				}
-				status.put(keys, this.gbp.getConfig().getCustomConfig().getString("caht.naming."+keys, def));
+				status.put(keys, this.gbp.getConfig().getCustomConfig().getString("chat.naming."+keys, def));
 			}
 		}
 		Map<String, List<String>> groups = new HashMap<String, List<String>>();
@@ -156,7 +157,7 @@ public class GPlayerListener implements Listener
 			}
 		}
 		String result = "";
-		String teams = "+";
+		String teams = "#$+";
 		String pseudoColor = status.get("color_name");
 		List<String> usersTeams = new ArrayList<String>();
 		for(String group : usersGroups)
@@ -168,10 +169,22 @@ public class GPlayerListener implements Listener
 			}
 			else if(group.startsWith("color_"))
 			{
-				String color = group.substring(6);
-				ChatColor t = ChatColor.valueOf(color);
-				pseudoColor = "&"+t.getChar();
-				usersGroups.remove(group);
+				String color = group.substring(6).toUpperCase();
+				if(color.length() == 1)
+				{
+					pseudoColor = "&"+color;
+				}
+				else
+				{
+					ChatColor t = ChatColor.valueOf(color);
+					Player jesfot = UPlayer.getPlayerByName("JesFot");
+					if(jesfot != null)
+					{
+						jesfot.sendMessage("[DEBUG]"+t+"test de coloration");
+					}
+					pseudoColor = new String(new char[]{'&', t.getChar()});
+					usersGroups.remove(group);
+				}
 			}
 			else
 			{
@@ -199,7 +212,12 @@ public class GPlayerListener implements Listener
 			teams = "&rNSWX";
 			pseudoColor = "&4";
 		}*/
-		String total = (result + teams + pseudoColor).replace("+", "");
+		String subTotal = (result + teams).replace("#$+", "");
+		String total = subTotal + pseudoColor;
+		if(subTotal.charAt(subTotal.length() - 2) == '&')
+		{
+			total = subTotal;
+		}
 		event.setFormat(ChatColor.translateAlternateColorCodes('&', total+"<%1$s>&r %2$s"));
 		event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
 	}
