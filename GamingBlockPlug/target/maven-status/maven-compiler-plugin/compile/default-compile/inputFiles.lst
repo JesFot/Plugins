@@ -10,6 +10,7 @@ C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gb
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GCommands.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GTpaCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\GHalfBedSys.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\island\Zone.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\GamingBlockPlug.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\GText.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\CommunSys.java
@@ -30,6 +31,7 @@ C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gb
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GHomeCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\UPlayer.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\helpers\EcoHelper.java
+C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\island\IslandPrompt.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\utils\InventoryStringSerializer.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\command\GMaskCommand.java
 C:\Users\Cyril\Project\minecraft modding\git\GamingBlockPlug\src\main\java\fr\gbp\RefString.java

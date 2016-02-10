@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,8 +18,10 @@ import fr.gbp.config.GLang;
 import fr.gbp.config.GWorldDatas;
 import fr.gbp.economy.GEconomy;
 import fr.gbp.economy.Money;
+import fr.gbp.island.Zone;
 import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.GText.MLang;
+import fr.gbp.utils.GWorldUtil;
 
 public class GamingBlockPlug
 {
@@ -30,6 +33,7 @@ public class GamingBlockPlug
 	private GPermissions permissions;
 	private Money money;
 	private GEconomy economy;
+	private Zone island;
 	private final Server server;
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -59,12 +63,34 @@ public class GamingBlockPlug
 		
 		this.permissions.myPerms();
 		this.config.reloadCustomConfig();
+		String tmp = this.config.getCustomConfig().getString("loadedWorlds", "0#0");
+		String[] a = tmp.split("#");
+		for(String s : a)
+		{
+			if(s == "0")
+			{
+				continue;
+			}
+			GWorldUtil.loadWorld(this, s);
+		}
 		this.lang.setLang(MLang.getByID(this.config.getCustomConfig().getInt("lang", -1)));
 		coms.regCommands();
+		this.island = new Zone(this);
+		this.island.readCenter();
 	}
 	
 	public void onDisable()
 	{
+		this.config.reloadCustomConfig();
+		String o = "";
+		for(World w : this.server.getWorlds())
+		{
+			o += "" + w.getName() + "#";
+		}
+		o += "0";
+		this.config.getCustomConfig().createSection("loadedWorlds");
+		this.config.getCustomConfig().set("loadedWorlds", o);
+		this.config.saveCustomConfig();
 		logger.log(Level.INFO, "Plugin stop.");
 		this.plugin.saveConfig();
 	}
@@ -122,6 +148,11 @@ public class GamingBlockPlug
 	public GEconomy getEconomy()
 	{
 		return economy;
+	}
+	
+	public Zone getIsland()
+	{
+		return this.island;
 	}
 	
 	public Server getServer()

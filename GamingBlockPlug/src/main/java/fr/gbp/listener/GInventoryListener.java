@@ -90,7 +90,10 @@ public class GInventoryListener implements Listener
 				if(slot <= this.gbp.getEconomy().getPEco(player).getMenu().getSize())
 				{
 					event.setCancelled(true);
-					this.cs.setCInv(this.gbp.getConfig().getInventory("gbp.commun.inv"));
+					if(this.cs.getCInv().getViewers().isEmpty())
+					{
+						this.cs.setCInv(this.gbp.getConfig().getInventory("gbp.commun.inv"));
+					}
 					ItemInventory.openPlayerInv(player, this.cs.getCInv());
 				}
 			}
@@ -116,7 +119,10 @@ public class GInventoryListener implements Listener
 		}
 		else if(inventoryName.toLowerCase().contains("commun"))
 		{
-			this.gbp.getConfig().storeInventory("gbp.commun.inv", inventory);
+			if(inventory.getViewers().size() == 1)
+			{
+				this.gbp.getConfig().storeInventory("gbp.commun.inv", inventory);
+			}
 		}
 	}
 }
