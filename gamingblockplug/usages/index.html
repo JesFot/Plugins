@@ -7,11 +7,14 @@
     function coucou()
     {
       var tmp = "display:none";
-      if(document.getElementById('nones').attributes.style.value == "display:none")
+      if(document.getElementsByClassName('nones')[0].attributes.style.value == "display:none")
       {
         tmp = "display:yes";
       }
-      document.getElementById('nones').attributes.style.value = tmp;
+      for(var i = 0; i < document.getElementsByClassName('nones').length(); i++)
+      {
+        document.getElementsByClasName('nones')[i].attributes.style.value = tmp;
+      }
     }
   </script>
 </head>
