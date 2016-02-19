@@ -22,7 +22,6 @@ public class GMaskCommand implements CommandExecutor, TabCompleter
 		this.gbp = p_gbp;
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(!(sender instanceof Player))
@@ -71,7 +70,6 @@ public class GMaskCommand implements CommandExecutor, TabCompleter
 		return true;
 	}
 	
-	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		return Collections.emptyList();

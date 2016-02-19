@@ -93,7 +93,7 @@ public class GPermissions
 		Permission result = this.gbp.getServer().getPluginManager().getPermission(name);
 		if(result == null)
 		{
-			switch(name)
+			/*switch(name)
 			{
 			case "GamingBlockPlug.economy.reset":
 				result = this.EcoResetCommand;
@@ -112,7 +112,7 @@ public class GPermissions
 				break;
 			default:
 				return null;
-			}
+			}*/
 		}
 		res.add(result);
 		return res;

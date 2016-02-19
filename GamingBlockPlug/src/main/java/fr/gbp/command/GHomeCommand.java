@@ -23,7 +23,6 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 		this.gbp = p_gbp;
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(!cmd.getName().equalsIgnoreCase("ghome"))
@@ -99,7 +98,6 @@ public class GHomeCommand implements CommandExecutor, TabCompleter
 		return true;
 	}
 
-	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		List<String> result = new ArrayList<String>();

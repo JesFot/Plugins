@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryStringSerializer
 {
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public static String inventoryToString(Inventory p_inventory)
 	{
 		String serialization = p_inventory.getSize() + ";";
@@ -38,7 +38,7 @@ public class InventoryStringSerializer
 				{
 					for(Entry<Enchantment, Integer> ench : iSEnch.entrySet())
 					{
-						serializedItemStack += ":e@" + ench.getKey().getId() + "@" + ench.getValue();
+						serializedItemStack += ":e@" + ench.getKey().getName() + "@" + ench.getValue();
 					}
 				}
 				serialization += i + "&" + serializedItemStack + ";";
@@ -47,7 +47,7 @@ public class InventoryStringSerializer
 		return serialization;
 	}
 	
-	@SuppressWarnings("deprecation")
+	//@SuppressWarnings("deprecation")
 	public static Inventory stringToInventory(String p_invString, String name)
 	{
 		String[] serializedBlocks = p_invString.split(";");
@@ -85,7 +85,8 @@ public class InventoryStringSerializer
 				}
 				else if(itemAttribute[0].equals("e") && createdIs)
 				{
-					iS.addEnchantment(Enchantment.getById(Integer.valueOf(itemAttribute[1])), Integer.valueOf(itemAttribute[2]));
+					iS.addUnsafeEnchantment(Enchantment.getByName(itemAttribute[1]), Integer.valueOf(itemAttribute[2]));
+					//iS.addEnchantment(Enchantment.getById(Integer.valueOf(itemAttribute[1])), Integer.valueOf(itemAttribute[2]));
 				}
 			}
 			deserializedInventory.setItem(stackPos, iS);

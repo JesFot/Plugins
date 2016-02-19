@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 
 public class TestgbpCommand implements CommandExecutor
 {
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(label.equalsIgnoreCase("testgbp"))

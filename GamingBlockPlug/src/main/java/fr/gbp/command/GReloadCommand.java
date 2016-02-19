@@ -30,7 +30,6 @@ public class GReloadCommand implements CommandExecutor
 		this.gbp = p_gbp;
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(!cmd.getName().equalsIgnoreCase("greload"))
@@ -46,9 +45,9 @@ public class GReloadCommand implements CommandExecutor
 					Player pl = (Player)sender;
 					ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
 					final Map<Object, Object> map = new HashMap<Object, Object>();
-					map.put("data", "help");
+					map.put("text", "help");
+					map.put("nextAct", "help");
 					Conversation conv = factory.withFirstPrompt(new IslandPrompt(this.gbp)).withPrefix(new ConversationPrefix(){
-						@Override
 						public String getPrefix(ConversationContext context)
 						{
 							return ChatColor.GREEN + "[Island Controler]" + ChatColor.WHITE + " ";
@@ -56,7 +55,6 @@ public class GReloadCommand implements CommandExecutor
 					}).withInitialSessionData(map).withLocalEcho(false).buildConversation(pl);
 					conv.addConversationAbandonedListener(new ConversationAbandonedListener()
 					{
-						@Override
 						public void conversationAbandoned(ConversationAbandonedEvent event)
 						{
 							if(!event.gracefulExit())
@@ -89,7 +87,6 @@ public class GReloadCommand implements CommandExecutor
 				return this;
 			}
 			
-			@Override
 			public void run()
 			{
 				Bukkit.broadcastMessage("Reload in "+count+" seconds.");

@@ -36,7 +36,6 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 		this.ecoh = new EcoHelper(this.gbp);
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		boolean isPlayer = (sender instanceof Player);
@@ -61,7 +60,6 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 		return true;
 	}
 	
-	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		List<String> result = new ArrayList<String>();

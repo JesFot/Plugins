@@ -30,7 +30,6 @@ public class GTpaCommand implements CommandExecutor
 		this.usageMessage = "/<gtpa> target";
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		this.usageMessage = "/"+label+" target";
@@ -82,7 +81,6 @@ public class GTpaCommand implements CommandExecutor
 		map.put("player", player);
 		map.put("target", target);
 		Conversation conv = factory.withFirstPrompt(new TpaPrompt()).withPrefix(new ConversationPrefix(){
-			@Override
 			public String getPrefix(ConversationContext context)
 			{
 				return ChatColor.GREEN + "GTPA" + ChatColor.WHITE + " ";
@@ -90,7 +88,6 @@ public class GTpaCommand implements CommandExecutor
 		}).withInitialSessionData(map).withLocalEcho(false).withTimeout(60).buildConversation(target);
 		conv.addConversationAbandonedListener(new ConversationAbandonedListener()
 		{
-			@Override
 			public void conversationAbandoned(ConversationAbandonedEvent event)
 			{
 				if(!event.gracefulExit())

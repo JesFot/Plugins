@@ -23,7 +23,6 @@ public class GTpcCommand implements CommandExecutor
         this.usageMessage = "/gtpc [player] <x> <y> <z>";
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(!cmd.getName().equalsIgnoreCase("gtpc"))

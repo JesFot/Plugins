@@ -15,7 +15,6 @@ public class GLangCommand implements CommandExecutor
 		this.gbp = p_gbp;
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(sender.isOp())

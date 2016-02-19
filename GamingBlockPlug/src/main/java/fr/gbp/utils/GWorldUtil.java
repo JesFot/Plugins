@@ -121,6 +121,7 @@ public class GWorldUtil
 			}
 			String exWorld = player[0].getWorld().getName();
 			//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+player[0].getName().toLowerCase(), world.getName()+".yml");
+			Location bedspawn = gbp.getWorldsConfig().getLoc("locations.spawn."+player[0].getName().toLowerCase(), world.getName()+".yml");
 			Inventory ender = gbp.getWorldsConfig().getInventory("inventories.ender."+player[0].getName().toLowerCase(), world.getName()+".yml");
 			Inventory norm = gbp.getWorldsConfig().getInventory("inventories.norm."+player[0].getName().toLowerCase(), world.getName()+".yml");
 			Inventory bank = gbp.getWorldsConfig().getInventory("inventories.bank."+player[0].getName().toLowerCase(), world.getName()+".yml");
@@ -149,6 +150,7 @@ public class GWorldUtil
 			}
 			Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
 			player[0].teleport(/*pre_*/old);
+			player[0].setBedSpawnLocation(bedspawn!=null?bedspawn:spawn);
 			if(player[0].getServer().getWorld(exWorld).getPlayers().isEmpty())
 			{
 				unloadWorld(gbp, exWorld);
@@ -169,6 +171,7 @@ public class GWorldUtil
 				}
 				String exWorld = p.getWorld().getName();
 				//Location pre_old = gbp.getWorldsConfig().getLoc("locations.last."+p.getName().toLowerCase(), world.getName()+".yml");
+				Location bedspawn = gbp.getWorldsConfig().getLoc("locations.spawn."+p.getName().toLowerCase(), world.getName()+".yml");
 				if(!keepInventories)
 				{
 					Inventory ender = gbp.getWorldsConfig().getInventory("inventories.ender."+p.getName().toLowerCase(), world.getName()+".yml");
@@ -197,6 +200,7 @@ public class GWorldUtil
 				}
 				Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
 				p.teleport(/*pre_*/old);
+				p.setBedSpawnLocation(bedspawn!=null?bedspawn:spawn);
 				if(p.getServer().getWorld(exWorld).getPlayers().isEmpty())
 				{
 					unloadWorld(gbp, exWorld);
@@ -240,6 +244,7 @@ public class GWorldUtil
 			gbp.getWorldsConfig().getWorldConfig(tmp+".yml").set("levels."+pl.getName().toLowerCase()+".exp", pl.getExp());
 			gbp.getWorldsConfig().getWorldConfig(tmp+".yml").set("levels."+pl.getName().toLowerCase()+".lvl", pl.getLevel());
 			gbp.getWorldsConfig().storeLoc("locations.last."+pl.getName().toLowerCase(), pl.getLocation(), tmp+".yml");
+			gbp.getWorldsConfig().storeLoc("locations.spawn."+pl.getName().toLowerCase(), pl.getBedSpawnLocation(), tmp+".yml");
 			GScoreBoard.setScore(worldObj, pl.getName(), gbp.getConfig().getCustomConfig().getInt("worlds.list."+tmp, -1));
 		}
 		

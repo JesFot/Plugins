@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 public class TpaPrompt extends ValidatingPrompt {
 
-	@Override
 	public String getPromptText(ConversationContext context)
 	{
 		return "Response: " + context.getSessionData("data");

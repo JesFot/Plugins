@@ -19,7 +19,6 @@ public class GGivePermsCommand implements CommandExecutor
 		this.gbp = p_gbp;
 	}
 	
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		if(!cmd.getName().equalsIgnoreCase("givePerm"))

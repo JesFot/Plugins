@@ -107,7 +107,15 @@ public class GWorldDatas
 	{
 		name = name.toLowerCase();
 		String i = " , ";
-		String locator = loc.getWorld().getName() +i+ loc.getX() +i+ loc.getY() +i+ loc.getZ() +i+ loc.getPitch() +i+ loc.getYaw();
+		String locator;
+		if(loc == null)
+		{
+			locator = "";
+		}
+		else
+		{
+			 locator = loc.getWorld().getName() +i+ loc.getX() +i+ loc.getY() +i+ loc.getZ() +i+ loc.getPitch() +i+ loc.getYaw();
+		}
 		this.getWorldConfig(world).set(name, locator);
 		if (!this.getWorldConfig(world).contains(name))
 		{
