@@ -150,7 +150,7 @@ public class GWorldUtil
 			}
 			Location old = (world.getPlayers().contains(player[0]) ? world.getPlayers().get(world.getPlayers().indexOf(player[0])).getLocation() : spawn);
 			player[0].teleport(/*pre_*/old);
-			player[0].setBedSpawnLocation(bedspawn!=null?bedspawn:spawn);
+			player[0].setBedSpawnLocation(bedspawn!=null?bedspawn:spawn, true);
 			if(player[0].getServer().getWorld(exWorld).getPlayers().isEmpty())
 			{
 				unloadWorld(gbp, exWorld);
@@ -200,7 +200,7 @@ public class GWorldUtil
 				}
 				Location old = (world.getPlayers().contains(p) ? world.getPlayers().get(world.getPlayers().indexOf(p)).getLocation() : spawn);
 				p.teleport(/*pre_*/old);
-				p.setBedSpawnLocation(bedspawn!=null?bedspawn:spawn);
+				p.setBedSpawnLocation(bedspawn!=null?bedspawn:spawn, true);
 				if(p.getServer().getWorld(exWorld).getPlayers().isEmpty())
 				{
 					unloadWorld(gbp, exWorld);
@@ -249,5 +249,48 @@ public class GWorldUtil
 		}
 		
 		GWorldUtil.tpToWorld(gbp, pls, worldName);
+	}
+	
+	public static boolean compareWorlds(World alpha, World beta)
+	{
+		if(alpha.getUID().equals(beta.getUID()))
+		{
+			return true;
+		}
+		if(alpha.getName().contentEquals(beta.getName()))
+		{
+			return true;
+		}
+		if(alpha.getName().contains(beta.getName()))
+		{
+			if((alpha.getName()+"_nether").contentEquals(beta.getName()))
+			{
+				return true;
+			}
+			if((alpha.getName()+"_the_end").contentEquals(beta.getName()))
+			{
+				return true;
+			}
+			if((alpha.getName()+"_end").contentEquals(beta.getName()))
+			{
+				return true;
+			}
+		}
+		if(beta.getName().contains(alpha.getName()))
+		{
+			if((beta.getName()+"_nether").contentEquals(alpha.getName()))
+			{
+				return true;
+			}
+			if((beta.getName()+"_the_end").contentEquals(alpha.getName()))
+			{
+				return true;
+			}
+			if((beta.getName()+"_end").contentEquals(alpha.getName()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }
