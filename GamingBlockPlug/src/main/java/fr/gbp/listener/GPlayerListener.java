@@ -8,6 +8,10 @@ import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,10 +31,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.GHalfBedSys;
+import fr.gbp.utils.GUtils;
 import fr.gbp.utils.ItemInventory;
 import fr.gbp.utils.UPlayer;
 
@@ -92,6 +98,68 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent event)
 	{
+		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+		{
+			if(event.getClickedBlock().getType().equals(Material.SIGN_POST) || event.getClickedBlock().getType().equals(Material.WALL_SIGN))
+			{
+				Sign sign = (Sign)event.getClickedBlock().getState();
+				if(sign.getLine(0).contains("[shop:"))
+				{
+					int ind = sign.getLine(0).indexOf("[shop") + 1;
+					String info = sign.getLine(0).substring(ind, sign.getLine(0).indexOf(']', ind));
+					String dats[] = info.split(":");
+					try
+					{
+						double cost = Double.parseDouble(dats[1]);
+						String item = dats[2].toUpperCase();
+						Material mat = Material.getMaterial(item);
+						int amount = Integer.parseInt(dats[3]);
+						String plName = dats[4];
+						OfflinePlayer pl = UPlayer.getPlayerByName(plName);
+						if(pl == null)
+						{
+							pl = UPlayer.getPlayerByNameOff(plName);
+						}
+						ItemStack is = new ItemStack(mat, amount);
+						BlockFace chestFace = GUtils.getDir(sign.getBlock(), Material.CHEST);
+						this.gbp.broad("Shop: Before tests");
+						if(this.gbp.getEconomy().getPEco(event.getPlayer()).hasEnough(cost) && (plName=="console" || pl != null))
+						{
+							this.gbp.broad("Shop: player.hasEnough() == true");
+							if(chestFace != null)
+							{
+								this.gbp.broad("Shop: Chest.isPresent() == true");
+								Chest chest = (Chest)sign.getBlock().getRelative(chestFace).getState();
+								if(chest.getBlockInventory().containsAtLeast(is, amount))
+								{
+									this.gbp.broad("Shop: Chest.contains("+is.getType().name()+") == true");
+									event.getPlayer().getInventory().addItem(is);
+									this.gbp.getEconomy().pay(event.getPlayer(), pl, cost);
+									chest.getBlockInventory().removeItem(is);
+								}
+								else
+								{
+									this.gbp.broad("Shop: Chest.contains("+is.getType().name()+") == false");
+								}
+							}
+						}
+					}
+					catch(NumberFormatException ex)
+					{
+						this.gbp.broad("Invalid shop: str -/> int");
+						this.gbp.broad(info);
+						return;
+					}
+					catch(IndexOutOfBoundsException ex)
+					{
+						this.gbp.broad("Invalid shop. [shop:<price>:<itemID>:<itemAmount>:<Player>]");
+						this.gbp.broad(info);
+						return;
+					}
+					this.gbp.broad(info);
+				}
+			}
+		}
 		if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 		{
 			if(event.getMaterial().equals(Material.DEAD_BUSH))
@@ -258,7 +326,7 @@ public class GPlayerListener implements Listener
 		{
 			if(!event.getPlayer().isOp())
 			{
-				event.setCancelled(true);
+				//event.setCancelled(true);
 				event.getPlayer().sendMessage(ChatColor.RED + "You are not allowed to be in creative mode.");
 			}
 		}

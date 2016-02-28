@@ -1,5 +1,8 @@
 package fr.gbp.utils;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -54,6 +57,19 @@ public class GUtils
 		if(sender instanceof ConsoleCommandSender)
 		{
 			return ((CraftServer)sender.getServer()).getServer();
+		}
+		return null;
+	}
+	
+	public static BlockFace getDir(Block original, Material mat)
+	{
+		BlockFace[] values = BlockFace.values();
+		for(BlockFace face : values)
+		{
+			if(original.getRelative(face).getType().equals(mat))
+			{
+				return face;
+			}
 		}
 		return null;
 	}
