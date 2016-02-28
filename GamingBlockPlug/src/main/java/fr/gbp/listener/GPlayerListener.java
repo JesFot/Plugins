@@ -122,41 +122,34 @@ public class GPlayerListener implements Listener
 						}
 						ItemStack is = new ItemStack(mat, amount);
 						BlockFace chestFace = GUtils.getDir(sign.getBlock(), Material.CHEST);
-						this.gbp.broad("Shop: Before tests");
 						if(this.gbp.getEconomy().getPEco(event.getPlayer()).hasEnough(cost) && (plName=="console" || pl != null))
 						{
-							this.gbp.broad("Shop: player.hasEnough() == true");
 							if(chestFace != null)
 							{
-								this.gbp.broad("Shop: Chest.isPresent() == true");
 								Chest chest = (Chest)sign.getBlock().getRelative(chestFace).getState();
 								if(chest.getBlockInventory().containsAtLeast(is, amount))
 								{
-									this.gbp.broad("Shop: Chest.contains("+is.getType().name()+") == true");
 									event.getPlayer().getInventory().addItem(is);
 									this.gbp.getEconomy().pay(event.getPlayer(), pl, cost);
 									chest.getBlockInventory().removeItem(is);
 								}
 								else
 								{
-									this.gbp.broad("Shop: Chest.contains("+is.getType().name()+") == false");
+									event.getPlayer().sendMessage(this.gbp.getLang().get("shop.noitem", "Not enough items in the chest, sorry"));
 								}
 							}
 						}
 					}
 					catch(NumberFormatException ex)
 					{
-						this.gbp.broad("Invalid shop: str -/> int");
-						this.gbp.broad(info);
+						event.getPlayer().sendMessage("Invalid shop: str -/> int");
 						return;
 					}
 					catch(IndexOutOfBoundsException ex)
 					{
-						this.gbp.broad("Invalid shop. [shop:<price>:<itemID>:<itemAmount>:<Player>]");
-						this.gbp.broad(info);
+						event.getPlayer().sendMessage("Invalid shop. [shop:<price>:<itemID>:<itemAmount>:<Player>]");
 						return;
 					}
-					this.gbp.broad(info);
 				}
 			}
 		}
