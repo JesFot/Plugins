@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,6 +50,19 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 			Player player = (Player)sender;
 			player.getInventory().addItem(new ItemStack(Material.DEAD_BUSH));
 			return true;
+		}
+		else if(cmd.getName().equalsIgnoreCase("shop"))
+		{
+			if(args.length == 0)
+			{
+				if(!isPlayer)
+				{
+					sender.sendMessage("Please provide a location or be a player please.");
+					return false;
+				}
+				Player player = (Player)sender;
+				Location loc = player;
+			}
 		}
 		else if(cmd.getName().equalsIgnoreCase("economy"))
 		{
