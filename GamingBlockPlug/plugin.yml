@@ -28,6 +28,9 @@ commands:
   toolb:
     description: toolb
     usage: /<command>
+  shop:
+    description: shop
+    usage: /<command>
   economy:
     description: Manage your economy
     usage: /<command> [pay <player> <amount>] | /<command> inventory

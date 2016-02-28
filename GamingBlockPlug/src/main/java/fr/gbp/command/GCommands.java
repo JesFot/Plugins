@@ -44,6 +44,7 @@ public class GCommands
 		gbpl.getPlugin().getCommand("toolb").setTabCompleter(economy);
 		gbpl.getPlugin().getCommand("economy").setExecutor(economy);
 		gbpl.getPlugin().getCommand("economy").setTabCompleter(economy);
+		gbpl.getPlugin().getCommand("shop").setExecutor(economy);
 	}
 	
 	public static boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fr.gbp.GamingBlockPlug;
 import fr.gbp.command.helpers.EcoHelper;
+import fr.gbp.listener.GSpecialShopListener;
 import fr.gbp.perms.GPermissions;
 import fr.gbp.utils.UPlayer;
 
@@ -61,7 +61,9 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 					return false;
 				}
 				Player player = (Player)sender;
-				Location loc = player;
+				GSpecialShopListener listener = new GSpecialShopListener(this.gbp, 0, player.getName());
+				this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+				return true;
 			}
 		}
 		else if(cmd.getName().equalsIgnoreCase("economy"))
