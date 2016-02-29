@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -61,10 +63,91 @@ public class GEcoCommands implements CommandExecutor, TabCompleter
 					return false;
 				}
 				Player player = (Player)sender;
-				GSpecialShopListener listener = new GSpecialShopListener(this.gbp, 0, player.getName());
+				GSpecialShopListener listener = new GSpecialShopListener(0, player.getName(), "shop", -1, -1, null, null);
 				this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
 				return true;
 			}
+			else if(args.length == 2)
+			{
+				if(!isPlayer)
+				{
+					sender.sendMessage("Please provide a location or be a player please.");
+					return false;
+				}
+				Player player = (Player)sender;
+				if(args[0].equalsIgnoreCase("price"))
+				{
+					try
+					{
+						int a = Integer.parseInt(args[1]);
+						GSpecialShopListener listener = new GSpecialShopListener(1, player.getName(), "shop", a, -1, null, null);
+						this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+						return true;
+					}
+					catch(NumberFormatException ex)
+					{
+						//
+					}
+				}
+				else if(args[0].equalsIgnoreCase("amount"))
+				{
+					try
+					{
+						int a = Integer.parseInt(args[1]);
+						GSpecialShopListener listener = new GSpecialShopListener(1, player.getName(), "shop", -1, a, null, null);
+						this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+						return true;
+					}
+					catch(NumberFormatException ex)
+					{
+						//
+					}
+				}
+				else if(args[0].equalsIgnoreCase("item"))
+				{
+					Material mat = Material.getMaterial(args[1]);
+					GSpecialShopListener listener = new GSpecialShopListener(1, player.getName(), "shop", -1, -1, null, mat);
+					this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+					return true;
+				}
+				else if(args[0].equalsIgnoreCase("owner"))
+				{
+					OfflinePlayer playeroff = UPlayer.getPlayerByName(args[1]);
+					if(playeroff == null){playeroff = UPlayer.getPlayerByNameOff(args[1]);};
+					GSpecialShopListener listener = new GSpecialShopListener(1, player.getName(),
+							playeroff==null&&args[1].equalsIgnoreCase("console")?"console":"shop",
+									-1, -1, playeroff, null);
+					this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+					return true;
+				}
+			}
+			else if(args.length == 4)
+			{
+				if(!isPlayer)
+				{
+					sender.sendMessage("Please provide a location or be a player please.");
+					return false;
+				}
+				Player player = (Player)sender;
+				try
+				{
+					int p = Integer.parseInt(args[0]);
+					int a = Integer.parseInt(args[1]);
+					Material mat = Material.getMaterial(args[2]);
+					OfflinePlayer playeroff = UPlayer.getPlayerByName(args[3]);
+					if(playeroff == null){playeroff = UPlayer.getPlayerByNameOff(args[3]);};
+					GSpecialShopListener listener = new GSpecialShopListener(1, player.getName(),
+							playeroff==null&&args[3].equalsIgnoreCase("console")?"console":"shop", p, a, playeroff, mat);
+					this.gbp.getServer().getPluginManager().registerEvents(listener, this.gbp.getPlugin());
+					return true;
+				}
+				catch(NumberFormatException ex)
+				{
+					//
+				}
+			}
+			sender.sendMessage(ChatColor.DARK_RED + "shop | shop <price> <amount> <item> <owner> | shop <owner|item|amount|price> <value>");
+			return false;
 		}
 		else if(cmd.getName().equalsIgnoreCase("economy"))
 		{

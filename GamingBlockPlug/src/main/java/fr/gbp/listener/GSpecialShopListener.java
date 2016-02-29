@@ -10,20 +10,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import fr.gbp.GamingBlockPlug;
 import fr.gbp.utils.UPlayer;
 
 public class GSpecialShopListener implements Listener
 {
-	private GamingBlockPlug gbp;
 	private final int mode;
 	private final String playerName;
+	private final Object[] newDats;
 	
-	public GSpecialShopListener(GamingBlockPlug plugin, int p_mode, String player)
+	public GSpecialShopListener(int p_mode, String player, Object...dats)
 	{
-		this.gbp = plugin;
 		this.mode = p_mode;
 		this.playerName = player;
+		this.newDats = dats != null ? dats : new Object[]{"shop", -1, -1, null, null};
 	}
 	
 	@EventHandler
@@ -41,11 +40,23 @@ public class GSpecialShopListener implements Listener
 				String line0 = sign.getLine(0);
 				int ind = line0.indexOf("[shop") + 1;
 				String info = line0.substring(ind, sign.getLine(0).indexOf(']', ind));
+				String before = line0.substring(0, ind - 1);
+				String after = line0.substring(line0.indexOf(']', ind));
 				String dats[] = info.split(":");
 				switch (this.mode)
 				{
 				case 0:
 					this.read(event.getPlayer(), dats);
+					this.stop();
+					break;
+				case 1:
+					dats = this.write(event.getPlayer(), new String[]{(String)newDats[0]}, (Integer)newDats[1], (Integer)newDats[2],
+							(OfflinePlayer)newDats[3], (Material)newDats[4]);
+					info = String.join(":", dats);
+					line0 = before + info + after;
+					sign.setLine(0, line0);
+					event.getClickedBlock().getState().setData(sign.getData());
+					event.getClickedBlock().getState().update(true);
 					this.stop();
 					break;
 				}
@@ -96,6 +107,39 @@ public class GSpecialShopListener implements Listener
 		{
 			//
 		}
+	}
+	
+	private String[] write(Player player, String[] datas, int price, int amount, OfflinePlayer owner, Material material)
+	{
+		if(owner == null)
+		{
+			owner = player;
+		}
+		if(price >= 0)
+		{
+			datas[1] = Integer.toString(price);
+		}
+		if(amount >= 0)
+		{
+			datas[3] = Integer.toString(amount);
+		}
+		if(material != null)
+		{
+			datas[2] = material.name().toLowerCase();
+		}
+		if(owner != null)
+		{
+			datas[4] = owner.getName();
+		}
+		else
+		{
+			if(datas[0].equalsIgnoreCase("console"))
+			{
+				datas[0] = "shop";
+				datas[4] = "console";
+			}
+		}
+		return datas;
 	}
 	
 	private void stop()
