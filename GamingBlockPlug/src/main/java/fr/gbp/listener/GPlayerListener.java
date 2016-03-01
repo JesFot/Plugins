@@ -133,14 +133,17 @@ public class GPlayerListener implements Listener
 									this.gbp.getEconomy().pay(event.getPlayer(), pl, cost);
 									if(pl.isOnline())
 									{
-										((Player)pl).sendMessage(this.gbp.getLang().get("economy.receive").replace("<money>", cost+this.gbp.getMoney().getSym())
-												.replace("<player>", event.getPlayer().getDisplayName()));
-										event.getPlayer().sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", cost+this.gbp.getMoney().getSym())
-												.replace("<player>", ((Player)pl).getDisplayName()));
+										((Player)pl).sendMessage(this.gbp.getLang().get("shop.receive").replace("<money>", cost+this.gbp.getMoney().getSym())
+												.replace("<player>", event.getPlayer().getDisplayName())
+												.replace("<item>", is.getType().toString().toLowerCase()));
+										event.getPlayer().sendMessage(this.gbp.getLang().get("shop.send").replace("<money>", cost+this.gbp.getMoney().getSym())
+												.replace("<player>", ((Player)pl).getDisplayName())
+												.replace("<item>", is.getType().toString().toLowerCase()));
 									}
 									else
-										event.getPlayer().sendMessage(this.gbp.getLang().get("economy.send").replace("<money>", cost+this.gbp.getMoney().getSym())
-												.replace("<player>", pl.getName()));
+										event.getPlayer().sendMessage(this.gbp.getLang().get("shop.send").replace("<money>", cost+this.gbp.getMoney().getSym())
+												.replace("<player>", pl.getName())
+												.replace("<item>", is.getType().toString().toLowerCase()));
 									chest.getBlockInventory().removeItem(is);
 								}
 								else

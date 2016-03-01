@@ -22,3 +22,6 @@ console:
   infmoney: Console, you have infinity money.
   missplayer: Please provide a player or be a player.
   onlypls: Only players can use this command.
+shop:
+  receive: <player> bought you a(n) <item> for <money>.
+  send: You bought <item> for <money> at <player>.

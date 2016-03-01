@@ -22,3 +22,6 @@ console:
   infmoney: La Console a argent infini.
   missplayer: Donnez le nom d'un joueur ou soyez un en un.
   onlypls: Seul les joueurs peuvent utiliser cette commande.
+shop:
+  receive: <player> vous achetes de la/du/des <item> pour <money>.
+  send: Vous achetez du/de la/des <item> pour <money> à <player>.
