@@ -8,12 +8,15 @@ import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.jesfot.gbp.command.CommandManager;
+import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.TestGbpCommand;
 import fr.jesfot.gbp.configuration.Configuration;
 import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.configuration.LangConfig;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.economy.GEconomy;
+import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.utils.ServerUtils;
@@ -26,6 +29,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	private Configurations configs;
 	private NBTConfig mainNBTConfig;
 	private Permissions permissions;
+	private GEconomy economy;
 	
 	private LangConfig lang;
 	
@@ -51,13 +55,16 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		Configuration cfg = new Configuration(new File(this.plugin.getDataFolder(), "GamingBlockPlug.yml"));
 		this.configs.setMainConfig(cfg);
 		this.configs.loadAll();
+		
+		Money.reload(this);
+		
 		this.lang.setLang(Lang.getByID(cfg.getConfig().getInt("lang", -1)));
 		
 		this.mainNBTConfig = new NBTConfig(this.plugin.getDataFolder(), "GamingBlockPlug_Config");
 		
 		this.permissions = new Permissions(this);
 		
-		CommandManager.registerCommands(new TestGbpCommand());
+		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -65,6 +72,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public void onEnable()
 	{
 		this.permissions.registerPerms();
+		
+		this.economy = new GEconomy(this);
 		
 		CommandManager.loadCommands(this.plugin);
 	}
@@ -99,9 +108,19 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		return this.configs;
 	}
 	
+	public File getConfigFolder(String name)
+	{
+		return new File(this.plugin.getDataFolder(), name);
+	}
+	
 	public LangConfig getLang()
 	{
 		return this.lang;
+	}
+	
+	public GEconomy getEconomy()
+	{
+		return this.economy;
 	}
 	
 	public Logger getLogger()

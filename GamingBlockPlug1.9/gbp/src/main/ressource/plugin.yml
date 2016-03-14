@@ -1,0 +1,13 @@
+name: GamingBlockPlug
+main: fr.jesfot.gbp.bukkit.BukkitPlugin
+version: mc1.9 1.0-ALPHA
+description: Plugin for Gaming Block Server
+authors: ["JesFot"]
+commands:
+  testgbp:
+    description: Commande test.
+    usage: /<command> [words...]
+  gtpa:
+    description: Same as tpa in essentials, but not.
+    usage: /<command> <targetPlayer>
+    aliases: [tpa]
