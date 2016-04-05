@@ -29,6 +29,7 @@ public class GTpaCommand extends CommandBase
 		this.usageMessage = "/<gtpa> target";
 	}
 	
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		this.usageMessage = "/"+label+" target";

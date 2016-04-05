@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: mc1.9 1.0-ALPHA
+version: 1.1-ALPHA mc1.9
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -11,3 +11,14 @@ commands:
     description: Same as tpa in essentials, but not.
     usage: /<command> <targetPlayer>
     aliases: [tpa]
+  ghome:
+    description: Same as home in essentials, but not really.
+    usage: /<command> [set] | /<command> <locName> [set]
+    aliases: [home, h]
+  economy:
+    description: Manage your economy, use '/economy help' for more informations
+    usage: /<command> [pay <player> <amount>]
+    aliases: [eco, ecmy]
+  toolb:
+    description: same as give deadbush, used for bank inventory
+    usage: /<command>

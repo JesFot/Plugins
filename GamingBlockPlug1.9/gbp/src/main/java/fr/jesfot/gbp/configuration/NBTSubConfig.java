@@ -3,6 +3,10 @@ package fr.jesfot.gbp.configuration;
 import java.io.File;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+
 import net.minecraft.server.v1_9_R1.NBTBase;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
 
@@ -177,6 +181,37 @@ public class NBTSubConfig
 		this.setCopy(tmp);
 		return this;
 	}
+	
+	public NBTSubConfig setLocation(String key, Location location)
+	{
+		NBTTagCompound tmp = this.getCopy();
+		NBTTagCompound loc = new NBTTagCompound();
+		loc.setDouble("CoordX", location.getX());
+		loc.setDouble("CoordY", location.getY());
+		loc.setDouble("CoordZ", location.getZ());
+		loc.setFloat("Pitch", location.getPitch());
+		loc.setFloat("Yaw", location.getYaw());
+		loc.setString("World", location.getWorld().getName());
+		tmp.set(key, loc);
+		this.setCopy(tmp);
+		return this;
+	}
+	
+	public Location getLocation(String key)
+	{
+		NBTTagCompound tmp = this.getCopy();
+		NBTTagCompound loc = tmp.getCompound(key);
+		double x, y, z;
+		float pitch, yaw;
+		x = loc.getDouble("CoordX");
+		y = loc.getDouble("CoordY");
+		z = loc.getDouble("CoordZ");
+		pitch = loc.getFloat("Pitch");
+		yaw = loc.getFloat("Yaw");
+		String world = loc.getString("World");
+		World w = Bukkit.getWorld(world);
+		return new Location(w, x, y, z, yaw, pitch);
+	}
 
 	public NBTSubConfig removeTag(String key)
 	{
@@ -189,5 +224,10 @@ public class NBTSubConfig
 	public void setUnaccessible()
 	{
 		this.file.setUnaccessible();
+	}
+	
+	public boolean existFile()
+	{
+		return this.file.existFile();
 	}
 }

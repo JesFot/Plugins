@@ -162,4 +162,10 @@ public class NBTConfig
 		}
 		return this;
 	}
+	
+	public boolean existFile()
+	{
+		File file = new File(this.saveFolder, this.fileName + ".dat");
+		return file.exists();
+	}
 }

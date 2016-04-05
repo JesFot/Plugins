@@ -5,9 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.jesfot.gbp.command.CommandManager;
+import fr.jesfot.gbp.command.GEcoCommand;
+import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.TestGbpCommand;
 import fr.jesfot.gbp.configuration.Configuration;
@@ -20,6 +23,10 @@ import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.utils.ServerUtils;
+import fr.jesfot.gbp.world.WorldLoader;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R1.NBTTagList;
+import net.minecraft.server.v1_9_R1.NBTTagString;
 
 public class GamingBlockPlug_1_9 extends ServerUtils
 {
@@ -64,7 +71,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		this.permissions = new Permissions(this);
 		
-		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this));
+		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
+				new GHomeCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -76,6 +84,14 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.economy = new GEconomy(this);
 		
 		CommandManager.loadCommands(this.plugin);
+		
+		this.mainNBTConfig.readNBTFromFile();
+		NBTTagList list = this.mainNBTConfig.getCopy().getList("LoadedWorlds", 8);
+		for(int i = 0; i < list.size(); i++)
+		{
+			String wName = list.getString(i);
+			WorldLoader.loadWorld(this, wName);
+		}
 	}
 	
 	public void onDisable()
@@ -83,6 +99,16 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions.unregisterPerms();
 		
 		CommandManager.onPluginStopped(this.plugin);
+		
+		this.mainNBTConfig.readNBTFromFile();
+		NBTTagList list = new NBTTagList();
+		for(World w : this.getServer().getWorlds())
+		{
+			list.add(new NBTTagString(w.getName()));
+		}
+		NBTTagCompound a = this.mainNBTConfig.getCopy();
+		a.set("LoadedWorlds", list);
+		this.mainNBTConfig.setCopy(a).writeNBTToFile();
 	}
 	
 	// Getters :

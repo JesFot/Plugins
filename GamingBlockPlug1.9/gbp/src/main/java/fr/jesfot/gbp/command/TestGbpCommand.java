@@ -24,6 +24,7 @@ public class TestGbpCommand extends CommandBase
 			}
 		}
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+		Command.broadcastCommandMessage(sender, "Player used command testGBP, text: '" + msg + "'", false);
 		
 		return true;
 	}
