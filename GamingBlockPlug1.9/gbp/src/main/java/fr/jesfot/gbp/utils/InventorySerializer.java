@@ -4,17 +4,16 @@ import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import fr.jesfot.gbp.configuration.NBTTagConfig;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import net.minecraft.server.v1_9_R1.NBTTagList;
 
 public class InventorySerializer
 {
-	public static NBTTagConfig toNBT(Inventory inv, NBTTagConfig nbt, String specialName)
+	public static NBTTagCompound toNBT(Inventory inv, NBTTagCompound nbt, String specialName)
 	{
 		if(inv == null)
 		{
-			nbt.removeTag(specialName);
+			nbt.remove(specialName);
 			return nbt;
 		}
 		String name = inv.getName();
@@ -34,11 +33,11 @@ public class InventorySerializer
 		cp.setInt("Size", inv.getSize());
 		cp.setInt("MaxStackSize", inv.getMaxStackSize());
 		cp.setString("Name", name);
-		nbt.setTag(specialName, cp);
+		nbt.set(specialName, cp);
 		return nbt;
 	}
 	
-	public static NBTTagConfig toNBT(Inventory inv, NBTTagConfig nbt)
+	public static NBTTagCompound toNBT(Inventory inv, NBTTagCompound nbt)
 	{
 		if(inv == null)
 		{
@@ -61,13 +60,13 @@ public class InventorySerializer
 		cp.setInt("Size", inv.getSize());
 		cp.setInt("MaxStackSize", inv.getMaxStackSize());
 		cp.setString("Name", name);
-		nbt.setTag(name, cp);
+		nbt.set(name, cp);
 		return nbt;
 	}
 	
-	public static Inventory fromNBT(NBTTagConfig nbt, String name)
+	public static Inventory fromNBT(NBTTagCompound nbt, String name)
 	{
-		NBTTagCompound cp = nbt.getCopy().getCompound(name);
+		NBTTagCompound cp = ((NBTTagCompound)nbt.clone()).getCompound(name);
 		String invName = cp.getString("Name");
 		int size = cp.getInt("Size"), maxSize = cp.getInt("MaxStackSize");
 		NBTTagList list = cp.getList("Contents", cp.getTypeId());

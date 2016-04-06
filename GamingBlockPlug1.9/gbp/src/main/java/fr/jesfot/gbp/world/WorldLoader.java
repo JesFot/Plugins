@@ -40,6 +40,10 @@ public class WorldLoader
 			world.setString("Group", groupName);
 		}
 		
+		WorldComparator.setKeepInventory(gbp, name, true);
+		WorldComparator.setKeepLocation(gbp, name, false);
+		WorldComparator.setChangeBedSpawn(gbp, name, true);
+		WorldComparator.setAutoUnload(gbp, name, true);
 		theWorld.setGameRuleValue("keepLastLocation", "false");
 		theWorld.setGameRuleValue("changeBedSpawn", "true");
 		theWorld.setGameRuleValue("autoUnLoad", "true");

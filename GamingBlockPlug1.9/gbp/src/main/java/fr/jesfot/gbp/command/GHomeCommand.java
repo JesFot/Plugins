@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.world.WorldComparator;
 
 public class GHomeCommand extends CommandBase
 {
@@ -68,6 +69,11 @@ public class GHomeCommand extends CommandBase
 						sender.sendMessage("This location was not registered, do '/home " + args[0] + " set' to set it.");
 						return true;
 					}
+					if(WorldComparator.compareWorlds(player.getWorld(), loc.getWorld(), gbp)<0)
+					{
+						sender.sendMessage("You cannot teleport your self beetween worlds.");
+						return true;
+					}
 					player.teleport(loc, TeleportCause.PLUGIN);
 					player.sendMessage("You were teleported to your home, good luck !");
 					Command.broadcastCommandMessage(sender, "This player went back to home "+args[0], false);
@@ -80,6 +86,11 @@ public class GHomeCommand extends CommandBase
 				if(loc == null)
 				{
 					sender.sendMessage("This location was not registered, do '/home set' to set it.");
+					return true;
+				}
+				if(WorldComparator.compareWorlds(player.getWorld(), loc.getWorld(), gbp)<0)
+				{
+					sender.sendMessage("You cannot teleport your self beetween worlds.");
 					return true;
 				}
 				player.teleport(loc, TeleportCause.PLUGIN);

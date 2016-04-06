@@ -1,6 +1,7 @@
 package fr.jesfot.gbp.world;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -11,9 +12,9 @@ import org.bukkit.inventory.Inventory;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
-import fr.jesfot.gbp.configuration.NBTTagConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.Utils;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
 
 public class WorldTeleporter
 {
@@ -42,39 +43,53 @@ public class WorldTeleporter
 		for(Player player : players)
 		{
 			World playerWorld = player.getWorld();
+			if(WorldComparator.isEqualWorld(playerWorld, world, gbp))
+			{
+				break;
+			}
 			NBTSubConfig current = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), playerWorld.getName());
 			String groupActual = current.readNBTFromFile().getCopy().getString("Group");
-			if(groupActual == groupName && groupName != "_undifined_")
+			if(groupActual.contentEquals(groupName) && groupName != "_undifined_")
 			{
-				keepInventory = true;
-				if(world.getGameRuleValue("keepLastLocation") == "true")
+				player.sendMessage("[DEBUG] Group name="+groupActual);
+				player.sendMessage("[DEBUG] keep Loc="+WorldComparator.getKeepLocation(gbp, worldName));
+				player.sendMessage("[DEBUG] Change Bed="+WorldComparator.getChangeBedSpawn(gbp, worldName));
+				if(WorldComparator.getKeepInventory(gbp, worldName))
+				{
+					keepInventory = true;
+				}
+				if(world.getGameRuleValue("keepLastLocation") == "true" || WorldComparator.getKeepLocation(gbp, worldName))
 				{
 					useLastLocation = true;
 				}
-				if(world.getGameRuleValue("changeBedSpawn") == "false")
+				if(world.getGameRuleValue("changeBedSpawn") == "false" || !WorldComparator.getChangeBedSpawn(gbp, worldName))
 				{
 					changeBedSpawn = false;
 				}
 			}
 			NBTConfig playerConfig = new NBTConfig(gbp.getConfigFolder("playerdatas"), player.getUniqueId());
-			NBTTagConfig playerWorldConfig = new NBTTagConfig(playerConfig, "WorldsStore."+worldName);
-			NBTTagConfig playerAWorldConfig = new NBTTagConfig(playerConfig, "WorldsStore."+playerWorld.getName());
-			Location PlayerBed = playerWorldConfig.readNBTFromFile().getLocation("BedSpawn").clone();
-			Location lastLocation = playerWorldConfig.getLocation("LastPos").clone();
-			playerAWorldConfig.readNBTFromFile().setLocation("BedSpawn", player.getBedSpawnLocation().clone());
-			playerAWorldConfig.setLocation("LastPos", player.getLocation().clone()).writeNBTToFile();
+			NBTSubConfig playerWorldsStoreConfig = new NBTSubConfig(playerConfig, ("WorldsStore")).readNBTFromFile();
+			NBTTagCompound playerAWorldConfig = playerWorldsStoreConfig.getCopy().getCompound(playerWorld.getName());
+			NBTTagCompound playerWorldConfig = playerWorldsStoreConfig.getCopy().getCompound(worldName);
+			Location PlayerBed = Utils.getLocation("BedSpawn", playerWorldConfig);
+			Location lastLocation = Utils.getLocation("LastPos", playerWorldConfig);
+			Utils.setLocation("BedSpawn", player.getBedSpawnLocation(), playerAWorldConfig);
+			Utils.setLocation("LastPos", player.getLocation().clone(), playerAWorldConfig);
 			//
 			Inventory ender = InventorySerializer.fromNBT(playerWorldConfig, "EnderChest");
 			Inventory normal = InventorySerializer.fromNBT(playerWorldConfig, "Normal");
 			playerAWorldConfig = InventorySerializer.toNBT(player.getEnderChest(), playerAWorldConfig, "EnderChest");
 			playerAWorldConfig = InventorySerializer.toNBT(player.getInventory(), playerAWorldConfig, "Normal");
 			//
-			int lvls = playerWorldConfig.getCopy().getInt("Lvl");
-			playerAWorldConfig.setInteger("Lvl", player.getLevel());
-			int food = playerWorldConfig.getCopy().getInt("FoodLvl");
-			playerAWorldConfig.setInteger("FoodLvl", player.getFoodLevel());
-			double health = playerWorldConfig.getCopy().getDouble("Health");
-			playerAWorldConfig.setDouble("Health", player.getHealth()).writeNBTToFile();
+			int lvls = playerWorldConfig.getInt("Lvl");
+			playerAWorldConfig.setInt("Lvl", player.getLevel());
+			int food = playerWorldConfig.getInt("FoodLvl");
+			playerAWorldConfig.setInt("FoodLvl", player.getFoodLevel());
+			double tmp = 0;
+			double health = (tmp=playerWorldConfig.getDouble("Health"))!=0?tmp:20;
+			playerAWorldConfig.setDouble("Health", player.getHealth());
+			//
+			playerWorldsStoreConfig.setTag(playerWorld.getName(), playerAWorldConfig).writeNBTToFile();
 			//
 			if(!keepInventory)
 			{
@@ -86,11 +101,11 @@ public class WorldTeleporter
 				player.setFoodLevel(food);
 				player.setHealth(health);
 			}
-			if(changeBedSpawn)
+			if(changeBedSpawn && PlayerBed != null)
 			{
 				player.setBedSpawnLocation(PlayerBed, true);
 			}
-			if(useLastLocation)
+			if(useLastLocation && lastLocation != null)
 			{
 				player.teleport(lastLocation, TeleportCause.PLUGIN);
 			}
@@ -98,11 +113,16 @@ public class WorldTeleporter
 			{
 				player.teleport(worldSpawn, TeleportCause.PLUGIN);
 			}
+			if(WorldComparator.getDefaultGamemode(gbp, worldName) != "NaN")
+			{
+				player.setGameMode(GameMode.valueOf(WorldComparator.getDefaultGamemode(gbp, worldName)));
+			}
 			gbp.getEconomy().getPEconomy(player).getStoredInventory();
 			if(playerWorld.getPlayers().isEmpty())
 			{
-				if(playerWorld.getGameRuleValue("autoUnLoad") == "true")
+				if(playerWorld.getGameRuleValue("autoUnLoad") == "true" || WorldComparator.getAutoUnload(gbp, playerWorld.getName()))
 				{
+					player.sendMessage("[DEBUG] Auto-unload.");
 					WorldLoader.unloadWorld(gbp, playerWorld.getName());
 				}
 			}
@@ -123,6 +143,10 @@ public class WorldTeleporter
 		else
 		{
 			Player pl = (argument!="" ? gbp.getPlayerExact(argument) : ((sender instanceof Player) ? (Player)sender : null));
+			if(pl == null)
+			{
+				sender.sendMessage("Be a player or give a player as argument please.");
+			}
 			pls = new Player[]{pl};
 		}
 		WorldTeleporter.tpToWorld(gbp, pls, worldName);

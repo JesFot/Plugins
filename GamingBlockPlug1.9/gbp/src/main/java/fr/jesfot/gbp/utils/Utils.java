@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.BlockCommandSender;
@@ -19,6 +20,7 @@ import org.bukkit.entity.minecart.CommandMinecart;
 import net.minecraft.server.v1_9_R1.EntityMinecartCommandBlock;
 import net.minecraft.server.v1_9_R1.EntityPlayer;
 import net.minecraft.server.v1_9_R1.ICommandListener;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import net.minecraft.server.v1_9_R1.PlayerSelector;
 
 public class Utils
@@ -154,5 +156,41 @@ public class Utils
 			continue;
 		}
 		return pls;
+	}
+	
+	public static NBTTagCompound setLocation(String key, Location location, NBTTagCompound store)
+	{
+		if(location == null)
+		{
+			return store;
+		}
+		NBTTagCompound loc = new NBTTagCompound();
+		loc.setDouble("CoordX", location.getX());
+		loc.setDouble("CoordY", location.getY());
+		loc.setDouble("CoordZ", location.getZ());
+		loc.setFloat("Pitch", location.getPitch());
+		loc.setFloat("Yaw", location.getYaw());
+		loc.setString("World", location.getWorld().getName());
+		store.set(key, loc);
+		return store;
+	}
+	
+	public static Location getLocation(String key, NBTTagCompound store)
+	{
+		NBTTagCompound loc = store.getCompound(key);
+		double x, y, z;
+		float pitch, yaw;
+		x = loc.getDouble("CoordX");
+		y = loc.getDouble("CoordY");
+		z = loc.getDouble("CoordZ");
+		pitch = loc.getFloat("Pitch");
+		yaw = loc.getFloat("Yaw");
+		String world = loc.getString("World");
+		World w = Bukkit.getWorld(world);
+		if(w == null)
+		{
+			return null;
+		}
+		return new Location(w, x, y, z, yaw, pitch);
 	}
 }

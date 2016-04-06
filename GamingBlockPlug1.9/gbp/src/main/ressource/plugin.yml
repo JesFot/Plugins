@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.1-ALPHA mc1.9
+version: 1.4-ALPHA mc1.9
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -22,3 +22,6 @@ commands:
   toolb:
     description: same as give deadbush, used for bank inventory
     usage: /<command>
+  world:
+    description: Navigate between worlds.
+    usage: /<command> list | /<command> tp <worldName> | /<command> set <worldName> <load|unload> [newSeed] [Env] [Type]

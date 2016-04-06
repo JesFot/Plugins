@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.command.helpers.TpaPrompt;
+import fr.jesfot.gbp.world.WorldComparator;
 
 public class GTpaCommand extends CommandBase
 {
@@ -72,6 +73,11 @@ public class GTpaCommand extends CommandBase
 		if(target == null)
 		{
 			sender.sendMessage("Cannot find player " + args[args.length - 1] + ". No tp.");
+			return true;
+		}
+		if(WorldComparator.compareWorlds(player.getWorld(), target.getWorld(), this.gbp)<0)
+		{
+			player.sendMessage("Refused because target is in another world.");
 			return true;
 		}
 		target.sendMessage(player.getDisplayName() + " wants to teleport to you, accepte ? [yes/no]");

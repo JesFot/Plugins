@@ -8,7 +8,6 @@ import org.bukkit.inventory.Inventory;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
-import fr.jesfot.gbp.configuration.NBTTagConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.ItemInventory;
 
@@ -32,16 +31,17 @@ public class PlayerEconomy
 		ItemInventory.createIteminInv(Material.APPLE, this.menu, 9, "Commun Chest", "");
 		if(this.player.isOnline() && this.player instanceof Player)
 		{
-			Player pl = (Player)this.player;NBTTagConfig world = new NBTTagConfig(playerCfg, pl.getWorld().getName());
+			Player pl = (Player)this.player;
+			NBTSubConfig world = new NBTSubConfig(playerCfg, pl.getWorld().getName());
 			world.readNBTFromFile();
 			if(world.getCopy().hasKey("bank"))
 			{
-				this.inv = InventorySerializer.fromNBT(world, "bank");
+				this.inv = InventorySerializer.fromNBT(world.getCopy(), "bank");
 			}
 			else
 			{
 				this.inv = ItemInventory.createInventory("Your Bank", 5);
-				world = InventorySerializer.toNBT(this.inv, world, "bank");
+				world.setCopy(InventorySerializer.toNBT(this.inv, world.getCopy(), "bank"));
 				world.writeNBTToFile();
 			}
 		}
@@ -101,9 +101,9 @@ public class PlayerEconomy
 		if(this.player.isOnline() && this.player instanceof Player)
 		{
 			Player pl = (Player)this.player;
-			NBTTagConfig world = new NBTTagConfig(new NBTConfig(this.gbp.getConfigFolder("playerdatas"), this.player.getUniqueId()), pl.getWorld().getName());
+			NBTSubConfig world = new NBTSubConfig(new NBTConfig(this.gbp.getConfigFolder("playerdatas"), this.player.getUniqueId()), pl.getWorld().getName());
 			world.readNBTFromFile();
-			world = InventorySerializer.toNBT(this.inv, world, "bank");
+			world.setCopy(InventorySerializer.toNBT(this.inv, world.getCopy(), "bank"));
 			world.writeNBTToFile();
 		}
 	}
@@ -113,16 +113,16 @@ public class PlayerEconomy
 		if(this.player.isOnline() && this.player instanceof Player)
 		{
 			Player pl = (Player)this.player;
-			NBTTagConfig world = new NBTTagConfig(new NBTConfig(this.gbp.getConfigFolder("playerdatas"), this.player.getUniqueId()), pl.getWorld().getName());
+			NBTSubConfig world = new NBTSubConfig(new NBTConfig(this.gbp.getConfigFolder("playerdatas"), this.player.getUniqueId()), pl.getWorld().getName());
 			world.readNBTFromFile();
 			if(world.getCopy().hasKey("bank"))
 			{
-				this.inv = InventorySerializer.fromNBT(world, "bank");
+				this.inv = InventorySerializer.fromNBT(world.getCopy(), "bank");
 			}
 			else
 			{
 				this.inv = ItemInventory.createInventory("Your Bank", 5);
-				world = InventorySerializer.toNBT(this.inv, world, "bank");
+				world.setCopy(InventorySerializer.toNBT(this.inv, world.getCopy(), "bank"));
 				world.writeNBTToFile();
 			}
 		}

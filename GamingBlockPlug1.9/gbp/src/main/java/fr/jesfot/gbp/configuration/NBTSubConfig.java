@@ -184,6 +184,10 @@ public class NBTSubConfig
 	
 	public NBTSubConfig setLocation(String key, Location location)
 	{
+		if(location == null)
+		{
+			return this;
+		}
 		NBTTagCompound tmp = this.getCopy();
 		NBTTagCompound loc = new NBTTagCompound();
 		loc.setDouble("CoordX", location.getX());
@@ -210,6 +214,10 @@ public class NBTSubConfig
 		yaw = loc.getFloat("Yaw");
 		String world = loc.getString("World");
 		World w = Bukkit.getWorld(world);
+		if(w == null)
+		{
+			return null;
+		}
 		return new Location(w, x, y, z, yaw, pitch);
 	}
 
