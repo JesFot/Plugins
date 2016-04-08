@@ -1,7 +1,9 @@
 package fr.jesfot.gbp.command;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -43,13 +45,36 @@ public class GHomeCommand extends CommandBase
 			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 			NBTSubConfig homes = new NBTSubConfig(playerCfg, "Homes");
 			Location pLoc = player.getLocation();
+			if(args.length >= 1 && args[0].equalsIgnoreCase("list"))
+			{
+				Set<String> hs = homes.readNBTFromFile().getCopy().c();
+				Iterator<String> it = hs.iterator();
+				if(hs.size() < 10)
+				{
+					sender.sendMessage(ChatColor.GOLD + "Homes: ");
+					while(it.hasNext())
+					{
+						sender.sendMessage(ChatColor.AQUA + " - "+it.next().substring(2));
+					}
+				}
+				else
+				{
+					String result = it.next();
+					while(it.hasNext())
+					{
+						result += ", " + it.next().substring(2);
+					}
+					sender.sendMessage(ChatColor.GOLD + "Homes: " + ChatColor.RESET + result);
+				}
+				return true;
+			}
 			if(args.length >= 2)
 			{
 				if(args[1].equalsIgnoreCase("set"))
 				{
 					String locName = args[0];
 					homes.readNBTFromFile().setLocation("h_"+locName, pLoc).writeNBTToFile();
-					Command.broadcastCommandMessage(sender, "This player registered new '"+locName+"' home.", false);
+					Command.broadcastCommandMessage(sender, "Registering new '"+locName+"' home.", true);
 					return true;
 				}
 			}
@@ -63,7 +88,7 @@ public class GHomeCommand extends CommandBase
 				}
 				else
 				{
-					Location loc = homes.getLocation("h_"+args[0]);
+					Location loc = homes.readNBTFromFile().getLocation("h_"+args[0]);
 					if(loc == null)
 					{
 						sender.sendMessage("This location was not registered, do '/home " + args[0] + " set' to set it.");
@@ -82,7 +107,7 @@ public class GHomeCommand extends CommandBase
 			}
 			else
 			{
-				Location loc = homes.getLocation("Main");
+				Location loc = homes.readNBTFromFile().getLocation("Main");
 				if(loc == null)
 				{
 					sender.sendMessage("This location was not registered, do '/home set' to set it.");
@@ -131,9 +156,9 @@ public class GHomeCommand extends CommandBase
 			{
 				result.add("set");
 			}
-			for(String name : homes.getCopy().c())
+			for(String name : homes.readNBTFromFile().getCopy().c())
 			{
-				if(name.toLowerCase().startsWith("h_" + args[0].toLowerCase()))
+				if(name.substring(2).toLowerCase().startsWith(args[0].toLowerCase()))
 				{
 					result.add(name.substring(2));
 				}

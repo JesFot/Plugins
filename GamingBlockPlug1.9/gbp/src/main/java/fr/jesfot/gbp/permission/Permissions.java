@@ -2,11 +2,15 @@ package fr.jesfot.gbp.permission;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionDefault;
@@ -24,6 +28,8 @@ public class Permissions
 	public static Permission globalGBP = null;
 	
 	public static Permission impossiblePermission;
+	
+	private static Permission allPermRepresentator = new Permission("*", "All game's permissions");
 	
 	public Permissions(GamingBlockPlug_1_9 p_gbp)
 	{
@@ -59,6 +65,42 @@ public class Permissions
 		return Arrays.asList(this.gbp.getPluginManager().getPermissions().toArray(new Permission[]{}));
 	}
 	
+	public List<Permission> getChildsOf(String permName)
+	{
+		if(permName.contentEquals("*"))
+		{
+			return this.getAllPermissions();
+		}
+		if(permName.endsWith(".*"))
+		{
+			permName = permName.substring(0, permName.length() - 2);
+		}
+		Permission perm = this.gbp.getPluginManager().getPermission(permName);
+		if(perm == null)
+		{
+			return Collections.emptyList();
+		}
+		List<Permission> result = new ArrayList<Permission>();
+		for(Entry<String, Boolean> e : perm.getChildren().entrySet())
+		{
+			result.add(this.gbp.getPluginManager().getPermission(e.getKey()));
+		}
+		return result;
+	}
+	
+	public Permission getPermission(String permName)
+	{
+		if(permName.contentEquals("*"))
+		{
+			return allPermRepresentator;
+		}
+		if(permName.endsWith(".*"))
+		{
+			permName = permName.substring(0, permName.length() - 2);
+		}
+		return this.gbp.getPluginManager().getPermission(permName);
+	}
+	
 	public List<String> getAllPermNames()
 	{
 		List<String> s = new ArrayList<String>();
@@ -69,6 +111,21 @@ public class Permissions
 			s.add(p.getName());
 		}
 		return s;
+	}
+	
+	public List<Permission> getPermissions(String perms)
+	{
+		List<Permission> result = new ArrayList<Permission>();
+		if(!perms.contains(";"))
+		{
+			result.add(this.getPermission(perms));
+			return result;
+		}
+		for(String perm : perms.split(";"))
+		{
+			result.add(this.gbp.getPluginManager().getPermission(perm));
+		}
+		return result;
 	}
 	
 	public void registerPerms()
@@ -95,5 +152,37 @@ public class Permissions
 		{
 			pm.removePermission(perm);
 		}
+	}
+	
+	public PermissionAttachment addPlayer(Player player)
+	{
+		this.permsAttachment.put(player.getUniqueId(), player.addAttachment(this.gbp.getPlugin()));
+		return this.permsAttachment.get(player.getUniqueId());
+	}
+	
+	public PermissionAttachment setPerm(Player player, Set<Permission> set, boolean value)
+	{
+		if(!this.permsAttachment.containsKey(player.getUniqueId()))
+		{
+			this.addPlayer(player);
+		}
+		for(Permission p : set)
+		{
+			this.permsAttachment.get(player.getUniqueId()).setPermission(p, value);
+		}
+		return this.permsAttachment.get(player.getUniqueId());
+	}
+	
+	public PermissionAttachment setPermS(Player player, Set<String> set, boolean value)
+	{
+		if(!this.permsAttachment.containsKey(player.getUniqueId()))
+		{
+			this.addPlayer(player);
+		}
+		for(String p : set)
+		{
+			this.permsAttachment.get(player.getUniqueId()).setPermission(p, value);
+		}
+		return this.permsAttachment.get(player.getUniqueId());
 	}
 }

@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.jesfot.gbp.command.CommandManager;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
+import fr.jesfot.gbp.command.GPermsCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
 import fr.jesfot.gbp.command.TestGbpCommand;
@@ -73,7 +74,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions = new Permissions(this);
 		
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
-				new GHomeCommand(this), new GWorldCommand(this));
+				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -137,7 +138,12 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	
 	public File getConfigFolder(String name)
 	{
-		return new File(this.plugin.getDataFolder(), name);
+		File file = new File(this.plugin.getDataFolder(), name);
+		if(!file.exists())
+		{
+			file.mkdirs();
+		}
+		return file;
 	}
 	
 	public LangConfig getLang()

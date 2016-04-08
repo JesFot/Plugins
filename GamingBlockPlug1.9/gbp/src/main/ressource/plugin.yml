@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.4-ALPHA mc1.9
+version: 1.5-BETA mc1.9
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -25,3 +25,6 @@ commands:
   world:
     description: Navigate between worlds.
     usage: /<command> list | /<command> tp <worldName> | /<command> set <worldName> <load|unload> [newSeed] [Env] [Type]
+  perms:
+    description: manage permissions
+    usage: /<command> [player] <[-]permission> | /<command> &<permission>

@@ -1,8 +1,10 @@
 package fr.jesfot.gbp.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -192,5 +194,31 @@ public class Utils
 			return null;
 		}
 		return new Location(w, x, y, z, yaw, pitch);
+	}
+	
+	public static <E> Set<E> translate(List<E> arg)
+	{
+		Set<E> result = new HashSet<E>();
+		
+		for(E e : arg)
+		{
+			result.add(e);
+		}
+		
+		return result;
+	}
+
+	public static String compile(String[] list, int firstIndex, String separator)
+	{
+		if(firstIndex < 0 || firstIndex >= list.length)
+		{
+			return "";
+		}
+		String result = list[firstIndex];
+		for(int i = firstIndex+1; i < list.length; i++)
+		{
+			result += " " + list[i];
+		}
+		return result;
 	}
 }

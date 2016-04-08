@@ -10,9 +10,13 @@ import org.bukkit.WorldType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.permission.Permissions;
+import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.world.WorldComparator;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.world.WorldTeleporter;
@@ -28,6 +32,10 @@ public class GWorldCommand extends CommandBase
 	{
 		super("world");
 		this.gbp = plugin;
+		Permission world = plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds", PermissionDefault.OP, "Worlds' permission", Permissions.globalGBP);
+		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.tp", PermissionDefault.TRUE, "Allows you to tp yourself between worlds", world);
+		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.load", PermissionDefault.OP, "Allows you to generate or unload worlds", world);
+		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.conf", PermissionDefault.OP, "Allows you to change worlds' options", world);
 	}
 	
 	@Override
@@ -40,6 +48,10 @@ public class GWorldCommand extends CommandBase
 		}
 		if(args[0].equalsIgnoreCase("tp") && args.length >= 2)
 		{
+			if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.tp", true, null))
+			{
+				return true;
+			}
 			WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]);
 			Command.broadcastCommandMessage(sender,"Teleported "+sender.getName()+" to the world "+args[1],true);
 		}
@@ -68,6 +80,10 @@ public class GWorldCommand extends CommandBase
 			String act = args[2];
 			if(act.equalsIgnoreCase("load"))
 			{
+				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", false, null))
+				{
+					return true;
+				}
 				String seed = "";
 				WorldType wType = WorldType.NORMAL;
 				World.Environment env = World.Environment.NORMAL;
@@ -111,10 +127,18 @@ public class GWorldCommand extends CommandBase
 			}
 			else if(act.equalsIgnoreCase("unload"))
 			{
+				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", true, null))
+				{
+					return true;
+				}
 				WorldLoader.unloadWorld(gbp, w);
 			}
 			else if(act.equalsIgnoreCase("options") && args.length >= 5)
 			{
+				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.conf", true, null))
+				{
+					return true;
+				}
 				String opt = args[3];
 				String val = args[4];
 				if(opt.equalsIgnoreCase("gm") || opt.equalsIgnoreCase("gamemode"))
@@ -160,6 +184,7 @@ public class GWorldCommand extends CommandBase
 		return true;
 	}
 
+	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		List<String> result = new ArrayList<String>();
@@ -183,10 +208,13 @@ public class GWorldCommand extends CommandBase
 		case 1:
 			result.add("list");
 			result.add("set");
-			result.add("tp");
+			if(PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.tp", true))
+			{
+				result.add("tp");
+			}
 			break;
 		case 2:
-			if(args[0].equalsIgnoreCase("tp"))
+			if(args[0].equalsIgnoreCase("tp") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.tp", true))
 			{
 				result.addAll(loaded);
 			}
@@ -199,17 +227,26 @@ public class GWorldCommand extends CommandBase
 		case 3:
 			if(args[0].equalsIgnoreCase("set"))
 			{
-				result.add("load");
-				result.add("unload");
-				result.add("options");
+				if(PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.load", false))
+				{
+					result.add("load");
+				}
+				if(PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.load", true))
+				{
+					result.add("unload");
+				}
+				if(PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.conf", true))
+				{
+					result.add("options");
+				}
 			}
-			else if(args[0].equalsIgnoreCase("tp"))
+			else if(args[0].equalsIgnoreCase("tp") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.tp", true))
 			{
 				result.addAll(allP);
 			}
 			break;
 		case 4:
-			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("options"))
+			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("options") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.conf", true))
 			{
 				result.add("GameMode");
 				result.add("Group");
@@ -220,13 +257,13 @@ public class GWorldCommand extends CommandBase
 			}
 			break;
 		case 5:
-			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("load"))
+			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("load") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.load", false))
 			{
 				result.add("nether");
 				result.add("end");
 				result.add("normal");
 			}
-			else if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("options"))
+			else if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("options") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.conf", true))
 			{
 				if(args[3].equalsIgnoreCase("gamemode") || args[3].equalsIgnoreCase("gm"))
 				{
@@ -246,7 +283,7 @@ public class GWorldCommand extends CommandBase
 			}
 			break;
 		case 6:
-			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("load"))
+			if(args[0].equalsIgnoreCase("set") && args[2].equalsIgnoreCase("load") && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.worlds.load", false))
 			{
 				result.add("large");
 				result.add("flat");
