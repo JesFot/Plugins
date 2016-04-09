@@ -25,7 +25,7 @@ public class GEcoCommand extends CommandBase
 	
 	public GEcoCommand(GamingBlockPlug_1_9 plugin)
 	{
-		super("economy");
+		super("economy", "toolb");
 		this.gbp = plugin;
 		Permission eco = plugin.getPermissionManager().addPermission("GamingBlockPlug.economy", PermissionDefault.OP, "Economy's permission", Permissions.globalGBP);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.economy.reset", PermissionDefault.OP, "Allows you to reset an account", eco);

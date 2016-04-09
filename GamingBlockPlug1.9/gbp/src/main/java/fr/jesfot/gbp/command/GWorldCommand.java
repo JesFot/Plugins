@@ -122,6 +122,10 @@ public class GWorldCommand extends CommandBase
 					{
 						wType = WorldType.LARGE_BIOMES;
 					}
+					else if(args[5].equalsIgnoreCase("amplified"))
+					{
+						wType = WorldType.AMPLIFIED;
+					}
 				}
 				WorldLoader.loadWorld(gbp, w, seed, wType, env);
 			}
@@ -288,6 +292,7 @@ public class GWorldCommand extends CommandBase
 				result.add("large");
 				result.add("flat");
 				result.add("normal");
+				result.add("amplified");
 			}
 			break;
 		}

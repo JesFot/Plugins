@@ -49,11 +49,26 @@ public class CommandManager
 	{
 		plugin.getCommand(command.getName()).setExecutor(command);
 		plugin.getCommand(command.getName()).setTabCompleter(command);
+		if(command.hasOtherNames())
+		{
+			for(String name : command.getOthersNames())
+			{
+				plugin.getCommand(name).setExecutor(command);
+				plugin.getCommand(name).setTabCompleter(command);
+			}
+		}
 	}
 	
 	protected static void unregisterServerCommand(JavaPlugin plugin, CommandBase command)
 	{
 		plugin.getCommand(command.getName()).setPermission(Permissions.impossiblePermission.getName());
+		if(command.hasOtherNames())
+		{
+			for(String name : command.getOthersNames())
+			{
+				plugin.getCommand(name).setPermission(Permissions.impossiblePermission.getName());
+			}
+		}
 	}
 	
 	public static void onPluginStopped(JavaPlugin plugin)

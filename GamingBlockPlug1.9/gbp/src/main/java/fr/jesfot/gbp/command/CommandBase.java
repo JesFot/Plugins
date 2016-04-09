@@ -12,9 +12,18 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 {
 	private final String name;
 	
+	private final String[] othersCommad;
+	
 	protected CommandBase(final String cmdBaseName)
 	{
 		this.name = cmdBaseName;
+		this.othersCommad = new String[]{};
+	}
+	
+	protected CommandBase(final String cmdBaseName, String...othersCmds)
+	{
+		this.name = cmdBaseName;
+		this.othersCommad = othersCmds;
 	}
 	
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
@@ -27,5 +36,20 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 	public final String getName()
 	{
 		return this.name;
+	}
+	
+	public final boolean hasOtherNames()
+	{
+		return this.othersCommad.length>0;
+	}
+	
+	public final String[] getOthersNames()
+	{
+		return this.othersCommad;
+	}
+	
+	public final String getOtherName(final int index)
+	{
+		return this.othersCommad[index];
 	}
 }

@@ -29,7 +29,7 @@ public class WorldTeleporter
 		{
 			for(Player pl : players)
 			{
-				pl.sendMessage("This dimension (\"" + worldName + "\") cannot be loaded.");
+				pl.sendMessage("This dimension (\"" + worldName + "\") is not loaded.");
 			}
 			WorldLoader.unloadWorld(gbp, worldName);
 			return;
@@ -51,18 +51,18 @@ public class WorldTeleporter
 			String groupActual = current.readNBTFromFile().getCopy().getString("Group");
 			if(groupActual.contentEquals(groupName) && groupName != "_undifined_")
 			{
-				player.sendMessage("[DEBUG] Group name="+groupActual);
-				player.sendMessage("[DEBUG] keep Loc="+WorldComparator.getKeepLocation(gbp, worldName));
-				player.sendMessage("[DEBUG] Change Bed="+WorldComparator.getChangeBedSpawn(gbp, worldName));
+				//player.sendMessage("[DEBUG] Group name="+groupActual);
+				//player.sendMessage("[DEBUG] keep Loc="+WorldComparator.getKeepLocation(gbp, worldName));
+				//player.sendMessage("[DEBUG] Change Bed="+WorldComparator.getChangeBedSpawn(gbp, worldName));
 				if(WorldComparator.getKeepInventory(gbp, worldName))
 				{
 					keepInventory = true;
 				}
-				if(world.getGameRuleValue("keepLastLocation") == "true" || WorldComparator.getKeepLocation(gbp, worldName))
+				if(WorldComparator.getKeepLocation(gbp, worldName))
 				{
 					useLastLocation = true;
 				}
-				if(world.getGameRuleValue("changeBedSpawn") == "false" || !WorldComparator.getChangeBedSpawn(gbp, worldName))
+				if(!WorldComparator.getChangeBedSpawn(gbp, worldName))
 				{
 					changeBedSpawn = false;
 				}
@@ -120,9 +120,10 @@ public class WorldTeleporter
 			gbp.getEconomy().getPEconomy(player).getStoredInventory();
 			if(playerWorld.getPlayers().isEmpty())
 			{
-				if(playerWorld.getGameRuleValue("autoUnLoad") == "true" || WorldComparator.getAutoUnload(gbp, playerWorld.getName()))
+				if(WorldComparator.getAutoUnload(gbp, playerWorld.getName()))
 				{
-					player.sendMessage("[DEBUG] Auto-unload.");
+					//player.sendMessage("[DEBUG] Auto-unload.");
+					gbp.getLogger().info("[Worlds' Manager] Auto-unloading world " + playerWorld.getName() + ".");
 					WorldLoader.unloadWorld(gbp, playerWorld.getName());
 				}
 			}
