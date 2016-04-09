@@ -1,1 +1,44 @@
 <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Usage - Commande world</title>
+</head>
+<body>
+	<h1>Utilisation de la commande world du plugin GamingBlockPlug</h1>
+	<p>
+		<h4>Usage : /world list
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /world tp &lt;world&gt; [Player]
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /world set &lt;world&gt; &lt;load|unload&gt; [seed] [env] [type]
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /world set &lt;world&gt; options &lt;GameMode|Group|...&gt; &lt;value&gt;</h4>
+		
+		Cette commande sert à se teleporter entre les mondes où à les contrôler.<br />
+		Elle permet de charger ou de décharger un monde, ou encore de changer des options listés ci-dessous.<br />
+		Pour creer un nouveau monde, il suffit de faire comme si on chargait un monde existant (Il est cependant possible de donner la graine et le type de monde.<br />
+		<br />
+		Liste des option:<br />
+		<ul>
+		  <li>GameMode (valeurs: 'Creative', 'Survival', 'Adventure', 'Spectator')</li>
+		  <li>Group - Permet de définir le groupe du monde</li>
+		  <li>KeepInventory - Permet de garder son inventaire en <b>entrant</b> dans le monde (seulement si dans même groupe)</li>
+		  <li>KeepLastLocation - Permet de retourner à l'endroit où on était en qittant le monde (seulement si dans même groupe)</li>
+		  <li>ChangeSpawnpoint - Permet de change le lieux de re-spawn (actif si pas dans même groupe)</li>
+		  <li>AutoUnload - Permet le déchargement automatique du monde quand il est vide</li>
+		</ul>
+
+		<u>Exemple :</u><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/world set example load'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/world tp example'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;Charge le monde 'example' ou le cré si inexistant puis se teleporte dans ce monde.<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;Pour changer le groupe de monde puis le décharger :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/world set example options Group group1'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/world set exmaple unload'<br />
+		
+		<h6>Version d'ajout: Beta 1.5</h6>
+		<h6>Dernière mise-à-jour: Beta 1.5</h6>
+	</p>
+	<footer>
+		<a href="./">Retour à l'index</a>
+	</footer>
+</body>
+</html>
