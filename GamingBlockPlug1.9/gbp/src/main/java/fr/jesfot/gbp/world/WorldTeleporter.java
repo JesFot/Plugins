@@ -95,11 +95,15 @@ public class WorldTeleporter
 			{
 				player.getEnderChest().clear();
 				player.getInventory().clear();
-				player.getEnderChest().setContents(ender.getContents());
-				player.getInventory().setContents(normal.getContents());
+				if(ender!=null)
+					player.getEnderChest().setContents(ender.getContents());
+				if(normal!=null)
+					player.getInventory().setContents(normal.getContents());
 				player.setLevel(lvls);
-				player.setFoodLevel(food);
+				player.setFoodLevel(food==0?player.getFoodLevel():food);
 				player.setHealth(health);
+				gbp.getEconomy().getPEconomy(player).storeInventory();
+				gbp.getEconomy().getPEconomy(player).getStoredInventory();
 			}
 			if(changeBedSpawn && PlayerBed != null)
 			{

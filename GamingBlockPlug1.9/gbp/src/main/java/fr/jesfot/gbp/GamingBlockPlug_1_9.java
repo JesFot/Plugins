@@ -13,6 +13,7 @@ import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
+import fr.jesfot.gbp.command.GVarCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
 import fr.jesfot.gbp.command.TestGbpCommand;
 import fr.jesfot.gbp.configuration.Configuration;
@@ -24,6 +25,7 @@ import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
 import fr.jesfot.gbp.permission.Permissions;
+import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
@@ -41,6 +43,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	private GEconomy economy;
 	
 	private LangConfig lang;
+	
+	private VariableSys vars;
 	
 	public GamingBlockPlug_1_9(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
@@ -74,13 +78,18 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions = new Permissions(this);
 		
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
-				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this));
+				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
 	
 	public void onEnable()
 	{
+		this.vars = new VariableSys(new NBTSubConfig(this.mainNBTConfig));
+		this.vars.getFromFile();
+		this.vars.storeBool("plugin", true);
+		this.vars.storeToFile();
+		
 		this.permissions.registerPerms();
 		
 		this.economy = new GEconomy(this);
@@ -111,6 +120,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		NBTTagCompound a = this.mainNBTConfig.getCopy();
 		a.set("LoadedWorlds", list);
 		this.mainNBTConfig.setCopy(a).writeNBTToFile();
+		
+		this.vars.storeToFile();
 	}
 	
 	// Getters :
@@ -138,6 +149,10 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	
 	public File getConfigFolder(String name)
 	{
+		if(name == null)
+		{
+			return this.plugin.getDataFolder();
+		}
 		File file = new File(this.plugin.getDataFolder(), name);
 		if(!file.exists())
 		{
@@ -149,6 +164,11 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public LangConfig getLang()
 	{
 		return this.lang;
+	}
+	
+	public VariableSys getVars()
+	{
+		return this.vars;
 	}
 	
 	public GEconomy getEconomy()

@@ -96,6 +96,12 @@ public class PlayerEconomy
 		return this.inv;
 	}
 	
+	public PlayerEconomy setInventory(final Inventory newInventory)
+	{
+		this.inv = newInventory;
+		return this;
+	}
+	
 	public void storeInventory()
 	{
 		if(this.player.isOnline() && this.player instanceof Player)
@@ -108,7 +114,7 @@ public class PlayerEconomy
 		}
 	}
 	
-	public void getStoredInventory()
+	public PlayerEconomy getStoredInventory()
 	{
 		if(this.player.isOnline() && this.player instanceof Player)
 		{
@@ -130,6 +136,7 @@ public class PlayerEconomy
 		{
 			this.inv = ItemInventory.createInventory("NULL", 1);
 		}
+		return this;
 	}
 	
 	public Inventory getMenu()

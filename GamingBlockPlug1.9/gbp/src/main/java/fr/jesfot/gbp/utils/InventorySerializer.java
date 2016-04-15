@@ -66,8 +66,16 @@ public class InventorySerializer
 	
 	public static Inventory fromNBT(NBTTagCompound nbt, String name)
 	{
+		if(!nbt.hasKey(name))
+		{
+			return null;
+		}
 		NBTTagCompound cp = ((NBTTagCompound)nbt.clone()).getCompound(name);
 		String invName = cp.getString("Name");
+		if(invName == "")
+		{
+			return null;
+		}
 		int size = cp.getInt("Size"), maxSize = cp.getInt("MaxStackSize");
 		NBTTagList list = cp.getList("Contents", cp.getTypeId());
 		Inventory inv = ItemInventory.createInventory(invName, size / 9);

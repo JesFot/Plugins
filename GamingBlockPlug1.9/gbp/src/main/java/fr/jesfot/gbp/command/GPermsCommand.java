@@ -159,7 +159,10 @@ public class GPermsCommand extends CommandBase
 			{
 				for(Player pl : this.gbp.getOnlinePlayers())
 				{
-					result.add(pl.getName());
+					if(pl.getName().startsWith(args[0]))
+					{
+						result.add(pl.getName());
+					}
 				}
 			}
 			return result;

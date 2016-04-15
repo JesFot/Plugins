@@ -9,10 +9,12 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.CommandBlock;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.craftbukkit.v1_9_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_9_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_9_R1.command.CraftBlockCommandSender;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftMinecartCommand;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
@@ -24,6 +26,8 @@ import net.minecraft.server.v1_9_R1.EntityPlayer;
 import net.minecraft.server.v1_9_R1.ICommandListener;
 import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import net.minecraft.server.v1_9_R1.PlayerSelector;
+import net.minecraft.server.v1_9_R1.TileEntity;
+import net.minecraft.server.v1_9_R1.TileEntityCommand;
 
 public class Utils
 {
@@ -34,6 +38,22 @@ public class Utils
 		try
 		{
 			result = Double.valueOf(value);
+		}
+		catch(NumberFormatException ex)
+		{
+			result = p_default;
+		}
+		
+		return result;
+	}
+	
+	public static float toFloat(String value, float p_default)
+	{
+		float result = p_default;
+		
+		try
+		{
+			result = Float.valueOf(value);
 		}
 		catch(NumberFormatException ex)
 		{
@@ -220,5 +240,16 @@ public class Utils
 			result += " " + list[i];
 		}
 		return result;
+	}
+	
+	public static BlockCommandSender getBlockCommandSender(CommandBlock block)
+	{
+		BlockCommandSender sender = null;
+		Location loc = block.getLocation();
+		CraftWorld cworld = (CraftWorld)loc.getWorld();
+		TileEntity tile = cworld.getTileEntityAt(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+		TileEntityCommand tileCmd = (TileEntityCommand)tile;
+		sender = new CraftBlockCommandSender(tileCmd.getCommandBlock());
+		return sender;
 	}
 }
