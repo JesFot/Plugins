@@ -92,7 +92,16 @@ public class GPluginListener implements Listener
 						msg += arg + "";
 					}
 				}
-				Bukkit.dispatchCommand(sender, ChatColor.translateAlternateColorCodes('&', msg));
+				else
+				{
+					return;
+				}
+				if(!Bukkit.dispatchCommand(sender, ChatColor.translateAlternateColorCodes('&', msg)))
+				{
+					this.gbp.broadAdmins("Error while executing '" + msg + "' command (" + sender.getName() + "; "
+							+ sender.getBlock().getX() + ", " + sender.getBlock().getY() + ", " + sender.getBlock().getZ()
+							+ "; " + sender.getBlock().getWorld().getName() + ")");
+				}
 				event.setNewCurrent(0);
 			}
 		}
