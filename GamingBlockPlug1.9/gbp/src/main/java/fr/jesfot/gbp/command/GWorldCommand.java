@@ -52,8 +52,15 @@ public class GWorldCommand extends CommandBase
 			{
 				return true;
 			}
-			WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]);
-			Command.broadcastCommandMessage(sender,"Teleported "+sender.getName()+" to the world "+args[1],true);
+			if(WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]))
+			{
+				Command.broadcastCommandMessage(sender,"Teleported "+sender.getName()+" to the world "+args[1],true);
+			}
+			else
+			{
+				Command.broadcastCommandMessage(sender,sender.getName()+" tried teleportation to world "+args[1]
+						+ " but unseccessful",true);
+			}
 		}
 		else if(args[0].equalsIgnoreCase("list"))
 		{

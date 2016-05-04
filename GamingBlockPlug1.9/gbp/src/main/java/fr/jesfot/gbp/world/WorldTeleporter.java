@@ -18,7 +18,7 @@ import net.minecraft.server.v1_9_R1.NBTTagCompound;
 
 public class WorldTeleporter
 {
-	public static void tpToWorld(GamingBlockPlug_1_9 gbp, Player[] players, String worldName)
+	public static boolean tpToWorld(GamingBlockPlug_1_9 gbp, Player[] players, String worldName)
 	{
 		boolean keepInventory = false;
 		boolean useLastLocation = false;
@@ -32,7 +32,7 @@ public class WorldTeleporter
 				pl.sendMessage("This dimension (\"" + worldName + "\") is not loaded.");
 			}
 			WorldLoader.unloadWorld(gbp, worldName);
-			return;
+			return false;
 		}
 		Location worldSpawn = world.getSpawnLocation();
 		String groupName = worldNext.readNBTFromFile().getCopy().getString("Group");
@@ -42,6 +42,10 @@ public class WorldTeleporter
 		}
 		for(Player player : players)
 		{
+			if(player == null)
+			{
+				continue;
+			}
 			World playerWorld = player.getWorld();
 			if(WorldComparator.isEqualWorld(playerWorld, world, gbp))
 			{
@@ -132,9 +136,10 @@ public class WorldTeleporter
 				}
 			}
 		}
+		return true;
 	}
 	
-	public static void tpToWorld(GamingBlockPlug_1_9 gbp, CommandSender sender, String argument, String worldName)
+	public static boolean tpToWorld(GamingBlockPlug_1_9 gbp, CommandSender sender, String argument, String worldName)
 	{
 		Player[] pls = {};
 		if(argument.startsWith("@"))
@@ -143,6 +148,7 @@ public class WorldTeleporter
 			if(pls == null)
 			{
 				sender.sendMessage(ChatColor.RED + gbp.getLang().get("player.notfound"));
+				return false;
 			}
 		}
 		else
@@ -151,9 +157,10 @@ public class WorldTeleporter
 			if(pl == null)
 			{
 				sender.sendMessage("Be a player or give a player as argument please.");
+				return false;
 			}
 			pls = new Player[]{pl};
 		}
-		WorldTeleporter.tpToWorld(gbp, pls, worldName);
+		return WorldTeleporter.tpToWorld(gbp, pls, worldName);
 	}
 }
