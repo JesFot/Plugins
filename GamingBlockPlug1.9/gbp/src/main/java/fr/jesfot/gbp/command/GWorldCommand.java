@@ -2,7 +2,10 @@ package fr.jesfot.gbp.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -17,6 +20,7 @@ import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
+import fr.jesfot.gbp.utils.Utils;
 import fr.jesfot.gbp.world.WorldComparator;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.world.WorldTeleporter;
@@ -48,32 +52,51 @@ public class GWorldCommand extends CommandBase
 		}
 		if(args[0].equalsIgnoreCase("tp") && args.length >= 2)
 		{
+			String argu = args.length >= 3 ? args[2] : "";
+			if(!argu.startsWith("@"))
+			{
+				if(argu.equalsIgnoreCase(""))
+				{
+					argu = sender.getName();
+				}
+			}
+			else
+			{
+				Player[] pls = {};
+				pls = Utils.getPlayers(sender, argu).toArray(new Player[]{});
+				argu = pls[0].getName();
+				for(int i = 1; i < (pls.length - 1); i++)
+				{
+					argu += ", " + pls[i].getName();
+				}
+				argu += " and " + pls[pls.length - 1].getName();
+			}
 			if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.tp", true, null))
 			{
 				return true;
 			}
 			if(WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]))
 			{
-				Command.broadcastCommandMessage(sender,"Teleported "+sender.getName()+" to the world "+args[1],true);
+				Command.broadcastCommandMessage(sender,"Teleported "+ argu +" to the world "+args[1],true);
 			}
 			else
 			{
-				Command.broadcastCommandMessage(sender,sender.getName()+" tried teleportation to world "+args[1]
+				Command.broadcastCommandMessage(sender, argu + " tried teleportation to world "+args[1]
 						+ " but unseccessful",true);
 			}
 		}
 		else if(args[0].equalsIgnoreCase("list"))
 		{
-			List<String> loaded = new ArrayList<String>();
+			Map<String, Integer> loaded = new HashMap<String, Integer>();
 			for(World tmp : this.gbp.getServer().getWorlds())
 			{
-				loaded.add(tmp.getName());
+				loaded.put(tmp.getName(), Integer.valueOf(tmp.getPlayers().size()));
 			}
-			List<String> unloaded = Arrays.asList(WorldComparator.getWorldFilesList(gbp, loaded));
+			List<String> unloaded = Arrays.asList(WorldComparator.getWorldFilesList(gbp, loaded.keySet()));
 			sender.sendMessage(ChatColor.DARK_PURPLE + "All loaded worlds :");
-			for(String msg : loaded)
+			for(Entry<String, Integer> msg : loaded.entrySet())
 			{
-				sender.sendMessage(ChatColor.DARK_GREEN + " - " + msg);
+				sender.sendMessage(ChatColor.DARK_GREEN + " - " + msg.getKey() + " (" + msg.getValue() + "pls)");
 			}
 			sender.sendMessage(ChatColor.DARK_PURPLE + "All unloaded worlds :");
 			for(String msg : unloaded)
@@ -91,7 +114,7 @@ public class GWorldCommand extends CommandBase
 				{
 					return true;
 				}
-				String seed = "";
+				String seed = null;
 				WorldType wType = WorldType.NORMAL;
 				World.Environment env = World.Environment.NORMAL;
 				if(args.length >= 4)

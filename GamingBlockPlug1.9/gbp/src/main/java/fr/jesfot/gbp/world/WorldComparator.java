@@ -2,6 +2,7 @@ package fr.jesfot.gbp.world;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.GameMode;
@@ -44,7 +45,7 @@ public class WorldComparator
 		return WorldComparator.compareWorlds(alpha, beta, gbp) > 0;
 	}
 	
-	public static String[] getWorldFilesList(GamingBlockPlug_1_9 gbp, List<String> exclude)
+	public static String[] getWorldFilesList(GamingBlockPlug_1_9 gbp, Collection<String> exclude)
 	{
 		List<String> result = new ArrayList<String>();
 		

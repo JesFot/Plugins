@@ -12,7 +12,7 @@ public class WorldLoader
 	//
 	public static void loadWorld(GamingBlockPlug_1_9 gbp, String name)
 	{
-		WorldLoader.loadWorld(gbp, name, "");
+		WorldLoader.loadWorld(gbp, name, null);
 	}
 	
 	public static void loadWorld(GamingBlockPlug_1_9 gbp, String name, String seed)
@@ -23,13 +23,21 @@ public class WorldLoader
 	public static void loadWorld(GamingBlockPlug_1_9 gbp, String name, String seed, WorldType wType, World.Environment env)
 	{
 		World theWorld;
-		if(seed != "")
+		if(name.endsWith("_nether"))
+		{
+			env = World.Environment.NETHER;
+		}
+		else if(name.endsWith("_the_end"))
+		{
+			env = World.Environment.THE_END;
+		}
+		if(seed != null)
 		{
 			theWorld = gbp.getServer().createWorld(new WorldCreator(name).environment(env).type(wType).seed(Long.parseLong(seed, 36)));
 		}
 		else
 		{
-			theWorld = gbp.getServer().createWorld(new WorldCreator(name));
+			theWorld = gbp.getServer().createWorld(new WorldCreator(name).environment(env));
 		}
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), name);
 		
