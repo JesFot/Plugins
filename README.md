@@ -4,4 +4,4 @@
 
 Plugins for minecraft bukkit
 
-Plugin pour le serveur Eliryum
+Plugin pour le serveur Eliryum 1
