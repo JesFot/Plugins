@@ -11,6 +11,8 @@ import fr.jesfot.gbp.utils.Utils;
 public class GVarCommand extends CommandBase
 {
 	private GamingBlockPlug_1_9 gbp;
+	private String usage = "/<com> <VariableName> | /<com> unset <VariableName> | "
+			+ "/<com> set <VariableName> <type> <Value...> | /<com> help <all|RubricName>";
 	
 	public GVarCommand(GamingBlockPlug_1_9 plugin)
 	{
@@ -59,6 +61,10 @@ public class GVarCommand extends CommandBase
 				sender.sendMessage("Registered.");
 				this.gbp.getVars().storeToFile();
 			}
+			else
+			{
+				sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
+			}
 		}
 		else if(args.length == 2)
 		{
@@ -72,6 +78,31 @@ public class GVarCommand extends CommandBase
 				String name = args[1];
 				this.gbp.getVars().remove(name);
 			}
+			else if(args[0].equalsIgnoreCase("help"))
+			{
+				if(args[1].equalsIgnoreCase("all"))
+				{
+					sender.sendMessage("try /<com> help types".replaceAll("<com>", label));
+				}
+				else if(args[1].equalsIgnoreCase("types"))
+				{
+					sender.sendMessage("Available types of variable are :");
+					sender.sendMessage("  - String - 'string' | 'str'");
+					sender.sendMessage("  - Integer - 'integer' | 'int'");
+					sender.sendMessage("  - Boolean - 'boolean' | 'bool'");
+					sender.sendMessage("  - Float - 'float'");
+					sender.sendMessage("  - Double - 'double'");
+					return true;
+				}
+				else
+				{
+					sender.sendMessage("This topic does not exists try /<com> help all".replaceAll("<com>", label));
+				}
+			}
+			else
+			{
+				sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
+			}
 		}
 		else if(args.length == 1)
 		{
@@ -81,7 +112,16 @@ public class GVarCommand extends CommandBase
 			{
 				return true;
 			}*/
+			if(this.gbp.getVars().getToString(args[0]) == null)
+			{
+				sender.sendMessage("'" + args[0] + "' does not exists as ley value.");
+				return true;
+			}
 			sender.sendMessage("Value: "+ChatColor.translateAlternateColorCodes('&', this.gbp.getVars().getToString(args[0])));
+		}
+		else
+		{
+			sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
 		}
 		return true;
 	}

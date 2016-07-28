@@ -117,7 +117,7 @@ public class GInventoryListener implements Listener
 		String inventoryName = inventory.getName();
 		if(inventoryName.toLowerCase().contains("bank"))
 		{
-			this.gbp.getEconomy().getPEconomy(player).setInventory(inventory).storeInventory();
+			this.gbp.getEconomy().getPEconomy(player).setInventory(inventory);
 		}
 		else if(inventoryName.toLowerCase().contains("commun"))
 		{
@@ -127,5 +127,6 @@ public class GInventoryListener implements Listener
 				this.cs.storeInventory(new NBTSubConfig(this.gbp.getConfigFolder(null), "Commun"));
 			}
 		}
+		this.gbp.getEconomy().getPEconomy(player).storeInventory();
 	}
 }

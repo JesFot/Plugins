@@ -35,7 +35,8 @@ public class EcoHelper
 	{
 		if(args.length != 0)
 		{
-			return false;
+			sender.sendMessage(this.usage(sender, cmd, alias, args));
+			return true;
 		}
 		Player player = isPlayer?(Player)sender:null;
 		if(!isPlayer)
@@ -109,14 +110,16 @@ public class EcoHelper
 			}
 			return true;
 		}
-		return false;
+		sender.sendMessage(this.usage(sender, cmd, alias, args));
+		return true;
 	}
 	
 	public boolean reset(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.economy.reset", false, null) || args.length != 2)
 		{
-			return false;
+			sender.sendMessage(this.usage(sender, cmd, alias, args));
+			return true;
 		}
 		OfflinePlayer target = this.gbp.getPlayerExact(args[1]);
 		if(target == null)
@@ -138,7 +141,8 @@ public class EcoHelper
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.economy.see", true, null) || args.length != 2)
 		{
-			return false;
+			sender.sendMessage(this.usage(sender, cmd, alias, args));
+			return true;
 		}
 		OfflinePlayer target = this.gbp.getOfflinePlayerByName(args[1]);
 		if(target == null)
@@ -168,7 +172,8 @@ public class EcoHelper
 		Player player = (Player)sender;
 		if(args.length != 2 || !PermissionsHelper.testPermission(sender, "GamingBlockPlug.economy.passEm", true, null))
 		{
-			return false;
+			sender.sendMessage(this.usage(sender, cmd, alias, args));
+			return true;
 		}
 		if(!isPlayer)
 		{
@@ -196,7 +201,8 @@ public class EcoHelper
 		Player player = (Player)sender;
 		if(args.length != 2 || !PermissionsHelper.testPermission(sender, "GamingBlockPlug.economy.passEm", true, null))
 		{
-			return false;
+			sender.sendMessage(this.usage(sender, cmd, alias, args));
+			return true;
 		}
 		if(!isPlayer)
 		{

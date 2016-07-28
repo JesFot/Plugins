@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import net.minecraft.server.v1_9_R1.NBTBase;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTBase;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class NBTSubConfig
 {

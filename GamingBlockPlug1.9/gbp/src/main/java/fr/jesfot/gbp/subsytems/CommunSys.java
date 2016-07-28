@@ -6,7 +6,7 @@ import org.bukkit.inventory.Inventory;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.ItemInventory;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class CommunSys
 {

@@ -1,6 +1,8 @@
 package fr.jesfot.gbp.command;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
@@ -108,5 +110,15 @@ public class GTpaCommand extends CommandBase
 		conv.begin();
 		Command.broadcastCommandMessage(sender, "Teleported (or not) " + player.getDisplayName() + " to " + target.getDisplayName());
 		return true;
+	}
+	
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	{
+		if(args.length == 1)
+		{
+			return null;
+		}
+		return Collections.emptyList();
 	}
 }

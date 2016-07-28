@@ -108,6 +108,8 @@ public class GEcoCommand extends CommandBase
 				result.add("inventory");
 				result.add("TakeEm");
 				result.add("StoreEm");
+				result.add("te");
+				result.add("se");
 				if(PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.economy.reset", false))
 				{
 					result.add("reset");

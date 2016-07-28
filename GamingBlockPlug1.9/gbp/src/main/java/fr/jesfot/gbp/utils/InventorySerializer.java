@@ -1,11 +1,11 @@
 package fr.jesfot.gbp.utils;
 
-import org.bukkit.craftbukkit.v1_9_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import net.minecraft.server.v1_9_R1.NBTTagList;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
 
 public class InventorySerializer
 {
@@ -84,7 +84,7 @@ public class InventorySerializer
 		{
 			NBTTagCompound compound = list.get(i);
 			int j = compound.getByte("Slot") & 0xFF;
-			ItemStack itemstack = CraftItemStack.asBukkitCopy(net.minecraft.server.v1_9_R1.ItemStack.createStack(compound));
+			ItemStack itemstack = CraftItemStack.asBukkitCopy(net.minecraft.server.v1_9_R2.ItemStack.createStack(compound));
 			
 			if(itemstack != null)
 			{
@@ -97,7 +97,7 @@ public class InventorySerializer
 		return inv;
 	}
 	
-	private static net.minecraft.server.v1_9_R1.ItemStack getItemStack(ItemStack item)
+	private static net.minecraft.server.v1_9_R2.ItemStack getItemStack(ItemStack item)
 	{
 		return CraftItemStack.asNMSCopy(item);
 	}

@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.util.UUID;
 import java.util.logging.LogManager;
 
-import net.minecraft.server.v1_9_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTCompressedStreamTools;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class NBTConfig
 {

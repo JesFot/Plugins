@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.7-BETA mc1.9
+version: 1.8-BETA mc1.9.4
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -31,3 +31,6 @@ commands:
   var:
     description: Variables command
     usage: /<command> <varName> or /<command> set <varName> <type> <value> or /<command> unset <varName>
+  island:
+    description: Island control
+    usage: /<command> [start]

@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.Utils;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import net.minecraft.server.v1_9_R1.NBTTagList;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
 
 public class VariableSys
 {

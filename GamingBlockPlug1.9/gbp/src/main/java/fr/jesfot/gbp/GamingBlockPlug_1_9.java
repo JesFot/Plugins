@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.jesfot.gbp.command.CommandManager;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
+import fr.jesfot.gbp.command.GIslandCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GVarCommand;
@@ -28,9 +29,10 @@ import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import net.minecraft.server.v1_9_R1.NBTTagList;
-import net.minecraft.server.v1_9_R1.NBTTagString;
+import fr.jesfot.gbp.zoning.island.IslandZone;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
+import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class GamingBlockPlug_1_9 extends ServerUtils
 {
@@ -45,6 +47,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	private LangConfig lang;
 	
 	private VariableSys vars;
+	
+	private IslandZone island;
 	
 	public GamingBlockPlug_1_9(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
@@ -78,7 +82,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions = new Permissions(this);
 		
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
-				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this));
+				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
+				new GIslandCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -102,6 +107,14 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		{
 			String wName = list.getString(i);
 			WorldLoader.loadWorld(this, wName);
+		}
+		
+		this.island = new IslandZone(this);
+		this.island.readCenter();
+		if(this.island.getCenter() == null)
+		{
+			this.logger.warning("No location stored for the island....");
+			this.island.disable();
 		}
 	}
 	
@@ -159,6 +172,11 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 			file.mkdirs();
 		}
 		return file;
+	}
+	
+	public IslandZone getIsland()
+	{
+		return this.island;
 	}
 	
 	public LangConfig getLang()

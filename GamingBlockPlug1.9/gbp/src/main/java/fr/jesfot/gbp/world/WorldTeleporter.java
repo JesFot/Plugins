@@ -14,7 +14,7 @@ import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.Utils;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 public class WorldTeleporter
 {
