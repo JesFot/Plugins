@@ -12,7 +12,10 @@ import fr.jesfot.gbp.command.CommandManager;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GIslandCommand;
+import fr.jesfot.gbp.command.GPassNightCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
+import fr.jesfot.gbp.command.GSecurityWallCommand;
+import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GVarCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
@@ -83,7 +86,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
-				new GIslandCommand(this));
+				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}

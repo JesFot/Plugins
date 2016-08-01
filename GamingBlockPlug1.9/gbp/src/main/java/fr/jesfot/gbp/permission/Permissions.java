@@ -27,6 +27,8 @@ public class Permissions
 	
 	public static Permission globalGBP = null;
 	
+	public static Permission SecureWallPerm = null;
+	
 	public static Permission impossiblePermission;
 	
 	private static Permission allPermRepresentator = new Permission("*", "All game's permissions");
@@ -38,10 +40,15 @@ public class Permissions
 		this.permsAttachment = new HashMap<UUID, PermissionAttachment>();
 		globalGBP = this.addPermission("GamingBlockPlug", PermissionDefault.OP, "Global permission for the gamingblockplug plugin.");
 		impossiblePermission = this.addPermission("GamingBlockPlug.impossible", PermissionDefault.FALSE, "Denied.");
+		SecureWallPerm = this.addPermission("GamingBlockPlug.secureWall", PermissionDefault.OP, "Managing security walls", Permissions.globalGBP);
 	}
 	
 	public Permission addPermission(String id, PermissionDefault p_default, String description)
 	{
+		if(this.perms.containsKey(id))
+		{
+			return this.perms.get(id);
+		}
 		Permission tmp = new Permission(id, description, p_default, null);
 		this.perms.put(id, tmp);
 		return tmp;
@@ -49,6 +56,10 @@ public class Permissions
 	
 	public Permission addPermission(String id, PermissionDefault p_default, String description, Permission parent)
 	{
+		if(this.perms.containsKey(id))
+		{
+			return this.perms.get(id);
+		}
 		Permission tmp = new Permission(id, description, p_default, null);
 		tmp.addParent(parent, true);
 		this.perms.put(id, tmp);

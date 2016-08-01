@@ -72,6 +72,8 @@ public class GPlayerListener implements Listener
 		String lm = event.getJoinMessage();
 		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 		boolean isMasked = playerConf.readNBTFromFile().getCopy().getBoolean("Masked");
+		playerConf.setString("Pseudo", player.getName());
+		playerConf.setString("DisplayName", player.getDisplayName()).writeNBTToFile();
 		if(isMasked)
 		{
 			event.setJoinMessage("");
@@ -142,7 +144,21 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
-		event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+		String msg = "";
+		if(event.getMessage().contains("${") && event.getMessage().contains("}"))
+		{
+			for(String arg : event.getMessage().split("\\$"))
+			{
+				if(arg.startsWith("{") && arg.contains("}"))
+				{
+					String var = arg.substring(1, arg.indexOf("}"));
+					arg = this.gbp.getVars().getToString(var)+((arg.endsWith("}") && arg.indexOf("}")==arg.length()-1)
+							? "" : arg.substring(arg.indexOf("}") + 1));
+				}
+				msg += arg + "";
+			}
+			event.setMessage(ChatColor.translateAlternateColorCodes('&', msg));
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)

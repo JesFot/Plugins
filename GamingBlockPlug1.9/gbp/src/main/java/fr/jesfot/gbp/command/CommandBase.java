@@ -1,12 +1,15 @@
 package fr.jesfot.gbp.command;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 
 public abstract class CommandBase implements CommandExecutor, TabCompleter
 {
@@ -51,5 +54,20 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 	public final String getOtherName(final int index)
 	{
 		return this.othersCommad[index];
+	}
+	
+	public final List<String> getPlayers(final String startOfName)
+	{
+		String name = startOfName.toLowerCase();
+		List<String> pls = new ArrayList<String>();
+		for(Player player : Bukkit.getOnlinePlayers())
+		{
+			String pl = player.getName().toLowerCase();
+			if(pl.startsWith(name))
+			{
+				pls.add(player.getName());
+			}
+		}
+		return pls;
 	}
 }

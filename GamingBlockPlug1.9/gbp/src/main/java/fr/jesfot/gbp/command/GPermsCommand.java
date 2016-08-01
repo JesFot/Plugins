@@ -132,6 +132,10 @@ public class GPermsCommand extends CommandBase
 		if(args.length == 1 || args.length == 2)
 		{
 			List<String> result = new ArrayList<String>();
+			if(args.length == 1)
+			{
+				result.addAll(this.getPlayers(args[0]));
+			}
 			for(String str : this.gbp.getPermissionManager().getAllPermNames())
 			{
 				if(str.startsWith(args[args.length - 1]))
@@ -153,16 +157,6 @@ public class GPermsCommand extends CommandBase
 				else if(("-+"+str).startsWith(args[args.length - 1]))
 				{
 					result.add("-+"+str);
-				}
-			}
-			if(args.length == 1)
-			{
-				for(Player pl : this.gbp.getOnlinePlayers())
-				{
-					if(pl.getName().startsWith(args[0]))
-					{
-						result.add(pl.getName());
-					}
 				}
 			}
 			return result;
