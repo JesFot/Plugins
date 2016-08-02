@@ -34,6 +34,10 @@ commands:
   seed:
     description: Show the seed of the world
     usage: /<command>
+  logmessage:
+    description: Change or see the login message
+    usage: /<command> [set <text...>]
+    aliases: [logmsg, lmessage]
   forcepassnight:
     description: Force the halfBed system
     usage: /<command>

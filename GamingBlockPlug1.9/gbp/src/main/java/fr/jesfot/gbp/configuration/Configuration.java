@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -33,18 +33,15 @@ public class Configuration
 		this.config = YamlConfiguration.loadConfiguration(this.configFile);
 		if(this.config == null)
 		{
-			System.out.println("Error while loading some configuration files...");
+			Logger.getLogger("[WARN [GamingBlockPlug]]").warning("[Configuration.java:38]"
+					+ "Error while loading some configuration files...");
 			this.config = new YamlConfiguration();
 		}
 		try
 		{
-			this.config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(this.getClass().getResource(this.configFile.getName()).openStream(), "UTF-8")));
+			this.config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(Configuration.class.getResourceAsStream("/"+this.configFile.getName()), "UTF-8")));
 		}
 		catch(UnsupportedEncodingException e)
-		{
-			e.printStackTrace();
-		}
-		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -84,7 +81,7 @@ public class Configuration
 		}
 		catch(IOException e)
 		{
-			LogManager.getLogManager().getLogger("[ERROR [GamingBlockPlug]]").log(Level.SEVERE, "[Configuration.java:59]"
+			Logger.getLogger("[ERROR [GamingBlockPlug]]").log(Level.SEVERE, "[Configuration.java:59]"
 					+ "Could not save config to " + this.configFile, e);;
 		}
 	}

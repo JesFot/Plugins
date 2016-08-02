@@ -107,6 +107,17 @@ public class GPlayerListener implements Listener
 				player.hidePlayer(connected);
 			}
 		}
+		this.gbp.getConfigs().loadAll();
+		if(this.gbp.getConfigs().getMainConfig().getConfig().contains("logmsg")
+				&& this.gbp.getConfigs().getMainConfig().getConfig().getString("logmsg") != null)
+		{
+			String logmsg = this.gbp.getConfigs().getMainConfig().getConfig().getString("logmsg");
+			String[] logmsgs = logmsg.split(" n ");
+			for(String str : logmsgs)
+			{
+				event.getPlayer().sendMessage(ChatColor.GOLD + str);
+			}
+		}
 	}
 	
 	@EventHandler
@@ -179,6 +190,10 @@ public class GPlayerListener implements Listener
 	{
 		Player player = event.getPlayer();
 		this.hbs.updatePlayers().removePlayerInBed(player).endPassNight();
+		if(player.getWorld().getTime() <= 2)
+		{
+			player.setHealth(player.getHealth() + 2);
+		}
 	}
 	
 	@EventHandler

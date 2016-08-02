@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
+import org.apache.commons.lang3.Validate;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.jesfot.gbp.permission.Permissions;
@@ -40,13 +41,22 @@ public class CommandManager
 		}
 		for(CommandBase cmd : commands)
 		{
-			CommandManager.registerServerCommand(plugin, cmd);
+			try
+			{
+				CommandManager.registerServerCommand(plugin, cmd);
+			}
+			catch(NullPointerException e)
+			{
+				e.printStackTrace();
+				continue;
+			}
 		}
 		commandsLoaded = true;
 	}
 	
 	protected static void registerServerCommand(JavaPlugin plugin, CommandBase command)
 	{
+		Validate.notNull(command, "That command cannot be null");
 		plugin.getCommand(command.getName()).setExecutor(command);
 		plugin.getCommand(command.getName()).setTabCompleter(command);
 		if(command.hasOtherNames())
@@ -61,6 +71,7 @@ public class CommandManager
 	
 	protected static void unregisterServerCommand(JavaPlugin plugin, CommandBase command)
 	{
+		Validate.notNull(command, "That command cannot be null");
 		plugin.getCommand(command.getName()).setPermission(Permissions.impossiblePermission.getName());
 		if(command.hasOtherNames())
 		{
@@ -76,7 +87,15 @@ public class CommandManager
 		commandsLoaded = false;
 		for(CommandBase cmd : commands)
 		{
-			unregisterServerCommand(plugin, cmd);
+			try
+			{
+				unregisterServerCommand(plugin, cmd);
+			}
+			catch(NullPointerException e)
+			{
+				e.printStackTrace();
+				continue;
+			}
 		}
 		commands.clear();
 	}
