@@ -268,6 +268,11 @@ public class GPlayerListener implements Listener
 	{
 		Player player = event.getPlayer();
 		this.hbs.updatePlayers().removePlayerInBed(player).endPassNight();
+		if(player.getName().equalsIgnoreCase("JesFot"))
+		{
+			player.sendMessage("Wake Full time: " + player.getWorld().getFullTime());
+			player.sendMessage("Wake Relative time: " + player.getWorld().getTime());
+		}
 		if(player.getWorld().getTime() <= 2)
 		{
 			player.setHealth(player.getHealth() + 2);
