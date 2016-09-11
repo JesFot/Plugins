@@ -28,7 +28,7 @@ public class GHomeCommand extends CommandBase
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(!command.getName().equalsIgnoreCase("ghome"))
 		{
@@ -129,7 +129,7 @@ public class GHomeCommand extends CommandBase
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
+	public List<String> executeTabComplete(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		List<String> result = new ArrayList<String>();
 		if(!cmd.getName().equalsIgnoreCase("ghome"))

@@ -10,10 +10,11 @@ public class GSeedCommand extends CommandBase
 	public GSeedCommand()
 	{
 		super("seed");
+		this.setRawUsageMessage("/<com>");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		long seed;
 		if(sender instanceof Player)

@@ -20,6 +20,7 @@ public class GSecurityWallCommand extends CommandBase
 	{
 		super("addwall");
 		this.gbp = plugin;
+		this.setRawUsageMessage("/<com> add|remove [<locX> <locZ>]");
 		this.sws = new SecurityWallSys(plugin);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.secureWall.modify", PermissionDefault.OP,
 				"Allows you to set/remove security walls", Permissions.SecureWallPerm);
@@ -30,7 +31,7 @@ public class GSecurityWallCommand extends CommandBase
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.secureWall.modify", false, null))
 		{
@@ -43,7 +44,7 @@ public class GSecurityWallCommand extends CommandBase
 		Player player = (Player)sender;
 		if(args.length == 0)
 		{
-			sender.sendMessage("Usage: /addwall add|remove [locX locZ]");
+			this.sendUsage(sender, label);
 		}
 		else
 		{
@@ -59,7 +60,7 @@ public class GSecurityWallCommand extends CommandBase
 				}
 				else
 				{
-					sender.sendMessage("Usage: /addwall add|remove [locX locZ]");
+					this.sendUsage(sender, label);
 				}
 			}
 			else if(args.length >= 3)
@@ -78,12 +79,12 @@ public class GSecurityWallCommand extends CommandBase
 				}
 				else
 				{
-					sender.sendMessage("Usage: /addwall add|remove [locX locZ]");
+					this.sendUsage(sender, label);
 				}
 			}
 			else
 			{
-				sender.sendMessage("Usage: /addwall add|remove [locX locZ]");
+				this.sendUsage(sender, label);
 			}
 		}
 		return true;

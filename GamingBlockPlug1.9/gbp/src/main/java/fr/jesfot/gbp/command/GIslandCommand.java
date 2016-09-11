@@ -37,10 +37,11 @@ public class GIslandCommand extends CommandBase
 				"Allows you to see the actual center of the island", island);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.island.control", PermissionDefault.OP,
 				"Allows you to control the island", island);
+		this.disableCommand("The island use to many resources so it has been disallowed");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(args.length == 0)
 		{
@@ -82,7 +83,7 @@ public class GIslandCommand extends CommandBase
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
+	public List<String> executeTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		List<String> result = new ArrayList<String>();
 		

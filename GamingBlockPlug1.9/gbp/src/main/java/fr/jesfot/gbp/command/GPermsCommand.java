@@ -26,11 +26,12 @@ public class GPermsCommand extends CommandBase
 	{
 		super("perms");
 		this.gbp = plugin;
+		this.setRawUsageMessage("/<com> [player] <[-]permission> | /<com> &<permission>");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.perms", PermissionDefault.OP, "Allows you to manage permissions", Permissions.globalGBP);
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.perms", true, null))
 		{
@@ -38,7 +39,7 @@ public class GPermsCommand extends CommandBase
 		}
 		if(args.length < 1)
 		{
-			sender.sendMessage("Usage: /perms [player] <[-]permission> | /perms &<permission>");
+			this.sendUsage(sender, label);
 			return true;
 		}
 		if(args.length == 1)
@@ -127,7 +128,7 @@ public class GPermsCommand extends CommandBase
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	public List<String> executeTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
 		if(args.length == 1 || args.length == 2)
 		{

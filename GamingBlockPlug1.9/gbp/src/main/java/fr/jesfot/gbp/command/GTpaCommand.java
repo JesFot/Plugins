@@ -22,27 +22,25 @@ import fr.jesfot.gbp.world.WorldComparator;
 
 public class GTpaCommand extends CommandBase
 {
-	private String usageMessage;
 	private GamingBlockPlug_1_9 gbp;
 	
 	public GTpaCommand(GamingBlockPlug_1_9 p_gbp)
 	{
 		super("gtpa");
 		this.gbp = p_gbp;
-		this.usageMessage = "/<gtpa> target";
+		this.setRawUsageMessage("/<com> <target>");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		this.usageMessage = "/"+label+" target";
 		if(!cmd.getName().equalsIgnoreCase("gtpa"))
 		{
 			return false;
 		}
 		if(args.length < 1 || args.length > 1)
 		{
-			sender.sendMessage(ChatColor.RED + "Usage: " + this.usageMessage);
+			this.sendUsage(sender, label);
 			return false;
 		}
 		
@@ -113,7 +111,7 @@ public class GTpaCommand extends CommandBase
 	}
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
+	public List<String> executeTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
 		if(args.length == 1)
 		{

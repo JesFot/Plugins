@@ -11,17 +11,17 @@ import fr.jesfot.gbp.utils.Utils;
 public class GVarCommand extends CommandBase
 {
 	private GamingBlockPlug_1_9 gbp;
-	private String usage = "/<com> <VariableName> | /<com> unset <VariableName> | "
-			+ "/<com> set <VariableName> <type> <Value...> | /<com> help <all|RubricName>";
 	
 	public GVarCommand(GamingBlockPlug_1_9 plugin)
 	{
 		super("var");
 		this.gbp = plugin;
+		this.setRawUsageMessage("/<com> <VariableName> | /<com> unset <VariableName> | "
+				+ "/<com> set <VariableName> <type> <Value...> | /<com> help <all|RubricName>");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		if(!cmd.getName().equalsIgnoreCase("var"))
 		{
@@ -63,7 +63,7 @@ public class GVarCommand extends CommandBase
 			}
 			else
 			{
-				sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
+				this.sendUsage(sender, label);
 			}
 		}
 		else if(args.length == 2)
@@ -101,7 +101,7 @@ public class GVarCommand extends CommandBase
 			}
 			else
 			{
-				sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
+				this.sendUsage(sender, label);
 			}
 		}
 		else if(args.length == 1)
@@ -121,7 +121,7 @@ public class GVarCommand extends CommandBase
 		}
 		else
 		{
-			sender.sendMessage(ChatColor.RED + this.usage.replaceAll("<com>", label));
+			this.sendUsage(sender, label);
 		}
 		return true;
 	}

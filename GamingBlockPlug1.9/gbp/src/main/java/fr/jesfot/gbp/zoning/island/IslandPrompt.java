@@ -30,11 +30,13 @@ public class IslandPrompt extends ValidatingPrompt
 			this.help(toDo, context.getForWhom());
 			this.up(input, context.getForWhom());
 			this.down(toDo, context.getForWhom());
+			this.north(toDo, context.getForWhom());
 			context.setSessionData("nextAct", "");
 		}
 		this.help(input, context.getForWhom());
 		this.up(input, context.getForWhom());
 		this.down(input, context.getForWhom());
+		this.north(input, context.getForWhom());
 		context.setSessionData("text", input);
 		if(input.equalsIgnoreCase("exit"))
 		{
@@ -59,6 +61,7 @@ public class IslandPrompt extends ValidatingPrompt
 			target.sendRawMessage(ChatColor.AQUA + "  - exit : Exit this prompt.");
 			target.sendRawMessage(ChatColor.AQUA + "  - up [blocks] : Move the island 'blocks' blocks up.");
 			target.sendRawMessage(ChatColor.AQUA + "  - down [blocks] : Move the island 'blocks' blocks down.");
+			target.sendRawMessage(ChatColor.AQUA + "  - north [blocks] : Move the island 'blocks' blocks to the north.");
 		}
 	}
 	
@@ -112,6 +115,34 @@ public class IslandPrompt extends ValidatingPrompt
 					target.sendRawMessage("Exception during parsing argument 'blocks' "
 							+ "("+splited[1]+" is not an integer).");
 					target.sendRawMessage("Usage: down [blocks]");
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private void north(final String input, Conversable target)
+	{
+		if(input.startsWith("north"))
+		{
+			String[] splited = input.split(" ");
+			if(splited.length <= 1)
+			{
+				this.gbp.getIsland().moveNorth(1);
+			}
+			else
+			{
+				try
+				{
+					int b = Integer.parseInt(splited[1]);
+					this.gbp.getIsland().moveNorth(b);
+					target.sendRawMessage("Successfully goes north");
+				}
+				catch(NumberFormatException ex)
+				{
+					target.sendRawMessage("Exception during parsing argument 'blocks' "
+							+ "("+splited[1]+" is not an integer).");
+					target.sendRawMessage("Usage: north [blocks]");
 					ex.printStackTrace();
 				}
 			}

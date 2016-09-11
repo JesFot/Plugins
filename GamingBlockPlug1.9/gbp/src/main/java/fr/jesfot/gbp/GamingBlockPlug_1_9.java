@@ -16,6 +16,7 @@ import fr.jesfot.gbp.command.GPassNightCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
 import fr.jesfot.gbp.command.GSecurityWallCommand;
 import fr.jesfot.gbp.command.GSeedCommand;
+import fr.jesfot.gbp.command.GShopCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GVarCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
@@ -30,6 +31,7 @@ import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
 import fr.jesfot.gbp.permission.Permissions;
+import fr.jesfot.gbp.shop.Shops;
 import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
@@ -40,6 +42,8 @@ import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class GamingBlockPlug_1_9 extends ServerUtils
 {
+	private static GamingBlockPlug_1_9 PLUGIN;
+	
 	private final Logger logger;
 	private final JavaPlugin plugin;
 	
@@ -47,6 +51,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	private NBTConfig mainNBTConfig;
 	private Permissions permissions;
 	private GEconomy economy;
+	private Shops shops;
 	
 	private LangConfig lang;
 	
@@ -59,6 +64,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		super(p_server);
 		this.logger = p_logger;
 		this.plugin = p_plugin;
+		PLUGIN = this;
 	}
 	
 	public void onLoad()
@@ -85,10 +91,13 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		this.permissions = new Permissions(this);
 		
+		this.shops = new Shops(this);
+		
+		
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
-				new LogMessageCommand(this));
+				new LogMessageCommand(this), new GShopCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -103,6 +112,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions.registerPerms();
 		
 		this.economy = new GEconomy(this);
+		
+		this.shops.loadShops();
 		
 		CommandManager.loadCommands(this.plugin);
 		
@@ -128,6 +139,9 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.permissions.unregisterPerms();
 		
 		CommandManager.onPluginStopped(this.plugin);
+		
+		this.shops.saveShops();
+		this.shops.subDeleteAll();
 		
 		this.mainNBTConfig.readNBTFromFile();
 		NBTTagList list = new NBTTagList();
@@ -199,6 +213,11 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		return this.economy;
 	}
 	
+	public Shops getShops()
+	{
+		return this.shops;
+	}
+	
 	public Logger getLogger()
 	{
 		return logger;
@@ -207,5 +226,10 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public JavaPlugin getPlugin()
 	{
 		return plugin;
+	}
+	
+	public static GamingBlockPlug_1_9 getMe()
+	{
+		return PLUGIN;
 	}
 }

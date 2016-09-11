@@ -28,7 +28,7 @@ import fr.jesfot.gbp.world.WorldTeleporter;
 public class GWorldCommand extends CommandBase
 {
 	private GamingBlockPlug_1_9 gbp;
-	private String usageMessage = ChatColor.RED +
+	private String usageMessage =
 			"/<com> list | /<com> tp <worldName> | /<com> set <worldName> <load|unload> [newSeed] [Env] [Type] |"
 			+ " /<com> set <worldName> options <gm|group> <Value>";
 	
@@ -36,6 +36,7 @@ public class GWorldCommand extends CommandBase
 	{
 		super("world");
 		this.gbp = plugin;
+		this.setRawUsageMessage(this.usageMessage);
 		Permission world = plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds", PermissionDefault.OP, "Worlds' permission", Permissions.globalGBP);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.tp", PermissionDefault.TRUE, "Allows you to tp yourself between worlds", world);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.load", PermissionDefault.OP, "Allows you to generate or unload worlds", world);
@@ -43,11 +44,11 @@ public class GWorldCommand extends CommandBase
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(args.length == 0)
 		{
-			sender.sendMessage(this.usageMessage.replaceAll("<com>", label));
+			this.sendUsage(sender, label);
 			return true;
 		}
 		if(args[0].equalsIgnoreCase("tp") && args.length >= 2)
@@ -208,18 +209,18 @@ public class GWorldCommand extends CommandBase
 			}
 			else
 			{
-				sender.sendMessage(this.usageMessage.replaceAll("<com>", label));
+				this.sendUsage(sender, label);
 			}
 		}
 		else
 		{
-			sender.sendMessage(this.usageMessage.replaceAll("<com>", label));
+			this.sendUsage(sender, label);
 		}
 		return true;
 	}
 
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
+	public List<String> executeTabComplete(CommandSender sender, Command cmd, String alias, String[] args)
 	{
 		List<String> result = new ArrayList<String>();
 		List<String> loaded = new ArrayList<String>();

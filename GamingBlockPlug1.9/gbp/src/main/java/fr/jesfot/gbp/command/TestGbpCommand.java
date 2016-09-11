@@ -9,13 +9,14 @@ public class TestGbpCommand extends CommandBase
 	public TestGbpCommand()
 	{
 		super("testgbp");
+		this.setRawUsageMessage("/<com> [<text...>]");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		String msg = "Cette commande et donc le plugin fonctionnent.";
-		if(args != null && args.length > 1)
+		if(args != null && args.length >= 1)
 		{
 			msg += " Votre texte:";
 			for(String arg : args)

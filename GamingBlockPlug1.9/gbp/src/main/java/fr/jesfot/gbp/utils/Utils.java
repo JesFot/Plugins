@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.CommandBlock;
@@ -20,6 +21,9 @@ import org.bukkit.craftbukkit.v1_9_R2.entity.CraftMinecartCommand;
 import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.CommandMinecart;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 import net.minecraft.server.v1_9_R2.EntityMinecartCommandBlock;
 import net.minecraft.server.v1_9_R2.EntityPlayer;
@@ -31,6 +35,19 @@ import net.minecraft.server.v1_9_R2.TileEntityCommand;
 
 public class Utils
 {
+	public static boolean isNumber(String value)
+	{
+		try
+		{
+			Double.parseDouble(value);
+		}
+		catch(NumberFormatException e)
+		{
+			return false;
+		}
+		return true;
+	}
+	
 	public static double toDouble(String value, double p_default)
 	{
 		double result = p_default;
@@ -227,6 +244,11 @@ public class Utils
 		
 		return result;
 	}
+	
+	public static String color(String msg)
+	{
+		return ChatColor.translateAlternateColorCodes('&', msg);
+	}
 
 	public static String compile(String[] list, int firstIndex, String separator)
 	{
@@ -240,6 +262,24 @@ public class Utils
 			result += " " + list[i];
 		}
 		return result;
+	}
+	
+	public static int getAmountOf(Inventory inv, ItemStack item)
+	{
+		MaterialData datas = item.getData();
+		ItemStack[] items = inv.getContents();
+		int has = 0;
+		ItemStack[] arrayOfItemStack1;
+		int j = (arrayOfItemStack1 = items).length;
+		for(int i = 0; i < j; i++)
+		{
+			ItemStack is = arrayOfItemStack1[i];
+			if(is != null && is.getAmount() > 0 && is.getData().equals(datas))
+			{
+				has += is.getAmount();
+			}
+		}
+		return has;
 	}
 	
 	public static BlockCommandSender getBlockCommandSender(CommandBlock block)

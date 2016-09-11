@@ -41,6 +41,9 @@ commands:
   forcepassnight:
     description: Force the halfBed system
     usage: /<command>
+  shop:
+    description: Different commands pertaining to plugin
+    usage: /<command> list
   addwall:
     description: help for walls
     usage: /<command> add|remove [locX locZ]

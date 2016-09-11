@@ -46,6 +46,70 @@ public abstract class Zone
 	}
 	
 	@SuppressWarnings("deprecation")
+	public void moveNorth(final int blocks)
+	{
+		if(blocks <= 0)
+		{
+			return;
+		}
+		try
+		{
+			Block topN = this.getCenter().subtract(0, 0, (this.sizeZ - 1) / 2).getBlock();
+			if(topN.getRelative(BlockFace.NORTH).getType().equals(Material.OBSIDIAN))
+			{
+				return;
+			}
+			Block topNorth = topN.getLocation().clone().add(0, (this.sizeY / 2) + 1, 0).getBlock();
+			Block topNorthWestCorner = topNorth.getLocation().clone().subtract((this.sizeX - 1) / 2, 0, 0).getBlock();
+			boolean first = true;
+			for(int k = 0; k < this.sizeZ + 1; k++)
+			{
+				for(int j = 0; j > -this.sizeY - 1; j--)
+				{
+					for(int i = 0; i < this.sizeX; i++)
+					{
+						Block tmp = topNorthWestCorner.getLocation().clone().add(i, j, k).getBlock();
+						if(first)
+						{
+							if(tmp.getRelative(BlockFace.NORTH).getType().equals(Material.BEDROCK))
+							{
+								return;
+							}
+							continue;
+						}
+						if(tmp.getRelative(BlockFace.UP).isEmpty())
+						{
+							Collection<Entity> es = tmp.getWorld().getNearbyEntities(
+									tmp.getLocation().clone().add(0, 1, 0), 1, 1, 1);
+							Collection<Entity> inside = tmp.getWorld().getNearbyEntities(
+									tmp.getLocation().clone(), 1, 1, 1);
+							for(Entity e : es)
+							{
+								if(inside.contains(e))
+								{
+									continue;
+								}
+								e.teleport(e.getLocation().clone().add(0, blocks, 0));
+							}
+						}
+						tmp.getLocation().clone().subtract(0, 0, blocks).getBlock().setTypeIdAndData(
+								tmp.getTypeId(), tmp.getData(), true);
+						tmp.getLocation().clone().getBlock().setType(Material.AIR);
+					}
+				}
+				if(first)
+				{
+					first = false;
+					k--;
+				}
+			}
+			this.center = this.center.clone().add(0, 0, -blocks);
+		}
+		catch(Throwable ignored)
+		{}
+	}
+	
+	@SuppressWarnings("deprecation")
 	public void moveUp(final int blocks)
 	{
 		if(blocks <= 0)
@@ -61,6 +125,7 @@ public abstract class Zone
 			}
 			Block topNorthCorner = top.getLocation().clone().add(0, 0, -((this.sizeZ - 1) / 2)).getBlock();
 			Block topNorthWestCorner = topNorthCorner.getLocation().clone().add(-((this.sizeX - 1) / 2), 0, 0).getBlock();
+			boolean first = true;
 			for(int i = 0; i > -this.sizeY - 1; i--)
 			{
 				for(int j = 0; j < this.sizeX; j++)
@@ -68,6 +133,14 @@ public abstract class Zone
 					for(int k = 0; k < this.sizeZ; k++)
 					{
 						Block tmp = topNorthWestCorner.getLocation().clone().add(j, i, k).getBlock();
+						if(first)
+						{
+							if(tmp.getRelative(BlockFace.UP).getType().equals(Material.BEDROCK))
+							{
+								return;
+							}
+							continue;
+						}
 						if(tmp.getLocation().clone().add(0, 1, 0).getBlock().isEmpty())
 						{
 							Collection<Entity> es = tmp.getWorld().getNearbyEntities(
@@ -87,6 +160,11 @@ public abstract class Zone
 								tmp.getTypeId(), tmp.getData(), true);
 						tmp.getLocation().clone().getBlock().setType(Material.AIR);
 					}
+				}
+				if(first)
+				{
+					first = false;
+					i++;
 				}
 			}
 			this.center = this.center.clone().add(0, blocks, 0);
@@ -116,6 +194,7 @@ public abstract class Zone
 			}
 			Block topNorthCorner = top.getLocation().clone().add(0, 0, -((this.sizeZ - 1) / 2)).getBlock();
 			Block topNorthWestCorner = topNorthCorner.getLocation().clone().add(-((this.sizeX - 1) / 2), 0, 0).getBlock();
+			boolean first = true;
 			for(int i = 0; i < this.sizeY + 1; i++)
 			{
 				for(int j = 0; j < this.sizeX; j++)
@@ -123,6 +202,14 @@ public abstract class Zone
 					for(int k = 0; k < this.sizeZ; k++)
 					{
 						Block tmp = topNorthWestCorner.getLocation().clone().add(j, i, k).getBlock();
+						if(first)
+						{
+							if(tmp.getRelative(BlockFace.DOWN).getType().equals(Material.BEDROCK))
+							{
+								return;
+							}
+							continue;
+						}
 						if(tmp.getLocation().clone().add(0, 1, 0).getBlock().isEmpty())
 						{
 							Collection<Entity> es = tmp.getWorld().getNearbyEntities(
@@ -142,6 +229,11 @@ public abstract class Zone
 								tmp.getTypeId(), tmp.getData(), true);
 						tmp.getLocation().clone().getBlock().setType(Material.AIR);
 					}
+				}
+				if(first)
+				{
+					first = false;
+					i--;
 				}
 			}
 			this.center = this.center.clone().add(0, -blocks, 0);

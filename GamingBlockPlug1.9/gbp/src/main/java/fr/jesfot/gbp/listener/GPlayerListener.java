@@ -1,5 +1,8 @@
 package fr.jesfot.gbp.listener;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,15 +26,20 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Sign;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.economy.PlayerEconomy;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
+import fr.jesfot.gbp.shop.ShopObject;
 import fr.jesfot.gbp.subsytems.HalfBedSys;
 import fr.jesfot.gbp.utils.ItemInventory;
+import fr.jesfot.gbp.utils.Utils;
 
 public class GPlayerListener implements Listener
 {
@@ -148,6 +156,76 @@ public class GPlayerListener implements Listener
 				ItemInventory.openPlayerInv(event.getPlayer(),
 						this.gbp.getEconomy().getPEconomy(event.getPlayer()).getMenu());
 				event.setCancelled(true);
+			}
+		}
+		else if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+		{
+			if(event.getClickedBlock().getType().equals(Material.WALL_SIGN))
+			{
+				Sign sign = (Sign)event.getClickedBlock().getState().getData();
+				ShopObject shop = this.gbp.getShops().getShop(event.getClickedBlock().getRelative(sign.getAttachedFace())
+						.getLocation());
+				if(shop != null)
+				{
+					shop.updateSign();
+					if(!PermissionsHelper.testPermission(event.getPlayer(), "GamingBlockPlug.shops.use", true,
+							"&cYou are not allowed to use shops."))
+					{
+						event.setCancelled(true);
+						return;
+					}
+					if(shop.getOwner().getUniqueId().equals(event.getPlayer().getUniqueId()))
+					{
+						event.getPlayer().sendMessage(Utils.color(this.gbp.getLang().get("shop.uses",
+								"&7This shop has been used a total of &r<amount> &7time(s).")
+								.replaceAll("<amount>", shop.getTimesUsed() + "")));
+					}
+					else
+					{
+						if(!shop.canAcceptAnotherTransaction())
+						{
+							event.getPlayer().sendMessage(Utils.color(this.gbp.getLang().get("shop.out",
+								"&cThis shop is out of items.")));
+							event.setCancelled(true);
+							return;
+						}
+						PlayerEconomy eco = this.gbp.getEconomy().getPEconomy(event.getPlayer());
+						if(!eco.hasEnough(shop.getPrice()))
+						{
+							event.getPlayer().sendMessage(Utils.color(this.gbp.getLang()
+									.get("economy.notenough", "Not enought money !")));
+							return;
+						}
+						this.gbp.getEconomy().pay(event.getPlayer(), shop.getOwner(), shop.getPrice());
+						ItemStack is = new ItemStack(shop.getItem());
+						is.setAmount(shop.getAmount());
+						shop.getInventory().removeItem(is);
+						HashMap<Integer, ItemStack> excess = event.getPlayer().getInventory().addItem(is);
+						for(Entry<Integer, ItemStack> me : excess.entrySet())
+						{
+							event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), me.getValue());
+						}
+						String pName;
+						if(!is.getItemMeta().hasDisplayName())
+						{
+							pName = is.getType().name().replace('_', ' ').toLowerCase() + "(s)";
+						}
+						else
+						{
+							pName = is.getItemMeta().getDisplayName() + "(s)";
+						}
+						event.getPlayer().sendMessage(Utils.color(this.gbp.getLang()
+								.get("shop.send").replaceAll("<item>", pName).replaceAll("<money>", shop.getPrice()+"")
+								.replaceAll("<player>", shop.getOwner().getName())));
+						if(shop.getOwner().isOnline())
+						{
+							shop.getOwner().getPlayer().sendMessage(Utils.color(this.gbp.getLang()
+								.get("shop.receive").replaceAll("<item>", pName).replaceAll("<money>", shop.getPrice()+"")
+								.replaceAll("<player>", event.getPlayer().getName())));
+						}
+						shop.addUse();
+					}
+				}
 			}
 		}
 	}

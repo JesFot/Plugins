@@ -11,21 +11,20 @@ import fr.jesfot.gbp.permission.PermissionsHelper;
 
 public class LogMessageCommand extends CommandBase
 {
-	private String usageMessage;
 	private GamingBlockPlug_1_9 gbp;
 	
 	public LogMessageCommand(GamingBlockPlug_1_9 plugin)
 	{
 		super("logmessage");
 		this.gbp = plugin;
+		this.setRawUsageMessage("/<com> [set <text...>]");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.setlogmsg", PermissionDefault.OP,
 				"Allows you to edit the log-message", Permissions.globalGBP);
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		this.usageMessage = "Usage: /" + label + " [set <text...>]";
 		if(args.length == 0)
 		{
 			this.gbp.getConfigs().loadAll();
@@ -48,7 +47,7 @@ public class LogMessageCommand extends CommandBase
 		{
 			if(!args[0].equalsIgnoreCase("set"))
 			{
-				sender.sendMessage(ChatColor.RED + this.usageMessage);
+				this.sendUsage(sender, label);
 				return true;
 			}
 			if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.setlogmsg", true, null))
@@ -69,7 +68,7 @@ public class LogMessageCommand extends CommandBase
 		}
 		else
 		{
-			sender.sendMessage(ChatColor.RED + this.usageMessage);
+			this.sendUsage(sender, label);
 		}
 		return true;
 	}

@@ -104,7 +104,7 @@ public class EcoHelper
 							.replace("<money>", dble + Money.getSym()));
 					targetName = ((Player)target).getDisplayName();
 				}
-				player.sendMessage(this.gbp.getLang().get("economy.send")
+				sender.sendMessage(this.gbp.getLang().get("economy.send")
 						.replace("<money>", dble + Money.getSym())
 						.replace("<player>", targetName));
 			}

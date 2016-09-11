@@ -19,14 +19,16 @@ public class GPassNightCommand extends CommandBase
 		this.hbs = new HalfBedSys(plugin);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.passnight", PermissionDefault.OP,
 				"Allows you to force the day to come...", Permissions.globalGBP);
+		//this.disableCommand("This command does not work correctly, so it has been desactivated.");
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
 		if(PermissionsHelper.testPermission(sender, "GamingBlockPlug.passnight", true, "You are not allowed to force"
 				+ " this system !"))
 		{
+			this.hbs.updatePlayers();
 			this.hbs.passNight(this.hbs.getPlayersInBed());
 		}
 		return true;
