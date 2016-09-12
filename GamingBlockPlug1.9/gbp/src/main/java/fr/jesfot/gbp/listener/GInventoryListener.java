@@ -117,7 +117,7 @@ public class GInventoryListener implements Listener
 		String inventoryName = inventory.getName();
 		if(inventoryName.toLowerCase().contains("bank"))
 		{
-			this.gbp.getEconomy().getPEconomy(player).setInventory(inventory);
+			this.gbp.getEconomy().getPEconomy(player).setInventory(inventory).storeInventory();
 		}
 		else if(inventoryName.toLowerCase().contains("commun"))
 		{

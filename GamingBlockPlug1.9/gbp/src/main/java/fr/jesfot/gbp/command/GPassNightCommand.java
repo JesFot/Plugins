@@ -19,7 +19,7 @@ public class GPassNightCommand extends CommandBase
 		this.gbp = plugin;
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.passnight", PermissionDefault.OP,
 				"Allows you to force the day to come...", Permissions.globalGBP);
-		this.disableCommand("This command does not work correctly, so it has been desactivated.");
+		//this.disableCommand("This command does not work correctly, so it has been desactivated.");
 	}
 	
 	@Override

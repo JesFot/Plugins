@@ -57,7 +57,7 @@ public class GWorldListener implements Listener
 	}
 
 	@EventHandler
-	public void onLighningStricke(final LightningStrikeEvent event)
+	public void onLightningStrike(final LightningStrikeEvent event)
 	{
 		// Code ...
 	}

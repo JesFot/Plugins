@@ -227,6 +227,20 @@ public class GPlayerListener implements Listener
 					}
 				}
 			}
+			else if(event.getClickedBlock().getType().equals(Material.CHEST))
+			{
+				ShopObject shop = this.gbp.getShops().getShop(event.getClickedBlock().getLocation());
+				if(shop != null)
+				{
+					if(!event.getPlayer().getUniqueId().equals(shop.getOwner().getUniqueId()))
+					{
+						event.getPlayer().sendMessage("You are not allowed to open other's chests...");
+						event.setCancelled(true);
+						return;
+					}
+					return;
+				}
+			}
 		}
 	}
 	
@@ -267,12 +281,12 @@ public class GPlayerListener implements Listener
 	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
 	{
 		Player player = event.getPlayer();
-		this.hbs.updatePlayers().removePlayerInBed(player).endPassNight();
 		if(player.getName().equalsIgnoreCase("JesFot"))
 		{
 			player.sendMessage("Wake Full time: " + player.getWorld().getFullTime());
 			player.sendMessage("Wake Relative time: " + player.getWorld().getTime());
 		}
+		this.hbs.updatePlayers().removePlayerInBed(player).endPassNight();
 		if(player.getWorld().getTime() <= 2)
 		{
 			player.setHealth(player.getHealth() + 2);
@@ -326,6 +340,6 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerTeleport(final PlayerTeleportEvent event)
 	{
-		// Code ...
+		event.getPlayer().sendRawMessage("La téléportation vas bientot être arrété, préparez-vous...");
 	}
 }

@@ -116,7 +116,14 @@ public class ShopObject
 		signBlock.setLine(0, ChatColor.BOLD + "[shop]");
 		signBlock.setLine(1, "Selling: " + ChatColor.BOLD + this.amount);
 		signBlock.setLine(2, ChatColor.GREEN + "" + this.price + Money.getSym());
-		signBlock.setLine(3, this.SellItem.getItemMeta().getDisplayName());
+		if(!this.SellItem.getItemMeta().hasDisplayName())
+		{
+			signBlock.setLine(3, this.SellItem.getType().name().replaceAll("_", " ").toLowerCase());
+		}
+		else
+		{
+			signBlock.setLine(3, this.SellItem.getItemMeta().getDisplayName());
+		}
 		
 		signBlock.update(true);
 	}
