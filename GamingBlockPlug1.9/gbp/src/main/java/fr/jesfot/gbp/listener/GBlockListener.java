@@ -119,6 +119,24 @@ public class GBlockListener implements Listener
 						event.getPlayer().sendMessage(ChatColor.RED + "The price (l 3) needs to be a number.");
 						return;
 					}
+					String iName;
+					ItemStack is = event.getPlayer().getInventory().getItemInOffHand();
+					String n = is.getItemMeta().getDisplayName();
+					if(!event.getLine(3).isEmpty())
+					{
+						iName = event.getLine(3);
+					}
+					else
+					{
+						if(is.getItemMeta().hasDisplayName())
+						{
+							iName = n;
+						}
+						else
+						{
+							iName = is.getType().name().replace('_', ' ').toLowerCase();
+						}
+					}
 					relBlock.getRelative(sign.getFacing()).setType(Material.WALL_SIGN);
 					Sign newSign = (Sign)relBlock.getRelative(sign.getFacing()).getState();
 					
@@ -129,18 +147,12 @@ public class GBlockListener implements Listener
 					newSign.setLine(0, ChatColor.BOLD + "[shop]");
 					newSign.setLine(1, "Selling: " + ChatColor.BOLD + amount);
 					newSign.setLine(2, "" + ChatColor.RED + price + Money.getSym());
-					ItemStack is = event.getPlayer().getInventory().getItemInOffHand();
-					String n = is.getItemMeta().getDisplayName();
-					if(!is.getItemMeta().hasDisplayName())
-					{
-						n = is.getType().name().replace('_', ' ').toLowerCase();
-					}
-					newSign.setLine(3, n);
+					newSign.setLine(3, iName);
 					newSign.update();
 					signBlock.update();
 					
 					ShopObject shop = new ShopObject(event.getPlayer(), price, amount, 0,
-							relBlock.getLocation(), newSign.getLocation(), is);
+							relBlock.getLocation(), newSign.getLocation(), is, iName);
 					this.gbp.getShops().addShop(shop);
 				}
 			}
@@ -172,7 +184,7 @@ public class GBlockListener implements Listener
 			{
 				return;
 			}
-			if(event.getPlayer().getUniqueId().equals(shop.getOwner().getUniqueId()))
+			if(shop.isOwner(event.getPlayer()))
 			{
 				if(!PermissionsHelper.testPermission(event.getPlayer(), "GamingBlockPlug.shops.destroy", false,
 						"&cYou are not allowed to destroy your shops."))

@@ -1,5 +1,8 @@
 package fr.jesfot.gbp.shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -14,6 +17,7 @@ import fr.jesfot.gbp.utils.Utils;
 public class ShopObject
 {
 	private OfflinePlayer owner;
+	private List<OfflinePlayer> collabs;
 	private Double price;
 	private Integer amount;
 	private Integer timesUsed;
@@ -21,8 +25,10 @@ public class ShopObject
 	private Location signLocation;
 	
 	private ItemStack SellItem;
+	private String itemName;
 	
-	public ShopObject(OfflinePlayer player, final double prce, final int amt, final int amtUsed, Location loc, Location Sloc, ItemStack item)
+	public ShopObject(OfflinePlayer player, final double prce, final int amt, final int amtUsed, Location loc,
+			Location Sloc, ItemStack item, final String p_itemName)
 	{
 		this.owner = player;
 		this.price = Double.valueOf(prce);
@@ -32,6 +38,9 @@ public class ShopObject
 		this.location = loc;
 		
 		this.SellItem = item;
+		this.itemName = p_itemName;
+		
+		this.collabs = new ArrayList<OfflinePlayer>();
 		
 		this.updateSign();
 	}
@@ -56,9 +65,35 @@ public class ShopObject
 		return this.SellItem;
 	}
 	
+	public String getShowedName()
+	{
+		return this.itemName;
+	}
+	
 	public OfflinePlayer getOwner()
 	{
 		return this.owner;
+	}
+	
+	public List<OfflinePlayer> getCollabs()
+	{
+		return this.collabs;
+	}
+	
+	public boolean isOwner(OfflinePlayer player)
+	{
+		if(player.getUniqueId().equals(this.getOwner().getUniqueId()))
+		{
+			return true;
+		}
+		for(OfflinePlayer collab : this.collabs)
+		{
+			if(collab.getUniqueId().equals(player.getUniqueId()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public double getPrice()
@@ -85,6 +120,22 @@ public class ShopObject
 	{
 		this.owner = player;
 		this.updateSign();
+	}
+	
+	public void addCollab(OfflinePlayer player)
+	{
+		if(!this.isOwner(player))
+		{
+			this.collabs.add(player);
+		}
+	}
+	
+	public void removeCollab(OfflinePlayer player)
+	{
+		if(this.isOwner(player))
+		{
+			this.collabs.remove(player);
+		}
 	}
 	
 	public void setPrice(double prx)
@@ -116,14 +167,7 @@ public class ShopObject
 		signBlock.setLine(0, ChatColor.BOLD + "[shop]");
 		signBlock.setLine(1, "Selling: " + ChatColor.BOLD + this.amount);
 		signBlock.setLine(2, ChatColor.GREEN + "" + this.price + Money.getSym());
-		if(!this.SellItem.getItemMeta().hasDisplayName())
-		{
-			signBlock.setLine(3, this.SellItem.getType().name().replaceAll("_", " ").toLowerCase());
-		}
-		else
-		{
-			signBlock.setLine(3, this.SellItem.getItemMeta().getDisplayName());
-		}
+		signBlock.setLine(3, this.itemName);
 		
 		signBlock.update(true);
 	}

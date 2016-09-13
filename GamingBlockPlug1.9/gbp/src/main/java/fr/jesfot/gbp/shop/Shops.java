@@ -26,6 +26,8 @@ import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
+import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class Shops
 {
@@ -107,6 +109,13 @@ public class Shops
 			shopConfig.setDouble("Price", s.getPrice());
 			shopConfig.setInt("Amount", s.getAmount());
 			shopConfig.setInt("Times_Used", s.getTimesUsed());
+			shopConfig.setString("DisplayItemName", s.getShowedName());
+			NBTTagList collabListConf = shopConfig.getList("Collabs", new NBTTagString().getTypeId());
+			for(OfflinePlayer collab : s.getCollabs())
+			{
+				collabListConf.add(new NBTTagString(collab.getUniqueId().toString()));
+			}
+			shopConfig.set("Collabs", collabListConf);
 			NBTTagCompound itemConfig = shopConfig.getCompound("Item");
 			ItemStack is = s.getItem();
 			ItemMeta im = is.getItemMeta();
@@ -178,6 +187,7 @@ public class Shops
 					double price = shopConfig.getDouble("Price");
 					int amount = shopConfig.getInt("Amount");
 					int timesUsed = shopConfig.getInt("Times_Used");
+					String imae = shopConfig.getString("DisplayItemName");
 					
 					NBTTagCompound itemConfig = shopConfig.getCompound("Item");
 					MaterialData data = NBTConfig.getMaterialData(itemConfig, "Data");
@@ -199,7 +209,14 @@ public class Shops
 					is.setItemMeta(im);
 					is.addUnsafeEnchantments(NBTConfig.getEnchantments(itemConfig, "enchs"));
 					
-					ShopObject shop = new ShopObject(shopOwner, price, amount, timesUsed, loc, signLocation, is);
+					ShopObject shop = new ShopObject(shopOwner, price, amount, timesUsed, loc, signLocation, is, imae);
+					NBTTagList collabsConfig = shopConfig.getList("Collabs", 8);
+					for(int i = 0; i < collabsConfig.size(); i++)
+					{
+						String str = collabsConfig.getString(i);
+						UUID id = UUID.fromString(str);
+						shop.addCollab(this.gbp.getServer().getOfflinePlayer(id));
+					}
 					shop.updateSign();
 					this.addShop(shop);
 				}

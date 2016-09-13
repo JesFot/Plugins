@@ -2,6 +2,7 @@ package fr.jesfot.gbp.subsytems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -80,11 +81,13 @@ public class HalfBedSys
 	
 	public HalfBedSys removePlayerInBed(Player player)
 	{
-		for(Player pl : this.playersInBed)
+		Iterator<Player> pls = this.playersInBed.iterator();
+		for(;pls.hasNext();)
 		{
+			Player pl = pls.next();
 			if(pl.getUniqueId() == player.getUniqueId())
 			{
-				this.playersInBed.remove(pl);
+				pls.remove();
 				this.playersInBedInt = this.playersInBed.size();
 			}
 		}
@@ -93,11 +96,13 @@ public class HalfBedSys
 	
 	public HalfBedSys removePlayer(Player player)
 	{
-		for(Player pl : this.players)
+		Iterator<Player> pls = this.players.iterator();
+		for(;pls.hasNext();)
 		{
+			Player pl = pls.next();
 			if(pl.getUniqueId() == player.getUniqueId())
 			{
-				this.players.remove(pl);
+				pls.remove();
 				this.playersB = this.getPlayersA();
 				this.totalPlayers = this.players.size();
 			}

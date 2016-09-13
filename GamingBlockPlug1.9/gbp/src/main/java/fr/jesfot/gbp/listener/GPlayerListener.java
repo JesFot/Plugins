@@ -174,7 +174,7 @@ public class GPlayerListener implements Listener
 						event.setCancelled(true);
 						return;
 					}
-					if(shop.getOwner().getUniqueId().equals(event.getPlayer().getUniqueId()))
+					if(shop.isOwner(event.getPlayer()))
 					{
 						event.getPlayer().sendMessage(Utils.color(this.gbp.getLang().get("shop.uses",
 								"&7This shop has been used a total of &r<amount> &7time(s).")
@@ -232,7 +232,7 @@ public class GPlayerListener implements Listener
 				ShopObject shop = this.gbp.getShops().getShop(event.getClickedBlock().getLocation());
 				if(shop != null)
 				{
-					if(!event.getPlayer().getUniqueId().equals(shop.getOwner().getUniqueId()))
+					if(!shop.isOwner(event.getPlayer()))
 					{
 						event.getPlayer().sendMessage("You are not allowed to open other's chests...");
 						event.setCancelled(true);

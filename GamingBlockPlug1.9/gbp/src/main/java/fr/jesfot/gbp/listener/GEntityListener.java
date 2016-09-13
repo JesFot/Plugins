@@ -5,6 +5,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 
@@ -29,7 +31,10 @@ public class GEntityListener implements Listener
 	@EventHandler(priority = EventPriority.LOW)
 	public void onEntityDamage(final EntityDamageByEntityEvent event)
 	{
-		// Code ...
+		if(event.getCause().equals(DamageCause.FALL))
+		{
+			event.setDamage(DamageModifier.BASE, event.getDamage() - 1);
+		}
 	}
 
 	@EventHandler
