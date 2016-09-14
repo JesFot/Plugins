@@ -1,21 +1,32 @@
 package fr.jesfot.gbp.listener;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.conversations.Conversation;
+import org.bukkit.conversations.ConversationContext;
+import org.bukkit.conversations.ConversationFactory;
+import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -36,6 +47,9 @@ import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.economy.PlayerEconomy;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
+import fr.jesfot.gbp.secure.LoginPrompt;
+import fr.jesfot.gbp.secure.RegisterPrompt;
+import fr.jesfot.gbp.secure.SecurityLoginSys;
 import fr.jesfot.gbp.shop.ShopObject;
 import fr.jesfot.gbp.subsytems.HalfBedSys;
 import fr.jesfot.gbp.utils.ItemInventory;
@@ -45,11 +59,13 @@ public class GPlayerListener implements Listener
 {
 	private final GamingBlockPlug_1_9 gbp;
 	private final HalfBedSys hbs;
+	private final SecurityLoginSys sls;
 	
 	public GPlayerListener(GamingBlockPlug_1_9 plugin)
 	{
 		this.gbp = plugin;
 		this.hbs = new HalfBedSys(plugin);
+		this.sls = new SecurityLoginSys(plugin);
 		this.regPerms();
 	}
 	
@@ -77,6 +93,30 @@ public class GPlayerListener implements Listener
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
+		// Check login
+		ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
+		final Map<Object, Object> data = new HashMap<Object, Object>();
+		data.put("tries", Integer.valueOf(0));
+		factory.withInitialSessionData(data).withLocalEcho(false).withPrefix(new ConversationPrefix(){
+			public String getPrefix(ConversationContext context)
+			{
+				return ChatColor.GREEN + "Login" + ChatColor.RESET + " ";
+			}
+		});
+		Conversation conv;
+		this.sls.addLogin(player);
+		if(this.sls.hasAccount(player))
+		{
+			player.sendMessage(ChatColor.RED + "Please enter your password :");
+			conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
+		}
+		else
+		{
+			player.sendMessage(ChatColor.RED + "Register with a new password :");
+			conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
+		}
+		conv.begin();
+		// End check login
 		String lm = event.getJoinMessage();
 		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 		boolean isMasked = playerConf.readNBTFromFile().getCopy().getBoolean("Masked");
@@ -137,7 +177,11 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
-		// Code ...
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
 	}
 
 	@EventHandler
@@ -149,6 +193,11 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onRightClick(PlayerInteractEvent event)
 	{
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
 		if(event.getAction().equals(Action.RIGHT_CLICK_AIR))
 		{
 			if(event.getMaterial().equals(Material.DEAD_BUSH))
@@ -247,6 +296,11 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerChat(final AsyncPlayerChatEvent event)
 	{
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
 		String msg = "";
 		if(event.getMessage().contains("${") && event.getMessage().contains("}"))
 		{
@@ -267,6 +321,11 @@ public class GPlayerListener implements Listener
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayergoBed(final PlayerBedEnterEvent event)
 	{
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
 		Player player = event.getPlayer();
 		this.hbs.updatePlayers().addPlayerInBed(player);
 		player.getServer().broadcastMessage(this.hbs.howManyInBedText());
@@ -281,15 +340,14 @@ public class GPlayerListener implements Listener
 	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
 	{
 		Player player = event.getPlayer();
-		if(player.getName().equalsIgnoreCase("JesFot"))
-		{
-			player.sendMessage("Wake Full time: " + player.getWorld().getFullTime());
-			player.sendMessage("Wake Relative time: " + player.getWorld().getTime());
-		}
 		this.hbs.updatePlayers().removePlayerInBed(player).endPassNight();
 		if(player.getWorld().getTime() <= 2)
 		{
-			player.setHealth(player.getHealth() + 2);
+			double nHealth = player.getHealth() + 2;
+			if(nHealth < 20)
+			{
+				player.setHealth(nHealth);
+			}
 		}
 	}
 	
@@ -340,6 +398,91 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerTeleport(final PlayerTeleportEvent event)
 	{
-		event.getPlayer().sendRawMessage("La téléportation vas bientot être arrété, préparez-vous...");
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
+		//event.getPlayer().sendRawMessage("La téléportation vas bientot être arrété, préparez-vous...");
+	}
+	
+	
+	
+	
+	
+	//Login
+
+	
+	@EventHandler(priority = EventPriority.LOW)
+	public void onEntityDamage(final EntityDamageByEntityEvent event)
+	{
+		if(event.getEntity() instanceof Player)
+		{
+			if(this.sls.isLogin((Player)event.getEntity()))
+			{
+				event.setCancelled(true);
+				return;
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.LOW)
+	public void onEntityDamage(final EntityDamageByBlockEvent event)
+	{
+		if(event.getEntity() instanceof Player)
+		{
+			if(this.sls.isLogin((Player)event.getEntity()))
+			{
+				event.setCancelled(true);
+				return;
+			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerDeath(final PlayerDeathEvent event)
+	{
+		if(this.sls.isLogin(event.getEntity()))
+		{
+			event.setKeepInventory(true);
+			event.getEntity().resetMaxHealth();
+			return;
+		}
+	}
+	
+	@EventHandler
+	public void onClick(InventoryClickEvent event)
+	{
+		if(event.getWhoClicked() instanceof Player)
+		{
+			if(this.sls.isLogin((Player)event.getWhoClicked()))
+			{
+				event.setCancelled(true);
+				return;
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onDrag(InventoryDragEvent event)
+	{
+		if(event.getWhoClicked() instanceof Player)
+		{
+			if(this.sls.isLogin((Player)event.getWhoClicked()))
+			{
+				event.setCancelled(true);
+				return;
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerCommand(final PlayerCommandPreprocessEvent event)
+	{
+		if(this.sls.isLogin(event.getPlayer()))
+		{
+			event.setCancelled(true);
+			return;
+		}
 	}
 }
