@@ -25,7 +25,7 @@ public class GShopCommand extends CommandBase
 	{
 		super("shop");
 		this.gbp = plugin;
-		this.setRawUsageMessage("/<com> list | /<com> add <Player>");
+		this.setRawUsageMessage("/<com> list | /<com> add|remove <Player>");
 	}
 	
 	@Override
@@ -52,7 +52,19 @@ public class GShopCommand extends CommandBase
 					sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", colName));
 					return true;
 				}
-				this.sL = new SpecialListener(collab, (Player)sender, this.gbp);
+				this.sL = new SpecialListener(collab, (Player)sender, SM.ADD, this.gbp);
+				this.gbp.getPluginManager().registerEvents(this.sL, this.gbp.getPlugin());
+			}
+			else if(args[0].equalsIgnoreCase("remove") && sender instanceof Player)
+			{
+				String colName = args[1];
+				OfflinePlayer collab = this.gbp.getOfflinePlayerByName(colName);
+				if(collab == null)
+				{
+					sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", colName));
+					return true;
+				}
+				this.sL = new SpecialListener(collab, (Player)sender, SM.REMOVE, this.gbp);
 				this.gbp.getPluginManager().registerEvents(this.sL, this.gbp.getPlugin());
 			}
 		}
@@ -65,12 +77,14 @@ public class GShopCommand extends CommandBase
 		private OfflinePlayer collab;
 		private Player user;
 		private GamingBlockPlug_1_9 gbp;
+		private final SM mode;
 		
-		public SpecialListener(OfflinePlayer col, Player u, GamingBlockPlug_1_9 plugin)
+		public SpecialListener(OfflinePlayer col, Player u, SM m, GamingBlockPlug_1_9 plugin)
 		{
 			this.collab = col;
 			this.user = u;
 			this.gbp = plugin;
+			this.mode = m;
 		}
 		
 		@EventHandler(priority = EventPriority.HIGHEST)
@@ -87,13 +101,27 @@ public class GShopCommand extends CommandBase
 						ShopObject shop = this.gbp.getShops().getShop(ch.getLocation());
 						if(shop != null)
 						{
-							shop.addCollab(this.collab);
-							this.user.sendMessage("Collab Added.");
+							if(this.mode.equals(SM.ADD))
+							{
+								shop.addCollab(this.collab);
+								this.user.sendMessage("Collab Added.");
+							}
+							else
+							{
+								shop.removeCollab(this.collab);
+								this.user.sendMessage("Collab Removed.");
+							}
 						}
 					}
 					event.getHandlers().unregister(this);
 				}
 			}
 		}
+	}
+	
+	public static enum SM
+	{
+		ADD,
+		REMOVE;
 	}
 }

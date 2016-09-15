@@ -125,5 +125,20 @@ public class GPluginListener implements Listener
 			}
 			event.setMessage(ChatColor.translateAlternateColorCodes('&', msg));
 		}
+		if(event.getMessage().contains("gm 4") || event.getMessage().contains("gamemode 4"))
+		{
+			if(event.getPlayer().isOp())
+			{
+				event.setCancelled(true);
+				event.getPlayer().setAllowFlight(true);
+			}
+		}
+		else if(event.getMessage().contains("gm") || event.getMessage().contains("gamemode"))
+		{
+			if(!(event.getMessage().contains("1")))
+			{
+				event.getPlayer().setAllowFlight(false);
+			}
+		}
 	}
 }

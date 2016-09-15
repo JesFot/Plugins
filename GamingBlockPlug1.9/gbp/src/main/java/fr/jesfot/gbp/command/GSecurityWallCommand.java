@@ -52,7 +52,8 @@ public class GSecurityWallCommand extends CommandBase
 			{
 				if(args[0].equalsIgnoreCase("add"))
 				{
-					this.sws.addToStorage(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockZ());
+					sender.sendMessage("Dissalowed due to bugs when recording walls...");
+					//this.sws.addToStorage(player.getWorld(), player.getLocation().getBlockX(), player.getLocation().getBlockZ());
 				}
 				else if(args[0].equalsIgnoreCase("remove"))
 				{
@@ -67,9 +68,10 @@ public class GSecurityWallCommand extends CommandBase
 			{
 				if(args[0].equalsIgnoreCase("add"))
 				{
-					int x = Utils.toInt(args[1], player.getLocation().getBlockX());
-					int z = Utils.toInt(args[2], player.getLocation().getBlockZ());
-					this.sws.addToStorage(player.getWorld(), x, z);
+					sender.sendMessage("Dissalowed due to bugs when recording walls...");
+					//int x = Utils.toInt(args[1], player.getLocation().getBlockX());
+					//int z = Utils.toInt(args[2], player.getLocation().getBlockZ());
+					//this.sws.addToStorage(player.getWorld(), x, z);
 				}
 				else if(args[0].equalsIgnoreCase("remove"))
 				{

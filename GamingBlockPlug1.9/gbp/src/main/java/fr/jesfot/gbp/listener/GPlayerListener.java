@@ -8,10 +8,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.conversations.Conversation;
+import org.bukkit.conversations.ConversationAbandonedEvent;
+import org.bukkit.conversations.ConversationAbandonedListener;
 import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -92,7 +95,7 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		Player player = event.getPlayer();
+		final Player player = event.getPlayer();
 		// Check login
 		ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
 		final Map<Object, Object> data = new HashMap<Object, Object>();
@@ -101,6 +104,14 @@ public class GPlayerListener implements Listener
 			public String getPrefix(ConversationContext context)
 			{
 				return ChatColor.GREEN + "Login" + ChatColor.RESET + " ";
+			}
+		}).addConversationAbandonedListener(new ConversationAbandonedListener(){
+			public void conversationAbandoned(ConversationAbandonedEvent event)
+			{
+				if(!event.gracefulExit())
+				{
+					player.kickPlayer("You must login until 5 minutes");
+				}
 			}
 		});
 		Conversation conv;
@@ -163,7 +174,7 @@ public class GPlayerListener implements Listener
 			String[] logmsgs = logmsg.split(" n ");
 			for(String str : logmsgs)
 			{
-				event.getPlayer().sendMessage(ChatColor.GOLD + str);
+				event.getPlayer().sendRawMessage(ChatColor.GOLD + str);
 			}
 		}
 	}
@@ -316,16 +327,15 @@ public class GPlayerListener implements Listener
 			}
 			event.setMessage(ChatColor.translateAlternateColorCodes('&', msg));
 		}
+		else
+		{
+			event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayergoBed(final PlayerBedEnterEvent event)
 	{
-		if(this.sls.isLogin(event.getPlayer()))
-		{
-			event.setCancelled(true);
-			return;
-		}
 		Player player = event.getPlayer();
 		this.hbs.updatePlayers().addPlayerInBed(player);
 		player.getServer().broadcastMessage(this.hbs.howManyInBedText());
@@ -344,7 +354,7 @@ public class GPlayerListener implements Listener
 		if(player.getWorld().getTime() <= 2)
 		{
 			double nHealth = player.getHealth() + 2;
-			if(nHealth < 20)
+			if(nHealth < player.getMaxHealth())
 			{
 				player.setHealth(nHealth);
 			}
@@ -445,6 +455,8 @@ public class GPlayerListener implements Listener
 		if(this.sls.isLogin(event.getEntity()))
 		{
 			event.setKeepInventory(true);
+			event.setKeepLevel(true);
+			event.setDeathMessage(event.getEntity().getDisplayName() + " died while login...");
 			event.getEntity().resetMaxHealth();
 			return;
 		}
@@ -457,6 +469,7 @@ public class GPlayerListener implements Listener
 		{
 			if(this.sls.isLogin((Player)event.getWhoClicked()))
 			{
+				event.setResult(Result.DENY);
 				event.setCancelled(true);
 				return;
 			}
@@ -470,6 +483,7 @@ public class GPlayerListener implements Listener
 		{
 			if(this.sls.isLogin((Player)event.getWhoClicked()))
 			{
+				event.setResult(Result.DENY);
 				event.setCancelled(true);
 				return;
 			}
