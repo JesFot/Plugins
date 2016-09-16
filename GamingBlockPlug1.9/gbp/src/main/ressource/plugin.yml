@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.10-BETA mc1.9.4
+version: 1.14 mc1.9.4
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -50,3 +50,6 @@ commands:
   island:
     description: Island control
     usage: /<command> [start]
+  ping:
+    description: pong!
+    usage: /<command>

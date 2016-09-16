@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -55,6 +56,7 @@ import fr.jesfot.gbp.secure.RegisterPrompt;
 import fr.jesfot.gbp.secure.SecurityLoginSys;
 import fr.jesfot.gbp.shop.ShopObject;
 import fr.jesfot.gbp.subsytems.HalfBedSys;
+import fr.jesfot.gbp.subsytems.SkinRestoreSys;
 import fr.jesfot.gbp.utils.ItemInventory;
 import fr.jesfot.gbp.utils.Utils;
 
@@ -63,12 +65,14 @@ public class GPlayerListener implements Listener
 	private final GamingBlockPlug_1_9 gbp;
 	private final HalfBedSys hbs;
 	private final SecurityLoginSys sls;
+	private final SkinRestoreSys srs;
 	
 	public GPlayerListener(GamingBlockPlug_1_9 plugin)
 	{
 		this.gbp = plugin;
 		this.hbs = new HalfBedSys(plugin);
 		this.sls = new SecurityLoginSys(plugin);
+		this.srs = new SkinRestoreSys(plugin);
 		this.regPerms();
 	}
 	
@@ -88,18 +92,31 @@ public class GPlayerListener implements Listener
 		Location loc = event.getPlayer().getLocation();
 		if(!loc.getWorld().getBlockAt(loc).isEmpty())
 		{
+			this.gbp.getLogger().info("Player " + event.getPlayer().getName() + " spawned in a block, teleport to world's"
+					+ " spawn location.");
 			event.getPlayer().teleport(loc.getWorld().getSpawnLocation(), TeleportCause.PLUGIN);
 		}
+		this.gbp.getLogger().info(event.getPlayer().getName() + " logged in with unique id '"
+				+ event.getPlayer().getUniqueId().toString() + "'");
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		final Player player = event.getPlayer();
+		this.gbp.getLogger().info("Starting SkinRestorerSystem....");
+		Bukkit.getScheduler().runTaskAsynchronously(this.gbp.getPlugin(), new Runnable(){
+			public void run()
+			{
+				GPlayerListener.this.srs.MAJSkin(player);
+			}
+		});
+		this.gbp.getLogger().info("SkinRestorerSystem future task launched for " + player.getName());
 		// Check login
 		ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
 		final Map<Object, Object> data = new HashMap<Object, Object>();
 		data.put("tries", Integer.valueOf(0));
+		data.put("kick", Boolean.FALSE);
 		factory.withInitialSessionData(data).withLocalEcho(false).withPrefix(new ConversationPrefix(){
 			public String getPrefix(ConversationContext context)
 			{
@@ -108,23 +125,28 @@ public class GPlayerListener implements Listener
 		}).addConversationAbandonedListener(new ConversationAbandonedListener(){
 			public void conversationAbandoned(ConversationAbandonedEvent event)
 			{
-				if(!event.gracefulExit())
+				if(!event.gracefulExit() && !((Boolean)event.getContext().getSessionData("kick")))
 				{
+					GamingBlockPlug_1_9.getMe().getLogger().info(player.getName()
+							+ " didn't login or register until 5 minutes.");
 					player.kickPlayer("You must login until 5 minutes");
 				}
 			}
 		});
 		Conversation conv;
+		this.gbp.getLogger().info("Starting Login system for " + player.getName() + "...");
 		this.sls.addLogin(player);
 		if(this.sls.hasAccount(player))
 		{
 			player.sendMessage(ChatColor.RED + "Please enter your password :");
 			conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
+			this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
 		}
 		else
 		{
 			player.sendMessage(ChatColor.RED + "Register with a new password :");
 			conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
+			this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
 		}
 		conv.begin();
 		// End check login
@@ -135,6 +157,7 @@ public class GPlayerListener implements Listener
 		playerConf.setString("DisplayName", player.getDisplayName()).writeNBTToFile();
 		if(isMasked)
 		{
+			this.gbp.getLogger().info(player.getName() + " is masked to other players.");
 			event.setJoinMessage("");
 			for(Player connected : this.gbp.getOnlinePlayers())
 			{
@@ -231,6 +254,7 @@ public class GPlayerListener implements Listener
 					if(!PermissionsHelper.testPermission(event.getPlayer(), "GamingBlockPlug.shops.use", true,
 							"&cYou are not allowed to use shops."))
 					{
+						this.gbp.getLogger().info(event.getPlayer().getName() + " tried to use a sign while not allowed.");
 						event.setCancelled(true);
 						return;
 					}
@@ -294,6 +318,7 @@ public class GPlayerListener implements Listener
 				{
 					if(!shop.isOwner(event.getPlayer()))
 					{
+						this.gbp.getLogger().info(event.getPlayer().getName() + " tried to open chest while not allowed.");
 						event.getPlayer().sendMessage("You are not allowed to open other's chests...");
 						event.setCancelled(true);
 						return;
@@ -356,6 +381,7 @@ public class GPlayerListener implements Listener
 			double nHealth = player.getHealth() + 2;
 			if(nHealth < player.getMaxHealth())
 			{
+				this.gbp.getLogger().info("Healing " + player.getName() + ". (1 heart -> " + nHealth/2 + ")");
 				player.setHealth(nHealth);
 			}
 		}

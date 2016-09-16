@@ -5,6 +5,8 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 
+import fr.jesfot.gbp.GamingBlockPlug_1_9;
+
 public class LoginPrompt extends StringPrompt
 {
 	private Player player;
@@ -29,6 +31,7 @@ public class LoginPrompt extends StringPrompt
 		{
 			this.player.sendRawMessage("Logged in !");
 			this.sls.endLogin(player);
+			GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " succesfuly logged in with his password.");
 			return Prompt.END_OF_CONVERSATION;
 		}
 		else
@@ -37,8 +40,10 @@ public class LoginPrompt extends StringPrompt
 			context.setSessionData("tries", tryes);
 			if(tryes >= 5)
 			{
+				context.setSessionData("kick", Boolean.TRUE);
 				this.player.kickPlayer("Invalid password 5 times...");
 				this.sls.endLogin(player);
+				GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " was kick for 5 invalid passwords.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			else

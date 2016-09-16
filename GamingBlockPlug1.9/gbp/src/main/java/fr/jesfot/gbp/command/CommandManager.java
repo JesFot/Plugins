@@ -43,6 +43,7 @@ public class CommandManager
 		{
 			try
 			{
+				plugin.getLogger().info("Starting registering " + cmd.getName() + " command...");
 				CommandManager.registerServerCommand(plugin, cmd);
 			}
 			catch(NullPointerException e)
@@ -51,6 +52,7 @@ public class CommandManager
 				continue;
 			}
 		}
+		plugin.getLogger().info("Succesfuly loaded " + commands.size() + " commands.");
 		commandsLoaded = true;
 	}
 	
@@ -72,6 +74,7 @@ public class CommandManager
 	protected static void unregisterServerCommand(JavaPlugin plugin, CommandBase command)
 	{
 		Validate.notNull(command, "That command cannot be null");
+		plugin.getLogger().info("Unregistering " + command.getName() + " command...");
 		plugin.getCommand(command.getName()).setPermission(Permissions.impossiblePermission.getName());
 		if(command.hasOtherNames())
 		{
@@ -97,6 +100,7 @@ public class CommandManager
 				continue;
 			}
 		}
+		plugin.getLogger().info("Succesfuly unregistred " + commands.size() + " commands.");
 		commands.clear();
 	}
 	

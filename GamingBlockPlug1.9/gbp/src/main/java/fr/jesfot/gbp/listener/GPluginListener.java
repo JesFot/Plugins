@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -129,6 +130,7 @@ public class GPluginListener implements Listener
 		{
 			if(event.getPlayer().isOp())
 			{
+				Command.broadcastCommandMessage(event.getPlayer(), "Changed is own gamemode to SURVIVAL_bis", false);
 				event.setCancelled(true);
 				event.getPlayer().setAllowFlight(true);
 			}

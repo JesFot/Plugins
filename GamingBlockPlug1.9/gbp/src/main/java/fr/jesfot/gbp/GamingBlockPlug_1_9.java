@@ -14,6 +14,7 @@ import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GIslandCommand;
 import fr.jesfot.gbp.command.GPassNightCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
+import fr.jesfot.gbp.command.GPingCommand;
 import fr.jesfot.gbp.command.GSecurityWallCommand;
 import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GShopCommand;
@@ -78,6 +79,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		this.lang = new LangConfig(this);
 		
+		this.getLogger().info("Loading configuration...");
+		
 		this.configs = new Configurations(this.plugin.getDataFolder());
 		Configuration cfg = new Configuration(new File(this.plugin.getDataFolder(), "GamingBlockPlug.yml"));
 		this.configs.setMainConfig(cfg);
@@ -97,26 +100,34 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
-				new LogMessageCommand(this), new GShopCommand(this));
+				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand());
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
 	
 	public void onEnable()
 	{
+		this.logger.info("Starting enabling plugin " + RefString.NAME + "...");
+		this.logger.info("Loading Variables system...");
 		this.vars = new VariableSys(new NBTSubConfig(this.mainNBTConfig));
 		this.vars.getFromFile();
 		this.vars.storeBool("plugin", true);
 		this.vars.storeToFile();
+		this.logger.info("Loaded !");
 		
+		this.logger.info("Registering Permissions...");
 		this.permissions.registerPerms();
+		this.logger.info("Registred !");
 		
+		this.logger.info("Loading economy & shop systems...");
 		this.economy = new GEconomy(this);
 		
 		this.shops.loadShops();
+		this.logger.info("Loaded !");
 		
 		CommandManager.loadCommands(this.plugin);
 		
+		this.logger.info("Loading worlds...");
 		this.mainNBTConfig.readNBTFromFile();
 		NBTTagList list = this.mainNBTConfig.getCopy().getList("LoadedWorlds", 8);
 		for(int i = 0; i < list.size(); i++)
@@ -124,7 +135,9 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 			String wName = list.getString(i);
 			WorldLoader.loadWorld(this, wName);
 		}
+		this.logger.info("Loaded " + list.size() + " worlds");
 		
+		this.logger.info("Initializing floating island...");
 		this.island = new IslandZone(this);
 		this.island.readCenter();
 		if(this.island.getCenter() == null)
@@ -132,6 +145,10 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 			this.logger.warning("No location stored for the island....");
 			this.island.disable();
 		}
+		this.logger.info("Island enabled !");
+		this.island.disable();
+		this.logger.info("Island disabled !");
+		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" enabled.");
 	}
 	
 	public void onDisable()

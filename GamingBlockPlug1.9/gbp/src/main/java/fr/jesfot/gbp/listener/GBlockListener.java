@@ -73,6 +73,11 @@ public class GBlockListener implements Listener
 					p.sendMessage(this.gbp.getLang().get("securitywall.placedisallow", "[Security_Wall] "
 							+ "You donnot have the right to make a wall."));
 				}
+				else
+				{
+					this.gbp.getLogger().info(p.getName() + " placed a new Security wall at "
+						+ event.getBlock().getLocation().toString());
+				}
 				return;
 			}
 			if(event.getLine(0).equalsIgnoreCase("[shop]"))
@@ -150,6 +155,9 @@ public class GBlockListener implements Listener
 					newSign.setLine(3, iName);
 					newSign.update();
 					signBlock.update();
+					
+					this.gbp.getLogger().info(event.getPlayer().getName() + " placed a new shop at "
+							+ relBlock.getLocation().toString());
 					
 					ShopObject shop = new ShopObject(event.getPlayer(), price, amount, 0,
 							relBlock.getLocation(), newSign.getLocation(), is, iName);

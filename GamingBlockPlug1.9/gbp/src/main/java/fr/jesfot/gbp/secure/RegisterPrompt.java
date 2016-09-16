@@ -5,6 +5,8 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 
+import fr.jesfot.gbp.GamingBlockPlug_1_9;
+
 public class RegisterPrompt extends StringPrompt
 {
 	private Player player;
@@ -39,14 +41,17 @@ public class RegisterPrompt extends StringPrompt
 				this.sls.register(this.player, input);
 				this.player.sendRawMessage("Succesfuly registred !");
 				this.sls.endLogin(player);
+				GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " succesfuly registred new password.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			tryes = Integer.valueOf(tryes.intValue() + 1);
 			context.setSessionData("tries", tryes);
 			if(tryes >= 5)
 			{
+				context.setSessionData("kick", Boolean.TRUE);
 				this.player.kickPlayer("Invalid second password 5 times...");
 				this.sls.endLogin(player);
+				GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " wrote 5 times two differents passwords.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			else
