@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.CommandBlock;
 import org.bukkit.command.BlockCommandSender;
-import org.bukkit.command.Command;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -125,22 +124,6 @@ public class GPluginListener implements Listener
 				msg += arg + "";
 			}
 			event.setMessage(ChatColor.translateAlternateColorCodes('&', msg));
-		}
-		if(event.getMessage().contains("gm 4") || event.getMessage().contains("gamemode 4"))
-		{
-			if(event.getPlayer().isOp())
-			{
-				Command.broadcastCommandMessage(event.getPlayer(), "Changed is own gamemode to SURVIVAL_bis", false);
-				event.setCancelled(true);
-				event.getPlayer().setAllowFlight(true);
-			}
-		}
-		else if(event.getMessage().contains("gm") || event.getMessage().contains("gamemode"))
-		{
-			if(!(event.getMessage().contains("1")))
-			{
-				event.getPlayer().setAllowFlight(false);
-			}
 		}
 	}
 }

@@ -318,6 +318,12 @@ public class GPlayerListener implements Listener
 				{
 					if(!shop.isOwner(event.getPlayer()))
 					{
+						if(PermissionsHelper.testPermissionSilent(event.getPlayer(), "GamingBlockPlug.shops.op", false))
+						{
+							this.gbp.getLogger().info(event.getPlayer().getName() + " Is opening an other's chest.");
+							event.getPlayer().sendMessage("You are a chest that is not yours...");
+							return;
+						}
 						this.gbp.getLogger().info(event.getPlayer().getName() + " tried to open chest while not allowed.");
 						event.getPlayer().sendMessage("You are not allowed to open other's chests...");
 						event.setCancelled(true);

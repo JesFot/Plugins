@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.jesfot.gbp.command.CommandManager;
 import fr.jesfot.gbp.command.GEcoCommand;
+import fr.jesfot.gbp.command.GFlyCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GIslandCommand;
 import fr.jesfot.gbp.command.GPassNightCommand;
@@ -100,7 +101,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
-				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand());
+				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -153,13 +154,21 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	
 	public void onDisable()
 	{
+		this.logger.info("Starting disabling plugin " + RefString.NAME + "...");
+		
+		this.logger.info("Unregistering Permissions...");
 		this.permissions.unregisterPerms();
+		this.logger.info("Done !");
 		
 		CommandManager.onPluginStopped(this.plugin);
 		
+		this.logger.info("Save & delete shops...");
 		this.shops.saveShops();
 		this.shops.subDeleteAll();
+		this.logger.info("Done !");
+
 		
+		this.logger.info("Saving loaded worlds...");
 		this.mainNBTConfig.readNBTFromFile();
 		NBTTagList list = new NBTTagList();
 		for(World w : this.getServer().getWorlds())
@@ -169,8 +178,12 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		NBTTagCompound a = this.mainNBTConfig.getCopy();
 		a.set("LoadedWorlds", list);
 		this.mainNBTConfig.setCopy(a).writeNBTToFile();
-		
+		this.logger.info("Saved " + list.size() + " worlds");
+
+		this.logger.info("Saving and turn off variables system...");
 		this.vars.storeToFile();
+		this.logger.info("Done !");
+		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" disabled.");
 	}
 	
 	// Getters :

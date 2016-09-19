@@ -38,7 +38,6 @@ public class BukkitPlugin extends JavaPlugin
 	{
 		try
 		{
-			getLogger().info("Plugin start !!");
 			this.gbp.onEnable();
 		}
 		catch(RuntimeException ex)
@@ -53,6 +52,7 @@ public class BukkitPlugin extends JavaPlugin
 			this.stopPlugin();
 			return;
 		}
+		getLogger().info("Registering listeners...");
 		final PluginManager pm = this.getServer().getPluginManager();
 		
 		final GPluginListener pluginListener = new GPluginListener(this.gbp);
@@ -65,6 +65,7 @@ public class BukkitPlugin extends JavaPlugin
 		pm.registerEvents(entityListener, this);
 		pm.registerEvents(playerListener, this);
 		pm.registerEvents(inventoryListener, this);
+		getLogger().info("Listeners registered !");
 	}
 	
 	@Override

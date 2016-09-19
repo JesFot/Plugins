@@ -53,3 +53,6 @@ commands:
   ping:
     description: pong!
     usage: /<command>
+  fly:
+    description: Allows you to fly
+    usage: /<command> [on|off]
