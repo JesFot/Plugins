@@ -32,6 +32,7 @@ import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
+import fr.jesfot.gbp.logging.GSecurityLogger;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.shop.Shops;
 import fr.jesfot.gbp.subsytems.VariableSys;
@@ -45,6 +46,8 @@ import net.minecraft.server.v1_9_R2.NBTTagString;
 public class GamingBlockPlug_1_9 extends ServerUtils
 {
 	private static GamingBlockPlug_1_9 PLUGIN;
+	
+	private static GSecurityLogger secureLogger;
 	
 	private final Logger logger;
 	private final JavaPlugin plugin;
@@ -67,6 +70,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.logger = p_logger;
 		this.plugin = p_plugin;
 		PLUGIN = this;
+		secureLogger = new GSecurityLogger(this.getConfigFolder("logs"), "GBP_logs.log");
 	}
 	
 	public void onLoad()
@@ -261,5 +265,10 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public static GamingBlockPlug_1_9 getMe()
 	{
 		return PLUGIN;
+	}
+	
+	public static GSecurityLogger getMyLogger()
+	{
+		return secureLogger;
 	}
 }

@@ -8,6 +8,7 @@ import org.bukkit.permissions.PermissionDefault;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
+import fr.jesfot.gbp.utils.Utils;
 
 public class GPassNightCommand extends CommandBase
 {
@@ -28,10 +29,17 @@ public class GPassNightCommand extends CommandBase
 		if(PermissionsHelper.testPermission(sender, "GamingBlockPlug.passnight", true, "You are not allowed to force"
 				+ " this system !"))
 		{
+			GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			for(Player pl : this.gbp.getServer().getOnlinePlayers())
 			{
 				pl.setSleepingIgnored(true);
 			}
+		}
+		else
+		{
+			GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+					+ command.getName() + " " + Utils.compile(args, 0, " "));
 		}
 		return true;
 	}

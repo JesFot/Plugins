@@ -12,6 +12,7 @@ import org.bukkit.permissions.PermissionDefault;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
+import fr.jesfot.gbp.utils.Utils;
 
 public class GFlyCommand extends CommandBase
 {
@@ -38,8 +39,12 @@ public class GFlyCommand extends CommandBase
 		player = (Player)sender;
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.fly", false, null))
 		{
+			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " tried to use /"
+					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			return true;
 		}
+		GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " used /"
+				+ command.getName() + " " + Utils.compile(args, 0, " "));
 		if(args.length == 0)
 		{
 			// Switch

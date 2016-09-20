@@ -98,6 +98,8 @@ public class GPlayerListener implements Listener
 		}
 		this.gbp.getLogger().info(event.getPlayer().getName() + " logged in with unique id '"
 				+ event.getPlayer().getUniqueId().toString() + "'");
+		GamingBlockPlug_1_9.getMyLogger().info(event.getPlayer().getName() + "[/" + event.getAddress().getHostAddress()
+				+ "] logged in with unique ID '" + event.getPlayer().getUniqueId().toString() + "'");
 	}
 	
 	@EventHandler
@@ -130,6 +132,8 @@ public class GPlayerListener implements Listener
 					GamingBlockPlug_1_9.getMe().getLogger().info(player.getName()
 							+ " didn't login or register until 5 minutes.");
 					player.kickPlayer("You must login until 5 minutes");
+					GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " was kicked because of no passwords until"
+							+ " 5 minutes.");
 				}
 			}
 		});
@@ -141,12 +145,15 @@ public class GPlayerListener implements Listener
 			player.sendMessage(ChatColor.RED + "Please enter your password :");
 			conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
 			this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
+			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " has already an account, asking for password...");
 		}
 		else
 		{
 			player.sendMessage(ChatColor.RED + "Register with a new password :");
 			conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
 			this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
+			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
+					+ "password...");
 		}
 		conv.begin();
 		// End check login
@@ -321,7 +328,7 @@ public class GPlayerListener implements Listener
 						if(PermissionsHelper.testPermissionSilent(event.getPlayer(), "GamingBlockPlug.shops.op", false))
 						{
 							this.gbp.getLogger().info(event.getPlayer().getName() + " Is opening an other's chest.");
-							event.getPlayer().sendMessage("You are a chest that is not yours...");
+							event.getPlayer().sendMessage("You are a openning chest that is not yours...");
 							return;
 						}
 						this.gbp.getLogger().info(event.getPlayer().getName() + " tried to open chest while not allowed.");

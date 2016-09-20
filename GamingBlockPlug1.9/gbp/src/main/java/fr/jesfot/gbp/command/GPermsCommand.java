@@ -35,8 +35,12 @@ public class GPermsCommand extends CommandBase
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.perms", true, null))
 		{
+			GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			return true;
 		}
+		GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+				+ command.getName() + " " + Utils.compile(args, 0, " "));
 		if(args.length < 1)
 		{
 			this.sendUsage(sender, label);

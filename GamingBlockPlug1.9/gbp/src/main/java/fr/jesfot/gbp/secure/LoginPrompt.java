@@ -32,18 +32,22 @@ public class LoginPrompt extends StringPrompt
 			this.player.sendRawMessage("Logged in !");
 			this.sls.endLogin(player);
 			GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " succesfuly logged in with his password.");
+			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " succesfuly logged in with his password.");
 			return Prompt.END_OF_CONVERSATION;
 		}
 		else
 		{
 			tryes = Integer.valueOf(tryes.intValue() + 1);
 			context.setSessionData("tries", tryes);
+			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " used wrong password ('" + input + "') for the "
+					+ tryes.intValue() + " time(s).");
 			if(tryes >= 5)
 			{
 				context.setSessionData("kick", Boolean.TRUE);
 				this.player.kickPlayer("Invalid password 5 times...");
 				this.sls.endLogin(player);
 				GamingBlockPlug_1_9.getMe().getLogger().info(player.getName() + " was kick for 5 invalid passwords.");
+				GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " kicked for wrong passwords.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			else

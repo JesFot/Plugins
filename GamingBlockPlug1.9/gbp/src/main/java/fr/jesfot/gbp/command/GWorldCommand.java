@@ -74,8 +74,12 @@ public class GWorldCommand extends CommandBase
 			}
 			if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.tp", true, null))
 			{
+				GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				return true;
 			}
+			GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			if(WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]))
 			{
 				Command.broadcastCommandMessage(sender,"Teleported "+ argu +" to the world "+args[1],true);
@@ -113,8 +117,12 @@ public class GWorldCommand extends CommandBase
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", false, null))
 				{
+					GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
+				GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				String seed = null;
 				WorldType wType = WorldType.NORMAL;
 				World.Environment env = World.Environment.NORMAL;
@@ -164,16 +172,24 @@ public class GWorldCommand extends CommandBase
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", true, null))
 				{
+					GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
+				GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				WorldLoader.unloadWorld(gbp, w);
 			}
 			else if(act.equalsIgnoreCase("options") && args.length >= 5)
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.conf", true, null))
 				{
+					GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " tried to use /"
+							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
+				GamingBlockPlug_1_9.getMyLogger().info(sender.getName() + " used /"
+						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				String opt = args[3];
 				String val = args[4];
 				if(opt.equalsIgnoreCase("gm") || opt.equalsIgnoreCase("gamemode"))
