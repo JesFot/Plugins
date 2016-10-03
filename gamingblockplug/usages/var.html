@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="/contents/eliryum_logo_book.ico" />
+	<title>Usage - Commande var</title>
+</head>
+<body>
+	<h1>Utilisation de la commande var du plugin Eliryum</h1>
+	<p>
+		<h3>Usage: /var &lt;varName&gt; or /var set &lt;varName&gt; &lt;type&gt; &lt;value&gt; or /var unset &lt;varName&gt;</h3>
+
+		Cette commande permet de voir le contenu, définir, modifier ou supprimer une variable.<br />
+		En utilisant '/var &lt;varName&gt;' vous pouvez voir le contenu de la variable 'varName' qui s'affichera dans le chat.<br />
+		Si la variable n'est pas définie, un 'null' vous seras envoyé.<br />
+		<br />
+		En utilisant '/var set &lt;varName&gt; ...' vous pouvez définir ou modifier une variable.<br />
+		le 'varName' correspond au nom de la variable; 'type' correspond au type de variable :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;'string' -> chaine de texte (ou simplement du texte),<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;'integer' -> nombre entier (comme -25; 0; 100 -> nombres sans virgules),<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;'boolean' -> vraie ou faux (accepte 'true'(1) et 'false'(0)),<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;'float' -> nombre (avec ou sans virgules).<br />
+		le 'value' correspond donc à la valeur que possèderas la variable.<br />
+		<br />
+		En utilisant '/var unset &lt;varName&gt;' vous pouvez supprimer la variable 'varName'.<br />
+		<br />
+		<br />
+
+		<u>Exemple :</u><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/var plugin' va retourner :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'Value: true'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/var test string une chaine de characteres...' enregistre la variable 'test'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/var test' va donc retourner :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'Value: une chaine de characteres...'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;Pour la supprimer :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/var unset test'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/var test' retournera :<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'Value: null'<br />
+
+		<h4>à voir : <a href="../tricks/chatvar.html">Utilisation des varibles de le chat</a>.</h4>
+
+		<h5><u>Permissions :</u><br/>
+		'/var &lt;varName&gt;' -> "GamingBlockPlug.var.view" -> defaut : tout le monde.<br />
+		'/var set|unset ...' -> "GamingBlockPlug.var.set" -> defaut : admins.</h5>
+	</p>
+	<footer>
+		<a href="./">Retour à l'index</a>
+	</footer>
+</body>
+</html>
