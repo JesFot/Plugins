@@ -171,4 +171,9 @@ public class PlayerEconomy
 		}
 		return false;
 	}
+
+	public Integer getBalanceInt()
+	{
+		return Integer.valueOf(Double.valueOf(this.getBalance()).intValue());
+	}
 }

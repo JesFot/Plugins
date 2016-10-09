@@ -20,6 +20,7 @@ import fr.jesfot.gbp.command.GSecurityWallCommand;
 import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GShopCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
+import fr.jesfot.gbp.command.GTpcCommand;
 import fr.jesfot.gbp.command.GVarCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
 import fr.jesfot.gbp.command.LogMessageCommand;
@@ -34,6 +35,7 @@ import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
 import fr.jesfot.gbp.logging.GSecurityLogger;
 import fr.jesfot.gbp.permission.Permissions;
+import fr.jesfot.gbp.scoreboard.ScoreboardManager;
 import fr.jesfot.gbp.shop.Shops;
 import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.ServerUtils;
@@ -54,6 +56,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	
 	private Configurations configs;
 	private NBTConfig mainNBTConfig;
+	private ScoreboardManager scoreManager;
 	private Permissions permissions;
 	private GEconomy economy;
 	private Shops shops;
@@ -97,6 +100,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		this.mainNBTConfig = new NBTConfig(this.plugin.getDataFolder(), "GamingBlockPlug_Config");
 		
+		this.scoreManager = new ScoreboardManager(this);
+		
 		this.permissions = new Permissions(this);
 		
 		this.shops = new Shops(this);
@@ -105,7 +110,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
-				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this));
+				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
+				new GTpcCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -153,6 +159,9 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.logger.info("Island enabled !");
 		this.island.disable();
 		this.logger.info("Island disabled !");
+		this.logger.info("Setupping scoreboard for Economy...");
+		this.scoreManager.registerObjective("money", "Money:");
+		this.logger.info("Scoreboard: ok !");
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" enabled.");
 	}
 	
@@ -211,6 +220,11 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public Configurations getConfigs()
 	{
 		return this.configs;
+	}
+	
+	public ScoreboardManager getScoreboardManager()
+	{
+		return this.scoreManager;
 	}
 	
 	public File getConfigFolder(String name)

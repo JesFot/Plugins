@@ -56,3 +56,6 @@ commands:
   fly:
     description: Allows you to fly
     usage: /<command> [on|off]
+  gtpc:
+    description: Teleportation...
+    usage: /<command> [player] <x> <y> <z>

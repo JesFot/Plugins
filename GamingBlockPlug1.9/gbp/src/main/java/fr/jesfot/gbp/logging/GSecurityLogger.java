@@ -1,7 +1,9 @@
 package fr.jesfot.gbp.logging;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,22 +18,22 @@ public class GSecurityLogger
 	private File logFolder;
 	private String backupFile;
 	
-	private boolean autoSave = true;
+	//private boolean autoSave = false;
 	
 	public GSecurityLogger(File folder, String logFileName)
 	{
 		this.logFolder = folder;
 		this.logFile = new File(folder, logFileName);
-		try
+		/*try
 		{
 			this.backupFile = FileUtils.readFileToString(this.logFile);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		this.log = new LinedFile(this.logFile);
-		this.prepare();
+		}*/
+		//this.log = new LinedFile(this.logFile);
+		//this.prepare();
 	}
 	
 	public String getDate()
@@ -112,7 +114,7 @@ public class GSecurityLogger
 	
 	public void setAutoSave(boolean state)
 	{
-		this.autoSave = state;
+		//this.autoSave = state;
 	}
 	
 	public void reload()
@@ -158,7 +160,7 @@ public class GSecurityLogger
 		this.log(Level.ALL, message);
 	}
 	
-	public void log(Level level, final String message)
+	/*public void log(Level level, final String message)
 	{
 		if(this.autoSave)
 		{
@@ -168,6 +170,34 @@ public class GSecurityLogger
 		if(this.autoSave)
 		{
 			this.save();
+		}
+	}*/
+	
+	public void log(Level lvl, final String message)
+	{
+		String f = "[" + this.getDate() + "] [" + lvl.getName() + "]: " + message;
+		try
+		{
+			if(!this.logFolder.exists())
+			{
+				this.logFolder.mkdirs();
+			}
+			if(!this.logFile.exists())
+			{
+				this.logFile.createNewFile();
+			}
+			
+			FileWriter fw = new FileWriter(this.logFile, true);
+			PrintWriter pw = new PrintWriter(fw);
+			
+			pw.println(f);
+			pw.flush();
+			pw.close();
+			fw.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

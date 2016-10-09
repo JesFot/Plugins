@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Objective;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 
@@ -66,6 +67,11 @@ public class GEconomy
 		{
 			this.addPlayer(target);
 		}
+		if(!target.getName().equalsIgnoreCase("JesFot"))
+		{
+			Objective o = this.gbp.getScoreboardManager().getObjective("money");
+			this.gbp.getScoreboardManager().setScore(o, target, this.economies.get(target).getBalanceInt());
+		}
 		return this.economies.get(target);
 	}
 	
@@ -73,7 +79,7 @@ public class GEconomy
 	{
 		if(this.playerExists(player))
 		{
-			this.economies.get(player).resetMoney();
+			this.getPEconomy(player).resetMoney();
 			return true;
 		}
 		this.addPlayer(player);
