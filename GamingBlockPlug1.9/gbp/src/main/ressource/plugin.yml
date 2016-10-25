@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.15 mc1.9.4
+version: 1.20 mc1.9.4
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
