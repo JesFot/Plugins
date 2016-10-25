@@ -18,6 +18,8 @@ import org.bukkit.entity.Player;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.command.helpers.TpaPrompt;
+import fr.jesfot.gbp.configuration.NBTConfig;
+import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.world.WorldComparator;
 
 public class GTpaCommand extends CommandBase
@@ -66,6 +68,15 @@ public class GTpaCommand extends CommandBase
 		if(player == null)
 		{
 			sender.sendMessage("Whut ?");
+			return true;
+		}
+		
+		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
+		NBTSubConfig playerTeam = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", teamName);
+		if(!playerTeam.readNBTFromFile().getCopy().getBoolean("CanUseTPA"))
+		{
+			sender.sendMessage("You are not allowed to use that command.");
 			return true;
 		}
 		

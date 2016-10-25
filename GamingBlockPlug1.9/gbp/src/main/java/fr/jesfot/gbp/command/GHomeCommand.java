@@ -43,7 +43,10 @@ public class GHomeCommand extends CommandBase
 		{
 			Player player = (Player)sender;
 			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+			String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
+			NBTSubConfig playerTeam = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", teamName);
 			NBTSubConfig homes = new NBTSubConfig(playerCfg, "Homes");
+			int maxHomes = playerTeam.getCopy().getInteger("ValuableHomes");
 			Location pLoc = player.getLocation();
 			if(args.length >= 1 && args[0].equalsIgnoreCase("list"))
 			{
@@ -82,6 +85,12 @@ public class GHomeCommand extends CommandBase
 			{
 				if(args[0].equalsIgnoreCase("set"))
 				{
+					int hsCount = homes.readNBTFromFile().getCopy().c().size();
+					if(hsCount >= maxHomes)
+					{
+						sender.sendMessage("You are limited to " + maxHomes + " homes.");
+						return true;
+					}
 					homes.readNBTFromFile().setLocation("Main", pLoc).writeNBTToFile();
 					Command.broadcastCommandMessage(sender, "This player registered new base home.", false);
 					return true;

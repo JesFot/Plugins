@@ -8,6 +8,10 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagList;
+import net.minecraft.server.v1_9_R2.NBTTagString;
+
 import fr.jesfot.gbp.command.CommandManager;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GFlyCommand;
@@ -41,9 +45,6 @@ import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.zoning.island.IslandZone;
-import net.minecraft.server.v1_9_R2.NBTTagCompound;
-import net.minecraft.server.v1_9_R2.NBTTagList;
-import net.minecraft.server.v1_9_R2.NBTTagString;
 
 public class GamingBlockPlug_1_9 extends ServerUtils
 {
@@ -159,6 +160,18 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.logger.info("Island enabled !");
 		this.island.disable();
 		this.logger.info("Island disabled !");
+		
+		this.logger.info("Loading team system...");
+		NBTSubConfig teamConfig = new NBTSubConfig(this.getConfigFolder("teams"), "TeamsData", "default");
+		teamConfig.readNBTFromFile().writeNBTToFile();
+		teamConfig.setString("ChatColor", "&0");
+		teamConfig.setString("DisplayName", "default");
+		teamConfig.setInteger("ValuableHomes", 2);
+		teamConfig.setBoolean("CanUseTPA", false);
+		teamConfig.setBoolean("CanUseWorld", false);
+		teamConfig.setBoolean("MultiShopsOwners", false);
+		this.logger.info("Team system: ok !");
+		
 		this.logger.info("Setupping scoreboard for Economy...");
 		this.scoreManager.registerObjective("money", "Money:");
 		this.logger.info("Scoreboard: ok !");

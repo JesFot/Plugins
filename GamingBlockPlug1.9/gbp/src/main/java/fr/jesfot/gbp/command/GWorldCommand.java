@@ -17,6 +17,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
+import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
@@ -50,6 +51,17 @@ public class GWorldCommand extends CommandBase
 		{
 			this.sendUsage(sender, label);
 			return true;
+		}
+		if(sender instanceof Player)
+		{
+			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), ((Player)sender).getUniqueId());
+			String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
+			NBTSubConfig playerTeam = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", teamName);
+			if(!playerTeam.readNBTFromFile().getCopy().getBoolean("CanUseWorld"))
+			{
+				sender.sendMessage("You are not allowed to use that command.");
+				return true;
+			}
 		}
 		if(args[0].equalsIgnoreCase("tp") && args.length >= 2)
 		{
