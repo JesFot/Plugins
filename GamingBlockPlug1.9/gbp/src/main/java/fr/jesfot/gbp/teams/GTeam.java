@@ -51,7 +51,7 @@ public class GTeam
 		thisConfig.readNBTFromFile();
 		this.displayName = thisConfig.getCopy().getString("DisplayName");
 		this.chatColor = thisConfig.getCopy().getString("ChatColor");
-		this.maxHomes = thisConfig.getCopy().getInteger("ValuableHomes");
+		this.maxHomes = thisConfig.getCopy().getInt("ValuableHomes");
 		this.canUseTpa = thisConfig.getCopy().getBoolean("CanUseTPA");
 		this.canUseWorld = thisConfig.getCopy().getBoolean("CanUseWorld");
 		this.canOpenShopsInGroup = thisConfig.getCopy().getBoolean("MultiShopsOwners");
