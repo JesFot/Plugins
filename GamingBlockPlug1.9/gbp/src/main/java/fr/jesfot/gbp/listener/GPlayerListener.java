@@ -47,6 +47,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
+import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.economy.PlayerEconomy;
 import fr.jesfot.gbp.permission.Permissions;
@@ -343,13 +344,22 @@ public class GPlayerListener implements Listener
 	}
 	
 	@EventHandler
-	public void onPlayerChat(final AsyncPlayerChatEvent event)
+	public void onPlayerChat(final AsyncPlayerChatEvent event) // Default format: "<%1$s> %2$s"
 	{
 		if(this.sls.isLogin(event.getPlayer()))
 		{
 			event.setCancelled(true);
 			return;
 		}
+		String teaming = "&7[";
+		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), event.getPlayer().getUniqueId());
+		String tUid = playerCfg.readNBTFromFile().getCopy().getString("UniqueID");
+		NBTSubConfig teamConfig = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", tUid);
+		teaming += teamConfig.readNBTFromFile().getCopy().getString("ChatColor");
+		teaming += teamConfig.readNBTFromFile().getCopy().getString("DisplayName");
+		teaming += "&r&7]&r";
+		teaming = ChatColor.translateAlternateColorCodes('&', teaming);
+		event.setFormat(teaming + "<%1$s> %2$s");
 		String msg = "";
 		if(event.getMessage().contains("${") && event.getMessage().contains("}"))
 		{

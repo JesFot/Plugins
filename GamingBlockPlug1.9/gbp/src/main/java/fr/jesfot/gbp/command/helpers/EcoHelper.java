@@ -14,10 +14,10 @@ import fr.jesfot.gbp.utils.ItemInventory;
 import fr.jesfot.gbp.utils.Utils;
 
 /**
- * Requested perms :<br />
- *  - '{@code GamingBlockPlug.economy.reset}'<br />
- *  - '{@code GamingBlockPlug.economy.see}'<br />
- *  - '{@code GamingBlockPlug.economy.passEm}'<br />
+ * Requested perms :<br>
+ *  - '{@code GamingBlockPlug.economy.reset}'<br>
+ *  - '{@code GamingBlockPlug.economy.see}'<br>
+ *  - '{@code GamingBlockPlug.economy.passEm}'<br>
  * 
  * 
  * @author JësFot
@@ -73,6 +73,7 @@ public class EcoHelper
 						this.gbp.getEconomy().pay(player, null, dble);
 						sender.sendMessage(this.gbp.getLang().get("economy.autoremove")
 								.replace("<money>", dble + Money.getSym()));
+						Command.broadcastCommandMessage(sender, "This player throw " + dble + " by the window", false);
 					}
 					return true;
 				}
@@ -82,6 +83,7 @@ public class EcoHelper
 			if(isPlayer)
 			{
 				this.gbp.getEconomy().pay(player, target, dble);
+				Command.broadcastCommandMessage(sender, "This player gave " + dble + " to " + target.getName(), false);
 				String targetName = target.getName();
 				if(target.isOnline())
 				{
@@ -97,6 +99,7 @@ public class EcoHelper
 			else
 			{
 				this.gbp.getEconomy().pay(null, target, dble);
+				Command.broadcastCommandMessage(sender, dble + "$ appear from nowhere and arrives to " + target.getName(), false);
 				String targetName = target.getName();
 				if(target.isOnline())
 				{
