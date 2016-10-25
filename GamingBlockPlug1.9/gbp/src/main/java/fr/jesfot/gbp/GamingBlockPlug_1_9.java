@@ -23,6 +23,7 @@ import fr.jesfot.gbp.command.GPingCommand;
 import fr.jesfot.gbp.command.GSecurityWallCommand;
 import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GShopCommand;
+import fr.jesfot.gbp.command.GTeamCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GTpcCommand;
 import fr.jesfot.gbp.command.GVarCommand;
@@ -42,6 +43,8 @@ import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.scoreboard.ScoreboardManager;
 import fr.jesfot.gbp.shop.Shops;
 import fr.jesfot.gbp.subsytems.VariableSys;
+import fr.jesfot.gbp.teams.GTeam;
+import fr.jesfot.gbp.teams.TeamManager;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.zoning.island.IslandZone;
@@ -65,6 +68,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	private LangConfig lang;
 	
 	private VariableSys vars;
+	
+	private TeamManager teams;
 	
 	private IslandZone island;
 	
@@ -112,7 +117,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
-				new GTpcCommand(this));
+				new GTpcCommand(this), new GTeamCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
@@ -162,14 +167,16 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.logger.info("Island disabled !");
 		
 		this.logger.info("Loading team system...");
-		NBTSubConfig teamConfig = new NBTSubConfig(this.getConfigFolder("teams"), "TeamsData", "default");
-		teamConfig.readNBTFromFile().writeNBTToFile();
-		teamConfig.setString("ChatColor", "&0");
-		teamConfig.setString("DisplayName", "default");
-		teamConfig.setInteger("ValuableHomes", 2);
-		teamConfig.setBoolean("CanUseTPA", false);
-		teamConfig.setBoolean("CanUseWorld", false);
-		teamConfig.setBoolean("MultiShopsOwners", false);
+		this.teams = new TeamManager(this);
+		this.teams.reloadTeams();
+		GTeam def = this.teams.getOrCreate("default");
+		def.setCanOpenShops(false);
+		def.setCanUseTpa(false);
+		def.setCanUseWorld(false);
+		def.setChatColor("&0");
+		def.setDisplayName("default");
+		def.setMaxHomes(2);
+		this.teams.saveAll();
 		this.logger.info("Team system: ok !");
 		
 		this.logger.info("Setupping scoreboard for Economy...");
@@ -206,6 +213,8 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		this.mainNBTConfig.setCopy(a).writeNBTToFile();
 		this.logger.info("Saved " + list.size() + " worlds");
 
+		this.teams.saveAll();
+		
 		this.logger.info("Saving and turn off variables system...");
 		this.vars.storeToFile();
 		this.logger.info("Done !");
@@ -267,6 +276,11 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	public VariableSys getVars()
 	{
 		return this.vars;
+	}
+	
+	public TeamManager getTeams()
+	{
+		return this.teams;
 	}
 	
 	public GEconomy getEconomy()

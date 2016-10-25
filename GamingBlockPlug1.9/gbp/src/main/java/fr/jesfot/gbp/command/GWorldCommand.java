@@ -56,8 +56,7 @@ public class GWorldCommand extends CommandBase
 		{
 			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), ((Player)sender).getUniqueId());
 			String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
-			NBTSubConfig playerTeam = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", teamName);
-			if(!playerTeam.readNBTFromFile().getCopy().getBoolean("CanUseWorld"))
+			if(!this.gbp.getTeams().getIfExists(teamName).canUseWorld())
 			{
 				sender.sendMessage("You are not allowed to use that command.");
 				return true;

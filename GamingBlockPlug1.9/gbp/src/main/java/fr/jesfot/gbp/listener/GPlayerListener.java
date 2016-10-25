@@ -343,8 +343,7 @@ public class GPlayerListener implements Listener
 						String tN = ownerCfg.readNBTFromFile().getCopy().getString("Team");
 						if(tN.equalsIgnoreCase(userCfg.readNBTFromFile().getCopy().getString("Team")))
 						{
-							NBTSubConfig tc = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", tN);
-							if(tc.readNBTFromFile().getCopy().getBoolean("MultiShopsOwners"))
+							if(this.gbp.getTeams().getIfExists(tN).canOpenGroupChest())
 							{
 								this.gbp.getLogger().info(event.getPlayer().getName() + " Is opening an other's chest.");
 								event.getPlayer().sendMessage("You are a openning chest that is not yours...");
@@ -373,16 +372,8 @@ public class GPlayerListener implements Listener
 		String teaming = "&7[";
 		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), event.getPlayer().getUniqueId());
 		String tUid = playerCfg.readNBTFromFile().getCopy().getString("Team");
-		if(!tUid.equals(""))
-		{
-			NBTSubConfig teamConfig = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", tUid);
-			teaming += teamConfig.readNBTFromFile().getCopy().getString("ChatColor");
-			teaming += teamConfig.readNBTFromFile().getCopy().getString("DisplayName");
-		}
-		else
-		{
-			teaming += "&0NoTeam";
-		}
+		teaming += this.gbp.getTeams().getIfExists(tUid).getChatColor();
+		teaming += this.gbp.getTeams().getIfExists(tUid).getDisplayName();
 		teaming += "&r&7]&r";
 		teaming = ChatColor.translateAlternateColorCodes('&', teaming);
 		event.setFormat(teaming + event.getFormat());

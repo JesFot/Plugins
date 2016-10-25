@@ -44,9 +44,8 @@ public class GHomeCommand extends CommandBase
 			Player player = (Player)sender;
 			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 			String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
-			NBTSubConfig playerTeam = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", teamName);
 			NBTSubConfig homes = new NBTSubConfig(playerCfg, "Homes");
-			int maxHomes = playerTeam.getCopy().getInteger("ValuableHomes");
+			int maxHomes = this.gbp.getTeams().getIfExists(teamName).getMaxHomes();
 			Location pLoc = player.getLocation();
 			if(args.length >= 1 && args[0].equalsIgnoreCase("list"))
 			{
