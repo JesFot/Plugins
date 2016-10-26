@@ -134,11 +134,15 @@ public class GTeamCommand extends CommandBase
 		{
 			String teamName = args[1];
 			String playerName = args[2];
-			OfflinePlayer player = this.gbp.getOfflinePlayerByName(playerName);
+			OfflinePlayer player = this.gbp.getPlayerExact(playerName);
 			if(player == null)
 			{
-				sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", playerName));
-				return true;
+				player = this.gbp.getOfflinePlayerByName(playerName);
+				if(player == null)
+				{
+					sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", playerName));
+					return true;
+				}
 			}
 			if(this.gbp.getTeams().join(teamName, player))
 			{

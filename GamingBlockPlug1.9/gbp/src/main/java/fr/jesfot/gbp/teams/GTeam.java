@@ -47,10 +47,6 @@ public class GTeam
 	
 	protected void reloadFromConfig()
 	{
-		if(!this.exists)
-		{
-			return;
-		}
 		NBTSubConfig thisConfig = new NBTSubConfig(this.gbp.getConfigFolder("teams"), "TeamsData", this.getId());
 		thisConfig.readNBTFromFile();
 		this.displayName = thisConfig.getCopy().getString("DisplayName");

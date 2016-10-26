@@ -25,7 +25,7 @@ public class TeamManager
 	{
 		this.teamList.clear();
 		NBTConfig teamCfg = new NBTConfig(this.gbp.getConfigFolder("teams"), "TeamsData");
-		for(String key : teamCfg.getCopy().c())
+		for(String key : teamCfg.readNBTFromFile().getCopy().c())
 		{
 			GTeam team = new GTeam(this.gbp, key);
 			team.reloadFromConfig();
@@ -68,11 +68,15 @@ public class TeamManager
 	
 	public GTeam getOrCreate(final String id)
 	{
-		GTeam team = this.getIfExists(id);
+		GTeam team;
 		if(!this.existsTeam(id))
 		{
 			team = new GTeam(this.gbp, id);
 			this.create(team);
+		}
+		else
+		{
+			team = this.getIfExists(id);
 		}
 		return team;
 	}
