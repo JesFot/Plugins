@@ -357,4 +357,14 @@ public class Utils
 		sender = new CraftBlockCommandSender(tileCmd.getCommandBlock());
 		return sender;
 	}
+
+	public static <A> List<A> convert(Set<A> set)
+	{
+		List<A> result = new ArrayList<A>();
+		for(A el : set)
+		{
+			result.add(el);
+		}
+		return result;
+	}
 }

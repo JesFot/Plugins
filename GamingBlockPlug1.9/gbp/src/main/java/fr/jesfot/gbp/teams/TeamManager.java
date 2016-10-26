@@ -2,9 +2,13 @@ package fr.jesfot.gbp.teams;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import org.bukkit.OfflinePlayer;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
+import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 public class TeamManager
 {
@@ -27,6 +31,11 @@ public class TeamManager
 			team.reloadFromConfig();
 			this.teamList.put(key, team);
 		}
+	}
+	
+	public Set<String> getTeamList()
+	{
+		return this.teamList.keySet();
 	}
 	
 	public void saveAll()
@@ -77,5 +86,22 @@ public class TeamManager
 		}
 		team.delete();
 		this.teamList.remove(id);
+	}
+	
+	public boolean join(final String id, final OfflinePlayer player)
+	{
+		if(!this.existsTeam(id))
+		{
+			return false;
+		}
+		NBTSubConfig cfg = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		cfg.readNBTFromFile().setString("Team", id).writeNBTToFile();
+		return true;
+	}
+	
+	public void leave(final OfflinePlayer player)
+	{
+		NBTSubConfig cfg = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		cfg.readNBTFromFile().setString("Team", "default").writeNBTToFile();
 	}
 }
