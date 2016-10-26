@@ -45,7 +45,7 @@ public class GTeamCommand extends CommandBase
 		{
 			return true;
 		}
-		if(args.length <= 1)
+		if(args.length < 1)
 		{
 			this.sendUsage(sender, label);
 			return true;
