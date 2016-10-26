@@ -74,6 +74,12 @@ public class GHomeCommand extends CommandBase
 			{
 				if(args[1].equalsIgnoreCase("set"))
 				{
+					int hsCount = homes.readNBTFromFile().getCopy().c().size();
+					if(hsCount >= maxHomes)
+					{
+						sender.sendMessage("You are limited to " + maxHomes + " homes.");
+						return true;
+					}
 					String locName = args[0];
 					homes.readNBTFromFile().setLocation("h_"+locName, pLoc).writeNBTToFile();
 					Command.broadcastCommandMessage(sender, "Registering new '"+locName+"' home.", true);
