@@ -52,7 +52,6 @@ public class GTeamCommand extends CommandBase
 		}
 		if(args[0].equalsIgnoreCase("list") && args.length == 1)
 		{
-			sender.sendMessage("Registred teams :");
 			Set<String> ts = this.gbp.getTeams().getTeamList();
 			Iterator<String> it = ts.iterator();
 			if(ts.size() < 10)
