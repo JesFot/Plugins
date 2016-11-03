@@ -149,7 +149,7 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		List<String> result = new ArrayList<String>();
 		for(String str : listToSort)
 		{
-			if(str.startsWith(startOfString))
+			if(str.toLowerCase().startsWith(startOfString.toLowerCase()))
 			{
 				result.add(str);
 			}

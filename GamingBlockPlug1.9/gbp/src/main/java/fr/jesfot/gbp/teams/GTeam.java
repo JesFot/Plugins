@@ -21,6 +21,7 @@ public class GTeam
 	private int maxHomes;
 	private boolean canUseTpa;
 	private boolean canUseWorld;
+	private boolean canUseFly;
 	private boolean canOpenShopsInGroup;
 	
 	public GTeam(GamingBlockPlug_1_9 plugin, final String id)
@@ -35,6 +36,7 @@ public class GTeam
 		this.maxHomes = 2;
 		this.canUseTpa = false;
 		this.canUseWorld = false;
+		this.canUseFly = false;
 		this.canOpenShopsInGroup = false;
 		this.update();
 	}
@@ -53,6 +55,7 @@ public class GTeam
 		this.chatColor = thisConfig.getCopy().getString("ChatColor");
 		this.maxHomes = thisConfig.getCopy().getInt("ValuableHomes");
 		this.canUseTpa = thisConfig.getCopy().getBoolean("CanUseTPA");
+		this.canUseFly = thisConfig.getCopy().getBoolean("CanUseFly");
 		this.canUseWorld = thisConfig.getCopy().getBoolean("CanUseWorld");
 		this.canOpenShopsInGroup = thisConfig.getCopy().getBoolean("MultiShopsOwners");
 	}
@@ -69,6 +72,7 @@ public class GTeam
 		thisConfig.setString("ChatColor", this.chatColor);
 		thisConfig.setInteger("ValuableHomes", this.maxHomes);
 		thisConfig.setBoolean("CanUseTPA", this.canUseTpa);
+		thisConfig.setBoolean("CanUseFly", this.canUseFly);
 		thisConfig.setBoolean("CanUseWorld", this.canUseWorld);
 		thisConfig.setBoolean("MultiShopsOwners", this.canOpenShopsInGroup);
 		thisConfig.writeNBTToFile();
@@ -140,6 +144,11 @@ public class GTeam
 			result.add("50");
 			result.add("100");
 		}
+		if(key.equalsIgnoreCase("canusefly") || key.equalsIgnoreCase("fly"))
+		{
+			result.add("true");
+			result.add("false");
+		}
 		if(key.equalsIgnoreCase("canusetpa") || key.equalsIgnoreCase("tpa"))
 		{
 			result.add("true");
@@ -192,6 +201,14 @@ public class GTeam
 			}
 			return Boolean.toString(this.canUseTpa());
 		}
+		if(key.equalsIgnoreCase("canusefly") || key.equalsIgnoreCase("fly"))
+		{
+			if(value != null)
+			{
+				this.setCanUseFly(Boolean.valueOf(value).booleanValue());
+			}
+			return Boolean.toString(this.canUseFly());
+		}
 		if(key.equalsIgnoreCase("canuseworld") || key.equalsIgnoreCase("world"))
 		{
 			if(value != null)
@@ -235,6 +252,12 @@ public class GTeam
 		return this.canUseTpa;
 	}
 	
+	public boolean canUseFly()
+	{
+		this.reloadFromConfig();
+		return this.canUseFly;
+	}
+	
 	public boolean canUseWorld()
 	{
 		this.reloadFromConfig();
@@ -268,6 +291,12 @@ public class GTeam
 	public void setCanUseTpa(final boolean canUse)
 	{
 		this.canUseTpa = canUse;
+		this.saveToConfig();
+	}
+	
+	public void setCanUseFly(final boolean canUse)
+	{
+		this.canUseFly = canUse;
 		this.saveToConfig();
 	}
 	

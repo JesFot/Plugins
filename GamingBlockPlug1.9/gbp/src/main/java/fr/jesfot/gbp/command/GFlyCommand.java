@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
+import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.Utils;
@@ -41,6 +42,13 @@ public class GFlyCommand extends CommandBase
 		{
 			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " tried to use /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
+			return true;
+		}
+		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
+		if(!this.gbp.getTeams().getIfExists(teamName).canUseFly())
+		{
+			sender.sendMessage("You are not allowed to use that command.");
 			return true;
 		}
 		GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " used /"

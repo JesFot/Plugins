@@ -56,7 +56,11 @@ public class GHomeCommand extends CommandBase
 					sender.sendMessage(ChatColor.GOLD + "Homes: ");
 					while(it.hasNext())
 					{
-						sender.sendMessage(ChatColor.AQUA + " - "+it.next().substring(2));
+						String r = it.next();
+						if(!r.equals("Main"))
+						{
+							sender.sendMessage(ChatColor.AQUA + " - " + r.substring(2));
+						}
 					}
 				}
 				else
@@ -75,7 +79,7 @@ public class GHomeCommand extends CommandBase
 				if(args[1].equalsIgnoreCase("set"))
 				{
 					int hsCount = homes.readNBTFromFile().getCopy().c().size();
-					if(hsCount >= maxHomes)
+					if(hsCount >= maxHomes && homes.readNBTFromFile().getLocation("h_"+args[0]) == null)
 					{
 						sender.sendMessage("You are limited to " + maxHomes + " homes.");
 						return true;
@@ -91,7 +95,7 @@ public class GHomeCommand extends CommandBase
 				if(args[0].equalsIgnoreCase("set"))
 				{
 					int hsCount = homes.readNBTFromFile().getCopy().c().size();
-					if(hsCount >= maxHomes)
+					if(hsCount >= maxHomes && homes.readNBTFromFile().getLocation("Main") == null)
 					{
 						sender.sendMessage("You are limited to " + maxHomes + " homes.");
 						return true;
@@ -172,7 +176,7 @@ public class GHomeCommand extends CommandBase
 			}
 			for(String name : homes.readNBTFromFile().getCopy().c())
 			{
-				if(name.substring(2).toLowerCase().startsWith(args[0].toLowerCase()))
+				if(name.substring(2).toLowerCase().startsWith(args[0].toLowerCase()) && !name.equals("Main"))
 				{
 					result.add(name.substring(2));
 				}

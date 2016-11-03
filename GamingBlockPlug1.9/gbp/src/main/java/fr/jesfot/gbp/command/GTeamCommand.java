@@ -189,6 +189,10 @@ public class GTeamCommand extends CommandBase
 		}
 		else
 		{
+			if(args[0].equalsIgnoreCase("join") && args.length == 3)
+			{
+				return this.getPlayers(args[2]);
+			}
 			if(args[0].equalsIgnoreCase("leave") && args.length == 2)
 			{
 				return this.getPlayers(args[1]);
@@ -210,6 +214,7 @@ public class GTeamCommand extends CommandBase
 					result.add("DisplayName");
 					result.add("MaxHomes");
 					result.add("CanUseTpa");
+					result.add("CanUseFly");
 					result.add("CanUseWorld");
 					result.add("CanOpenShops");
 				}
