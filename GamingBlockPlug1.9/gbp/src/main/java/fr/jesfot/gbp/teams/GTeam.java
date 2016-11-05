@@ -114,29 +114,29 @@ public class GTeam
 		Set<String> result = new HashSet<String>();
 		if(key.equalsIgnoreCase("color") || key.equalsIgnoreCase("chatcolor"))
 		{
-			result.add("§a&a§r");
-			result.add("§b&b§r");
-			result.add("§c&c§r");
-			result.add("§d&d§r");
-			result.add("§e&e§r");
-			result.add("§f&f§r");
-			result.add("§0&0§r");
-			result.add("§1&1§r");
-			result.add("§2&2§r");
-			result.add("§3&3§r");
-			result.add("§4&4§r");
-			result.add("§5&5§r");
-			result.add("§6&6§r");
-			result.add("§7&7§r");
-			result.add("§8&8§r");
-			result.add("§9&9§r");
+			result.add("&a");
+			result.add("&b");
+			result.add("&c");
+			result.add("&d");
+			result.add("&e");
+			result.add("&f");
+			result.add("&0");
+			result.add("&1");
+			result.add("&2");
+			result.add("&3");
+			result.add("&4");
+			result.add("&5");
+			result.add("&6");
+			result.add("&7");
+			result.add("&8");
+			result.add("&9");
 			//
-			result.add("§k&k§r");
-			result.add("§l&l§r");
-			result.add("§m&m§r");
-			result.add("§n&n§r");
-			result.add("§o&o§r");
-			result.add("§r&r§r");
+			result.add("&k");
+			result.add("&l");
+			result.add("&m");
+			result.add("&n");
+			result.add("&o");
+			result.add("&r");
 		}
 		if(key.equalsIgnoreCase("maxhomes") || key.equalsIgnoreCase("homes") || key.equalsIgnoreCase("maxhome"))
 		{

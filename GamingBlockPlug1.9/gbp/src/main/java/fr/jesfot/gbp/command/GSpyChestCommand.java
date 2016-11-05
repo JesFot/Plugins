@@ -60,7 +60,7 @@ public class GSpyChestCommand extends CommandBase
 		}
 		Player player = (Player)sender;
 		Command.broadcastCommandMessage(sender, "Looking for " + args[0] + "'s Inventories", false);
-		ItemInventory.createIteminInv(Material.BARRIER, this.menu, 15, "", player.getUniqueId().toString() + "_menu");
+		ItemInventory.createIteminInv(Material.BARRIER, this.menu, 16, "§4Data", player.getUniqueId().toString() + "_menu");
 		MenuListener listner = new MenuListener(target, player.getUniqueId().toString() + "_menu", this.gbp);
 		this.gbp.getPluginManager().registerEvents(listner, this.gbp.getPlugin());
 		player.openInventory(this.menu);
