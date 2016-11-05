@@ -31,7 +31,7 @@ public class GSpyChestCommand extends CommandBase
 		this.gbp = plugin;
 		menu = ItemInventory.createItemandInv(Material.CHEST, 0, "Normal Inv", "", "Spy Inventory", 2);
 		ItemInventory.createIteminInv(Material.ENDER_CHEST, this.menu, 1, "Ender Inv", "");
-		//ItemInventory.createIteminInv(Material.EMERALD, this.menu, 2, "Bank Inv", "");
+		ItemInventory.createIteminInv(Material.EMERALD, this.menu, 2, "Bank Inv", "");
 		this.setRawUsageMessage("/<com> <player>");
 	}
 	
@@ -87,6 +87,7 @@ public class GSpyChestCommand extends CommandBase
 		{
 			this.target = tar;
 			this.inv_ID = id;
+			this.gbp = plugin;
 		}
 		
 		@EventHandler
@@ -115,7 +116,8 @@ public class GSpyChestCommand extends CommandBase
 				{
 					if(event.getSlot() == 2)
 					{
-						ItemInventory.openPlayerInv(((Player)event.getWhoClicked()), this.gbp.getEconomy().getPEconomy(this.target).getStoredInventory().getInventory());
+						ItemInventory.openPlayerInv(((Player)event.getWhoClicked()), this.gbp.getEconomy()
+								.getPEconomy(target.getPlayer()).getStoredInventory().getInventory());
 					}
 				}
 			}
