@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -42,6 +43,11 @@ public class GHomeCommand extends CommandBase
 		else
 		{
 			Player player = (Player)sender;
+			if(player.getGameMode().equals(GameMode.ADVENTURE))
+			{
+				sender.sendMessage("Cannot use /" + label + " in adventure mode !");
+				return true;
+			}
 			NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 			String teamName = playerCfg.readNBTFromFile().getCopy().getString("Team");
 			NBTSubConfig homes = new NBTSubConfig(playerCfg, "Homes");

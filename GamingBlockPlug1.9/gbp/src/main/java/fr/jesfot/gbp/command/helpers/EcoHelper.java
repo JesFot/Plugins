@@ -189,7 +189,7 @@ public class EcoHelper
 			double em = Money.getManyEmerald(dble);
 			int ems = Money.getEmerald(em);
 			this.gbp.getEconomy().getPEconomy(player).remove(Money.getManyMoney(ems));
-			ItemStack is = new ItemStack(Material.EMERALD, ems);
+			ItemStack is = new ItemStack(Material.EMERALD_BLOCK, ems);
 			player.getInventory().addItem(is);
 		}
 		else
@@ -214,9 +214,9 @@ public class EcoHelper
 		}
 		int itn = Utils.toInt(args[1], 0);
 		double money = Money.getManyMoney(itn);
-		if(player.getInventory().containsAtLeast(new ItemStack(Material.EMERALD), itn))
+		if(player.getInventory().containsAtLeast(new ItemStack(Material.EMERALD_BLOCK), itn))
 		{
-			ItemStack is = new ItemStack(Material.EMERALD, itn);
+			ItemStack is = new ItemStack(Material.EMERALD_BLOCK, itn);
 			player.getInventory().removeItem(is);
 			this.gbp.getEconomy().getPEconomy(player).add(money);
 		}

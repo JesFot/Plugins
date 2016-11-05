@@ -19,9 +19,11 @@ public class GTeam
 	private String displayName;
 	private String chatColor;
 	private int maxHomes;
+	//CanUseSpectate
 	private boolean canUseTpa;
 	private boolean canUseWorld;
 	private boolean canUseFly;
+	private boolean canUseSpectate;
 	private boolean canOpenShopsInGroup;
 	
 	public GTeam(GamingBlockPlug_1_9 plugin, final String id)
@@ -37,6 +39,7 @@ public class GTeam
 		this.canUseTpa = false;
 		this.canUseWorld = false;
 		this.canUseFly = false;
+		this.canUseSpectate = false;
 		this.canOpenShopsInGroup = false;
 		this.update();
 	}
@@ -56,6 +59,7 @@ public class GTeam
 		this.maxHomes = thisConfig.getCopy().getInt("ValuableHomes");
 		this.canUseTpa = thisConfig.getCopy().getBoolean("CanUseTPA");
 		this.canUseFly = thisConfig.getCopy().getBoolean("CanUseFly");
+		this.canUseSpectate = thisConfig.getCopy().getBoolean("CanUseSpectate");
 		this.canUseWorld = thisConfig.getCopy().getBoolean("CanUseWorld");
 		this.canOpenShopsInGroup = thisConfig.getCopy().getBoolean("MultiShopsOwners");
 	}
@@ -73,6 +77,7 @@ public class GTeam
 		thisConfig.setInteger("ValuableHomes", this.maxHomes);
 		thisConfig.setBoolean("CanUseTPA", this.canUseTpa);
 		thisConfig.setBoolean("CanUseFly", this.canUseFly);
+		thisConfig.setBoolean("CanUseSpectate", this.canUseSpectate);
 		thisConfig.setBoolean("CanUseWorld", this.canUseWorld);
 		thisConfig.setBoolean("MultiShopsOwners", this.canOpenShopsInGroup);
 		thisConfig.writeNBTToFile();
@@ -109,29 +114,29 @@ public class GTeam
 		Set<String> result = new HashSet<String>();
 		if(key.equalsIgnoreCase("color") || key.equalsIgnoreCase("chatcolor"))
 		{
-			result.add("&a");
-			result.add("&b");
-			result.add("&c");
-			result.add("&d");
-			result.add("&e");
-			result.add("&f");
-			result.add("&0");
-			result.add("&1");
-			result.add("&2");
-			result.add("&3");
-			result.add("&4");
-			result.add("&5");
-			result.add("&6");
-			result.add("&7");
-			result.add("&8");
-			result.add("&9");
+			result.add("§a&a§r");
+			result.add("§b&b§r");
+			result.add("§c&c§r");
+			result.add("§d&d§r");
+			result.add("§e&e§r");
+			result.add("§f&f§r");
+			result.add("§0&0§r");
+			result.add("§1&1§r");
+			result.add("§2&2§r");
+			result.add("§3&3§r");
+			result.add("§4&4§r");
+			result.add("§5&5§r");
+			result.add("§6&6§r");
+			result.add("§7&7§r");
+			result.add("§8&8§r");
+			result.add("§9&9§r");
 			//
-			result.add("&k");
-			result.add("&l");
-			result.add("&m");
-			result.add("&n");
-			result.add("&o");
-			result.add("&r");
+			result.add("§k&k§r");
+			result.add("§l&l§r");
+			result.add("§m&m§r");
+			result.add("§n&n§r");
+			result.add("§o&o§r");
+			result.add("§r&r§r");
 		}
 		if(key.equalsIgnoreCase("maxhomes") || key.equalsIgnoreCase("homes") || key.equalsIgnoreCase("maxhome"))
 		{
@@ -150,6 +155,11 @@ public class GTeam
 			result.add("false");
 		}
 		if(key.equalsIgnoreCase("canusetpa") || key.equalsIgnoreCase("tpa"))
+		{
+			result.add("true");
+			result.add("false");
+		}
+		if(key.equalsIgnoreCase("canusespectate") || key.equalsIgnoreCase("spectate"))
 		{
 			result.add("true");
 			result.add("false");
@@ -209,6 +219,14 @@ public class GTeam
 			}
 			return Boolean.toString(this.canUseFly());
 		}
+		if(key.equalsIgnoreCase("canusespectate") || key.equalsIgnoreCase("spectate"))
+		{
+			if(value != null)
+			{
+				this.setCanUseSpectate(Boolean.valueOf(value).booleanValue());
+			}
+			return Boolean.toString(this.canUseSpectate());
+		}
 		if(key.equalsIgnoreCase("canuseworld") || key.equalsIgnoreCase("world"))
 		{
 			if(value != null)
@@ -258,6 +276,12 @@ public class GTeam
 		return this.canUseFly;
 	}
 	
+	public boolean canUseSpectate()
+	{
+		this.reloadFromConfig();
+		return this.canUseSpectate;
+	}
+	
 	public boolean canUseWorld()
 	{
 		this.reloadFromConfig();
@@ -297,6 +321,12 @@ public class GTeam
 	public void setCanUseFly(final boolean canUse)
 	{
 		this.canUseFly = canUse;
+		this.saveToConfig();
+	}
+	
+	public void setCanUseSpectate(final boolean canUse)
+	{
+		this.canUseSpectate = canUse;
 		this.saveToConfig();
 	}
 	

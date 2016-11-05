@@ -23,12 +23,14 @@ import fr.jesfot.gbp.command.GPingCommand;
 import fr.jesfot.gbp.command.GSecurityWallCommand;
 import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GShopCommand;
+import fr.jesfot.gbp.command.GSpyChestCommand;
 import fr.jesfot.gbp.command.GTeamCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GTpcCommand;
 import fr.jesfot.gbp.command.GVarCommand;
 import fr.jesfot.gbp.command.GWorldCommand;
 import fr.jesfot.gbp.command.LogMessageCommand;
+import fr.jesfot.gbp.command.SpectateCommand;
 import fr.jesfot.gbp.command.TestGbpCommand;
 import fr.jesfot.gbp.configuration.Configuration;
 import fr.jesfot.gbp.configuration.Configurations;
@@ -117,7 +119,7 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
-				new GTpcCommand(this), new GTeamCommand(this));
+				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}

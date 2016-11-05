@@ -24,7 +24,7 @@ public class GFlyCommand extends CommandBase
 		super("fly");
 		this.gbp = plugin;
 		this.setRawUsageMessage("/<com> [on|off]");
-		plugin.getPermissionManager().addPermission("GamingBlockPlug.fly", PermissionDefault.OP,
+		plugin.getPermissionManager().addPermission("GamingBlockPlug.fly", PermissionDefault.TRUE,
 				"Permission to use the /fly command", Permissions.globalGBP);
 	}
 	
@@ -38,6 +38,11 @@ public class GFlyCommand extends CommandBase
 			return true;
 		}
 		player = (Player)sender;
+		if(player.getGameMode().equals(GameMode.ADVENTURE))
+		{
+			sender.sendMessage("Cannot use /" + label + " in adventure mode !");
+			return true;
+		}
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.fly", false, null))
 		{
 			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " tried to use /"

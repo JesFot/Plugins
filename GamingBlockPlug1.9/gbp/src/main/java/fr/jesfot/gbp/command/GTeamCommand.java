@@ -215,6 +215,7 @@ public class GTeamCommand extends CommandBase
 					result.add("MaxHomes");
 					result.add("CanUseTpa");
 					result.add("CanUseFly");
+					result.add("CanUseSpectate");
 					result.add("CanUseWorld");
 					result.add("CanOpenShops");
 				}

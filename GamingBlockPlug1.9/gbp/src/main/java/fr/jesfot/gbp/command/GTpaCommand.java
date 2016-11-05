@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.conversations.Conversation;
@@ -67,6 +68,11 @@ public class GTpaCommand extends CommandBase
 		if(player == null)
 		{
 			sender.sendMessage("Whut ?");
+			return true;
+		}
+		if(player.getGameMode().equals(GameMode.ADVENTURE))
+		{
+			sender.sendMessage("Cannot use /" + label + " in adventure mode !");
 			return true;
 		}
 		
