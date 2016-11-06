@@ -47,7 +47,7 @@ public class SkinRestoreSys
 		}
 		catch (Exception e)
 		{
-			this.gbp.getLogger().severe("Error '" + e.getMessage() + "' is not to report :");
+			this.gbp.getLogger().warn("Error '" + e.getMessage() + "' is not to report :");
 			e.printStackTrace();
 		}
 	}
