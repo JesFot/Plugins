@@ -57,13 +57,13 @@ public class GHomeCommand extends CommandBase
 			{
 				Set<String> hs = homes.readNBTFromFile().getCopy().c();
 				Iterator<String> it = hs.iterator();
-				if(hs.size() < 10)
+				if(hs.size() <= 11)
 				{
 					sender.sendMessage(ChatColor.GOLD + "Homes: ");
 					while(it.hasNext())
 					{
 						String r = it.next();
-						if(!r.equals("Main"))
+						if(!r.equalsIgnoreCase("Main"))
 						{
 							sender.sendMessage(ChatColor.AQUA + " - " + r.substring(2));
 						}
@@ -95,7 +95,7 @@ public class GHomeCommand extends CommandBase
 					Command.broadcastCommandMessage(sender, "Registering new '"+locName+"' home.", true);
 					return true;
 				}
-				else if(args[0].equalsIgnoreCase("remove"))
+				else if(args[1].equalsIgnoreCase("remove"))
 				{
 					if(homes.readNBTFromFile().getLocation("h_"+args[0]) == null)
 					{
@@ -184,21 +184,19 @@ public class GHomeCommand extends CommandBase
 		if(args.length == 2)
 		{
 			result.add("set");
+			result.add("remove");
 		}
 		else if(args.length == 1)
 		{
-			if("set".startsWith(args[0].toLowerCase()))
-			{
-				result.add("set");
-			}
+			result.add("set");
 			for(String name : homes.readNBTFromFile().getCopy().c())
 			{
-				if(name.substring(2).toLowerCase().startsWith(args[0].toLowerCase()) && !name.equals("Main"))
+				if(!name.equals("Main"))
 				{
 					result.add(name.substring(2));
 				}
 			}
 		}
-		return result;
+		return this.sortStart(args[args.length - 1], result);
 	}
 }

@@ -155,15 +155,15 @@ public class GFlyCommand extends CommandBase
 			return super.executeTabComplete(sender, command, alias, args);
 		}
 		List<String> result = new ArrayList<String>();
-		if(args.length == 1 || PermissionsHelper.testPermission(sender, "GamingBlockPlug.flyforce", false, null))
+		if(args.length == 1 || PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.flyforce", false))
 		{
 			result.add("on");
 			result.add("off");
 		}
-		if(args.length == 1 && PermissionsHelper.testPermission(sender, "GamingBlockPlug.flyforce", false, null))
+		if(args.length == 1 && PermissionsHelper.testPermissionSilent(sender, "GamingBlockPlug.flyforce", false))
 		{
 			result.addAll(this.getPlayers(args[0]));
 		}
-		return this.sortStart(args[0], result);
+		return this.sortStart(args[args.length - 1], result);
 	}
 }
