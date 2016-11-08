@@ -95,6 +95,17 @@ public class GHomeCommand extends CommandBase
 					Command.broadcastCommandMessage(sender, "Registering new '"+locName+"' home.", true);
 					return true;
 				}
+				else if(args[0].equalsIgnoreCase("remove"))
+				{
+					if(homes.readNBTFromFile().getLocation("h_"+args[0]) == null)
+					{
+						sender.sendMessage("No registred location for this name");
+						return true;
+					}
+					homes.readNBTFromFile().removeTag("h_" + args[0]).writeNBTToFile();
+					Command.broadcastCommandMessage(sender, "Removed old '" + args[0] + "' home.", true);
+					return true;
+				}
 			}
 			else if(args.length >= 1)
 			{

@@ -52,8 +52,10 @@ public class GShopCommand extends CommandBase
 					sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", colName));
 					return true;
 				}
+				sender.sendMessage("Right click on shop to finish operation");
 				this.sL = new SpecialListener(collab, (Player)sender, SM.ADD, this.gbp);
 				this.gbp.getPluginManager().registerEvents(this.sL, this.gbp.getPlugin());
+				return true;
 			}
 			else if(args[0].equalsIgnoreCase("remove") && sender instanceof Player)
 			{
@@ -64,8 +66,10 @@ public class GShopCommand extends CommandBase
 					sender.sendMessage(this.gbp.getLang().get("player.notfound").replaceAll("<player>", colName));
 					return true;
 				}
+				sender.sendMessage("Right click on shop to finish operation");
 				this.sL = new SpecialListener(collab, (Player)sender, SM.REMOVE, this.gbp);
 				this.gbp.getPluginManager().registerEvents(this.sL, this.gbp.getPlugin());
+				return true;
 			}
 		}
 		this.sendUsage(sender, label);

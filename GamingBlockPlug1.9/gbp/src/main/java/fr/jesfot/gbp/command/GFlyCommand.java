@@ -23,9 +23,11 @@ public class GFlyCommand extends CommandBase
 	{
 		super("fly");
 		this.gbp = plugin;
-		this.setRawUsageMessage("/<com> [on|off]");
+		this.setRawUsageMessage("/<com> [on|off] | /<com> <player> <on|off>");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.fly", PermissionDefault.TRUE,
 				"Permission to use the /fly command", Permissions.globalGBP);
+		plugin.getPermissionManager().addPermission("GamingBlockPlug.flyforce", PermissionDefault.OP,
+				"Permission to use the /fly <player> command", Permissions.globalGBP);
 	}
 	
 	@Override
@@ -103,6 +105,41 @@ public class GFlyCommand extends CommandBase
 				this.sendUsage(sender, label);
 			}
 		}
+		else if(args.length == 2 && PermissionsHelper.testPermission(sender, "GamingBlockPlug.flyforce", false, null))
+		{
+			Player target = this.gbp.getPlayerExact(args[0]);
+			if(target == null)
+			{
+				sender.sendMessage(this.color(this.gbp.getLang().get("player.notfound").replaceAll("<player>", args[0])));
+				return true;
+			}
+			if(args[1].equalsIgnoreCase("on"))
+			{
+				if(target.getGameMode().equals(GameMode.CREATIVE) || target.getGameMode().equals(GameMode.SPECTATOR))
+				{
+					sender.sendMessage("You should not use this command while target is in Creative or Spectator...");
+					return true;
+				}
+				target.setAllowFlight(true);
+				Command.broadcastCommandMessage(sender, "Set flying to true for " + args[0], true);
+				target.sendMessage(this.color("&cYou were allowed to fly"));
+			}
+			else if(args[1].equalsIgnoreCase("off"))
+			{
+				if(target.getGameMode().equals(GameMode.CREATIVE) || target.getGameMode().equals(GameMode.SPECTATOR))
+				{
+					sender.sendMessage("You should not use this command while target is in Creative or Spectator...");
+					return true;
+				}
+				target.setAllowFlight(false);
+				Command.broadcastCommandMessage(sender, "Set flying to false for " + args[0], true);
+				target.sendMessage(this.color("&cYou are not allowed to fly anymore"));
+			}
+			else
+			{
+				this.sendUsage(sender, label);
+			}
+		}
 		else
 		{
 			this.sendUsage(sender, label);
@@ -113,13 +150,20 @@ public class GFlyCommand extends CommandBase
 	@Override
 	public List<String> executeTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
-		if(args.length != 1)
+		if(args.length >= 3)
 		{
 			return super.executeTabComplete(sender, command, alias, args);
 		}
 		List<String> result = new ArrayList<String>();
-		result.add("on");
-		result.add("off");
+		if(args.length == 1 || PermissionsHelper.testPermission(sender, "GamingBlockPlug.flyforce", false, null))
+		{
+			result.add("on");
+			result.add("off");
+		}
+		if(args.length == 1 && PermissionsHelper.testPermission(sender, "GamingBlockPlug.flyforce", false, null))
+		{
+			result.addAll(this.getPlayers(args[0]));
+		}
 		return this.sortStart(args[0], result);
 	}
 }
