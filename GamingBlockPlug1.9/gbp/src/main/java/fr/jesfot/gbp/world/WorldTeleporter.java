@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
@@ -16,8 +17,26 @@ import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.Utils;
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
+/**
+ * Class contains functions for player's teleportation :<br>
+ *  - {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_9, CommandSender, String, String)}<br><br>
+ *  - {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_9, Player[], String)}
+ * 
+ * @version 2.5.0
+ * @since 1.3.1
+ * @author JësFot
+ * @category world-management
+ */
 public class WorldTeleporter
 {
+	/**
+	 * Teleport the player into the given world with any data interactions (like saving inventories)
+	 * 
+	 * @param gbp - The plugin
+	 * @param players - List of players to teleport
+	 * @param worldName - The world where the player(s) is/are going to
+	 * @return Return true if teleportation was success, false otherwise
+	 */
 	public static boolean tpToWorld(GamingBlockPlug_1_9 gbp, Player[] players, String worldName)
 	{
 		boolean keepInventory = false;
@@ -55,21 +74,18 @@ public class WorldTeleporter
 			String groupActual = current.readNBTFromFile().getCopy().getString("Group");
 			if(groupActual.contentEquals(groupName) && groupName != "_undifined_")
 			{
-				//player.sendMessage("[DEBUG] Group name="+groupActual);
-				//player.sendMessage("[DEBUG] keep Loc="+WorldComparator.getKeepLocation(gbp, worldName));
-				//player.sendMessage("[DEBUG] Change Bed="+WorldComparator.getChangeBedSpawn(gbp, worldName));
 				if(WorldComparator.getKeepInventory(gbp, worldName))
 				{
 					keepInventory = true;
-				}
-				if(WorldComparator.getKeepLocation(gbp, worldName))
-				{
-					useLastLocation = true;
 				}
 				if(!WorldComparator.getChangeBedSpawn(gbp, worldName))
 				{
 					changeBedSpawn = false;
 				}
+			}
+			if(WorldComparator.getKeepLocation(gbp, worldName))
+			{
+				useLastLocation = true;
 			}
 			NBTConfig playerConfig = new NBTConfig(gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 			NBTSubConfig playerWorldsStoreConfig = new NBTSubConfig(playerConfig, ("WorldsStore")).readNBTFromFile();
@@ -102,9 +118,23 @@ public class WorldTeleporter
 				if(ender!=null)
 					player.getEnderChest().setContents(ender.getContents());
 				if(normal!=null)
+				{
+					ItemStack armor[] = new ItemStack[4];
+					armor[0] = normal.getItem(36);
+					armor[1] = normal.getItem(37);
+					armor[2] = normal.getItem(38);
+					armor[3] = normal.getItem(39);
+					normal.clear(36);
+					normal.clear(37);
+					normal.clear(38);
+					normal.clear(39);
+					normal.clear(40);
 					player.getInventory().setContents(normal.getContents());
+					player.getInventory().setArmorContents(armor);
+					player.getInventory().setItemInOffHand(normal.getItem(40));
+				}
 				player.setLevel(lvls);
-				player.setFoodLevel(food==0?player.getFoodLevel():food);
+				player.setFoodLevel(food == 0 ? player.getFoodLevel() : food);
 				player.setHealth(health);
 				gbp.getEconomy().getPEconomy(player).storeInventory();
 				gbp.getEconomy().getPEconomy(player).getStoredInventory();
@@ -130,7 +160,6 @@ public class WorldTeleporter
 			{
 				if(WorldComparator.getAutoUnload(gbp, playerWorld.getName()))
 				{
-					//player.sendMessage("[DEBUG] Auto-unload.");
 					gbp.getLogger().info("[Worlds' Manager] Auto-unloading world " + playerWorld.getName() + ".");
 					WorldLoader.unloadWorld(gbp, playerWorld.getName());
 				}
@@ -139,6 +168,15 @@ public class WorldTeleporter
 		return true;
 	}
 	
+	/**
+	 * Teleport players selected by a designator ('@a|e|r|p')
+	 * 
+	 * @param gbp - The plugin
+	 * @param sender - The object executed the command
+	 * @param worldName - The world where the player(s) is/are going to
+	 * @param argument - The player(s) designator
+	 * @return Return true if teleportation was success, false otherwise
+	 */
 	public static boolean tpToWorld(GamingBlockPlug_1_9 gbp, CommandSender sender, String argument, String worldName)
 	{
 		Player[] pls = {};

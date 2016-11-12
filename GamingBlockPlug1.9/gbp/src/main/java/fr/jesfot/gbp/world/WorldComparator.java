@@ -11,6 +11,14 @@ import org.bukkit.World;
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
+/**
+ * Class contains functions for world's comparing and data management :<br>
+ * 
+ * @version 1.6.3
+ * @since 1.3.1
+ * @author JësFot
+ * @category world-management
+ */
 public class WorldComparator
 {
 	public static int compareWorlds(World alpha, World beta, GamingBlockPlug_1_9 gbp)
