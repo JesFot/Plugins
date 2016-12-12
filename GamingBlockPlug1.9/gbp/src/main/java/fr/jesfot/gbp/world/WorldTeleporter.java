@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_9;
 import fr.jesfot.gbp.configuration.NBTConfig;
@@ -106,7 +106,7 @@ public class WorldTeleporter
 			int food = playerWorldConfig.getInt("FoodLvl");
 			playerAWorldConfig.setInt("FoodLvl", player.getFoodLevel());
 			double tmp = 0;
-			double health = (tmp=playerWorldConfig.getDouble("Health"))!=0?tmp:20;
+			double health = (tmp = playerWorldConfig.getDouble("Health")) != 0 ? tmp : 20;
 			playerAWorldConfig.setDouble("Health", player.getHealth());
 			//
 			playerWorldsStoreConfig.setTag(playerWorld.getName(), playerAWorldConfig).writeNBTToFile();
@@ -115,23 +115,16 @@ public class WorldTeleporter
 			{
 				player.getEnderChest().clear();
 				player.getInventory().clear();
-				if(ender!=null)
+				if(ender != null)
 					player.getEnderChest().setContents(ender.getContents());
-				if(normal!=null)
+				if(normal != null)
 				{
-					ItemStack armor[] = new ItemStack[4];
-					armor[0] = normal.getItem(36);
-					armor[1] = normal.getItem(37);
-					armor[2] = normal.getItem(38);
-					armor[3] = normal.getItem(39);
-					normal.clear(36);
-					normal.clear(37);
-					normal.clear(38);
-					normal.clear(39);
-					normal.clear(40);
 					player.getInventory().setContents(normal.getContents());
-					player.getInventory().setArmorContents(armor);
-					player.getInventory().setItemInOffHand(normal.getItem(40));
+					if (normal instanceof PlayerInventory)
+					{
+						player.getInventory().setArmorContents(((PlayerInventory)normal).getArmorContents());
+						player.getInventory().setItemInOffHand(((PlayerInventory)normal).getItemInOffHand());
+					}
 				}
 				player.setLevel(lvls);
 				player.setFoodLevel(food == 0 ? player.getFoodLevel() : food);
