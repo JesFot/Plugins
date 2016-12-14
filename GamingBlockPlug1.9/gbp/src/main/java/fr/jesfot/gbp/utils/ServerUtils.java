@@ -23,6 +23,11 @@ public class ServerUtils
 		this.server.broadcast(msg, Server.BROADCAST_CHANNEL_USERS);
 	}
 	
+	public boolean isOnlineMode()
+	{
+		return this.server.getOnlineMode();
+	}
+	
 	public void broadAdmins(String msg)
 	{
 		this.server.broadcast(msg, Server.BROADCAST_CHANNEL_ADMINISTRATIVE);

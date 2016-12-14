@@ -28,7 +28,7 @@ public class GTeamCommand extends CommandBase
 		this.gbp = plugin;
 		this.setRawUsageMessage("/<com> list "
 				+ "| /<com> add|remove <team> "
-				+ "| /<com> option <team> <optname> <value> "
+				+ "| /<com> option <team> <optname> [value] "
 				+ "| /<com> join <team> <player> "
 				+ "| /<com> leave <player>");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.teams", PermissionDefault.OP, "Allows you to manage teams", Permissions.globalGBP);
@@ -98,8 +98,17 @@ public class GTeamCommand extends CommandBase
 			Command.broadcastCommandMessage(sender, "Removed team " + teamName, true);
 			return true;
 		}
-		if(args[0].equalsIgnoreCase("options") && args.length >= 3)
+		if(args[0].equalsIgnoreCase("option") && (args.length == 1 || args.length >= 3))
 		{
+			if(args.length == 1)
+			{
+				sender.sendMessage("Options available :");
+				for(String str : this.executeTabComplete(sender, null, label, args))
+				{
+					sender.sendMessage(" - " + str);
+				}
+				return true;
+			}
 			String teamName = args[1];
 			String opt = args[2];
 			if(!this.gbp.getTeams().existsTeam(teamName))
@@ -178,12 +187,12 @@ public class GTeamCommand extends CommandBase
 			return super.executeTabComplete(sender, command, alias, args);
 		}
 		List<String> result = new ArrayList<String>();
-		if(args.length == 1)
+		if(args.length == 1 && command != null)
 		{
 			result.add("list");
 			result.add("add");
 			result.add("remove");
-			result.add("options");
+			result.add("option");
 			result.add("join");
 			result.add("leave");
 		}
@@ -207,7 +216,7 @@ public class GTeamCommand extends CommandBase
 			}
 			if(args[0].equalsIgnoreCase("options"))
 			{
-				if(args.length == 3)
+				if(args.length == 3 || command == null)
 				{
 					result.add("Color");
 					result.add("ChatColor");
@@ -218,6 +227,7 @@ public class GTeamCommand extends CommandBase
 					result.add("CanUseSpectate");
 					result.add("CanUseWorld");
 					result.add("CanOpenShops");
+					result.add("Salary");
 				}
 				else if(args.length == 4)
 				{
@@ -228,6 +238,10 @@ public class GTeamCommand extends CommandBase
 					return Collections.emptyList();
 				}
 			}
+		}
+		if (command == null)
+		{
+			return result;
 		}
 		return this.sortStart(args[args.length - 1], result);
 	}

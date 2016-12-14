@@ -1,11 +1,15 @@
 package fr.jesfot.gbp;
 
 import java.io.File;
+import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.minecraft.server.v1_9_R2.NBTTagCompound;
@@ -100,7 +104,9 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 		
 		this.configs = new Configurations(this.plugin.getDataFolder());
 		Configuration cfg = new Configuration(new File(this.plugin.getDataFolder(), "GamingBlockPlug.yml"));
+		Configuration cfgplayerslist = new Configuration(new File(this.plugin.getDataFolder(), "offlines.yml"));
 		this.configs.setMainConfig(cfg);
+		this.configs.addConfig("offlines", cfgplayerslist);
 		this.configs.loadAll();
 		
 		Money.reload(this);
@@ -226,6 +232,23 @@ public class GamingBlockPlug_1_9 extends ServerUtils
 	}
 	
 	// Getters :
+	
+	@Override
+	public OfflinePlayer getOfflinePlayerByName(final String name)
+	{
+		this.configs.getConfig("offlines").reloadConfig();
+		ConfigurationSection sct = this.configs.getConfig("offlines").getConfig().getConfigurationSection(
+				this.isOnlineMode() ? "official" : "cracked");
+		Set<String> pls = sct.getKeys(false);
+		for(String str : pls)
+		{
+			if(str.equalsIgnoreCase(name))
+			{
+				return (this.getServer().getOfflinePlayer(UUID.fromString(sct.getString(str))));
+			}
+		}
+		return super.getOfflinePlayerByName(name);
+	}
 	
 	/**
 	 * Put key to 'null' to get the parent tag.

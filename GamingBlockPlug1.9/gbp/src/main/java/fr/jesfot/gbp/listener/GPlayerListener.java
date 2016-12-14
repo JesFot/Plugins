@@ -101,62 +101,73 @@ public class GPlayerListener implements Listener
 				+ event.getPlayer().getUniqueId().toString() + "'");
 		GamingBlockPlug_1_9.getMyLogger().info(event.getPlayer().getName() + "[/" + event.getAddress().getHostAddress()
 				+ "] logged in with unique ID '" + event.getPlayer().getUniqueId().toString() + "'");
+		this.gbp.getConfigs().getConfig("offlines").reloadConfig();
+		this.gbp.getConfigs().getConfig("offlines").getConfig().set((this.gbp.isOnlineMode() ? "official" : "cracked") + "."
+				+ event.getPlayer().getName().toLowerCase(), event.getPlayer().getUniqueId().toString());
+		this.gbp.getConfigs().getConfig("offlines").saveConfig();
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		final Player player = event.getPlayer();
-		this.gbp.getLogger().info("Starting SkinRestorerSystem....");
-		Bukkit.getScheduler().runTaskAsynchronously(this.gbp.getPlugin(), new Runnable(){
-			public void run()
-			{
-				GPlayerListener.this.srs.MAJSkin(player);
-			}
-		});
-		this.gbp.getLogger().info("SkinRestorerSystem future task launched for " + player.getName());
-		// Check login
-		ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
-		final Map<Object, Object> data = new HashMap<Object, Object>();
-		data.put("tries", Integer.valueOf(0));
-		data.put("kick", Boolean.FALSE);
-		factory.withInitialSessionData(data).withLocalEcho(false).withPrefix(new ConversationPrefix(){
-			public String getPrefix(ConversationContext context)
-			{
-				return ChatColor.GREEN + "Login" + ChatColor.RESET + " ";
-			}
-		}).addConversationAbandonedListener(new ConversationAbandonedListener(){
-			public void conversationAbandoned(ConversationAbandonedEvent event)
-			{
-				if(!event.gracefulExit() && !((Boolean)event.getContext().getSessionData("kick")))
-				{
-					GamingBlockPlug_1_9.getMe().getLogger().info(player.getName()
-							+ " didn't login or register until 5 minutes.");
-					player.kickPlayer("You must login until 5 minutes");
-					GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " was kicked because of no passwords until"
-							+ " 5 minutes.");
-				}
-			}
-		});
-		Conversation conv;
-		this.gbp.getLogger().info("Starting Login system for " + player.getName() + "...");
-		this.sls.addLogin(player);
-		if(this.sls.hasAccount(player))
+		if(this.gbp.isOnlineMode())
 		{
-			player.sendMessage(ChatColor.RED + "Please enter your password :");
-			conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
-			this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
-			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " has already an account, asking for password...");
+			this.gbp.getLogger().info("Server is running online mode, no need to restore skin or ask for password...");
 		}
 		else
 		{
-			player.sendMessage(ChatColor.RED + "Register with a new password :");
-			conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
-			this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
-			GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
-					+ "password...");
+			this.gbp.getLogger().info("Starting SkinRestorerSystem....");
+			Bukkit.getScheduler().runTaskAsynchronously(this.gbp.getPlugin(), new Runnable(){
+				public void run()
+				{
+					GPlayerListener.this.srs.MAJSkin(player);
+				}
+			});
+			this.gbp.getLogger().info("SkinRestorerSystem future task launched for " + player.getName());
+			// Check login
+			ConversationFactory factory = new ConversationFactory(this.gbp.getPlugin());
+			final Map<Object, Object> data = new HashMap<Object, Object>();
+			data.put("tries", Integer.valueOf(0));
+			data.put("kick", Boolean.FALSE);
+			factory.withInitialSessionData(data).withLocalEcho(false).withPrefix(new ConversationPrefix(){
+				public String getPrefix(ConversationContext context)
+				{
+					return ChatColor.GREEN + "Login" + ChatColor.RESET + " ";
+				}
+			}).addConversationAbandonedListener(new ConversationAbandonedListener(){
+				public void conversationAbandoned(ConversationAbandonedEvent event)
+				{
+					if(!event.gracefulExit() && !((Boolean)event.getContext().getSessionData("kick")))
+					{
+						GamingBlockPlug_1_9.getMe().getLogger().info(player.getName()
+								+ " didn't login or register until 5 minutes.");
+						player.kickPlayer("You must login until 5 minutes");
+						GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " was kicked because of no passwords until"
+								+ " 5 minutes.");
+					}
+				}
+			});
+			Conversation conv;
+			this.gbp.getLogger().info("Starting Login system for " + player.getName() + "...");
+			this.sls.addLogin(player);
+			if(this.sls.hasAccount(player))
+			{
+				player.sendMessage(ChatColor.RED + "Please enter your password :");
+				conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
+				this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
+				GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " has already an account, asking for password...");
+			}
+			else
+			{
+				player.sendMessage(ChatColor.RED + "Register with a new password :");
+				conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
+				this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
+				GamingBlockPlug_1_9.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
+						+ "password...");
+			}
+			conv.begin();
 		}
-		conv.begin();
 		// End check login
 		String lm = event.getJoinMessage();
 		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
