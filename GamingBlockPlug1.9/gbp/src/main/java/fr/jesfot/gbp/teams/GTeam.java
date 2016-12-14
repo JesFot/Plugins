@@ -25,6 +25,7 @@ public class GTeam
 	private boolean canUseFly;
 	private boolean canUseSpectate;
 	private boolean canOpenShopsInGroup;
+	private double salary;
 	
 	public GTeam(GamingBlockPlug_1_9 plugin, final String id)
 	{
@@ -41,6 +42,7 @@ public class GTeam
 		this.canUseFly = false;
 		this.canUseSpectate = false;
 		this.canOpenShopsInGroup = false;
+		this.salary = 0;
 		this.update();
 	}
 	
@@ -62,6 +64,7 @@ public class GTeam
 		this.canUseSpectate = thisConfig.getCopy().getBoolean("CanUseSpectate");
 		this.canUseWorld = thisConfig.getCopy().getBoolean("CanUseWorld");
 		this.canOpenShopsInGroup = thisConfig.getCopy().getBoolean("MultiShopsOwners");
+		this.salary = thisConfig.getCopy().getDouble("Salary");
 	}
 	
 	protected void saveToConfig()
@@ -80,6 +83,7 @@ public class GTeam
 		thisConfig.setBoolean("CanUseSpectate", this.canUseSpectate);
 		thisConfig.setBoolean("CanUseWorld", this.canUseWorld);
 		thisConfig.setBoolean("MultiShopsOwners", this.canOpenShopsInGroup);
+		thisConfig.setDouble("Salary", this.salary);
 		thisConfig.writeNBTToFile();
 	}
 	
@@ -174,6 +178,17 @@ public class GTeam
 			result.add("true");
 			result.add("false");
 		}
+		if(key.equalsIgnoreCase("salary") || key.equalsIgnoreCase("slry"))
+		{
+			result.add("1");
+			result.add("2");
+			result.add("4");
+			result.add("5");
+			result.add("10");
+			result.add("20");
+			result.add("50");
+			result.add("100");
+		}
 		return result;
 	}
 	
@@ -243,6 +258,14 @@ public class GTeam
 			}
 			return Boolean.toString(this.canOpenGroupChest());
 		}
+		if(key.equalsIgnoreCase("salary") || key.equalsIgnoreCase("slry"))
+		{
+			if(value != null)
+			{
+				this.setSalary(Utils.toDouble(value, this.getSalary()));
+			}
+			return Double.toString(this.getSalary());
+		}
 		return null;
 	}
 	
@@ -294,6 +317,12 @@ public class GTeam
 		return this.canOpenShopsInGroup;
 	}
 	
+	public double getSalary()
+	{
+		this.reloadFromConfig();
+		return this.salary;
+	}
+	
 	public void setDisplayName(final String name)
 	{
 		this.displayName = name;
@@ -339,6 +368,12 @@ public class GTeam
 	public void setCanOpenShops(final boolean canOpen)
 	{
 		this.canOpenShopsInGroup = canOpen;
+		this.saveToConfig();
+	}
+	
+	public void setSalary(final double sal)
+	{
+		this.salary = sal;
 		this.saveToConfig();
 	}
 }

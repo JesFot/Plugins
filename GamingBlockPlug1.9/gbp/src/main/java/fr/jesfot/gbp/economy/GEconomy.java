@@ -28,7 +28,7 @@ public class GEconomy
 		List<String> result = new ArrayList<String>();
 		for(String str : this.gbp.getConfigFolder("playerdatas").list())
 		{
-			str = str.endsWith(".dat")?str.substring(0, str.length() - ".dat".length()):str;
+			str = str.endsWith(".dat") ? str.substring(0, str.length() - ".dat".length()) : str;
 			UUID uid = UUID.fromString(str);
 			OfflinePlayer player = this.gbp.getServer().getOfflinePlayer(uid);
 			boolean flag = true;
@@ -102,7 +102,7 @@ public class GEconomy
 		{
 			return false;
 		}
-		if((Double)amount == null || amount <= 0.1)
+		if((Double)amount == null || amount <= 0)
 		{
 			return false;
 		}

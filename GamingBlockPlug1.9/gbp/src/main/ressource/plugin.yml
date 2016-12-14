@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin
-version: 1.21 mc1.9.4
+version: 1.24 mc1.9.4
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -68,3 +68,6 @@ commands:
   gspychest:
     description: Spy chests
     usage: /<command> <player>
+  salary:
+    description: Give global salary
+    usage: /<command>

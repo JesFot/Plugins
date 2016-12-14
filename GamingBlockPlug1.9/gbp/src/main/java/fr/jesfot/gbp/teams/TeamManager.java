@@ -12,6 +12,7 @@ import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 public class TeamManager
 {
+	public static final String DEFAULT_NAME = "default";
 	private Map<String, GTeam> teamList;
 	private GamingBlockPlug_1_9 gbp;
 	
@@ -61,7 +62,7 @@ public class TeamManager
 	{
 		if(!this.existsTeam(id))
 		{
-			return this.getOrCreate("default");
+			return this.getOrCreate(DEFAULT_NAME);
 		}
 		return this.teamList.get(id);
 	}
@@ -106,6 +107,14 @@ public class TeamManager
 	public void leave(final OfflinePlayer player)
 	{
 		NBTSubConfig cfg = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
-		cfg.readNBTFromFile().setString("Team", "default").writeNBTToFile();
+		cfg.readNBTFromFile().setString("Team", DEFAULT_NAME).writeNBTToFile();
+	}
+	
+	public GTeam getTeamOf(final OfflinePlayer player)
+	{
+		NBTSubConfig cfg = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		String team = cfg.readNBTFromFile().getCopy().getString("Team");
+		GTeam result = this.getIfExists(team);
+		return result;
 	}
 }
