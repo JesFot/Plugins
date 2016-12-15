@@ -16,7 +16,7 @@ import fr.jesfot.gbp.listener.GInventoryListener;
 import fr.jesfot.gbp.listener.GPlayerListener;
 import fr.jesfot.gbp.listener.GPluginListener;
 
-public class BukkitPlugin extends JavaPlugin
+public class BukkitPlugin11 extends JavaPlugin
 {
 	private GamingBlockPlug_1_11 gbp;
 	

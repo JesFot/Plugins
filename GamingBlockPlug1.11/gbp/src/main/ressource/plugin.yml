@@ -1,5 +1,5 @@
-name: GamingBlockPlug
-main: fr.jesfot.gbp.bukkit.BukkitPlugin
+name: GamingBlockPlug1.11
+main: fr.jesfot.gbp.bukkit.BukkitPlugin11
 version: 2.0 mc1.11
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
