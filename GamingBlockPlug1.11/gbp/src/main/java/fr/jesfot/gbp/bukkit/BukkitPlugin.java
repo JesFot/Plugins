@@ -22,11 +22,19 @@ public class BukkitPlugin extends JavaPlugin
 	
 	private GPlayerListener playerListener;
 	
+	private boolean goodVersion = true;
+	
 	@Override
 	public void onLoad()
 	{
 		Server s = this.getServer();
 		Logger l = this.getLogger();
+		if(!s.getBukkitVersion().equalsIgnoreCase("1.11-R0.1-SNAPSHOT"))
+		{
+			this.goodVersion = false;
+			this.stopPlugin();
+			return;
+		}
 		this.gbp = new GamingBlockPlug_1_11(s, l, this);
 		this.gbp.onLoad();
 
@@ -36,6 +44,11 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
+		if(!this.goodVersion)
+		{
+			this.stopPlugin();
+			return;
+		}
 		try
 		{
 			this.gbp.onEnable();
@@ -78,6 +91,10 @@ public class BukkitPlugin extends JavaPlugin
 	@Override
 	public void onDisable()
 	{
+		if(!this.goodVersion)
+		{
+			return;
+		}
 		this.gbp.onDisable();
 	}
 	
