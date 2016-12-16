@@ -178,6 +178,10 @@ public class Shops
 				}
 				NBTTagCompound shopConfig = shopsConfigFile.getCopy().getCompound(uid.toString()).getCompound(shopID);
 				Location signLocation = NBTConfig.getLocation(shopConfig, "Sign_Location");
+				if(signLocation == null)
+				{
+					continue;
+				}
 				Block block = signLocation.getBlock();
 				
 				if(block.getType().equals(Material.WALL_SIGN))
