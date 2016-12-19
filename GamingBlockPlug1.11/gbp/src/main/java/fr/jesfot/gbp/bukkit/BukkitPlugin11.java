@@ -37,7 +37,7 @@ public class BukkitPlugin11 extends JavaPlugin
 		}
 		this.gbp = new GamingBlockPlug_1_11(s, l, this);
 		this.gbp.onLoad();
-
+		
 		playerListener = new GPlayerListener(this.gbp);
 	}
 	

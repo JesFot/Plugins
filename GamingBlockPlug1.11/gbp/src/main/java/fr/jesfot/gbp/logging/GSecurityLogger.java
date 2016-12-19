@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,7 +87,7 @@ public class GSecurityLogger
 	{
 		try
 		{
-			String state = FileUtils.readFileToString(this.logFile);
+			String state = FileUtils.readFileToString(this.logFile, Charset.forName("UTF-8"));
 			if(state.contentEquals(this.backupFile))
 			{
 				return true;
@@ -104,7 +105,7 @@ public class GSecurityLogger
 		this.log.writeFile();
 		try
 		{
-			this.backupFile = FileUtils.readFileToString(this.logFile);
+			this.backupFile = FileUtils.readFileToString(this.logFile, Charset.forName("UTF-8"));
 		}
 		catch(IOException e)
 		{
@@ -122,7 +123,7 @@ public class GSecurityLogger
 		this.log.readFile();
 		try
 		{
-			this.backupFile = FileUtils.readFileToString(this.logFile);
+			this.backupFile = FileUtils.readFileToString(this.logFile, Charset.forName("UTF-8"));
 		}
 		catch(IOException e)
 		{

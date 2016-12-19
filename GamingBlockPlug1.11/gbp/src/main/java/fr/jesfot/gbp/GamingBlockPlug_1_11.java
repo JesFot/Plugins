@@ -42,6 +42,7 @@ import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.configuration.LangConfig;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.discord.Bot;
 import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
@@ -64,6 +65,8 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private final Logger logger;
 	private final JavaPlugin plugin;
+	
+	private Bot discordBot;
 	
 	private Configurations configs;
 	private NBTConfig mainNBTConfig;
@@ -107,6 +110,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		Configuration cfgplayerslist = new Configuration(new File(this.plugin.getDataFolder(), "offlines.yml"));
 		this.configs.setMainConfig(cfg);
 		this.configs.addConfig("offlines", cfgplayerslist);
+		this.configs.addConfig("bot_discord", "discord_bot.yml");
 		this.configs.loadAll();
 		
 		Money.reload(this);
@@ -130,6 +134,17 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 				new GSalaryCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
+		
+		this.logger.info("Reading configuration for the discord bot...");
+		if(this.configs.getConfig("bot_discord").getConfig().getBoolean("should_connect_on_startup", false))
+		{
+			this.logger.info("Starting the bot...");
+			this.getServer().getScheduler().runTaskAsynchronously(this.plugin, this.discordBot);
+		}
+		else
+		{
+			this.logger.info("The bot will stay off");
+		}
 	}
 	
 	public void onEnable()
