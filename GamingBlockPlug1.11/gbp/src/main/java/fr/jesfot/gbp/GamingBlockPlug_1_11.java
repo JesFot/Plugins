@@ -3,6 +3,8 @@ package fr.jesfot.gbp;
 import java.io.File;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,11 +14,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
-import net.minecraft.server.v1_11_R1.NBTTagList;
-import net.minecraft.server.v1_11_R1.NBTTagString;
-
 import fr.jesfot.gbp.command.CommandManager;
+import fr.jesfot.gbp.command.GBotCommand;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GFlyCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
@@ -56,6 +55,9 @@ import fr.jesfot.gbp.teams.TeamManager;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.zoning.island.IslandZone;
+import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_11_R1.NBTTagList;
+import net.minecraft.server.v1_11_R1.NBTTagString;
 
 public class GamingBlockPlug_1_11 extends ServerUtils
 {
@@ -67,6 +69,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	private final JavaPlugin plugin;
 	
 	private Bot discordBot;
+	private Executor running_bot;
 	
 	private Configurations configs;
 	private NBTConfig mainNBTConfig;
@@ -110,7 +113,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		Configuration cfgplayerslist = new Configuration(new File(this.plugin.getDataFolder(), "offlines.yml"));
 		this.configs.setMainConfig(cfg);
 		this.configs.addConfig("offlines", cfgplayerslist);
-		this.configs.addConfig("bot_discord", "discord_bot.yml");
+		this.configs.addConfig("bot_discord", "discord_config.yml");
 		this.configs.loadAll();
 		
 		Money.reload(this);
@@ -131,15 +134,17 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
 				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
-				new GSalaryCommand(this));
+				new GSalaryCommand(this), new GBotCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 		
 		this.logger.info("Reading configuration for the discord bot...");
+		this.discordBot = new Bot(this);
+		this.running_bot = Executors.newSingleThreadExecutor();
 		if(this.configs.getConfig("bot_discord").getConfig().getBoolean("should_connect_on_startup", false))
 		{
 			this.logger.info("Starting the bot...");
-			this.getServer().getScheduler().runTaskAsynchronously(this.plugin, this.discordBot);
+			this.running_bot.execute(this.discordBot);
 		}
 		else
 		{
@@ -244,6 +249,31 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.vars.storeToFile();
 		this.logger.info("Done !");
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" disabled.");
+	}
+	
+	public void startDiscord()
+	{
+		if(this.running_bot != null && !this.discordBot.isRunning())
+		{
+			this.running_bot.execute(discordBot);
+		}
+	}
+	
+	public void restartDiscord()
+	{
+		if(this.running_bot != null && this.discordBot.isRunning())
+		{
+			this.discordBot.stop();
+			this.running_bot.execute(this.discordBot);
+		}
+	}
+	
+	public void stopDiscord()
+	{
+		if(this.running_bot != null && this.discordBot.isRunning())
+		{
+			this.discordBot.stop();
+		}
 	}
 	
 	// Getters :

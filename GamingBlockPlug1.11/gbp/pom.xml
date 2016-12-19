@@ -47,6 +47,7 @@
   		<groupId>com.github.austinv11</groupId>
   		<artifactId>Discord4j</artifactId>
   		<version>2.6.1</version>
+  		<scope>provided</scope>
   	</dependency>
        <dependency>
            <groupId>org.bukkit</groupId>
@@ -59,6 +60,7 @@
        		<groupId>org.apache.httpcomponents</groupId>
        		<artifactId>httpclient</artifactId>
        		<version>4.2.5</version>
+       		<scope>provided</scope>
        </dependency>
    </dependencies>
 </project>

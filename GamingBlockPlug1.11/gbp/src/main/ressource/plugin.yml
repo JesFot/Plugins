@@ -71,3 +71,7 @@ commands:
   salary:
     description: Give global salary
     usage: /<command>
+  gbpbotdiscordcontrol:
+    description: Control the discord bot
+    usage: /<command>
+    aliases: [gbotctl]
