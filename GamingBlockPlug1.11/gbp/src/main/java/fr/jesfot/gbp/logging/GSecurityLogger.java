@@ -4,20 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 
-import org.apache.commons.io.FileUtils;
-
 public class GSecurityLogger
 {
-	private LinedFile log;
+	//private LinedFile log;
 	private File logFile;
 	private File logFolder;
-	private String backupFile;
+	//private String backupFile;
 	
 	//private boolean autoSave = false;
 	
@@ -39,12 +36,12 @@ public class GSecurityLogger
 	
 	public String getDate()
 	{
-		DateFormat df = new SimpleDateFormat("HH:mm:ss");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
 		Date date = new Date();
 		return df.format(date);
 	}
 	
-	protected void prepare()
+	/*protected void prepare()
 	{
 		if(!this.logFolder.exists())
 		{
@@ -129,7 +126,7 @@ public class GSecurityLogger
 		{
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public void info(final String message)
 	{

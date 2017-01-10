@@ -64,6 +64,11 @@ public class NBTSubConfig
 		this.file = configFile;
 	}
 	
+	public String getName()
+	{
+		return this.file.getName();
+	}
+	
 	public NBTTagCompound getCopy()
 	{
 		if(this.file.getCopy() == null)

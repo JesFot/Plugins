@@ -6,16 +6,19 @@ import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.stats.PlayerStatistics;
 
 public class LoginPrompt extends StringPrompt
 {
 	private Player player;
 	private SecurityLoginSys sls;
+	private PlayerStatistics stat;
 	
-	public LoginPrompt(SecurityLoginSys sec, Player sender)
+	public LoginPrompt(SecurityLoginSys sec, Player sender, PlayerStatistics stats)
 	{
 		this.sls = sec;
 		this.player = sender;
+		this.stat = stats;
 	}
 	
 	public String getPromptText(ConversationContext context)
@@ -29,6 +32,8 @@ public class LoginPrompt extends StringPrompt
 		Integer tryes = (Integer)context.getSessionData("tries");
 		if(this.sls.login(this.player, input))
 		{
+			this.stat.player(this.player);
+			//this.stat.login();
 			this.player.sendRawMessage("Logged in !");
 			this.sls.endLogin(player);
 			GamingBlockPlug_1_11.getMe().getLogger().info(player.getName() + " succesfuly logged in with his password.");

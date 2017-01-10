@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class Configurations
 {
+	public final static String PLAYERS_DATS = "playerdatas";
+	
 	private Map<String, Configuration> configs = new HashMap<String, Configuration>();
 	private File mainDir;
 	private Configuration mainConfig;

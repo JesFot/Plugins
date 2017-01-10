@@ -6,17 +6,20 @@ import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.stats.PlayerStatistics;
 
 public class RegisterPrompt extends StringPrompt
 {
 	private Player player;
 	private SecurityLoginSys sls;
 	private String lastPassword = null;
+	private PlayerStatistics stat;
 	
-	public RegisterPrompt(SecurityLoginSys sec, Player sender)
+	public RegisterPrompt(SecurityLoginSys sec, Player sender, PlayerStatistics stats)
 	{
 		this.sls = sec;
 		this.player = sender;
+		this.stat = stats;
 	}
 	
 	public String getPromptText(ConversationContext context)
@@ -41,6 +44,8 @@ public class RegisterPrompt extends StringPrompt
 				this.sls.register(this.player, input);
 				this.player.sendRawMessage("Succesfuly registred !");
 				this.sls.endLogin(player);
+				this.stat.player(this.player);
+				//this.stat.login();
 				GamingBlockPlug_1_11.getMe().getLogger().info(player.getName() + " succesfuly registred new password.");
 				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " succesfuly registred with his password.");
 				return Prompt.END_OF_CONVERSATION;

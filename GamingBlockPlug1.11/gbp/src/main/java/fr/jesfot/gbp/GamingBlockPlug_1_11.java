@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +19,7 @@ import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GFlyCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
 import fr.jesfot.gbp.command.GIslandCommand;
+import fr.jesfot.gbp.command.GMuteCommand;
 import fr.jesfot.gbp.command.GPassNightCommand;
 import fr.jesfot.gbp.command.GPermsCommand;
 import fr.jesfot.gbp.command.GPingCommand;
@@ -134,12 +134,12 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
 				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
-				new GSalaryCommand(this), new GBotCommand(this));
+				new GSalaryCommand(this), new GBotCommand(this), new GMuteCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 		
-		this.logger.info("Reading configuration for the discord bot...");
-		this.discordBot = new Bot(this);
+		//this.logger.info("Reading configuration for the discord bot...");
+		/*this.discordBot = new Bot(this);
 		this.running_bot = Executors.newSingleThreadExecutor();
 		if(this.configs.getConfig("bot_discord").getConfig().getBoolean("should_connect_on_startup", false))
 		{
@@ -149,7 +149,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		else
 		{
 			this.logger.info("The bot will stay off");
-		}
+		}*/
 	}
 	
 	public void onEnable()

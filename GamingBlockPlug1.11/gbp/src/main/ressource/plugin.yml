@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: fr.jesfot.gbp.bukkit.BukkitPlugin11
-version: 2.0 mc1.11
+version: 2.3 mc1.11
 description: Plugin for Gaming Block Server
 authors: ["JesFot"]
 commands:
@@ -75,3 +75,6 @@ commands:
     description: Control the discord bot
     usage: /<command>
     aliases: [gbotctl]
+  mute:
+    description: Mute or unmute someone
+    usage: /<command> <target> [true|false]

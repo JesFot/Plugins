@@ -48,6 +48,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.economy.PlayerEconomy;
@@ -57,6 +58,7 @@ import fr.jesfot.gbp.secure.LoginPrompt;
 import fr.jesfot.gbp.secure.RegisterPrompt;
 import fr.jesfot.gbp.secure.SecurityLoginSys;
 import fr.jesfot.gbp.shop.ShopObject;
+import fr.jesfot.gbp.stats.PlayerStatistics;
 import fr.jesfot.gbp.subsytems.HalfBedSys;
 import fr.jesfot.gbp.subsytems.SkinRestoreSys;
 import fr.jesfot.gbp.utils.ItemInventory;
@@ -68,6 +70,7 @@ public class GPlayerListener implements Listener
 	private final HalfBedSys hbs;
 	private final SecurityLoginSys sls;
 	private final SkinRestoreSys srs;
+	private final PlayerStatistics stat;
 	
 	public GPlayerListener(GamingBlockPlug_1_11 plugin)
 	{
@@ -76,6 +79,7 @@ public class GPlayerListener implements Listener
 		this.sls = new SecurityLoginSys(plugin);
 		this.srs = new SkinRestoreSys(plugin);
 		this.regPerms();
+		this.stat = new PlayerStatistics(plugin);
 	}
 	
 	private void regPerms()
@@ -112,6 +116,9 @@ public class GPlayerListener implements Listener
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		final Player player = event.getPlayer();
+		// Connection statistic Start :
+		this.stat.player(player);
+		// Connection statistic End !
 		if(this.gbp.isOnlineMode())
 		{
 			this.gbp.getLogger().info("Server is running online mode, no need to restore skin or ask for password...");
@@ -155,14 +162,14 @@ public class GPlayerListener implements Listener
 			if(this.sls.hasAccount(player))
 			{
 				player.sendMessage(ChatColor.RED + "Please enter your password :");
-				conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player)).buildConversation(player);
+				conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player, this.stat)).buildConversation(player);
 				this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
 				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " has already an account, asking for password...");
 			}
 			else
 			{
 				player.sendMessage(ChatColor.RED + "Register with a new password :");
-				conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player)).buildConversation(player);
+				conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player, this.stat)).buildConversation(player);
 				this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
 				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
 						+ "password...");
@@ -170,6 +177,7 @@ public class GPlayerListener implements Listener
 			conv.begin();
 		}
 		// End check login
+		// Team / Grade Start :
 		String lm = event.getJoinMessage();
 		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
 		String tUid = playerConf.readNBTFromFile().getCopy().getString("Team");
@@ -178,6 +186,7 @@ public class GPlayerListener implements Listener
 			tUid = "default";
 			playerConf.setString("Team", tUid).writeNBTToFile();
 		}
+		// Team / Grade End !
 		boolean isMasked = playerConf.getCopy().getBoolean("Masked");
 		playerConf.setString("Pseudo", player.getName());
 		playerConf.setString("DisplayName", player.getDisplayName()).writeNBTToFile();
@@ -381,8 +390,14 @@ public class GPlayerListener implements Listener
 			event.setCancelled(true);
 			return;
 		}
+		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder(Configurations.PLAYERS_DATS), event.getPlayer().getUniqueId());
+		if(playerCfg.readNBTFromFile().getCopy().getBoolean("Muted"))
+		{
+			event.getPlayer().sendMessage(this.gbp.getLang().getColored("player.muted", "&cYour are muted !"));
+			event.setCancelled(true);
+			return;
+		}
 		String teaming = "&7[";
-		NBTConfig playerCfg = new NBTConfig(this.gbp.getConfigFolder("playerdatas"), event.getPlayer().getUniqueId());
 		String tUid = playerCfg.readNBTFromFile().getCopy().getString("Team");
 		teaming += this.gbp.getTeams().getIfExists(tUid).getChatColor();
 		teaming += this.gbp.getTeams().getIfExists(tUid).getDisplayName();
@@ -443,7 +458,7 @@ public class GPlayerListener implements Listener
 	public void onPlayerQuit(final PlayerQuitEvent event)
 	{
 		Player player = event.getPlayer();
-		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder("playerdatas"), player.getUniqueId());
+		NBTSubConfig playerConf = new NBTSubConfig(this.gbp.getConfigFolder(Configurations.PLAYERS_DATS), player.getUniqueId());
 		boolean isMasked = playerConf.readNBTFromFile().getCopy().getBoolean("Masked");
 		if(isMasked)
 		{
@@ -463,6 +478,9 @@ public class GPlayerListener implements Listener
 			}
 			event.setQuitMessage("");
 		}
+		GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " logged out. UID == '" + player.getUniqueId() + "'");
+		this.stat.player(player);
+		//this.stat.logout();
 	}
 
 	@EventHandler
@@ -491,7 +509,6 @@ public class GPlayerListener implements Listener
 			event.setCancelled(true);
 			return;
 		}
-		//event.getPlayer().sendRawMessage("La téléportation vas bientot être arrété, préparez-vous...");
 	}
 	
 	

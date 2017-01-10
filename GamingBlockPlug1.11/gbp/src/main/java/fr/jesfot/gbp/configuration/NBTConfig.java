@@ -70,7 +70,7 @@ public class NBTConfig
 	
 	public NBTConfig writeNBTToFile()
 	{
-		if(!this.canAccess)
+		if(this.isUnaccessible())
 		{
 			return this;
 		}
@@ -96,7 +96,7 @@ public class NBTConfig
 	
 	public NBTConfig readNBTFromFile()
 	{
-		if(!this.canAccess)
+		if(this.isUnaccessible())
 		{
 			return this;
 		}
@@ -187,6 +187,11 @@ public class NBTConfig
 	{
 		File file = new File(this.saveFolder, this.fileName + ".dat");
 		return file.length();
+	}
+	
+	public String getName()
+	{
+		return this.fileName;
 	}
 	
 	public static NBTTagCompound setLocation(NBTTagCompound compound, String key, Location location)

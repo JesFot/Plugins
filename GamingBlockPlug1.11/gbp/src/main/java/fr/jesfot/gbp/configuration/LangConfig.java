@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.bukkit.ChatColor;
+
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
 import fr.jesfot.gbp.lang.Lang;
 
@@ -95,5 +97,15 @@ public class LangConfig
 			this.values.setProperty(path2, defaultValue);
 		}
 		return this.values.getProperty(path2, defaultValue);
+	}
+	
+	public String getColored(String path, String defaultValue)
+	{
+		return ChatColor.translateAlternateColorCodes('&', this.get(path, defaultValue));
+	}
+	
+	public String getColored(String path)
+	{
+		return ChatColor.translateAlternateColorCodes('&', this.get(path));
 	}
 }

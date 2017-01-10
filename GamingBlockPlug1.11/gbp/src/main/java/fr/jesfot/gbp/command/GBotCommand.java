@@ -15,6 +15,7 @@ public class GBotCommand extends CommandBase
 	{
 		super("gbpbotdiscordcontrol");
 		this.gbp = plugin;
+		this.disableCommand();
 	}
 	
 	@Override
