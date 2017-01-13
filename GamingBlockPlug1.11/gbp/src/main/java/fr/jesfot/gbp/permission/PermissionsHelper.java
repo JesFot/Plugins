@@ -2,6 +2,7 @@ package fr.jesfot.gbp.permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
@@ -59,13 +60,17 @@ public class PermissionsHelper
 	{
 		if(permission == null)
 		{
-			return false;
+			return true;
 		}
 		if(sender instanceof ConsoleCommandSender)
 		{
 			return true;
 		}
 		else if(sender instanceof RemoteConsoleCommandSender)
+		{
+			return true;
+		}
+		else if(sender instanceof BlockCommandSender)
 		{
 			return true;
 		}

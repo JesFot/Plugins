@@ -13,6 +13,8 @@ import org.bukkit.inventory.PlayerInventory;
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.permission.Permissions;
+import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.Utils;
 import net.minecraft.server.v1_11_R1.NBTTagCompound;
@@ -43,6 +45,12 @@ public class WorldTeleporter
 		boolean useLastLocation = false;
 		boolean changeBedSpawn = true;
 		NBTSubConfig worldNext = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName);
+		String permName = worldNext.readNBTFromFile().getCopy().getString("PermName");
+		if(permName == null || permName.isEmpty())
+		{
+			permName = worldName;
+		}
+		String fullPerm = Permissions.GBP_PERMS + ".worlds.tpto." + permName;
 		World world = gbp.getServer().getWorld(worldName);
 		if(world == null)
 		{
@@ -54,7 +62,7 @@ public class WorldTeleporter
 			return false;
 		}
 		Location worldSpawn = world.getSpawnLocation();
-		String groupName = worldNext.readNBTFromFile().getCopy().getString("Group");
+		String groupName = worldNext.getCopy().getString("Group");
 		if(groupName == "")
 		{
 			groupName = "_undifined_";
@@ -62,6 +70,10 @@ public class WorldTeleporter
 		for(Player player : players)
 		{
 			if(player == null)
+			{
+				continue;
+			}
+			if(!PermissionsHelper.testPermission(player, fullPerm, true, "You are not allowed to enter in this world !"))
 			{
 				continue;
 			}

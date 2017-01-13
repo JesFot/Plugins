@@ -29,6 +29,7 @@ import fr.jesfot.gbp.world.WorldTeleporter;
 public class GWorldCommand extends CommandBase
 {
 	private GamingBlockPlug_1_11 gbp;
+	private Permission worldPerm;
 	private String usageMessage =
 			"/<com> list | /<com> tp <worldName> | /<com> set <worldName> <load|unload> [newSeed] [Env] [Type] |"
 			+ " /<com> set <worldName> options <gm|group> <Value>";
@@ -42,6 +43,57 @@ public class GWorldCommand extends CommandBase
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.tp", PermissionDefault.TRUE, "Allows you to tp yourself between worlds", world);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.load", PermissionDefault.OP, "Allows you to generate or unload worlds", world);
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.worlds.conf", PermissionDefault.OP, "Allows you to change worlds' options", world);
+		this.worldPerm = world;
+	}
+	
+	public void registerWorldsPublicPermsS(List<String> worlds)
+	{
+		for(String w : worlds)
+		{
+			this.gbp.getPermissionManager().addPermission(Permissions.GBP_PERMS + ".worlds.tpto." + w, PermissionDefault.TRUE,
+					"Nothing to say", this.worldPerm);
+		}
+	}
+	
+	public void registerWorldsPublicPerms(List<World> worlds)
+	{
+		for(World w : worlds)
+		{
+			NBTSubConfig world = new NBTSubConfig(this.gbp.getConfigFolder("worldsdatas"), w.getName());
+			String perm = world.readNBTFromFile().getCopy().getString("PermName");
+			if(perm == null)
+			{
+				perm = w.getName().toLowerCase().trim();
+				world.setString("PermName", w.getName().toLowerCase().trim()).writeNBTToFile();
+			}
+			this.gbp.getPermissionManager().addPermission(Permissions.GBP_PERMS + ".worlds.tpto." + perm, PermissionDefault.TRUE,
+					"Nothing to say", this.worldPerm);
+		}
+	}
+	
+	public void registerWorldsPrivatePermsS(List<String> worlds)
+	{
+		for(String w : worlds)
+		{
+			this.gbp.getPermissionManager().addPermission(Permissions.GBP_PERMS + ".worlds.tpto." + w, PermissionDefault.OP,
+					"Nothing to say", this.worldPerm);
+		}
+	}
+	
+	public void registerWorldsPrivatePerms(List<World> worlds)
+	{
+		for(World w : worlds)
+		{
+			NBTSubConfig world = new NBTSubConfig(this.gbp.getConfigFolder("worldsdatas"), w.getName());
+			String perm = world.readNBTFromFile().getCopy().getString("PermName");
+			if(perm == null)
+			{
+				perm = w.getName().toLowerCase().trim();
+				world.setString("PermName", w.getName().toLowerCase().trim()).writeNBTToFile();
+			}
+			this.gbp.getPermissionManager().addPermission(Permissions.GBP_PERMS + ".worlds.tpto." + perm, PermissionDefault.OP,
+					"Nothing to say", this.worldPerm);
+		}
 	}
 	
 	@Override

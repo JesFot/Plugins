@@ -1,6 +1,7 @@
 package fr.jesfot.gbp;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -81,6 +82,8 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private IslandZone island;
 	
+	private GWorldCommand worldCmd;
+	
 	public GamingBlockPlug_1_11(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
 		super(p_server);
@@ -125,9 +128,9 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		
 		this.shops = new Shops(this);
 		
-		
+		this.worldCmd = new GWorldCommand(this);
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
-				new GHomeCommand(this), new GWorldCommand(this), new GPermsCommand(this), new GVarCommand(this),
+				new GHomeCommand(this), this.worldCmd, new GPermsCommand(this), new GVarCommand(this),
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
 				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
@@ -157,6 +160,10 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Loaded !");
 		
 		CommandManager.loadCommands(this.plugin);
+		
+		this.worldCmd.registerWorldsPublicPerms(this.getServer().getWorlds());
+		this.worldCmd.registerWorldsPublicPermsS(Arrays.asList("hub", "crea"));
+		this.worldCmd.registerWorldsPrivatePermsS(Arrays.asList("worms"));
 		
 		this.logger.info("Loading worlds...");
 		this.mainNBTConfig.readNBTFromFile();
