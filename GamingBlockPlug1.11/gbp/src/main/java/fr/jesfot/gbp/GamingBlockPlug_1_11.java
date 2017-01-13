@@ -3,7 +3,6 @@ package fr.jesfot.gbp;
 import java.io.File;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.Executor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +13,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.jesfot.gbp.command.CommandManager;
-import fr.jesfot.gbp.command.GBotCommand;
 import fr.jesfot.gbp.command.GEcoCommand;
 import fr.jesfot.gbp.command.GFlyCommand;
 import fr.jesfot.gbp.command.GHomeCommand;
@@ -29,6 +27,7 @@ import fr.jesfot.gbp.command.GSeedCommand;
 import fr.jesfot.gbp.command.GShopCommand;
 import fr.jesfot.gbp.command.GSpyChestCommand;
 import fr.jesfot.gbp.command.GTeamCommand;
+import fr.jesfot.gbp.command.GTestForCommand;
 import fr.jesfot.gbp.command.GTpaCommand;
 import fr.jesfot.gbp.command.GTpcCommand;
 import fr.jesfot.gbp.command.GVarCommand;
@@ -41,7 +40,6 @@ import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.configuration.LangConfig;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
-import fr.jesfot.gbp.discord.Bot;
 import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.lang.Lang;
@@ -67,9 +65,6 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private final Logger logger;
 	private final JavaPlugin plugin;
-	
-	private Bot discordBot;
-	private Executor running_bot;
 	
 	private Configurations configs;
 	private NBTConfig mainNBTConfig;
@@ -122,6 +117,8 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		
 		this.mainNBTConfig = new NBTConfig(this.plugin.getDataFolder(), "GamingBlockPlug_Config");
 		
+		this.getLogger().info("Configuration loaded !");
+		
 		this.scoreManager = new ScoreboardManager(this);
 		
 		this.permissions = new Permissions(this);
@@ -134,22 +131,9 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
 				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
 				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
-				new GSalaryCommand(this), new GBotCommand(this), new GMuteCommand(this));
+				new GSalaryCommand(this), new GMuteCommand(this), new GTestForCommand(this));
 		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
-		
-		//this.logger.info("Reading configuration for the discord bot...");
-		/*this.discordBot = new Bot(this);
-		this.running_bot = Executors.newSingleThreadExecutor();
-		if(this.configs.getConfig("bot_discord").getConfig().getBoolean("should_connect_on_startup", false))
-		{
-			this.logger.info("Starting the bot...");
-			this.running_bot.execute(this.discordBot);
-		}
-		else
-		{
-			this.logger.info("The bot will stay off");
-		}*/
 	}
 	
 	public void onEnable()
@@ -187,7 +171,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Initializing floating island...");
 		this.island = new IslandZone(this);
 		this.island.readCenter();
-		if(this.island.getCenter() == null)
+		if(!this.island.hasPoints())
 		{
 			this.logger.warning("No location stored for the island....");
 			this.island.disable();
@@ -249,31 +233,6 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.vars.storeToFile();
 		this.logger.info("Done !");
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" disabled.");
-	}
-	
-	public void startDiscord()
-	{
-		if(this.running_bot != null && !this.discordBot.isRunning())
-		{
-			this.running_bot.execute(discordBot);
-		}
-	}
-	
-	public void restartDiscord()
-	{
-		if(this.running_bot != null && this.discordBot.isRunning())
-		{
-			this.discordBot.stop();
-			this.running_bot.execute(this.discordBot);
-		}
-	}
-	
-	public void stopDiscord()
-	{
-		if(this.running_bot != null && this.discordBot.isRunning())
-		{
-			this.discordBot.stop();
-		}
 	}
 	
 	// Getters :

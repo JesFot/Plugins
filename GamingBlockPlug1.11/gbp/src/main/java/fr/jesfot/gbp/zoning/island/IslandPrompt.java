@@ -125,7 +125,7 @@ public class IslandPrompt extends ValidatingPrompt
 	{
 		if(input.startsWith("north"))
 		{
-			String[] splited = input.split(" ");
+			/*String[] splited = input.split(" ");
 			if(splited.length <= 1)
 			{
 				this.gbp.getIsland().moveNorth(1);
@@ -145,7 +145,7 @@ public class IslandPrompt extends ValidatingPrompt
 					target.sendRawMessage("Usage: north [blocks]");
 					ex.printStackTrace();
 				}
-			}
+			}*/
 		}
 	}
 }

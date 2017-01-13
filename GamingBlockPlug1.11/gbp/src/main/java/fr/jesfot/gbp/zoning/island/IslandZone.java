@@ -3,32 +3,33 @@ package fr.jesfot.gbp.zoning.island;
 import org.bukkit.Location;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
-import fr.jesfot.gbp.zoning.Zone;
+import fr.jesfot.gbp.zoning.CubeZone;
 
-public class IslandZone extends Zone
+public class IslandZone extends CubeZone
 {
 	private GamingBlockPlug_1_11 gbp;
 	private boolean disabled = false;
 	
 	public IslandZone(GamingBlockPlug_1_11 plugin)
 	{
-		super(101, 70, 101, null);
 		this.gbp = plugin;
 	}
 	
 	public void readCenter()
 	{
-		this.setCenter(this.gbp.getNBT("Island").readNBTFromFile().getLocation("coords"));
-		if(this.getCenter() == null)
+		this.setStart(this.gbp.getNBT("Island").readNBTFromFile().getLocation("StartCoords"));
+		this.setEnd(this.gbp.getNBT("Island").readNBTFromFile().getLocation("EndCoords"));
+		if(!this.hasPoints())
 		{
-			this.gbp.getNBT("Island").readNBTFromFile().setLocation("coordsExample",
+			this.gbp.getNBT("Island").readNBTFromFile().setLocation("ExampleCoords",
 					new Location(this.gbp.getServer().getWorlds().get(0), 0, 0, 0)).writeNBTToFile();
 		}
 	}
 	
 	public void storeCenter()
 	{
-		this.gbp.getNBT("Island").readNBTFromFile().setLocation("coords", this.getCenter()).writeNBTToFile();
+		this.gbp.getNBT("Island").readNBTFromFile().setLocation("StartCoords", this.getStart()).writeNBTToFile();
+		this.gbp.getNBT("Island").readNBTFromFile().setLocation("EndCoords", this.getEnd()).writeNBTToFile();
 	}
 	
 	public void disable()
@@ -36,29 +37,27 @@ public class IslandZone extends Zone
 		this.disabled = true;
 	}
 	
-	@Override
 	public void moveUp(final int blcks)
 	{
 		if(this.disabled)
 		{
 			return;
 		}
-		super.moveUp(blcks);
+		//super.moveUp(blcks);
 	}
 	
-	@Override
 	public void moveDown(final int blcks)
 	{
 		if(this.disabled)
 		{
 			return;
 		}
-		super.moveDown(blcks);
+		//super.moveDown(blcks);
 	}
 	
 	public String getLoc()
 	{
-		return "W:" + this.getCenter().getWorld().getName() + ", X:" + this.getCenter().getBlockX() + ", Y:"
-				+ this.getCenter().getBlockY() + ", Z:" + this.getCenter().getBlockZ();
+		return "W:" + this.getStart().getWorld().getName() + ", X:" + this.getStart().getBlockX() + ", Y:"
+				+ this.getStart().getBlockY() + ", Z:" + this.getStart().getBlockZ();
 	}
 }

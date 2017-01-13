@@ -376,4 +376,19 @@ public class GTeam
 		this.salary = sal;
 		this.saveToConfig();
 	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(!(other instanceof GTeam))
+		{
+			return false;
+		}
+		GTeam oth = (GTeam)other;
+		if(!oth.getId().contentEquals(this.getId()))
+		{
+			return false;
+		}
+		return true;
+	}
 }

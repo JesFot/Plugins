@@ -78,3 +78,7 @@ commands:
   mute:
     description: Mute or unmute someone
     usage: /<command> <target> [true|false]
+  gtestfor:
+    description: Test for a player with some of grades
+    usage: /<command> <target> <teams...>
+    aliases: [gisteam, gis]

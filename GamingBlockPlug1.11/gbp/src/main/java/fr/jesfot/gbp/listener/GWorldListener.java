@@ -1,5 +1,6 @@
 package fr.jesfot.gbp.listener;
 
+import org.bukkit.command.Command;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,6 +13,8 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
+import fr.jesfot.gbp.GamingBlockPlug_1_11;
+
 public class GWorldListener implements Listener
 {
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -23,7 +26,9 @@ public class GWorldListener implements Listener
 	@EventHandler
 	public void onWorldLoad(final WorldLoadEvent event)
 	{
-		// Code ...
+		GamingBlockPlug_1_11.getMe().getLogger().info("World " + event.getWorld().getName() + " loaded succesfully.");
+		Command.broadcastCommandMessage(GamingBlockPlug_1_11.getMe().getServer().getConsoleSender(),
+				"Loaded world " + event.getWorld().getName(), false);
 	}
 
 	@EventHandler
@@ -35,7 +40,9 @@ public class GWorldListener implements Listener
 	@EventHandler
 	public void onWorldUnload(final WorldUnloadEvent event)
 	{
-		// Code ...
+		GamingBlockPlug_1_11.getMe().getLogger().info("World " + event.getWorld().getName() + " unloaded succesfuly.");
+		Command.broadcastCommandMessage(GamingBlockPlug_1_11.getMe().getServer().getConsoleSender(),
+				"Unloaded world " + event.getWorld().getName(), false);
 	}
 
 	@EventHandler
