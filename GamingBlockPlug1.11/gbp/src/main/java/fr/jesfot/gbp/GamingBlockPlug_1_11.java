@@ -136,6 +136,11 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
 				new GSalaryCommand(this), new GMuteCommand(this), new GTestForCommand(this));
 		
+		this.worldCmd.registerWorldsPublicPermsS(Arrays.asList("hub", "crea", "gallifrey"));
+		this.worldCmd.registerWorldsPrivatePermsS(Arrays.asList("worms"));
+		
+		this.worldCmd.registerWorldsPublicPerms(this.getServer().getWorlds());
+		
 		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
 	}
 	
@@ -160,10 +165,6 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Loaded !");
 		
 		CommandManager.loadCommands(this.plugin);
-		
-		this.worldCmd.registerWorldsPublicPerms(this.getServer().getWorlds());
-		this.worldCmd.registerWorldsPublicPermsS(Arrays.asList("hub", "crea"));
-		this.worldCmd.registerWorldsPrivatePermsS(Arrays.asList("worms"));
 		
 		this.logger.info("Loading worlds...");
 		this.mainNBTConfig.readNBTFromFile();
