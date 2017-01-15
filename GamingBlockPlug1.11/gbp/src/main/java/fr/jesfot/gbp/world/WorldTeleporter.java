@@ -48,7 +48,7 @@ public class WorldTeleporter
 		String permName = worldNext.readNBTFromFile().getCopy().getString("PermName");
 		if(permName == null || permName.isEmpty())
 		{
-			permName = worldName;
+			permName = worldName.toLowerCase();
 		}
 		String fullPerm = Permissions.GBP_PERMS + ".worlds.tpto." + permName;
 		World world = gbp.getServer().getWorld(worldName);
@@ -71,12 +71,20 @@ public class WorldTeleporter
 		{
 			if(player == null)
 			{
-				continue;
+				return false;
 			}
-			if(!PermissionsHelper.testPermission(player, fullPerm, true, "You are not allowed to enter in this world !"))
+			if(!PermissionsHelper.testPermissionSilent(player, fullPerm, true))
 			{
-				continue;
+				for(Player pl : players)
+				{
+					pl.sendMessage("Someone is not allowed to enter this worls : " + player.getDisplayName());
+				}
+				return false;
 			}
+			
+		}
+		for(Player player : players)
+		{
 			World playerWorld = player.getWorld();
 			if(WorldComparator.isEqualWorld(playerWorld, world, gbp))
 			{
@@ -188,7 +196,7 @@ public class WorldTeleporter
 		if(argument.startsWith("@"))
 		{
 			pls = Utils.getPlayers(sender, argument).toArray(new Player[]{});
-			if(pls == null)
+			if(pls == null || pls.length == 0)
 			{
 				sender.sendMessage(ChatColor.RED + gbp.getLang().get("player.notfound"));
 				return false;
@@ -196,7 +204,7 @@ public class WorldTeleporter
 		}
 		else
 		{
-			Player pl = (argument!="" ? gbp.getPlayerExact(argument) : ((sender instanceof Player) ? (Player)sender : null));
+			Player pl = (argument != "" ? gbp.getPlayerExact(argument) : ((sender instanceof Player) ? (Player)sender : null));
 			if(pl == null)
 			{
 				sender.sendMessage("Be a player or give a player as argument please.");
