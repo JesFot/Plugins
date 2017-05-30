@@ -198,7 +198,7 @@ public class SecurityWallSys
 	
 	public String message(final String playerName)
 	{
-		return this.gbp.getLang().get("securitywall.disallow", "[Security_Wall] Sory"
+		return this.gbp.getLang().get("securitywall.disallow", "[Security_Wall] Sorry"
 				+ " <player> but you can't pass here.").replaceAll("<player>", playerName);
 	}
 

@@ -174,6 +174,11 @@ public class SkinRestoreSys
 				throw new Exception("No premium account !");
 			}
 			
+			if(!response.contains("{\"uuid\":\""))
+			{
+				throw new Exception("API does not work correctly");
+			}
+			
 			GamingBlockPlug_1_11.getMe().getLogger().info("Resolved uuid '" + output.substring(7, 39)
 				+ "' for " + name);
 			return response;

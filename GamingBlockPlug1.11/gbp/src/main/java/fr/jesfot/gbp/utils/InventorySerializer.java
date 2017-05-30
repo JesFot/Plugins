@@ -1,7 +1,7 @@
 package fr.jesfot.gbp.utils;
 
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftInventoryPlayer;
-import org.bukkit.craftbukkit.v1_11_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -34,14 +34,16 @@ public class InventorySerializer
 				{
 					NBTTagCompound compound = new NBTTagCompound();
 					compound.setByte("Slot", (byte)i);
-					InventorySerializer.getItemStack(inv.getItem(i)).save(compound);
+					compound.setInt("Count", inv.getItem(i).getAmount());
+					compound.setShort("Damage", inv.getItem(i).getDurability());
+					compound.setString("id", inv.getItem(i).getType().name());
 					list.add(compound);
 				}
 			}
 		}
 		NBTTagCompound cp = new NBTTagCompound();
 		cp.set("Contents", list);
-		cp.setInt("Size", inv.getSize() - 5);
+		cp.setInt("Size", (player ? inv.getSize() - 5 : inv.getSize()));
 		cp.setInt("MaxStackSize", inv.getMaxStackSize());
 		cp.setString("Name", name);
 		cp.setBoolean("Type", player);
@@ -84,7 +86,10 @@ public class InventorySerializer
 			{
 				NBTTagCompound compound = list.get(i);
 				int j = compound.getByte("Slot") & 0xFF;
-				ItemStack itemstack = CraftItemStack.asBukkitCopy(new net.minecraft.server.v1_11_R1.ItemStack(compound));
+				int c = compound.getInt("Count");
+				short d = compound.getShort("Damage");
+				Material ma = Material.getMaterial(compound.getString("id"));
+				ItemStack itemstack = new ItemStack(ma, c, d);
 
 				if(itemstack != null)
 				{
@@ -98,10 +103,10 @@ public class InventorySerializer
 		return inv;
 	}
 	
-	private static net.minecraft.server.v1_11_R1.ItemStack getItemStack(ItemStack item)
+	/*private static net.minecraft.server.v1_11_R1.ItemStack getItemStack(ItemStack item)
 	{
 		return CraftItemStack.asNMSCopy(item);
-	}
+	}*/
 	
 	private static org.bukkit.craftbukkit.v1_11_R1.inventory.CraftInventoryPlayer getNewInv()
 	{
