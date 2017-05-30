@@ -4,6 +4,7 @@ public class RefString
 {
     public static final String NAME = "GamingBlockPlug";
     public static final String MCVERSION = "1.11";
+    public static final String BUKKIT_VERSION = "1.11-R0.1-SNAPSHOT";
     public static final Boolean OPOVERRIDE = true;
     
     public static final String BOT_NAME = "GamingBlockBot";
