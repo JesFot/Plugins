@@ -6,6 +6,9 @@ import java.util.logging.Logger;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import fr.jesfot.gbp.configuration.Configurations;
+import fr.jesfot.gbp.language.Lang;
+import fr.jesfot.gbp.language.LangConfig;
 import fr.jesfot.gbp.utils.ServerUtils;
 
 public class GamingBlockPlug_1_11 extends ServerUtils
@@ -14,6 +17,10 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private final Logger logger;
 	private final JavaPlugin plugin;
+	
+	private LangConfig lang;
+	
+	private Configurations configs;
 	
 	public GamingBlockPlug_1_11(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
@@ -40,7 +47,22 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 			}
 		}
 		
-		//
+		this.logger.info("Loading configuration files...");
+		this.configs = new Configurations(this.plugin.getDataFolder());
+		
+		this.configs.setMainConfig("GamingBlockPlug.yml");
+		this.configs.addConfig("offlines", "offlines.yml");
+		this.configs.addConfig("bot_discord", "discord_config.yml");
+		
+		this.configs.initAll();
+		this.configs.loadAll();
+		this.configs.saveAll();
+		this.logger.info("Successfuly loaded configuration files.");
+
+		this.logger.info("Loading language configuration....");
+		this.lang = new LangConfig(this);
+		this.lang.setLang(Lang.getByID(this.configs.getMainConfig().getConfig().getInt("language.id", -1)));
+		this.logger.info("Successfuly loaded language configuration.");
 		
 		this.logger.log(Level.INFO, "Successfuly loaded plugin " + RefString.NAME + ".");
 	}
@@ -55,8 +77,23 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	public void onDisable()
 	{
 		this.logger.log(Level.INFO, "Disabling plugin " + RefString.NAME + "...");
-		//
+
+		this.logger.info("Saving configuration files...");
+		this.configs.saveAll();
+		this.lang.save();
+		this.logger.info("Successfuly saved configuration files.");
+		
 		this.logger.log(Level.INFO, "Successfuly disabled plugin " + RefString.NAME + ".");
+	}
+	
+	public Configurations getConfigs()
+	{
+		return this.configs;
+	}
+	
+	public LangConfig getLang()
+	{
+		return this.lang;
 	}
 	
 	public Logger getLogger()
@@ -72,5 +109,10 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	public static GamingBlockPlug_1_11 getMe()
 	{
 		return PLUGIN;
+	}
+	
+	public static Logger getTheLogger()
+	{
+		return GamingBlockPlug_1_11.getMe().getLogger();
 	}
 }

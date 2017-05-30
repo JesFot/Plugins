@@ -1,1 +1,3 @@
-lang: -1
+language:
+  id: -1
+  folder: lang
