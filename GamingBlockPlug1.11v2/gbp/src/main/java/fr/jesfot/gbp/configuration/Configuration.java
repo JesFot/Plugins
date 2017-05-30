@@ -46,12 +46,12 @@ public class Configuration
 				}
 				catch(IOException e)
 				{
-					GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + " cannot be created...");
+					GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + " could not be created...");
 				}
 			}
-			else
+			else if(!this.configFile.getParentFile().exists())
 			{
-				GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + "'s parents folders cannot be created...");
+				GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + "'s parents folders could not be created...");
 			}
 		}
 	}

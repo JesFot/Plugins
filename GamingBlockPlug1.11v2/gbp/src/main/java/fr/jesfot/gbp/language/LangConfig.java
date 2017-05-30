@@ -33,6 +33,32 @@ public class LangConfig
 		this.gbp.getLogger().finest("Changing default language to " + lang.getName() + " (" + lang.toString() + ").");
 		this.language = lang;
 		this.configFile = new File(this.gbp.getPlugin().getDataFolder(), BASE_FOLDER + File.separator + this.language.getFile());
+		if(!this.configFile.exists())
+		{
+			GamingBlockPlug_1_11.getTheLogger().finer("File " + lang.getFile() + " does not exists, creating it...");
+			if(this.configFile.getParentFile().mkdirs())
+			{
+				try
+				{
+					if(this.configFile.createNewFile())
+					{
+						GamingBlockPlug_1_11.getTheLogger().finer("File " + lang.getFile() + " successfuly created.");
+					}
+					else
+					{
+						GamingBlockPlug_1_11.getTheLogger().warning("File " + lang.getFile() + " already exists ???");
+					}
+				}
+				catch(IOException e)
+				{
+					GamingBlockPlug_1_11.getTheLogger().warning("File " + lang.getFile() + " could not be created...");
+				}
+			}
+			else if(!this.configFile.getParentFile().exists())
+			{
+				GamingBlockPlug_1_11.getTheLogger().warning("File " + lang.getFile() + "'s parents folders could not be created...");
+			}
+		}
 		try
 		{
 			this.gbp.getLogger().finest("Loading file for this language (" + this.configFile.getPath() + ").");
