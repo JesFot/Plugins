@@ -2,8 +2,10 @@ package fr.jesfot.gbp.configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,6 +38,11 @@ public class Configuration
 				{
 					if(this.configFile.createNewFile())
 					{
+						InputStream is = Configuration.class.getResourceAsStream("/"+this.configFile.getName());
+						if(is != null)
+						{
+							Files.copy(is, this.configFile.toPath());
+						}
 						this.lastSave = "";
 						GamingBlockPlug_1_11.getTheLogger().finer("Configuration " + this.getFileName() + " successfuly created.");
 					}

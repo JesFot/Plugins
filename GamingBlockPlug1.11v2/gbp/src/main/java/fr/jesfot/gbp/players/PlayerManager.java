@@ -36,7 +36,7 @@ public class PlayerManager
 			return this.getPlayer(player);
 		}
 		GBPPlayer to_add = new GBPPlayer(player);
-		to_add.setConfigFolder(this.gbp.getPlugin().getDataFolder());
+		to_add.setConfigFolder(this.gbp.getPlayerDataFolder());
 		this.playerList.put(player.getUniqueId(), to_add);
 		return to_add;
 	}
