@@ -1,0 +1,3 @@
+player.notfound=Player not found.
+console.missplayer=Please provide a player or be a player.
+console.onlypls=Only players can use this command.

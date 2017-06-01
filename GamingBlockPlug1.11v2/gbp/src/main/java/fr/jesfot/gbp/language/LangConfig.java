@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.bukkit.ChatColor;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.configuration.Configuration;
+import fr.jesfot.gbp.utils.FileUtils;
 
 public class LangConfig
 {
@@ -30,6 +33,10 @@ public class LangConfig
 	
 	public LangConfig setLang(Lang lang)
 	{
+		if(lang.equals(this.language))
+		{
+			return this;
+		}
 		this.gbp.getLogger().finest("Changing default language to " + lang.getName() + " (" + lang.toString() + ").");
 		this.language = lang;
 		this.configFile = new File(this.gbp.getPlugin().getDataFolder(), BASE_FOLDER + File.separator + this.language.getFile());
@@ -43,6 +50,19 @@ public class LangConfig
 					if(this.configFile.createNewFile())
 					{
 						GamingBlockPlug_1_11.getTheLogger().finer("File " + lang.getFile() + " successfuly created.");
+						InputStream is = Configuration.class.getResourceAsStream("/lang/" + lang.getFile());
+						if(is != null)
+						{
+							try
+							{
+								FileUtils.copy(is, this.configFile);
+							}
+							catch(Exception e)
+							{
+								e.printStackTrace();
+							}
+							GamingBlockPlug_1_11.getTheLogger().finer("File " + lang.getFile() + " successfuly copyed.");
+						}
 					}
 					else
 					{

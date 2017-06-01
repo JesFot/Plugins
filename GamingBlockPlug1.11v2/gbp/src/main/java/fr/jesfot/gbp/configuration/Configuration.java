@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.utils.FileUtils;
 
 public class Configuration
 {
@@ -32,19 +32,27 @@ public class Configuration
 		if(!this.configFile.exists())
 		{
 			GamingBlockPlug_1_11.getTheLogger().finer("Configuration " + this.getFileName() + " does not exists, creating it...");
-			if(this.configFile.getParentFile().mkdirs())
+			if(this.configFile.getParentFile().exists() || this.configFile.getParentFile().mkdirs())
 			{
 				try
 				{
 					if(this.configFile.createNewFile())
 					{
-						InputStream is = Configuration.class.getResourceAsStream("/"+this.configFile.getName());
-						if(is != null)
-						{
-							Files.copy(is, this.configFile.toPath());
-						}
 						this.lastSave = "";
 						GamingBlockPlug_1_11.getTheLogger().finer("Configuration " + this.getFileName() + " successfuly created.");
+						InputStream is = Configuration.class.getResourceAsStream("/" + this.configFile.getName());
+						if(is != null)
+						{
+							try
+							{
+								FileUtils.copy(is, this.configFile);
+							}
+							catch(Exception e)
+							{
+								e.printStackTrace();
+							}
+							GamingBlockPlug_1_11.getTheLogger().finer("Configuration " + this.getFileName() + " successfuly copyed.");
+						}
 					}
 					else
 					{
@@ -56,7 +64,7 @@ public class Configuration
 					GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + " could not be created...");
 				}
 			}
-			else if(!this.configFile.getParentFile().exists())
+			else
 			{
 				GamingBlockPlug_1_11.getTheLogger().warning("Configuration " + this.getFileName() + "'s parents folders could not be created...");
 			}
