@@ -19,17 +19,33 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.configuration.Configuration;
+
 public class GPlayerListener implements Listener
 {
+	private final GamingBlockPlug_1_11 gbp;
+	
+	public GPlayerListener(GamingBlockPlug_1_11 plugin)
+	{
+		this.gbp = plugin;
+	}
+	
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event)
 	{
-		// Code ...
+		this.gbp.getPlayerManager().login(event.getPlayer()).load();
+		Configuration offlineList = this.gbp.getConfigs().getConfig("offlines");
+		offlineList.reloadConfig();
+		offlineList.getConfig().set((this.gbp.isOnlineMode() ? "official" : "cracked") + "." + event.getPlayer().getName().toLowerCase(),
+				event.getPlayer().getUniqueId().toString());
+		offlineList.saveConfig();
 	}
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
+		this.gbp.getPlayerManager().join(event.getPlayer());
 		// Code ...
 	}
 	
@@ -79,12 +95,14 @@ public class GPlayerListener implements Listener
 	public void onPlayerQuit(final PlayerQuitEvent event)
 	{
 		// Code ...
+		this.gbp.getPlayerManager().logout(event.getPlayer());
 	}
 
 	@EventHandler
 	public void onPlayerKick(final PlayerKickEvent event)
 	{
 		// Code ..
+		this.gbp.getPlayerManager().logout(event.getPlayer());
 	}
 
 	@EventHandler

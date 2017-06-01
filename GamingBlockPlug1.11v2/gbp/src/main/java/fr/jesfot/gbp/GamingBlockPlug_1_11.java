@@ -1,5 +1,6 @@
 package fr.jesfot.gbp;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.language.Lang;
 import fr.jesfot.gbp.language.LangConfig;
+import fr.jesfot.gbp.players.PlayerManager;
 import fr.jesfot.gbp.utils.ServerUtils;
 
 public class GamingBlockPlug_1_11 extends ServerUtils
@@ -17,6 +19,8 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private final Logger logger;
 	private final JavaPlugin plugin;
+	
+	private PlayerManager playerManager;
 	
 	private LangConfig lang;
 	
@@ -64,6 +68,8 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.lang.setLang(Lang.getByID(this.configs.getMainConfig().getConfig().getInt("language.id", -1)));
 		this.logger.info("Successfuly loaded language configuration.");
 		
+		this.playerManager = new PlayerManager(this);
+		
 		this.logger.log(Level.INFO, "Successfuly loaded plugin " + RefString.NAME + ".");
 	}
 	
@@ -84,6 +90,17 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Successfuly saved configuration files.");
 		
 		this.logger.log(Level.INFO, "Successfuly disabled plugin " + RefString.NAME + ".");
+	}
+	
+	public PlayerManager getPlayerManager()
+	{
+		return this.playerManager;
+	}
+	
+	public File getPlayerDataFolder()
+	{
+		String fName = this.getConfigs().getMainConfig().getConfig().getString("players.folder", "playerdatas");
+		return new File(this.getPlugin().getDataFolder(), fName);
 	}
 	
 	public Configurations getConfigs()

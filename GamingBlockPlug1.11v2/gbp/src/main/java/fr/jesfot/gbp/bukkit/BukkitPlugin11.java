@@ -57,7 +57,7 @@ public class BukkitPlugin11 extends JavaPlugin
 		pm.registerEvents(new GEntityListener(), this);
 		
 		getLogger().finest("Loading Player linstener...");
-		pm.registerEvents(new GPlayerListener(), this);
+		pm.registerEvents(new GPlayerListener(this.gbp), this);
 		
 		getLogger().finest("Loading Inventory linstener...");
 		pm.registerEvents(new GInventoryListener(), this);
