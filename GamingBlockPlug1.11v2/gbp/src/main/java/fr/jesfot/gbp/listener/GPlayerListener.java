@@ -96,6 +96,7 @@ public class GPlayerListener implements Listener
 	{
 		// Code ...
 		this.gbp.getPlayerManager().logout(event.getPlayer());
+		this.gbp.getPlayerManager().removePlayer(event.getPlayer());
 	}
 
 	@EventHandler

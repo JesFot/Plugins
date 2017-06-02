@@ -10,6 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.language.Lang;
 import fr.jesfot.gbp.language.LangConfig;
+import fr.jesfot.gbp.players.GBPPlayer;
 import fr.jesfot.gbp.players.PlayerManager;
 import fr.jesfot.gbp.utils.ServerUtils;
 
@@ -77,6 +78,12 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	{
 		this.logger.log(Level.INFO, "Enabling plugin " + RefString.NAME + "...");
 		//
+		this.logger.info("Registering connected players...");
+		this.playerManager.addAll(this.getOnlinePlayers(), GBPPlayer.LogState.Playing);
+		this.playerManager.loadAll();
+		this.playerManager.saveAll();
+		this.logger.info("Successfuly registered " + this.playerManager.size() + " players.");
+		
 		this.logger.log(Level.INFO, "Successfuly enabled plugin " + RefString.NAME + ".");
 	}
 	
@@ -87,6 +94,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Saving configuration files...");
 		this.configs.saveAll();
 		this.lang.save();
+		this.playerManager.saveAll();
 		this.logger.info("Successfuly saved configuration files.");
 		
 		this.logger.log(Level.INFO, "Successfuly disabled plugin " + RefString.NAME + ".");
@@ -99,7 +107,20 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	public File getPlayerDataFolder()
 	{
-		String fName = this.getConfigs().getMainConfig().getConfig().getString("players.folder", "playerdatas");
+		return this.getSubFolder("players.folder", "playerdatas");
+	}
+	
+	public File getSubFolder(String configNode, String defaultName)
+	{
+		if(configNode == null && defaultName == null)
+		{
+			return this.getPlugin().getDataFolder();
+		}
+		if(configNode == null || defaultName == null)
+		{
+			return new File(this.getPlugin().getDataFolder(), (configNode == null ? defaultName : configNode));
+		}
+		String fName = this.getConfigs().getMainConfig().getConfig().getString(configNode, defaultName);
 		return new File(this.getPlugin().getDataFolder(), fName);
 	}
 	

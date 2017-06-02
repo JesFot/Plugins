@@ -8,6 +8,7 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 public class GBPPlayer
 {
@@ -15,6 +16,7 @@ public class GBPPlayer
 	private String playerName;
 	private String displayName;
 	private File configFolder;
+	private NBTSubConfig configFile;
 	
 	private GBPPlayer.LogState logState;
 	
@@ -24,6 +26,7 @@ public class GBPPlayer
 		this.playerName = name;
 		this.displayName = disp;
 		this.configFolder = null;
+		this.configFile = null;
 		this.logState = LogState.Unknown;
 	}
 	
@@ -74,12 +77,29 @@ public class GBPPlayer
 	
 	public void load()
 	{
-		//
+		if(this.configFolder == null || this.playerUid == null)
+		{
+			return;
+		}
+		if(this.configFile == null)
+		{
+			this.configFile = new NBTSubConfig(this.configFolder, this.playerUid);
+			this.configFile.getFile().initFolders();
+		}
+		this.configFile.readNBTFromFile();
 	}
 	
 	public void save()
 	{
-		//
+		if(this.configFile == null)
+		{
+			this.load();
+		}
+		if(this.configFile == null)
+		{
+			return;
+		}
+		this.configFile.writeNBTToFile();
 	}
 	
 	public void setLogState(GBPPlayer.LogState state)

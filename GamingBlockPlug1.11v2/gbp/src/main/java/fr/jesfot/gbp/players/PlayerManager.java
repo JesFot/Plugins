@@ -1,5 +1,6 @@
 package fr.jesfot.gbp.players;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +45,7 @@ public class PlayerManager
 	public GBPPlayer login(Player player)
 	{
 		GBPPlayer sel = this.addPlayer(player);
+		sel.load();
 		sel.setLogState(GBPPlayer.LogState.Identifying);
 		return sel;
 	}
@@ -60,6 +62,11 @@ public class PlayerManager
 		return this.playerList.remove(uid);
 	}
 	
+	public GBPPlayer removePlayer(Player player)
+	{
+		return this.playerList.remove(player.getUniqueId());
+	}
+	
 	public GBPPlayer logout(Player player)
 	{
 		GBPPlayer sel = this.getPlayer(player);
@@ -70,6 +77,35 @@ public class PlayerManager
 		sel.save();
 		sel.setLogState(GBPPlayer.LogState.OffLine);
 		return sel;
+	}
+	
+	public void addAll(Collection<? extends Player> collection, GBPPlayer.LogState state)
+	{
+		for(Player pl : collection)
+		{
+			this.addPlayer(pl).setLogState(state);
+		}
+	}
+	
+	public void loadAll()
+	{
+		for(GBPPlayer pl : this.playerList.values())
+		{
+			pl.load();
+		}
+	}
+	
+	public void saveAll()
+	{
+		for(GBPPlayer pl : this.playerList.values())
+		{
+			pl.save();
+		}
+	}
+	
+	public int size()
+	{
+		return this.playerList.size();
 	}
 	
 	public Map<UUID, GBPPlayer> getPlayerList()
