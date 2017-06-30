@@ -34,7 +34,7 @@ public class GPlayerListener implements Listener
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event)
 	{
-		this.gbp.getPlayerManager().login(event.getPlayer()).load();
+		this.gbp.getPlayerManager().login(event.getPlayer());
 		Configuration offlineList = this.gbp.getConfigs().getConfig("offlines");
 		offlineList.reloadConfig();
 		offlineList.getConfig().set((this.gbp.isOnlineMode() ? "official" : "cracked") + "." + event.getPlayer().getName().toLowerCase(),

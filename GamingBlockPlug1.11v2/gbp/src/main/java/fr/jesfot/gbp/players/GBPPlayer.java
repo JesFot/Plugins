@@ -3,6 +3,7 @@ package fr.jesfot.gbp.players;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -13,6 +14,9 @@ import org.bukkit.permissions.Permission;
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.permissions.PermissionGroup;
+
+import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_11_R1.NBTTagList;
 
 public class GBPPlayer
 {
@@ -105,6 +109,13 @@ public class GBPPlayer
 			this.configFile.getFile().initFolders();
 		}
 		this.configFile.readNBTFromFile();
+		NBTTagList permList = this.configFile.getCopy().getList("PermissionsOverrides", 10);
+		for (int i = 0; i < permList.size(); i++)
+		{
+			NBTTagCompound comp = permList.get(i);
+			this.permissionsOverrides.put(comp.getString("PermissionName"), comp.getBoolean("Value"));
+			comp = null;
+		}
 	}
 	
 	public void save()
@@ -117,6 +128,17 @@ public class GBPPlayer
 		{
 			return;
 		}
+		NBTTagList permList = new NBTTagList();
+		NBTTagCompound comp = null;
+		for (Entry<String, Boolean> en : this.permissionsOverrides.entrySet())
+		{
+			comp = new NBTTagCompound();
+			comp.setString("PermissionName", en.getKey());
+			comp.setBoolean("Value", Boolean.valueOf(en.getValue()));
+			permList.add(comp);
+			comp = null;
+		}
+		this.configFile.setTag("PermissionsOverrides", permList);
 		this.configFile.writeNBTToFile();
 	}
 	
