@@ -1,14 +1,18 @@
 package fr.jesfot.gbp.players;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import fr.jesfot.gbp.GamingBlockPlug_1_11;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
+import fr.jesfot.gbp.permissions.PermissionGroup;
 
 public class GBPPlayer
 {
@@ -17,6 +21,9 @@ public class GBPPlayer
 	private String displayName;
 	private File configFolder;
 	private NBTSubConfig configFile;
+	
+	private PermissionGroup permGroup;
+	private Map<String, Boolean> permissionsOverrides;
 	
 	private GBPPlayer.LogState logState;
 	
@@ -27,6 +34,8 @@ public class GBPPlayer
 		this.displayName = disp;
 		this.configFolder = null;
 		this.configFile = null;
+		this.permGroup = null;
+		this.permissionsOverrides = new HashMap<String, Boolean>();
 		this.logState = LogState.Unknown;
 	}
 	
@@ -75,6 +84,15 @@ public class GBPPlayer
 		}
 	}
 	
+	public void setPermissionGroup(PermissionGroup group)
+	{
+		if(!this.permGroup.equals(group))
+		{
+			this.permGroup = group;
+			group.addPlayer(this);
+		}
+	}
+	
 	public void load()
 	{
 		if(this.configFolder == null || this.playerUid == null)
@@ -100,6 +118,24 @@ public class GBPPlayer
 			return;
 		}
 		this.configFile.writeNBTToFile();
+	}
+	
+	public boolean hasPermission(String permission)
+	{
+		if(this.permissionsOverrides.containsKey(permission))
+		{
+			return this.permissionsOverrides.get(permission).booleanValue();
+		}
+		return this.permGroup.hasPermission(permission, GamingBlockPlug_1_11.getMe().getServer().getPlayer(this.playerUid));
+	}
+	
+	public boolean hasPermission(Permission permission)
+	{
+		if(this.permissionsOverrides.containsKey(permission.getName()))
+		{
+			return this.permissionsOverrides.get(permission.getName()).booleanValue();
+		}
+		return this.permGroup.hasPermission(permission, GamingBlockPlug_1_11.getMe().getServer().getPlayer(this.playerUid));
 	}
 	
 	public void setLogState(GBPPlayer.LogState state)
