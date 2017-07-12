@@ -11,18 +11,18 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 public class SecurityWallSys
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private List<Block> blocks;
 	private int howManyBlocks;
 	private Location coords;
 	private NBTSubConfig storage;
 	
-	public SecurityWallSys(GamingBlockPlug_1_11 plugin)
+	public SecurityWallSys(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 		this.blocks = new ArrayList<Block>();

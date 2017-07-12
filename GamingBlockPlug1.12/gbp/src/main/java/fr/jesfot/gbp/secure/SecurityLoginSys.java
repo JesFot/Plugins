@@ -6,16 +6,16 @@ import java.util.Set;
 
 import org.bukkit.entity.Player;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 public class SecurityLoginSys
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private NBTSubConfig configFilePass;
 	private List<String> currentlyLogin = new ArrayList<String>();
 	
-	public SecurityLoginSys(GamingBlockPlug_1_11 plugin)
+	public SecurityLoginSys(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 		this.configFilePass = new NBTSubConfig(this.gbp.getConfigFolder("Login"), "Passwords");

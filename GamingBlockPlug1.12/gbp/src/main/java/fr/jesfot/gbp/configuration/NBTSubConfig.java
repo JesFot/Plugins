@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import net.minecraft.server.v1_11_R1.NBTBase;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTBase;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class NBTSubConfig
 {
@@ -71,20 +71,20 @@ public class NBTSubConfig
 	
 	public NBTTagCompound getCopy()
 	{
-		if(this.file.getCopy() == null)
+		if (this.file.getCopy() == null)
 		{
 			return null;
 		}
-		if(this.tagName == null)
+		if (this.tagName == null)
 		{
 			return this.file.getCopy();
 		}
-		return (NBTTagCompound)this.file.getCopy().getCompound(this.tagName).clone();
+		return (NBTTagCompound) this.file.getCopy().getCompound(this.tagName).clone();
 	}
 	
 	public NBTSubConfig setCopy(NBTTagCompound compound)
 	{
-		if(this.tagName == null)
+		if (this.tagName == null)
 		{
 			this.file.setCopy(compound);
 			return this;
@@ -170,7 +170,7 @@ public class NBTSubConfig
 		this.setCopy(tmp);
 		return this;
 	}
-
+	
 	public NBTSubConfig setLong(String key, long value)
 	{
 		NBTTagCompound tmp = this.getCopy();
@@ -189,7 +189,7 @@ public class NBTSubConfig
 	
 	public NBTSubConfig setLocation(String key, Location location)
 	{
-		if(location == null)
+		if (location == null)
 		{
 			return this;
 		}
@@ -219,13 +219,13 @@ public class NBTSubConfig
 		yaw = loc.getFloat("Yaw");
 		String world = loc.getString("World");
 		World w = Bukkit.getWorld(world);
-		if(w == null)
+		if (w == null)
 		{
 			return null;
 		}
 		return new Location(w, x, y, z, yaw, pitch);
 	}
-
+	
 	public NBTSubConfig removeTag(String key)
 	{
 		NBTTagCompound tmp = this.getCopy();

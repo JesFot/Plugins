@@ -54,13 +54,13 @@ import fr.jesfot.gbp.teams.TeamManager;
 import fr.jesfot.gbp.utils.ServerUtils;
 import fr.jesfot.gbp.world.WorldLoader;
 import fr.jesfot.gbp.zoning.island.IslandZone;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
-import net.minecraft.server.v1_11_R1.NBTTagList;
-import net.minecraft.server.v1_11_R1.NBTTagString;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_12_R1.NBTTagString;
 
-public class GamingBlockPlug_1_11 extends ServerUtils
+public class GamingBlockPlug_1_12 extends ServerUtils
 {
-	private static GamingBlockPlug_1_11 PLUGIN;
+	private static GamingBlockPlug_1_12 PLUGIN;
 	
 	private static GSecurityLogger secureLogger;
 	
@@ -84,20 +84,21 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	private GWorldCommand worldCmd;
 	
-	public GamingBlockPlug_1_11(Server p_server, Logger p_logger, JavaPlugin p_plugin)
+	public GamingBlockPlug_1_12(Server p_server, Logger p_logger, JavaPlugin p_plugin)
 	{
 		super(p_server);
 		this.logger = p_logger;
 		this.plugin = p_plugin;
-		PLUGIN = this;
-		secureLogger = new GSecurityLogger(this.getConfigFolder("logs"), "GBP_logs.log");
+		GamingBlockPlug_1_12.PLUGIN = this;
+		GamingBlockPlug_1_12.secureLogger = new GSecurityLogger(this.getConfigFolder("logs"), "GBP_logs.log");
 	}
 	
 	public void onLoad()
 	{
-		this.logger.log(Level.INFO, "Starting loading plugin " + RefString.NAME + " for CraftBukkit " + RefString.MCVERSION);
+		this.logger.log(Level.INFO,
+				"Starting loading plugin " + RefString.NAME + " for CraftBukkit " + RefString.MCVERSION);
 		
-		if(!this.plugin.getDataFolder().exists())
+		if (!this.plugin.getDataFolder().exists())
 		{
 			this.plugin.getDataFolder().mkdirs();
 		}
@@ -131,17 +132,18 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.worldCmd = new GWorldCommand(this);
 		CommandManager.registerCommands(new TestGbpCommand(), new GTpaCommand(this), new GEcoCommand(this),
 				new GHomeCommand(this), this.worldCmd, new GPermsCommand(this), new GVarCommand(this),
-				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(), new GSecurityWallCommand(this),
-				new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(), new GFlyCommand(this),
-				new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this), new GSpyChestCommand(this),
-				new GSalaryCommand(this), new GMuteCommand(this), new GTestForCommand(this));
+				new GIslandCommand(this), new GPassNightCommand(this), new GSeedCommand(),
+				new GSecurityWallCommand(this), new LogMessageCommand(this), new GShopCommand(this), new GPingCommand(),
+				new GFlyCommand(this), new GTpcCommand(this), new GTeamCommand(this), new SpectateCommand(this),
+				new GSpyChestCommand(this), new GSalaryCommand(this), new GMuteCommand(this),
+				new GTestForCommand(this));
 		
 		this.worldCmd.registerWorldsPublicPermsS(Arrays.asList("hub", "crea", "gallifrey"));
 		this.worldCmd.registerWorldsPrivatePermsS(Arrays.asList("worms"));
 		
 		this.worldCmd.registerWorldsPublicPerms(this.getServer().getWorlds());
 		
-		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" loaded.");
+		this.logger.log(Level.INFO, "Plugin " + RefString.NAME + " loaded.");
 	}
 	
 	public void onEnable()
@@ -169,7 +171,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Loading worlds...");
 		this.mainNBTConfig.readNBTFromFile();
 		NBTTagList list = this.mainNBTConfig.getCopy().getList("LoadedWorlds", 8);
-		for(int i = 0; i < list.size(); i++)
+		for (int i = 0; i < list.size(); i++)
 		{
 			String wName = list.getString(i);
 			WorldLoader.loadWorld(this, wName);
@@ -179,7 +181,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Initializing floating island...");
 		this.island = new IslandZone(this);
 		this.island.readCenter();
-		if(!this.island.hasPoints())
+		if (!this.island.hasPoints())
 		{
 			this.logger.warning("No location stored for the island....");
 			this.island.disable();
@@ -204,7 +206,7 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.logger.info("Setupping scoreboard for Economy...");
 		this.scoreManager.registerObjective("money", "Money:");
 		this.logger.info("Scoreboard: ok !");
-		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" enabled.");
+		this.logger.log(Level.INFO, "Plugin " + RefString.NAME + " enabled.");
 	}
 	
 	public void onDisable()
@@ -221,12 +223,11 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		this.shops.saveShops();
 		this.shops.subDeleteAll();
 		this.logger.info("Done !");
-
 		
 		this.logger.info("Saving loaded worlds...");
 		this.mainNBTConfig.readNBTFromFile();
 		NBTTagList list = new NBTTagList();
-		for(World w : this.getServer().getWorlds())
+		for (World w : this.getServer().getWorlds())
 		{
 			list.add(new NBTTagString(w.getName()));
 		}
@@ -234,13 +235,13 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 		a.set("LoadedWorlds", list);
 		this.mainNBTConfig.setCopy(a).writeNBTToFile();
 		this.logger.info("Saved " + list.size() + " worlds");
-
+		
 		this.teams.saveAll();
 		
 		this.logger.info("Saving and turn off variables system...");
 		this.vars.storeToFile();
 		this.logger.info("Done !");
-		this.logger.log(Level.INFO, "Plugin "+RefString.NAME+" disabled.");
+		this.logger.log(Level.INFO, "Plugin " + RefString.NAME + " disabled.");
 	}
 	
 	// Getters :
@@ -249,12 +250,12 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	public OfflinePlayer getOfflinePlayerByName(final String name)
 	{
 		this.configs.getConfig("offlines").reloadConfig();
-		ConfigurationSection sct = this.configs.getConfig("offlines").getConfig().getConfigurationSection(
-				this.isOnlineMode() ? "official" : "cracked");
+		ConfigurationSection sct = this.configs.getConfig("offlines").getConfig()
+				.getConfigurationSection(this.isOnlineMode() ? "official" : "cracked");
 		Set<String> pls = sct.getKeys(false);
-		for(String str : pls)
+		for (String str : pls)
 		{
-			if(str.equalsIgnoreCase(name))
+			if (str.equalsIgnoreCase(name))
 			{
 				return (this.getServer().getOfflinePlayer(UUID.fromString(sct.getString(str))));
 			}
@@ -290,12 +291,12 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	public File getConfigFolder(String name)
 	{
-		if(name == null)
+		if (name == null)
 		{
 			return this.plugin.getDataFolder();
 		}
 		File file = new File(this.plugin.getDataFolder(), name);
-		if(!file.exists())
+		if (!file.exists())
 		{
 			file.mkdirs();
 		}
@@ -334,21 +335,21 @@ public class GamingBlockPlug_1_11 extends ServerUtils
 	
 	public Logger getLogger()
 	{
-		return logger;
+		return this.logger;
 	}
 	
 	public JavaPlugin getPlugin()
 	{
-		return plugin;
+		return this.plugin;
 	}
 	
-	public static GamingBlockPlug_1_11 getMe()
+	public static GamingBlockPlug_1_12 getMe()
 	{
-		return PLUGIN;
+		return GamingBlockPlug_1_12.PLUGIN;
 	}
 	
 	public static GSecurityLogger getMyLogger()
 	{
-		return secureLogger;
+		return GamingBlockPlug_1_12.secureLogger;
 	}
 }

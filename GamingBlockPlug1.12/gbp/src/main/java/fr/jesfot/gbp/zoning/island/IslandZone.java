@@ -2,15 +2,15 @@ package fr.jesfot.gbp.zoning.island;
 
 import org.bukkit.Location;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.zoning.CubeZone;
 
 public class IslandZone extends CubeZone
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private boolean disabled = false;
 	
-	public IslandZone(GamingBlockPlug_1_11 plugin)
+	public IslandZone(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 	}

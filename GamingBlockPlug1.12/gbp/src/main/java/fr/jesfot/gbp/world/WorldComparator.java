@@ -8,7 +8,7 @@ import java.util.List;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 /**
@@ -21,7 +21,7 @@ import fr.jesfot.gbp.configuration.NBTSubConfig;
  */
 public class WorldComparator
 {
-	public static int compareWorlds(World alpha, World beta, GamingBlockPlug_1_11 gbp)
+	public static int compareWorlds(World alpha, World beta, GamingBlockPlug_1_12 gbp)
 	{
 		if(gbp != null)
 		{
@@ -48,12 +48,12 @@ public class WorldComparator
 		return -1;
 	}
 	
-	public static boolean isEqualWorld(World alpha, World beta, GamingBlockPlug_1_11 gbp)
+	public static boolean isEqualWorld(World alpha, World beta, GamingBlockPlug_1_12 gbp)
 	{
 		return WorldComparator.compareWorlds(alpha, beta, gbp) > 0;
 	}
 	
-	public static String[] getWorldFilesList(GamingBlockPlug_1_11 gbp, Collection<String> exclude)
+	public static String[] getWorldFilesList(GamingBlockPlug_1_12 gbp, Collection<String> exclude)
 	{
 		List<String> result = new ArrayList<String>();
 		
@@ -69,7 +69,7 @@ public class WorldComparator
 		return result.toArray(new String[]{});
 	}
 	
-	public static void setDefaultGamemode(GamingBlockPlug_1_11 gbp, String worldName, String gameMode)
+	public static void setDefaultGamemode(GamingBlockPlug_1_12 gbp, String worldName, String gameMode)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		String gm;
@@ -96,55 +96,55 @@ public class WorldComparator
 		world.setString("Option.Gamemode", gm).writeNBTToFile();
 	}
 	
-	public static String getDefaultGamemode(GamingBlockPlug_1_11 gbp, String worldName)
+	public static String getDefaultGamemode(GamingBlockPlug_1_12 gbp, String worldName)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		return world.getCopy().getString("Option.Gamemode")!=""?world.getCopy().getString("Option.Gamemode"):"NaN";
 	}
 	
-	public static void setKeepInventory(GamingBlockPlug_1_11 gbp, String worldName, boolean value)
+	public static void setKeepInventory(GamingBlockPlug_1_12 gbp, String worldName, boolean value)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		world.setBoolean("Option.KeepInventory", value).writeNBTToFile();
 	}
 	
-	public static boolean getKeepInventory(GamingBlockPlug_1_11 gbp, String worldName)
+	public static boolean getKeepInventory(GamingBlockPlug_1_12 gbp, String worldName)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		return world.getCopy().getBoolean("Option.KeepInventory");
 	}
 	
-	public static void setChangeBedSpawn(GamingBlockPlug_1_11 gbp, String worldName, boolean value)
+	public static void setChangeBedSpawn(GamingBlockPlug_1_12 gbp, String worldName, boolean value)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		world.setBoolean("Option.ChangeBedSpawn", value).writeNBTToFile();
 	}
 	
-	public static boolean getChangeBedSpawn(GamingBlockPlug_1_11 gbp, String worldName)
+	public static boolean getChangeBedSpawn(GamingBlockPlug_1_12 gbp, String worldName)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		return world.getCopy().getBoolean("Option.ChangeBedSpawn");
 	}
 	
-	public static void setKeepLocation(GamingBlockPlug_1_11 gbp, String worldName, boolean value)
+	public static void setKeepLocation(GamingBlockPlug_1_12 gbp, String worldName, boolean value)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		world.setBoolean("Option.KeepLocation", value).writeNBTToFile();
 	}
 	
-	public static boolean getKeepLocation(GamingBlockPlug_1_11 gbp, String worldName)
+	public static boolean getKeepLocation(GamingBlockPlug_1_12 gbp, String worldName)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		return world.getCopy().getBoolean("Option.KeepLocation");
 	}
 	
-	public static void setAutoUnload(GamingBlockPlug_1_11 gbp, String worldName, boolean value)
+	public static void setAutoUnload(GamingBlockPlug_1_12 gbp, String worldName, boolean value)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		world.setBoolean("Option.AutoUnload", value).writeNBTToFile();
 	}
 	
-	public static boolean getAutoUnload(GamingBlockPlug_1_11 gbp, String worldName)
+	public static boolean getAutoUnload(GamingBlockPlug_1_12 gbp, String worldName)
 	{
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), worldName).readNBTFromFile();
 		return world.getCopy().getBoolean("Option.AutoUnload");

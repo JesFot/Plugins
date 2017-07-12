@@ -10,15 +10,15 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Objective;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 
 public class GEconomy
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	protected Map<OfflinePlayer, PlayerEconomy> economies;
 	
-	public GEconomy(GamingBlockPlug_1_11 p_gbp)
+	public GEconomy(GamingBlockPlug_1_12 p_gbp)
 	{
 		this.economies = new HashMap<OfflinePlayer, PlayerEconomy>();
 		this.gbp = p_gbp;

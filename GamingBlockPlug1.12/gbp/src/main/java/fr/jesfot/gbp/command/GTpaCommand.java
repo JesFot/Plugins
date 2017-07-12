@@ -17,16 +17,16 @@ import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.command.helpers.TpaPrompt;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.world.WorldComparator;
 
 public class GTpaCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GTpaCommand(GamingBlockPlug_1_11 p_gbp)
+	public GTpaCommand(GamingBlockPlug_1_12 p_gbp)
 	{
 		super("gtpa");
 		this.gbp = p_gbp;

@@ -5,7 +5,7 @@ import org.bukkit.World.Environment;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 /**
@@ -30,7 +30,7 @@ public class WorldLoader
 	 * @param gbp - The plugin
 	 * @param name - The world name to load or create
 	 */
-	public static void loadWorld(GamingBlockPlug_1_11 gbp, String name)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name)
 	{
 		WorldLoader.loadWorld(gbp, name, null);
 	}
@@ -42,7 +42,7 @@ public class WorldLoader
 	 * @param name - The world name to load or create
 	 * @param seed - The seed of the new world (or null for auto-generated)
 	 */
-	public static void loadWorld(GamingBlockPlug_1_11 gbp, String name, String seed)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed)
 	{
 		WorldLoader.loadWorld(gbp, name, seed, WorldType.NORMAL, World.Environment.NORMAL);
 	}
@@ -56,7 +56,7 @@ public class WorldLoader
 	 * @param wType - The {@link WorldType type} of the new world
 	 * @param env - The {@link Environment environment} of the new world
 	 */
-	public static void loadWorld(GamingBlockPlug_1_11 gbp, String name, String seed, WorldType wType, World.Environment env)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, WorldType wType, World.Environment env)
 	{
 		World theWorld;
 		if(name.endsWith("_nether"))
@@ -103,7 +103,7 @@ public class WorldLoader
 	 * @param seed - The seed of the new world (or null for auto-generated)
 	 * @param env - The {@link Environment environment} of the new world
 	 */
-	public static void loadWorld(GamingBlockPlug_1_11 gbp, String name, String seed, World.Environment env)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, World.Environment env)
 	{
 		WorldLoader.loadWorld(gbp, name, seed, WorldType.NORMAL, env);
 	}
@@ -116,7 +116,7 @@ public class WorldLoader
 	 * @param seed - The seed of the new world (or null for auto-generated)
 	 * @param wType - The {@link WorldType type} of the new world
 	 */
-	public static void loadWorld(GamingBlockPlug_1_11 gbp, String name, String seed, WorldType wType)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, WorldType wType)
 	{
 		WorldLoader.loadWorld(gbp, name, seed, wType, World.Environment.NORMAL);
 	}
@@ -127,7 +127,7 @@ public class WorldLoader
 	 * @param gbp - The plugin
 	 * @param name - The world name to unload
 	 */
-	public static void unloadWorld(GamingBlockPlug_1_11 gbp, String name)
+	public static void unloadWorld(GamingBlockPlug_1_12 gbp, String name)
 	{
 		World world = gbp.getServer().getWorld(name);
 		NBTSubConfig w = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), name);

@@ -5,7 +5,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
@@ -13,7 +13,7 @@ import fr.jesfot.gbp.utils.ItemInventory;
 
 public class PlayerEconomy
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private OfflinePlayer player;
 	private double money;
 	private NBTSubConfig config;
@@ -21,7 +21,7 @@ public class PlayerEconomy
 	private Inventory menu;
 	private Inventory inv;
 	
-	public PlayerEconomy(GamingBlockPlug_1_11 p_gbp, OfflinePlayer source)
+	public PlayerEconomy(GamingBlockPlug_1_12 p_gbp, OfflinePlayer source)
 	{
 		this.gbp = p_gbp;
 		this.player = source;

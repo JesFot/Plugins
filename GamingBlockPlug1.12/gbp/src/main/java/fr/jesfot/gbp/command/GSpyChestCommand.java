@@ -14,16 +14,16 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.utils.ItemInventory;
 
 public class GSpyChestCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private Inventory menu;
 	
-	public GSpyChestCommand(GamingBlockPlug_1_11 plugin)
+	public GSpyChestCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("gspychest");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.spychests", PermissionDefault.OP,
@@ -80,10 +80,10 @@ public class GSpyChestCommand extends CommandBase
 	public static class MenuListener implements Listener
 	{
 		private Player target;
-		private GamingBlockPlug_1_11 gbp;
+		private GamingBlockPlug_1_12 gbp;
 		private final String inv_ID;
 		
-		public MenuListener(Player tar, final String id, GamingBlockPlug_1_11 plugin)
+		public MenuListener(Player tar, final String id, GamingBlockPlug_1_12 plugin)
 		{
 			this.target = tar;
 			this.inv_ID = id;

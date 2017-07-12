@@ -12,7 +12,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.teams.GTeam;
@@ -20,9 +20,9 @@ import fr.jesfot.gbp.utils.Utils;
 
 public class GTeamCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GTeamCommand(GamingBlockPlug_1_11 plugin)
+	public GTeamCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("gteams");
 		this.gbp = plugin;

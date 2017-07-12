@@ -2,7 +2,7 @@ package fr.jesfot.gbp.discord;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.RefString;
 import fr.jesfot.gbp.discord.commands.CommandHandler;
 import fr.jesfot.gbp.discord.commands.VersionCommand;
@@ -17,12 +17,12 @@ public class Bot implements Runnable
 	
 	private CommandHandler commandHandler;
 	
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private String discord_token;
 	
 	private AtomicBoolean started;
 	
-	public Bot(GamingBlockPlug_1_11 plugin)
+	public Bot(GamingBlockPlug_1_12 plugin)
 	{
 		this.started = new AtomicBoolean(false);
 		this.gbp = plugin;

@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
@@ -17,9 +17,9 @@ import fr.jesfot.gbp.utils.Utils;
 
 public class GFlyCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GFlyCommand(GamingBlockPlug_1_11 plugin)
+	public GFlyCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("fly");
 		this.gbp = plugin;
@@ -47,7 +47,7 @@ public class GFlyCommand extends CommandBase
 		}
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.fly", false, null))
 		{
-			GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " tried to use /"
+			GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " tried to use /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			return true;
 		}
@@ -58,7 +58,7 @@ public class GFlyCommand extends CommandBase
 			sender.sendMessage("You are not allowed to use that command.");
 			return true;
 		}
-		GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " used /"
+		GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " used /"
 				+ command.getName() + " " + Utils.compile(args, 0, " "));
 		if(args.length == 0)
 		{

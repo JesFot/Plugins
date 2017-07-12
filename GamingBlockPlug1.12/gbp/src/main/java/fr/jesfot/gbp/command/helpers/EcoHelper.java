@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.ItemInventory;
@@ -24,9 +24,9 @@ import fr.jesfot.gbp.utils.Utils;
  */
 public class EcoHelper
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public EcoHelper(GamingBlockPlug_1_11 plugin)
+	public EcoHelper(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 	}

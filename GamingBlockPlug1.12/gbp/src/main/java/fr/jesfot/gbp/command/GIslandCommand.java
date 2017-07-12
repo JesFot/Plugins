@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.Utils;
@@ -24,11 +24,11 @@ import fr.jesfot.gbp.zoning.island.IslandPrompt;
 
 public class GIslandCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private String usageMessage = ChatColor.RED +
 			"/<com> [start]";
 	
-	public GIslandCommand(GamingBlockPlug_1_11 plugin)
+	public GIslandCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("island");
 		this.gbp = plugin;
@@ -48,14 +48,14 @@ public class GIslandCommand extends CommandBase
 		{
 			if(PermissionsHelper.testPermission(sender, "GamingBlockPlug.island.see", true, null))
 			{
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 						+ cmd.getName() + " " + Utils.compile(args, 0, " "));
 				sender.sendMessage(ChatColor.GREEN + "Actual location : " + ChatColor.AQUA + this.gbp.getIsland().getLoc()
 						+ ChatColor.GREEN + ".");
 			}
 			else
 			{
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 						+ cmd.getName() + " " + Utils.compile(args, 0, " "));
 			}
 			return true;
@@ -64,7 +64,7 @@ public class GIslandCommand extends CommandBase
 		{
 			if(PermissionsHelper.testPermission(sender, "GamingBlockPlug.island.control", false, null))
 			{
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 						+ cmd.getName() + " " + Utils.compile(args, 0, " "));
 				boolean isP = false;
 				if(sender instanceof Player)
@@ -88,7 +88,7 @@ public class GIslandCommand extends CommandBase
 			}
 			else
 			{
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 						+ cmd.getName() + " " + Utils.compile(args, 0, " "));
 			}
 			return true;

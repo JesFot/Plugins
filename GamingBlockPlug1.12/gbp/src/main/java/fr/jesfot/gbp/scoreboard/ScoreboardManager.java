@@ -6,13 +6,13 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class ScoreboardManager
 {
-	GamingBlockPlug_1_11 gbp;
+	GamingBlockPlug_1_12 gbp;
 	
-	public ScoreboardManager(GamingBlockPlug_1_11 plugin)
+	public ScoreboardManager(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 	}

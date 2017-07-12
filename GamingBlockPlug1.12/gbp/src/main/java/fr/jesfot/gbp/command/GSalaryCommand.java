@@ -9,7 +9,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.economy.GEconomy;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
@@ -18,9 +18,9 @@ import fr.jesfot.gbp.teams.TeamManager;
 
 public class GSalaryCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GSalaryCommand(GamingBlockPlug_1_11 plugin)
+	public GSalaryCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("salary");
 		this.setRawUsageMessage("/<com>");

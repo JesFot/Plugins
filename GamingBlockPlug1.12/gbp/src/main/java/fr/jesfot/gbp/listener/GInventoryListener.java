@@ -16,17 +16,17 @@ import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.subsytems.CommunSys;
 import fr.jesfot.gbp.utils.ItemInventory;
 
 public class GInventoryListener implements Listener
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private CommunSys cs;
 	
-	public GInventoryListener(GamingBlockPlug_1_11 p_gbp)
+	public GInventoryListener(GamingBlockPlug_1_12 p_gbp)
 	{
 		this.gbp = p_gbp;
 		this.cs = new CommunSys();

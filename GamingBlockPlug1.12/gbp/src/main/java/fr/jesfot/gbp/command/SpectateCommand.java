@@ -6,16 +6,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 
 public class SpectateCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public SpectateCommand(GamingBlockPlug_1_11 plugin)
+	public SpectateCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("spectate");
 		plugin.getPermissionManager().addPermission("GamingBlockPlug.spectate", PermissionDefault.TRUE,

@@ -1,6 +1,6 @@
 package fr.jesfot.gbp.economy;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class Money
 {
@@ -37,7 +37,7 @@ public class Money
 		return (int)emeralds;
 	}
 	
-	public static void reload(GamingBlockPlug_1_11 p_gbp)
+	public static void reload(GamingBlockPlug_1_12 p_gbp)
 	{
 		baseMon = p_gbp.getConfigs().getMainConfig().getConfig().getDouble("economy.basemoney", baseMon);
 		monByEm = p_gbp.getConfigs().getMainConfig().getConfig().getDouble("economy.monbyem", monByEm);

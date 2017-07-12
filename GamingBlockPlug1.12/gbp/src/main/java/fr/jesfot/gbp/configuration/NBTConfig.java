@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +19,10 @@ import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.material.MaterialData;
 
-import net.minecraft.server.v1_11_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
-import net.minecraft.server.v1_11_R1.NBTTagList;
-import net.minecraft.server.v1_11_R1.NBTTagString;
+import net.minecraft.server.v1_12_R1.NBTCompressedStreamTools;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagList;
+import net.minecraft.server.v1_12_R1.NBTTagString;
 
 public class NBTConfig
 {
@@ -70,7 +69,7 @@ public class NBTConfig
 	
 	public NBTConfig writeNBTToFile()
 	{
-		if(this.isUnaccessible())
+		if (this.isUnaccessible())
 		{
 			return this;
 		}
@@ -78,15 +77,15 @@ public class NBTConfig
 		File file2 = new File(this.saveFolder, this.fileName + ".dat");
 		try
 		{
-			NBTCompressedStreamTools.a((NBTTagCompound)this.mainCompound.clone(), new FileOutputStream(file1));
-			if(file2.exists())
+			NBTCompressedStreamTools.a((NBTTagCompound) this.mainCompound.clone(), new FileOutputStream(file1));
+			if (file2.exists())
 			{
 				file2.delete();
 			}
 			file1.renameTo(file2);
 			this.cleanTmp();
 		}
-		catch(IOException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			return this;
@@ -96,53 +95,54 @@ public class NBTConfig
 	
 	public NBTConfig readNBTFromFile()
 	{
-		if(this.isUnaccessible())
+		if (this.isUnaccessible())
 		{
 			return this;
 		}
 		File file = new File(this.saveFolder, this.fileName + ".dat");
-		if(!file.exists())
+		if (!file.exists())
 		{
 			return this.writeNBTToFile();
 		}
 		NBTTagCompound tmp;
 		try
 		{
-			tmp = NBTCompressedStreamTools.a((InputStream)(new FileInputStream(file)));
+			tmp = NBTCompressedStreamTools.a((new FileInputStream(file)));
 		}
-		catch(IOException e)
+		catch (IOException e)
 		{
-			LogManager.getLogManager().getLogger("[ERROR [NBTConfig.java]]").severe("Error while reading " + file.getName() + ".");
+			LogManager.getLogManager().getLogger("[ERROR [NBTConfig.java]]")
+					.severe("Error while reading " + file.getName() + ".");
 			e.printStackTrace();
 			return this;
 		}
-		if(tmp != null)
+		if (tmp != null)
 		{
-			this.mainCompound = (NBTTagCompound)tmp.clone();
+			this.mainCompound = (NBTTagCompound) tmp.clone();
 		}
 		return this;
 	}
 	
 	public NBTTagCompound getCopy()
 	{
-		if(this.isUnaccessible())
+		if (this.isUnaccessible())
 		{
 			return null;
 		}
-		if(this.mainCompound == null)
+		if (this.mainCompound == null)
 		{
 			return new NBTTagCompound();
 		}
-		return (NBTTagCompound)this.mainCompound.clone();
+		return (NBTTagCompound) this.mainCompound.clone();
 	}
 	
 	public NBTConfig setCopy(NBTTagCompound compound)
 	{
-		if(this.isUnaccessible())
+		if (this.isUnaccessible())
 		{
 			return this;
 		}
-		this.mainCompound = (NBTTagCompound)compound.clone();
+		this.mainCompound = (NBTTagCompound) compound.clone();
 		return this;
 	}
 	
@@ -160,7 +160,7 @@ public class NBTConfig
 	public NBTConfig cleanTmp()
 	{
 		File file = new File(this.saveFolder, this.fileName + ".dat.tmp");
-		if(file.exists())
+		if (file.exists())
 		{
 			file.delete();
 		}
@@ -170,7 +170,7 @@ public class NBTConfig
 	public NBTConfig delete()
 	{
 		File file = new File(this.saveFolder, this.fileName + ".dat");
-		if(file.exists())
+		if (file.exists())
 		{
 			file.delete();
 		}
@@ -196,7 +196,7 @@ public class NBTConfig
 	
 	public static NBTTagCompound setLocation(NBTTagCompound compound, String key, Location location)
 	{
-		if(location == null)
+		if (location == null)
 		{
 			return compound;
 		}
@@ -223,7 +223,7 @@ public class NBTConfig
 		yaw = loc.getFloat("Yaw");
 		String world = loc.getString("World");
 		World w = Bukkit.getWorld(world);
-		if(w == null)
+		if (w == null)
 		{
 			return null;
 		}
@@ -233,7 +233,7 @@ public class NBTConfig
 	@SuppressWarnings("deprecation")
 	public static NBTTagCompound setMaterialData(NBTTagCompound compound, String key, MaterialData data)
 	{
-		if(data == null)
+		if (data == null)
 		{
 			return compound;
 		}
@@ -254,7 +254,7 @@ public class NBTConfig
 		materialStr = dat.getString("ItemType");
 		data = dat.getByte("Data");
 		material = Material.getMaterial(materialStr);
-		if(material == null)
+		if (material == null)
 		{
 			return null;
 		}
@@ -264,12 +264,12 @@ public class NBTConfig
 	@SuppressWarnings("deprecation")
 	public static NBTTagCompound setEnchantments(NBTTagCompound compound, String key, Map<Enchantment, Integer> enchs)
 	{
-		if(enchs == null || enchs.isEmpty())
+		if (enchs == null || enchs.isEmpty())
 		{
 			return compound;
 		}
 		NBTTagList list = new NBTTagList();
-		for(Entry<Enchantment, Integer> entry : enchs.entrySet())
+		for (Entry<Enchantment, Integer> entry : enchs.entrySet())
 		{
 			NBTTagCompound ench = new NBTTagCompound();
 			ench.setInt("id", entry.getKey().getId());
@@ -285,7 +285,7 @@ public class NBTConfig
 	{
 		NBTTagList list = compound.getList(key, compound.getTypeId());
 		Map<Enchantment, Integer> result = new HashMap<Enchantment, Integer>();
-		for(int i = 0; i < list.size(); i++)
+		for (int i = 0; i < list.size(); i++)
 		{
 			NBTTagCompound ench = list.get(i);
 			int enchId = ench.getInt("id");
@@ -298,12 +298,12 @@ public class NBTConfig
 	
 	public static NBTTagCompound setLore(NBTTagCompound compound, String key, List<String> strings)
 	{
-		if(strings == null || strings.isEmpty())
+		if (strings == null || strings.isEmpty())
 		{
 			return compound;
 		}
 		NBTTagList list = new NBTTagList();
-		for(String str : strings)
+		for (String str : strings)
 		{
 			list.add(new NBTTagString(str));
 		}
@@ -315,9 +315,9 @@ public class NBTConfig
 	{
 		List<String> result = new ArrayList<String>();
 		NBTTagList list = compound.getList(key, (new NBTTagString()).getTypeId());
-		for(int i = 0; i < list.size(); i++)
+		for (int i = 0; i < list.size(); i++)
 		{
-			NBTTagString str = (NBTTagString)list.h(i);
+			NBTTagString str = (NBTTagString) list.i(i);
 			result.add(str.c_());
 		}
 		return result;

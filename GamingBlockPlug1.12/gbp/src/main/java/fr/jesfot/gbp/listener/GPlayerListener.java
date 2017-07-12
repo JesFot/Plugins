@@ -47,7 +47,7 @@ import org.bukkit.material.Sign;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.Configurations;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
@@ -66,13 +66,13 @@ import fr.jesfot.gbp.utils.Utils;
 
 public class GPlayerListener implements Listener
 {
-	private final GamingBlockPlug_1_11 gbp;
+	private final GamingBlockPlug_1_12 gbp;
 	private final HalfBedSys hbs;
 	private final SecurityLoginSys sls;
 	private final SkinRestoreSys srs;
 	private final PlayerStatistics stat;
 	
-	public GPlayerListener(GamingBlockPlug_1_11 plugin)
+	public GPlayerListener(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 		this.hbs = new HalfBedSys(plugin);
@@ -104,7 +104,7 @@ public class GPlayerListener implements Listener
 		}
 		this.gbp.getLogger().info(event.getPlayer().getName() + " logged in with unique id '"
 				+ event.getPlayer().getUniqueId().toString() + "'");
-		GamingBlockPlug_1_11.getMyLogger().info(event.getPlayer().getName() + "[/" + event.getAddress().getHostAddress()
+		GamingBlockPlug_1_12.getMyLogger().info(event.getPlayer().getName() + "[/" + event.getAddress().getHostAddress()
 				+ "] logged in with unique ID '" + event.getPlayer().getUniqueId().toString() + "'");
 		this.gbp.getConfigs().getConfig("offlines").reloadConfig();
 		this.gbp.getConfigs().getConfig("offlines").getConfig().set((this.gbp.isOnlineMode() ? "official" : "cracked") + "."
@@ -148,10 +148,10 @@ public class GPlayerListener implements Listener
 				{
 					if(!event.gracefulExit() && !((Boolean)event.getContext().getSessionData("kick")))
 					{
-						GamingBlockPlug_1_11.getMe().getLogger().info(player.getName()
+						GamingBlockPlug_1_12.getMe().getLogger().info(player.getName()
 								+ " didn't login or register until 5 minutes.");
 						player.kickPlayer("You must login until 5 minutes");
-						GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " was kicked because of no passwords until"
+						GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " was kicked because of no passwords until"
 								+ " 5 minutes.");
 					}
 				}
@@ -164,14 +164,14 @@ public class GPlayerListener implements Listener
 				player.sendMessage(ChatColor.RED + "Please enter your password :");
 				conv = factory.withFirstPrompt(new LoginPrompt(this.sls, player, this.stat)).buildConversation(player);
 				this.gbp.getLogger().info(player.getName() + " has already an account, asking for password...");
-				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " has already an account, asking for password...");
+				GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " has already an account, asking for password...");
 			}
 			else
 			{
 				player.sendMessage(ChatColor.RED + "Register with a new password :");
 				conv = factory.withFirstPrompt(new RegisterPrompt(this.sls, player, this.stat)).buildConversation(player);
 				this.gbp.getLogger().info(player.getName() + " didn't has already an account, asking for new password...");
-				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
+				GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " didn't has already an account, asking for new "
 						+ "password...");
 			}
 			conv.begin();
@@ -478,7 +478,7 @@ public class GPlayerListener implements Listener
 			}
 			event.setQuitMessage("");
 		}
-		GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " logged out. UID == '" + player.getUniqueId() + "'");
+		GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " logged out. UID == '" + player.getUniqueId() + "'");
 		this.stat.player(player);
 		//this.stat.logout();
 	}

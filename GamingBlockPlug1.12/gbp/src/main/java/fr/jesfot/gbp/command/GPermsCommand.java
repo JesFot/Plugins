@@ -13,16 +13,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GPermsCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GPermsCommand(GamingBlockPlug_1_11 plugin)
+	public GPermsCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("perms");
 		this.gbp = plugin;
@@ -35,11 +35,11 @@ public class GPermsCommand extends CommandBase
 	{
 		if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.perms", true, null))
 		{
-			GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+			GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			return true;
 		}
-		GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+		GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 				+ command.getName() + " " + Utils.compile(args, 0, " "));
 		if(args.length < 1)
 		{

@@ -5,7 +5,7 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.Player;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.stats.PlayerStatistics;
 
 public class RegisterPrompt extends StringPrompt
@@ -46,13 +46,13 @@ public class RegisterPrompt extends StringPrompt
 				this.sls.endLogin(player);
 				this.stat.player(this.player);
 				//this.stat.login();
-				GamingBlockPlug_1_11.getMe().getLogger().info(player.getName() + " succesfuly registred new password.");
-				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " succesfuly registred with his password.");
+				GamingBlockPlug_1_12.getMe().getLogger().info(player.getName() + " succesfuly registred new password.");
+				GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " succesfuly registred with his password.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			tryes = Integer.valueOf(tryes.intValue() + 1);
 			context.setSessionData("tries", tryes);
-			GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " used not corresponding password "
+			GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " used not corresponding password "
 					+ "('" + input + "' != '" + this.lastPassword + "') for the "
 					+ tryes.intValue() + " time(s).");
 			if(tryes >= 5)
@@ -60,8 +60,8 @@ public class RegisterPrompt extends StringPrompt
 				context.setSessionData("kick", Boolean.TRUE);
 				this.player.kickPlayer("Invalid second password 5 times...");
 				this.sls.endLogin(player);
-				GamingBlockPlug_1_11.getMe().getLogger().info(player.getName() + " wrote 5 times two differents passwords.");
-				GamingBlockPlug_1_11.getMyLogger().info(player.getName() + " kicked for wrong passwords.");
+				GamingBlockPlug_1_12.getMe().getLogger().info(player.getName() + " wrote 5 times two differents passwords.");
+				GamingBlockPlug_1_12.getMyLogger().info(player.getName() + " kicked for wrong passwords.");
 				return Prompt.END_OF_CONVERSATION;
 			}
 			else

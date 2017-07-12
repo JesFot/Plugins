@@ -13,7 +13,7 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class GWorldListener implements Listener
 {
@@ -26,8 +26,8 @@ public class GWorldListener implements Listener
 	@EventHandler
 	public void onWorldLoad(final WorldLoadEvent event)
 	{
-		GamingBlockPlug_1_11.getMe().getLogger().info("World " + event.getWorld().getName() + " loaded succesfully.");
-		Command.broadcastCommandMessage(GamingBlockPlug_1_11.getMe().getServer().getConsoleSender(),
+		GamingBlockPlug_1_12.getMe().getLogger().info("World " + event.getWorld().getName() + " loaded succesfully.");
+		Command.broadcastCommandMessage(GamingBlockPlug_1_12.getMe().getServer().getConsoleSender(),
 				"Loaded world " + event.getWorld().getName(), false);
 	}
 
@@ -40,8 +40,8 @@ public class GWorldListener implements Listener
 	@EventHandler
 	public void onWorldUnload(final WorldUnloadEvent event)
 	{
-		GamingBlockPlug_1_11.getMe().getLogger().info("World " + event.getWorld().getName() + " unloaded succesfuly.");
-		Command.broadcastCommandMessage(GamingBlockPlug_1_11.getMe().getServer().getConsoleSender(),
+		GamingBlockPlug_1_12.getMe().getLogger().info("World " + event.getWorld().getName() + " unloaded succesfuly.");
+		Command.broadcastCommandMessage(GamingBlockPlug_1_12.getMe().getServer().getConsoleSender(),
 				"Unloaded world " + event.getWorld().getName(), false);
 	}
 

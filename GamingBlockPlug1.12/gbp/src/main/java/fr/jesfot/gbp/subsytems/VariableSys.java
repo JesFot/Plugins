@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.Utils;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
-import net.minecraft.server.v1_11_R1.NBTTagList;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagList;
 
 public class VariableSys
 {
@@ -21,12 +21,7 @@ public class VariableSys
 	
 	public enum ObjType
 	{
-		Object("object"),
-		String("string"),
-		Boolean("boolean"),
-		Int("integer"),
-		Float("float"),
-		Double("double");
+		Object("object"), String("string"), Boolean("boolean"), Int("integer"), Float("float"), Double("double");
 		
 		private String name;
 		
@@ -41,9 +36,10 @@ public class VariableSys
 		@Override
 		public String toString()
 		{
-			return name;
+			return this.name;
 		}
 	}
+	
 	public class ObjData
 	{
 		protected Object obj;
@@ -66,6 +62,7 @@ public class VariableSys
 			this.type = p_type;
 		}
 	}
+	
 	protected Map<String, ObjData> store = new HashMap<String, ObjData>();
 	
 	public void storeObject(String key, ObjData object)
@@ -75,7 +72,7 @@ public class VariableSys
 	
 	public ObjData getObject(String key)
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			return null;
 		}
@@ -84,7 +81,7 @@ public class VariableSys
 	
 	public ObjType getType(String key)
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			return null;
 		}
@@ -118,137 +115,137 @@ public class VariableSys
 	
 	public String getString(String key) throws IllegalClassFormatException
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			throw new IllegalClassFormatException();
 		}
-		if(this.getType(key).equals(ObjType.String))
+		if (this.getType(key).equals(ObjType.String))
 		{
-			return (String)this.getObject(key).obj;
+			return (String) this.getObject(key).obj;
 		}
 		throw new IllegalClassFormatException();
 	}
 	
 	public boolean getBool(String key) throws IllegalClassFormatException
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			throw new IllegalClassFormatException();
 		}
-		if(this.getType(key).equals(ObjType.Boolean))
+		if (this.getType(key).equals(ObjType.Boolean))
 		{
-			return ((Boolean)this.getObject(key).obj).booleanValue();
+			return ((Boolean) this.getObject(key).obj).booleanValue();
 		}
 		throw new IllegalClassFormatException();
 	}
 	
 	public int getInt(String key) throws IllegalClassFormatException
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			throw new IllegalClassFormatException();
 		}
-		if(this.getType(key).equals(ObjType.Int))
+		if (this.getType(key).equals(ObjType.Int))
 		{
-			return ((Integer)this.getObject(key).obj).intValue();
+			return ((Integer) this.getObject(key).obj).intValue();
 		}
 		throw new IllegalClassFormatException();
 	}
 	
 	public float getFloat(String key) throws IllegalClassFormatException
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			throw new IllegalClassFormatException();
 		}
-		if(this.getType(key).equals(ObjType.Float))
+		if (this.getType(key).equals(ObjType.Float))
 		{
-			return ((Float)this.getObject(key).obj).floatValue();
+			return ((Float) this.getObject(key).obj).floatValue();
 		}
 		throw new IllegalClassFormatException();
 	}
 	
 	public double getDouble(String key) throws IllegalClassFormatException
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			throw new IllegalClassFormatException();
 		}
-		if(this.getType(key).equals(ObjType.Double))
+		if (this.getType(key).equals(ObjType.Double))
 		{
-			return ((Double)this.getObject(key).obj).doubleValue();
+			return ((Double) this.getObject(key).obj).doubleValue();
 		}
 		throw new IllegalClassFormatException();
 	}
 	
 	public String getToString(String key)
 	{
-		if(!this.store.containsKey(key))
+		if (!this.store.containsKey(key))
 		{
 			return null;
 		}
-		switch(this.getType(key))
+		switch (this.getType(key))
 		{
-		case String:
-			try
-			{
-				return this.getString(key);
-			}
-			catch (IllegalClassFormatException e)
-			{
-				return "";
-			}
-		case Boolean:
-			try
-			{
-				return (this.getBool(key) ? "true" : "false");
-			}
-			catch (IllegalClassFormatException e)
-			{
-				return "";
-			}
-		case Int:
-			try
-			{
-				return Integer.toString(this.getInt(key));
-			}
-			catch (IllegalClassFormatException e)
-			{
-				return "";
-			}
-		case Float:
-			try
-			{
-				return Float.toString(this.getFloat(key));
-			}
-			catch (IllegalClassFormatException e)
-			{
-				return "";
-			}
-		case Double:
-			try
-			{
-				return Double.toString(this.getDouble(key));
-			}
-			catch (IllegalClassFormatException e)
-			{
-				return "";
-			}
-		case Object:
-			return this.getObject(key).obj.toString();
-		default:
-			return null;
+			case String:
+				try
+				{
+					return this.getString(key);
+				}
+				catch (IllegalClassFormatException e)
+				{
+					return "";
+				}
+			case Boolean:
+				try
+				{
+					return (this.getBool(key) ? "true" : "false");
+				}
+				catch (IllegalClassFormatException e)
+				{
+					return "";
+				}
+			case Int:
+				try
+				{
+					return Integer.toString(this.getInt(key));
+				}
+				catch (IllegalClassFormatException e)
+				{
+					return "";
+				}
+			case Float:
+				try
+				{
+					return Float.toString(this.getFloat(key));
+				}
+				catch (IllegalClassFormatException e)
+				{
+					return "";
+				}
+			case Double:
+				try
+				{
+					return Double.toString(this.getDouble(key));
+				}
+				catch (IllegalClassFormatException e)
+				{
+					return "";
+				}
+			case Object:
+				return this.getObject(key).obj.toString();
+			default:
+				return null;
 		}
 	}
 	
 	public void storeToFile()
 	{
 		NBTTagList list = new NBTTagList();
-		for(Entry<String, ObjData> entry : this.store.entrySet())
+		for (Entry<String, ObjData> entry : this.store.entrySet())
 		{
 			NBTTagCompound e = new NBTTagCompound();
 			e.setString("Key", entry.getKey());
-			if(!entry.getKey().equalsIgnoreCase("plugin"))
+			if (!entry.getKey().equalsIgnoreCase("plugin"))
 			{
 				e.setString("Value", this.getToString(entry.getKey()));
 				e.setString("Type", this.getType(entry.getKey()).toString());
@@ -267,39 +264,39 @@ public class VariableSys
 	{
 		NBTTagCompound tmp = new NBTTagCompound();
 		NBTTagList list = this.varConfig.readNBTFromFile().getCopy().getList("VariableList", tmp.getTypeId());
-		if(!list.isEmpty())
+		if (!list.isEmpty())
 		{
-			for(int i = 0; i < list.size(); i++)
+			for (int i = 0; i < list.size(); i++)
 			{
 				NBTTagCompound comp = list.get(i);
 				String key = comp.getString("Key");
 				String obj = comp.getString("Value");
 				String type = comp.getString("Type");
 				int t = this.getIdForType(type);
-				switch(t)
+				switch (t)
 				{
-				case 0:
-					this.storeString(key, obj);
-					break;
-				case 1:
-					this.storeInt(key, Utils.toInt(obj, 0));
-					break;
-				case 2:
-					this.storeBool(key, Boolean.getBoolean(obj));
-					break;
-				case 3:
-					this.storeFloat(key, Utils.toFloat(obj, 0));
-					break;
-				case 4:
-					this.storeDouble(key, Utils.toDouble(obj, 0));
-					break;
-				default:
-					this.storeObject(key, new ObjData((Object)obj, ObjType.Object));
+					case 0:
+						this.storeString(key, obj);
+						break;
+					case 1:
+						this.storeInt(key, Utils.toInt(obj, 0));
+						break;
+					case 2:
+						this.storeBool(key, Boolean.getBoolean(obj));
+						break;
+					case 3:
+						this.storeFloat(key, Utils.toFloat(obj, 0));
+						break;
+					case 4:
+						this.storeDouble(key, Utils.toDouble(obj, 0));
+						break;
+					default:
+						this.storeObject(key, new ObjData(obj, ObjType.Object));
 				}
 			}
 		}
 	}
-
+	
 	public void remove(String name)
 	{
 		this.store.remove(name);
@@ -308,23 +305,23 @@ public class VariableSys
 	
 	private int getIdForType(String tyoe)
 	{
-		if(tyoe.contentEquals("string"))
+		if (tyoe.contentEquals("string"))
 		{
 			return 0;
 		}
-		else if(tyoe.contentEquals("integer"))
+		else if (tyoe.contentEquals("integer"))
 		{
 			return 1;
 		}
-		else if(tyoe.contentEquals("boolean"))
+		else if (tyoe.contentEquals("boolean"))
 		{
 			return 2;
 		}
-		else if(tyoe.contentEquals("float"))
+		else if (tyoe.contentEquals("float"))
 		{
 			return 3;
 		}
-		else if(tyoe.contentEquals("double"))
+		else if (tyoe.contentEquals("double"))
 		{
 			return 4;
 		}
@@ -336,23 +333,23 @@ public class VariableSys
 	
 	public static int getIdForTypes(String tyoe)
 	{
-		if(tyoe.equalsIgnoreCase("string") || tyoe.equalsIgnoreCase("str"))
+		if (tyoe.equalsIgnoreCase("string") || tyoe.equalsIgnoreCase("str"))
 		{
 			return 0;
 		}
-		else if(tyoe.equalsIgnoreCase("integer") || tyoe.equalsIgnoreCase("int"))
+		else if (tyoe.equalsIgnoreCase("integer") || tyoe.equalsIgnoreCase("int"))
 		{
 			return 1;
 		}
-		else if(tyoe.equalsIgnoreCase("boolean") || tyoe.equalsIgnoreCase("bool"))
+		else if (tyoe.equalsIgnoreCase("boolean") || tyoe.equalsIgnoreCase("bool"))
 		{
 			return 2;
 		}
-		else if(tyoe.equalsIgnoreCase("float"))
+		else if (tyoe.equalsIgnoreCase("float"))
 		{
 			return 3;
 		}
-		else if(tyoe.equalsIgnoreCase("double"))
+		else if (tyoe.equalsIgnoreCase("double"))
 		{
 			return 4;
 		}

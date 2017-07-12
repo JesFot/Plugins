@@ -5,13 +5,13 @@ import java.util.Set;
 
 import org.bukkit.OfflinePlayer;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GTeam
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
 	private boolean exists;
 	
@@ -27,7 +27,7 @@ public class GTeam
 	private boolean canOpenShopsInGroup;
 	private double salary;
 	
-	public GTeam(GamingBlockPlug_1_11 plugin, final String id)
+	public GTeam(GamingBlockPlug_1_12 plugin, final String id)
 	{
 		this.gbp = plugin;
 		

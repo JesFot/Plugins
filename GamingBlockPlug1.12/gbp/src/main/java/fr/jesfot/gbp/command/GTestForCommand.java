@@ -9,14 +9,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GTestForCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GTestForCommand(GamingBlockPlug_1_11 plugin)
+	public GTestForCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("gtestfor");
 		this.setRawUsageMessage("/<com> <targets> <teams list...>");

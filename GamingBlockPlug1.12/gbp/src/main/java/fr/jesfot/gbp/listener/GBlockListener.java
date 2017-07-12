@@ -22,7 +22,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.economy.Money;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.shop.ShopObject;
@@ -31,10 +31,10 @@ import fr.jesfot.gbp.utils.Utils;
 
 public class GBlockListener implements Listener
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private final SecurityWallSys sws;
 	
-	public GBlockListener(GamingBlockPlug_1_11 plugin)
+	public GBlockListener(GamingBlockPlug_1_12 plugin)
 	{
 		this.sws = new SecurityWallSys(plugin);
 		this.gbp = plugin;

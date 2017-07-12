@@ -13,15 +13,15 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Sign;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.shop.ShopObject;
 
 public class GShopCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private SpecialListener sL;
 	
-	public GShopCommand(GamingBlockPlug_1_11 plugin)
+	public GShopCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("shop");
 		this.gbp = plugin;
@@ -80,10 +80,10 @@ public class GShopCommand extends CommandBase
 	{
 		private OfflinePlayer collab;
 		private Player user;
-		private GamingBlockPlug_1_11 gbp;
+		private GamingBlockPlug_1_12 gbp;
 		private final SM mode;
 		
-		public SpecialListener(OfflinePlayer col, Player u, SM m, GamingBlockPlug_1_11 plugin)
+		public SpecialListener(OfflinePlayer col, Player u, SM m, GamingBlockPlug_1_12 plugin)
 		{
 			this.collab = col;
 			this.user = u;

@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.bukkit.OfflinePlayer;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 
@@ -14,9 +14,9 @@ public class TeamManager
 {
 	public static final String DEFAULT_NAME = "default";
 	private Map<String, GTeam> teamList;
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public TeamManager(GamingBlockPlug_1_11 plugin)
+	public TeamManager(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 		this.teamList = new HashMap<String, GTeam>();

@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.permission.Permissions;
@@ -28,13 +28,13 @@ import fr.jesfot.gbp.world.WorldTeleporter;
 
 public class GWorldCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private Permission worldPerm;
 	private String usageMessage =
 			"/<com> list | /<com> tp <worldName> | /<com> set <worldName> <load|unload> [newSeed] [Env] [Type] |"
 			+ " /<com> set <worldName> options <gm|group> <Value>";
 	
-	public GWorldCommand(GamingBlockPlug_1_11 plugin)
+	public GWorldCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("world");
 		this.gbp = plugin;
@@ -137,11 +137,11 @@ public class GWorldCommand extends CommandBase
 			}
 			if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.tp", true, null))
 			{
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				return true;
 			}
-			GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+			GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			if(WorldTeleporter.tpToWorld(gbp, sender, args.length >= 3 ? args[2] : "", args[1]))
 			{
@@ -180,11 +180,11 @@ public class GWorldCommand extends CommandBase
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", false, null))
 				{
-					GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+					GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				String seed = null;
 				WorldType wType = WorldType.NORMAL;
@@ -235,11 +235,11 @@ public class GWorldCommand extends CommandBase
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.load", true, null))
 				{
-					GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+					GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				WorldLoader.unloadWorld(gbp, w);
 			}
@@ -247,11 +247,11 @@ public class GWorldCommand extends CommandBase
 			{
 				if(!PermissionsHelper.testPermission(sender, "GamingBlockPlug.worlds.conf", true, null))
 				{
-					GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+					GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 							+ command.getName() + " " + Utils.compile(args, 0, " "));
 					return true;
 				}
-				GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+				GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 						+ command.getName() + " " + Utils.compile(args, 0, " "));
 				String opt = args[3];
 				String val = args[4];

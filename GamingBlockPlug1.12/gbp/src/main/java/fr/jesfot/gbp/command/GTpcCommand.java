@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.Utils;
@@ -26,9 +26,9 @@ public class GTpcCommand extends CommandBase
 	static final int MIN_COORD_MINUS_ONE = -30000001;
 	static final int MIN_COORD = -30000000;
 	
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GTpcCommand(GamingBlockPlug_1_11 plugin)
+	public GTpcCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("gtpc");
 		this.gbp = plugin;

@@ -13,16 +13,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.configuration.NBTConfig;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.world.WorldComparator;
 
 public class GHomeCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GHomeCommand(GamingBlockPlug_1_11 plugin)
+	public GHomeCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("ghome");
 		this.gbp = plugin;

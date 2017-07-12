@@ -4,15 +4,15 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.subsytems.VariableSys;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GVarCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GVarCommand(GamingBlockPlug_1_11 plugin)
+	public GVarCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("var");
 		this.gbp = plugin;

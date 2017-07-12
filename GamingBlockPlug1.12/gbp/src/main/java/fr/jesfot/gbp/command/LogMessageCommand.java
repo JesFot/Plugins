@@ -5,15 +5,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 
 public class LogMessageCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public LogMessageCommand(GamingBlockPlug_1_11 plugin)
+	public LogMessageCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("logmessage");
 		this.gbp = plugin;

@@ -16,14 +16,14 @@ import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.RemoteServerCommandEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GPluginListener implements Listener
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public GPluginListener(GamingBlockPlug_1_11 plugin)
+	public GPluginListener(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 	}

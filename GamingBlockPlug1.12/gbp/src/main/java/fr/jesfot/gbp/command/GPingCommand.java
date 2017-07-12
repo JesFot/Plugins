@@ -3,7 +3,7 @@ package fr.jesfot.gbp.command;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class GPingCommand extends CommandBase
@@ -17,13 +17,13 @@ public class GPingCommand extends CommandBase
 	@Override
 	public boolean executeCommand(CommandSender sender, Command command, String label, String[] args)
 	{
-		if(sender instanceof Player)
+		if (sender instanceof Player)
 		{
-			Player player = (Player)sender;
-			CraftPlayer craftPlayer = (CraftPlayer)player;
+			Player player = (Player) sender;
+			CraftPlayer craftPlayer = (CraftPlayer) player;
 			int ping = craftPlayer.getHandle().ping;
-			sender.sendMessage("" + ChatColor.BOLD + ChatColor.GOLD + "Pong" + ChatColor.RESET
-					+ ChatColor.GOLD + ", after " + ChatColor.DARK_RED + ChatColor.ITALIC + ping + "ms");
+			sender.sendMessage("" + ChatColor.BOLD + ChatColor.GOLD + "Pong" + ChatColor.RESET + ChatColor.GOLD
+					+ ", after " + ChatColor.DARK_RED + ChatColor.ITALIC + ping + "ms");
 		}
 		else
 		{

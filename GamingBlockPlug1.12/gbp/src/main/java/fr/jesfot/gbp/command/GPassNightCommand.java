@@ -5,16 +5,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.utils.Utils;
 
 public class GPassNightCommand extends CommandBase
 {
-	private final GamingBlockPlug_1_11 gbp;
+	private final GamingBlockPlug_1_12 gbp;
 	
-	public GPassNightCommand(GamingBlockPlug_1_11 plugin)
+	public GPassNightCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("forcepassnight");
 		this.gbp = plugin;
@@ -29,7 +29,7 @@ public class GPassNightCommand extends CommandBase
 		if(PermissionsHelper.testPermission(sender, "GamingBlockPlug.passnight", true, "You are not allowed to force"
 				+ " this system !"))
 		{
-			GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " used /"
+			GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " used /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
 			for(Player pl : this.gbp.getServer().getOnlinePlayers())
 			{
@@ -38,7 +38,7 @@ public class GPassNightCommand extends CommandBase
 		}
 		else
 		{
-			GamingBlockPlug_1_11.getMyLogger().info(sender.getName() + " tried to use /"
+			GamingBlockPlug_1_12.getMyLogger().info(sender.getName() + " tried to use /"
 					+ command.getName() + " " + Utils.compile(args, 0, " "));
 		}
 		return true;

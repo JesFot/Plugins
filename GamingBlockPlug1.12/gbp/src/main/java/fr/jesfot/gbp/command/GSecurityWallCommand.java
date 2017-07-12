@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 import fr.jesfot.gbp.subsytems.SecurityWallSys;
@@ -13,10 +13,10 @@ import fr.jesfot.gbp.utils.Utils;
 
 public class GSecurityWallCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private SecurityWallSys sws;
 	
-	public GSecurityWallCommand(GamingBlockPlug_1_11 plugin)
+	public GSecurityWallCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("addwall");
 		this.gbp = plugin;

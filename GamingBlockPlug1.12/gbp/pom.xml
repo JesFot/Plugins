@@ -4,7 +4,7 @@
 
   <groupId>fr.jesfot</groupId>
   <artifactId>gbp</artifactId>
-  <version>1.0.0-ALPHA</version>
+  <version>1.2.1-ALPHA</version>
   <packaging>jar</packaging>
 
   <name>GamingBlockPlug</name>
@@ -52,14 +52,14 @@
        <dependency>
            <groupId>org.bukkit</groupId>
            <artifactId>bukkit</artifactId>
-           <version>1.11-R0.1-SNAPSHOT</version>
+           <version>1.12-R0.1-SNAPSHOT</version>
            <type>jar</type>
            <scope>provided</scope>
        </dependency>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.11-R0.1-SNAPSHOT</version>
+			<version>1.12-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>

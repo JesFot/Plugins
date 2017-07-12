@@ -6,7 +6,7 @@ import org.bukkit.inventory.Inventory;
 import fr.jesfot.gbp.configuration.NBTSubConfig;
 import fr.jesfot.gbp.utils.InventorySerializer;
 import fr.jesfot.gbp.utils.ItemInventory;
-import net.minecraft.server.v1_11_R1.NBTTagCompound;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 
 public class CommunSys
 {
@@ -21,6 +21,7 @@ public class CommunSys
 	{
 		return this.inventaireCommun;
 	}
+	
 	public void setCInv(Inventory inv)
 	{
 		this.inventaireCommun = inv;
@@ -44,7 +45,7 @@ public class CommunSys
 	{
 		NBTTagCompound compound = conf.readNBTFromFile().getCopy();
 		this.inventaireCommun = InventorySerializer.fromNBT(compound, "CommunChestStore");
-		if(this.inventaireCommun == null)
+		if (this.inventaireCommun == null)
 		{
 			this.inventaireCommun = ItemInventory.createInventory("Commun", 6);
 		}

@@ -13,17 +13,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.command.helpers.EcoHelper;
 import fr.jesfot.gbp.permission.Permissions;
 import fr.jesfot.gbp.permission.PermissionsHelper;
 
 public class GEcoCommand extends CommandBase
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private EcoHelper ecoh;
 	
-	public GEcoCommand(GamingBlockPlug_1_11 plugin)
+	public GEcoCommand(GamingBlockPlug_1_12 plugin)
 	{
 		super("economy", "toolb");
 		this.gbp = plugin;

@@ -16,11 +16,11 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class Permissions
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
 	protected HashMap<String, Permission> perms;
 	protected HashMap<UUID, PermissionAttachment> permsAttachment;
@@ -35,7 +35,7 @@ public class Permissions
 	
 	private static Permission allPermRepresentator = new Permission("*", "All game's permissions");
 	
-	public Permissions(GamingBlockPlug_1_11 p_gbp)
+	public Permissions(GamingBlockPlug_1_12 p_gbp)
 	{
 		this.gbp = p_gbp;
 		this.perms = new HashMap<String, Permission>();

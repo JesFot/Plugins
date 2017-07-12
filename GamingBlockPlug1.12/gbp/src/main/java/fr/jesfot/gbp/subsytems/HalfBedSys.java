@@ -8,18 +8,18 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class HalfBedSys
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	private List<Player> playersInBed;
 	private Player[] playersB;
 	private List<Player> players;
 	private int playersInBedInt;
 	private int totalPlayers;
 	
-	public HalfBedSys(GamingBlockPlug_1_11 p_gbp)
+	public HalfBedSys(GamingBlockPlug_1_12 p_gbp)
 	{
 		this.gbp = p_gbp;
 		this.playersInBed = new ArrayList<Player>();

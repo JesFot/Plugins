@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.RefString;
 import fr.jesfot.gbp.listener.GBlockListener;
 import fr.jesfot.gbp.listener.GEntityListener;
@@ -18,7 +18,7 @@ import fr.jesfot.gbp.listener.GPluginListener;
 
 public class BukkitPlugin11 extends JavaPlugin
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
 	private GPlayerListener playerListener;
 	
@@ -35,7 +35,7 @@ public class BukkitPlugin11 extends JavaPlugin
 			this.stopPlugin();
 			return;
 		}
-		this.gbp = new GamingBlockPlug_1_11(s, l, this);
+		this.gbp = new GamingBlockPlug_1_12(s, l, this);
 		this.gbp.onLoad();
 		
 		playerListener = new GPlayerListener(this.gbp);

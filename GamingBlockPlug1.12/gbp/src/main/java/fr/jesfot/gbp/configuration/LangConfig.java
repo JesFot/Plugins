@@ -9,7 +9,7 @@ import java.util.Properties;
 
 import org.bukkit.ChatColor;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 import fr.jesfot.gbp.lang.Lang;
 
 public class LangConfig
@@ -17,9 +17,9 @@ public class LangConfig
 	private Lang language;
 	private Properties values;
 	private File configFile;
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public LangConfig(GamingBlockPlug_1_11 p_gbp)
+	public LangConfig(GamingBlockPlug_1_12 p_gbp)
 	{
 		this.gbp = p_gbp;
 		this.values = new Properties();

@@ -6,13 +6,13 @@ import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
 
-import fr.jesfot.gbp.GamingBlockPlug_1_11;
+import fr.jesfot.gbp.GamingBlockPlug_1_12;
 
 public class IslandPrompt extends ValidatingPrompt
 {
-	private GamingBlockPlug_1_11 gbp;
+	private GamingBlockPlug_1_12 gbp;
 	
-	public IslandPrompt(GamingBlockPlug_1_11 plugin)
+	public IslandPrompt(GamingBlockPlug_1_12 plugin)
 	{
 		this.gbp = plugin;
 	}
