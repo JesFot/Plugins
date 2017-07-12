@@ -16,7 +16,7 @@ import fr.jesfot.gbp.listener.GInventoryListener;
 import fr.jesfot.gbp.listener.GPlayerListener;
 import fr.jesfot.gbp.listener.GPluginListener;
 
-public class BukkitPlugin11 extends JavaPlugin
+public class BukkitPlugin12 extends JavaPlugin
 {
 	private GamingBlockPlug_1_12 gbp;
 	
@@ -29,7 +29,7 @@ public class BukkitPlugin11 extends JavaPlugin
 	{
 		Server s = this.getServer();
 		Logger l = this.getLogger();
-		if(!s.getBukkitVersion().equalsIgnoreCase("1.11-R0.1-SNAPSHOT"))
+		if(!s.getBukkitVersion().equalsIgnoreCase("1.12-R0.1-SNAPSHOT"))
 		{
 			this.goodVersion = false;
 			this.stopPlugin();
