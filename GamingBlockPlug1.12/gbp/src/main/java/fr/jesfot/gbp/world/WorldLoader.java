@@ -10,12 +10,21 @@ import fr.jesfot.gbp.configuration.NBTSubConfig;
 
 /**
  * Class contains functions for world's loading and unloading :<br>
- * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_9, String) loadWorld(plugin, worldName)}<br>
- * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_9, String, String) loadWorld(plugin, worldName, seed)}<br>
- * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_9, String, String, Environment) loadWorld(plugin, worldName, seed, env)}<br>
- * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_9, String, String, WorldType) loadWorld(plugin, worldName, seed, type)}<br>
- * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_9, String, String, WorldType, Environment) loadWorld(plugin, worldName, seed, type, env)}<br>
- * - {@link WorldLoader#unloadWorld(GamingBlockPlug_1_9, String) unloadWorld(plugin, worldName)}<br>
+ * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_12, String)
+ * loadWorld(plugin, worldName)}<br>
+ * - {@link WorldLoader#loadWorld(GamingBlockPlug_1_12, String, String)
+ * loadWorld(plugin, worldName, seed)}<br>
+ * -
+ * {@link WorldLoader#loadWorld(GamingBlockPlug_1_12, String, String, Environment)
+ * loadWorld(plugin, worldName, seed, env)}<br>
+ * -
+ * {@link WorldLoader#loadWorld(GamingBlockPlug_1_12, String, String, WorldType)
+ * loadWorld(plugin, worldName, seed, type)}<br>
+ * -
+ * {@link WorldLoader#loadWorld(GamingBlockPlug_1_12, String, String, WorldType, Environment)
+ * loadWorld(plugin, worldName, seed, type, env)}<br>
+ * - {@link WorldLoader#unloadWorld(GamingBlockPlug_1_12, String)
+ * unloadWorld(plugin, worldName)}<br>
  * 
  * @version 1.6.3
  * @since 1.3.1
@@ -27,8 +36,10 @@ public class WorldLoader
 	/**
 	 * Load or create a world with auto-generated properties
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to load or create
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to load or create
 	 */
 	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name)
 	{
@@ -38,9 +49,12 @@ public class WorldLoader
 	/**
 	 * Load or create a world with given properties
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to load or create
-	 * @param seed - The seed of the new world (or null for auto-generated)
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to load or create
+	 * @param seed
+	 *            - The seed of the new world (or null for auto-generated)
 	 */
 	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed)
 	{
@@ -50,26 +64,33 @@ public class WorldLoader
 	/**
 	 * Load or create a world with given properties
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to load or create
-	 * @param seed - The seed of the new world (or null for auto-generated)
-	 * @param wType - The {@link WorldType type} of the new world
-	 * @param env - The {@link Environment environment} of the new world
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to load or create
+	 * @param seed
+	 *            - The seed of the new world (or null for auto-generated)
+	 * @param wType
+	 *            - The {@link WorldType type} of the new world
+	 * @param env
+	 *            - The {@link Environment environment} of the new world
 	 */
-	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, WorldType wType, World.Environment env)
+	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, WorldType wType,
+			World.Environment env)
 	{
 		World theWorld;
-		if(name.endsWith("_nether"))
+		if (name.endsWith("_nether"))
 		{
 			env = World.Environment.NETHER;
 		}
-		else if(name.endsWith("_the_end"))
+		else if (name.endsWith("_the_end"))
 		{
 			env = World.Environment.THE_END;
 		}
-		if(seed != null)
+		if (seed != null)
 		{
-			theWorld = gbp.getServer().createWorld(new WorldCreator(name).environment(env).type(wType).seed(Long.parseLong(seed, 36)));
+			theWorld = gbp.getServer()
+					.createWorld(new WorldCreator(name).environment(env).type(wType).seed(Long.parseLong(seed, 36)));
 		}
 		else
 		{
@@ -78,7 +99,7 @@ public class WorldLoader
 		NBTSubConfig world = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), name);
 		
 		String groupName = world.readNBTFromFile().getCopy().getString("Group");
-		if(groupName == "")
+		if (groupName == "")
 		{
 			groupName = "_undifined_";
 			world.setString("Group", groupName);
@@ -98,10 +119,14 @@ public class WorldLoader
 	/**
 	 * Load or create a world with given properties
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to load or create
-	 * @param seed - The seed of the new world (or null for auto-generated)
-	 * @param env - The {@link Environment environment} of the new world
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to load or create
+	 * @param seed
+	 *            - The seed of the new world (or null for auto-generated)
+	 * @param env
+	 *            - The {@link Environment environment} of the new world
 	 */
 	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, World.Environment env)
 	{
@@ -111,10 +136,14 @@ public class WorldLoader
 	/**
 	 * Load or create a world with given properties
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to load or create
-	 * @param seed - The seed of the new world (or null for auto-generated)
-	 * @param wType - The {@link WorldType type} of the new world
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to load or create
+	 * @param seed
+	 *            - The seed of the new world (or null for auto-generated)
+	 * @param wType
+	 *            - The {@link WorldType type} of the new world
 	 */
 	public static void loadWorld(GamingBlockPlug_1_12 gbp, String name, String seed, WorldType wType)
 	{
@@ -124,20 +153,22 @@ public class WorldLoader
 	/**
 	 * Unload a world properly
 	 * 
-	 * @param gbp - The plugin
-	 * @param name - The world name to unload
+	 * @param gbp
+	 *            - The plugin
+	 * @param name
+	 *            - The world name to unload
 	 */
 	public static void unloadWorld(GamingBlockPlug_1_12 gbp, String name)
 	{
 		World world = gbp.getServer().getWorld(name);
 		NBTSubConfig w = new NBTSubConfig(gbp.getConfigFolder("worldsdatas"), name);
-		if(world == null)
+		if (world == null)
 		{
-			if(!w.existFile())
+			if (!w.existFile())
 			{
 				return;
 			}
-			if(w.readNBTFromFile().getCopy().getBoolean("isLoaded"))
+			if (w.readNBTFromFile().getCopy().getBoolean("isLoaded"))
 			{
 				w.setBoolean("isLoaded", false).writeNBTToFile();
 				return;

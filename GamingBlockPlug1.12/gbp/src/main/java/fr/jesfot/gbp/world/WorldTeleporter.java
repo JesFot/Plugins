@@ -22,9 +22,10 @@ import net.minecraft.server.v1_12_R1.NBTTagCompound;
 /**
  * Class contains functions for player's teleportation :<br>
  * -
- * {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_9, CommandSender, String, String)}<br>
+ * {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_12, CommandSender, String, String)}
  * <br>
- * - {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_9, Player[], String)}
+ * <br>
+ * - {@link WorldTeleporter#tpToWorld(GamingBlockPlug_1_12, Player[], String)}
  * 
  * @version 2.5.0
  * @since 1.3.1

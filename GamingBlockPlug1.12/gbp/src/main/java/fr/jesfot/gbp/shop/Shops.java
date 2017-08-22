@@ -124,7 +124,7 @@ public class Shops
 			NBTTagCompound itemConfig = shopConfig.getCompound("Item");
 			ItemStack is = s.getItem();
 			ItemMeta im = is.getItemMeta();
-			if (im.getDisplayName() != null)
+			if (im != null && im.getDisplayName() != null)
 			{
 				itemConfig.setString("Name", im.getDisplayName());
 			}
@@ -135,7 +135,7 @@ public class Shops
 			itemConfig.setShort("Durability", is.getDurability());
 			NBTConfig.setMaterialData(itemConfig, "Data", is.getData());
 			NBTConfig.setEnchantments(itemConfig, "enchs", is.getEnchantments());
-			NBTConfig.setLore(itemConfig, "Lore", im.getLore());
+			NBTConfig.setLore(itemConfig, "Lore", (im == null ? null : im.getLore()));
 			shopConfig.set("Item", itemConfig);
 			ownerConfig.set("_" + shopNumber, shopConfig);
 			shopsConfigFile.setTag(s.getOwner().getUniqueId().toString(), ownerConfig);
@@ -205,6 +205,10 @@ public class Shops
 					short durab = itemConfig.getShort("Durability");
 					is.setDurability(durab);
 					ItemMeta im = is.getItemMeta();
+					if (im == null)
+					{
+						im = this.gbp.getServer().getItemFactory().getItemMeta(is.getType());
+					}
 					String name = itemConfig.getString("Name");
 					if (!name.isEmpty())
 					{

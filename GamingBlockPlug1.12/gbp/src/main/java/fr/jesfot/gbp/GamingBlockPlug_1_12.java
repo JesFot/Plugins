@@ -267,7 +267,7 @@ public class GamingBlockPlug_1_12 extends ServerUtils
 	 * Put key to 'null' to get the parent tag.
 	 * 
 	 * @param key
-	 * @return
+	 * @return The configuration section
 	 */
 	public NBTSubConfig getNBT(String key)
 	{
