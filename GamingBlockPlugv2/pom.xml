@@ -1,0 +1,136 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.jesfot</groupId>
+  <artifactId>gamingblockplug</artifactId>
+  <version>1.13-1.0.0</version>
+  <packaging>jar</packaging>
+  
+  <name>GamingBlockPlug</name>
+  <description>Plugin for the GamingBlock server</description>
+  
+  <url>http://jesfot.github.io/Plugins/gamingblockplug</url>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    
+    <manifest.built-by>JësFot</manifest.built-by>
+    
+    <project.outdir>jars</project.outdir>
+  </properties>
+  
+  <developers>
+    <developer>
+      <name>JësFot</name>
+      <email>jesfot@gmail.com</email>
+      <url>https://github.com/JesFot</url>
+    </developer>
+  </developers>
+  
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/JesFot/Plugins/issues</url>
+  </issueManagement>
+  
+  <build>
+    <finalName>${project.name}</finalName>
+  
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Built-By>${manifest.built-by}</Built-By>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>shade</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedArtifactId>${project.name}</shadedArtifactId>
+              <shadedClassifierName>jar-with-dependencies</shadedClassifierName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>jars-cp</id>
+            <phase>install</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="Copying compiled jar">
+                <copy tofile="${project.outdir}/${project.name}.${project.packaging}">
+                  <fileset file="${project.build.directory}/${project.build.finalName}.${project.packaging}" />
+                </copy>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jars-clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target name="Deleting compiled jar">
+                <delete tofile="${project.outdir}/${project.name}.${project.packaging}" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <repositories>
+    <repository>
+      <id>spigot-repo</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>bukkit</artifactId>
+      <version>1.13-R0.1-SNAPSHOT</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>
