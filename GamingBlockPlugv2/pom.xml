@@ -122,6 +122,10 @@
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
+    <repository>
+      <id>unei-repo</id>
+      <url>http://unei.gitlab.io/maven/</url>
+    </repository>
   </repositories>
   
   <dependencies>
@@ -129,6 +133,20 @@
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
       <version>1.13-R0.1-SNAPSHOT</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.unei</groupId>
+      <artifactId>UneiConfiguration</artifactId>
+      <version>1.2.7-RELEASE</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.unei</groupId>
+      <artifactId>UneiLang</artifactId>
+      <version>0.0.3-SNAPSHOT</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
