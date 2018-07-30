@@ -12,25 +12,28 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class BukkitPlugin extends JavaPlugin
 {
+	private GamingBlockPlug gbpPlugin = null;
+	
 	public BukkitPlugin()
 	{}
 	
 	@Override
 	public void onLoad()
 	{
-		//
+		this.gbpPlugin = new GamingBlockPlug(this);
+		this.gbpPlugin.onLoad();
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		//
+		this.gbpPlugin.onEnable();
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		//
+		this.gbpPlugin.onDisable();
 	}
 	
 	@Override
