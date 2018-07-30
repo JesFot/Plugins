@@ -8,6 +8,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import me.unei.configuration.api.IFlatConfiguration;
+import me.unei.configuration.api.exceptions.FileFormatException;
 import me.unei.configuration.api.format.INBTCompound;
 import me.unei.configuration.api.format.INBTList;
 import me.unei.configuration.formats.nbtlib.TagCompound;
@@ -15,6 +17,19 @@ import me.unei.configuration.formats.nbtlib.TagList;
 
 public class DataUtils
 {
+	public static boolean safeReload(IFlatConfiguration config)
+	{
+		try
+		{
+			config.reload();
+			return true;
+		}
+		catch (FileFormatException ignored)
+		{
+			return false;
+		}
+	}
+	
 	public static INBTCompound setLocation(String key, Location location, INBTCompound store)
 	{
 		if (location == null)

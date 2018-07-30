@@ -2,5 +2,16 @@ name: GamingBlockPlug
 main: me.jesfot.gamingblockplug.plugin.BukkitPlugin
 version: 1.13-1.0.0
 description: Plugin for the Gaming Block Server
+depends: [uneiConfiguration]
 api-version: 1.13
 authors: ["JësFot"]
+commands:
+  role:
+    description: Role managing.
+    usage: |
+            /<command> list -- List roles.
+            /<command> add|remove <role> -- Add or remove roles.
+            /<command> option <role> <option> [value] -- Get or modify role options.
+            /<command> set <player> <role> -- Set a role to a player.
+            /<command> reset <player> -- Reset a player role to default.
+    aliases: [gbprole, roles]

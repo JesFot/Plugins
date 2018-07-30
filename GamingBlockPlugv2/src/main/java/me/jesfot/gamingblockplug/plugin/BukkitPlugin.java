@@ -2,7 +2,10 @@ package me.jesfot.gamingblockplug.plugin;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import me.jesfot.gamingblockplug.listeners.GPlayerListener;
 
 /**
  * Plugin CraftBukkit bootstrap.
@@ -28,6 +31,22 @@ public final class BukkitPlugin extends JavaPlugin
 	public void onEnable()
 	{
 		this.gbpPlugin.onEnable();
+		
+		getLogger().info(" -> Registering listeners...");
+		final PluginManager pm = this.getServer().getPluginManager();
+		
+		//final GPluginListener pluginListener = new GPluginListener(this.gbp);
+		//final GBlockListener blockListener = new GBlockListener(this.gbp);
+		//final GEntityListener entityListener = new GEntityListener();
+		final GPlayerListener playerListener = new GPlayerListener(this.gbpPlugin);
+		//final GInventoryListener inventoryListener = new GInventoryListener(this.gbp);
+		
+		//pm.registerEvents(pluginListener, this);
+		//pm.registerEvents(blockListener, this);
+		//pm.registerEvents(entityListener, this);
+		pm.registerEvents(playerListener, this);
+		//pm.registerEvents(inventoryListener, this);
+		getLogger().info("     -> Listeners registered !");
 	}
 	
 	@Override

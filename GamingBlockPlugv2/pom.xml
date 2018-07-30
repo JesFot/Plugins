@@ -150,5 +150,12 @@
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>me.lucko.luckperms</groupId>
+      <artifactId>luckperms-api</artifactId>
+      <version>4.2</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 </project>

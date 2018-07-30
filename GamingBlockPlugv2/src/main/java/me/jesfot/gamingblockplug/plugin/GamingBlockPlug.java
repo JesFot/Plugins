@@ -9,7 +9,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.jesfot.gamingblockplug.Infos;
+import me.jesfot.gamingblockplug.command.CommandManager;
+import me.jesfot.gamingblockplug.command.RoleCommand;
 import me.jesfot.gamingblockplug.configuration.GBPConfigurations;
+import me.jesfot.gamingblockplug.data.PlayerManager;
+import me.jesfot.gamingblockplug.permission.GBPPermissions;
+import me.jesfot.gamingblockplug.roles.Role;
+import me.jesfot.gamingblockplug.roles.RoleManager;
 import me.jesfot.gamingblockplug.utils.ServerHelper;
 import me.unei.configuration.api.Configurations;
 import me.unei.configuration.api.IConfiguration;
@@ -30,8 +36,12 @@ public class GamingBlockPlug extends ServerHelper
 	
 	private final JavaPlugin plugin;
 	
+	private GBPPermissions permissions = null;
 	private GBPConfigurations configs = null;
 	private INBTConfiguration mainDataStore = null;
+	
+	private PlayerManager playerManager;
+	private RoleManager roleManager;
 	
 	GamingBlockPlug(JavaPlugin p_plugin)
 	{
@@ -50,6 +60,19 @@ public class GamingBlockPlug extends ServerHelper
 			this.plugin.getDataFolder().mkdirs();
 		}
 		
+		this.plugin.getLogger().info(" -> Loading permissions...");
+		try
+		{
+			this.permissions = new GBPPermissions(this);
+		}
+		catch (IllegalStateException ignored)
+		{
+			this.plugin.getLogger().info(" W   -> Multiple instance of GBPPermissions is not permited !");
+			this.permissions = GBPPermissions.getInstance();
+		}
+		this.permissions.load();
+		this.plugin.getLogger().info("     -> Permissions loaded !");
+		
 		this.plugin.getLogger().info(" -> Loading configuration...");
 		
 		this.configs = new GBPConfigurations(this.plugin.getDataFolder());
@@ -66,18 +89,42 @@ public class GamingBlockPlug extends ServerHelper
 		this.mainDataStore = Configurations.newNBTConfig(this.plugin.getDataFolder(), Infos.GBP_NAME + "_Config");
 		
 		this.plugin.getLogger().info("     -> Configuration loaded !");
+		
+		this.playerManager = new PlayerManager();
+		this.playerManager.setAutoReloadSave(true, true);
+		
+		this.plugin.getLogger().info(" -> Registering commands...");
+		CommandManager.registerCommand(new RoleCommand(this));
+		this.plugin.getLogger().info("     -> Commands registered !");
 	}
 	
 	public void onEnable()
 	{
-		//
+		this.plugin.getLogger().info(" -> Registering permissions...");
+		this.permissions.registerPermissions();
+		this.plugin.getLogger().info("     -> Permissions registered !");
+		this.plugin.getLogger().info(" -> Loading role system...");
+		this.roleManager = new RoleManager(this);
+		this.roleManager.reloadRoles();
+		Role def = this.roleManager.getOrCreate(RoleManager.DEFAULT_NAME);
+		def.setChatColor("&0");
+		def.setDisplayName("default");
+		this.roleManager.saveAll();
+		this.plugin.getLogger().info("     -> Role system loaded !");
+		
+		CommandManager.loadCommands(this.plugin);
 	}
 	
 	public void onDisable()
 	{
+		CommandManager.onPluginStopped(this.plugin);
+		
 		this.plugin.getLogger().info(" -> Saving configurations...");
 		this.configs.saveAll();
 		this.plugin.getLogger().info("     -> Done.");
+		this.plugin.getLogger().info(" -> Un-Registering permissions...");
+		this.permissions.unregisterPermissions();
+		this.plugin.getLogger().info("     -> Permissions un-registered !");
 	}
 	
 	@Override
@@ -161,5 +208,15 @@ public class GamingBlockPlug extends ServerHelper
 	public static GamingBlockPlug getInstance()
 	{
 		return GamingBlockPlug.Instance;
+	}
+
+	public RoleManager getRoleManager()
+	{
+		return this.roleManager;
+	}
+	
+	public PlayerManager getPlayerManager()
+	{
+		return this.playerManager;
 	}
 }
