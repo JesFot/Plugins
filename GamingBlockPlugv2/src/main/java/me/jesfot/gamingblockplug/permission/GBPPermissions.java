@@ -64,22 +64,26 @@ public final class GBPPermissions
 		StaticPerms.COMMANDS = this.addGBP("command", PermissionDefault.OP, "Commands");
 		tmp = this.addGBP("command.fly", PermissionDefault.FALSE, "Permission to use the /fly command", StaticPerms.COMMANDS);
 		this.addGBP("command.fly.other", PermissionDefault.FALSE, "Permission to use the /fly <player> command", tmp);
-		tmp = this.addGBP("command.spawn", PermissionDefault.TRUE, "Permission to use the /spawn command", StaticPerms.COMMANDS);
-		this.addGBP("command.spawn.set", PermissionDefault.OP, "Permission to define the spawn tp", tmp);
-		this.addGBP("command.spawn.use", PermissionDefault.TRUE, "Permission to teleport to spawn", tmp);
-		tmp = this.addGBP("command.warp", PermissionDefault.TRUE, "Permission to use the /warp command", StaticPerms.COMMANDS);
-		this.addGBP("command.warp.set", PermissionDefault.OP, "Permission to define warps", tmp);
-		this.addGBP("command.warp.list", PermissionDefault.TRUE, "Permission to define warps", tmp);
-		tmp = this.addGBP("command.warp.use", PermissionDefault.TRUE, "Permission to tp to warps", tmp);
-		this.addGBP("command.warp.use.other", PermissionDefault.OP, "Permission to tp someone to warps", tmp);
-		this.addGBP("command.warp.use.goto", PermissionDefault.TRUE, "Permission to use tp on specific warp", tmp);
+		// ---- > /spawn command ----
+		StaticPerms.CMD_SPAWN	= this.addGBP("command.spawn",		PermissionDefault.TRUE,	"Permission to use the /spawn command",	StaticPerms.COMMANDS);
+		StaticPerms.CMD_SPAWN_SET	= this.addGBP("command.spawn.set",	PermissionDefault.OP,	"Permission to define the spawn tp",	StaticPerms.CMD_SPAWN);
+		StaticPerms.CMD_SPAWN_USE	= this.addGBP("command.spawn.use",	PermissionDefault.TRUE,	"Permission to teleport to spawn",		StaticPerms.CMD_SPAWN);
+		// ---- < /spawn command ----
+		// ---- > /warp command ----
+		StaticPerms.CMD_WARP	= this.addGBP("command.warp",	PermissionDefault.TRUE,	"Permission to use the /warp command",	StaticPerms.COMMANDS);
+		StaticPerms.CMD_WARP_SET	= this.addGBP("command.warp.set",	PermissionDefault.OP,	"Permission to define warps",		StaticPerms.CMD_WARP);
+		StaticPerms.CMD_WARP_LIST	= this.addGBP("command.warp.list",	PermissionDefault.TRUE,	"Permission to define warps",		StaticPerms.CMD_WARP);
+		StaticPerms.CMD_WARP_USE	= this.addGBP("command.warp.use",	PermissionDefault.TRUE,	"Permission to tp to warps",		StaticPerms.CMD_WARP);
+		StaticPerms.CMD_WARP_USE_OTHER	= this.addGBP("command.warp.use.other",	PermissionDefault.OP,	"Permission to tp someone to warps",		StaticPerms.CMD_WARP_USE);
+		StaticPerms.CMD_WARP_USE_GOTO	= this.addGBP("command.warp.use.goto",	PermissionDefault.TRUE,	"Permission to use tp on specific warp",	StaticPerms.CMD_WARP_USE);
+		// ---- < /warp command ----
 		tmp = this.addGBP("command.passnight", PermissionDefault.FALSE, "Permission to use the /forcepassnight command", StaticPerms.COMMANDS);
 		// ---- > /ping command ----
-		StaticPerms.CMD_PING = this.addGBP("command.ping", PermissionDefault.TRUE, "Permission to use the /ping command", StaticPerms.COMMANDS);
+		StaticPerms.CMD_PING	= this.addGBP("command.ping",	PermissionDefault.TRUE,	"Permission to use the /ping command",	StaticPerms.COMMANDS);
 		// ---- < /ping command ----
 		tmp = this.addGBP("command.spychest", PermissionDefault.OP, "Permission to use the /spychest command", StaticPerms.COMMANDS);
 		// ---- > /role command ----
-		StaticPerms.CMD_ROLE		= this.addGBP("command.role",			PermissionDefault.TRUE,		"Permission to use the /role command",		StaticPerms.COMMANDS);
+		StaticPerms.CMD_ROLE	= this.addGBP("command.role",			PermissionDefault.TRUE,		"Permission to use the /role command",		StaticPerms.COMMANDS);
 		StaticPerms.CMD_ROLE_LIST	= this.addGBP("command.role.list",		PermissionDefault.TRUE,		"Permission to list roles",					StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_ADD	= this.addGBP("command.role.add",		PermissionDefault.OP,		"Permission to add or remove roles",		StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_MODIF	= this.addGBP("command.role.modify",	PermissionDefault.OP,		"Permission to change options of roles",	StaticPerms.CMD_ROLE);
