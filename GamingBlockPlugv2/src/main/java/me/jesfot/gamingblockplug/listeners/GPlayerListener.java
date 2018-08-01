@@ -33,6 +33,7 @@ import me.jesfot.gamingblockplug.permission.PermissionHelper;
 import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.roles.Role;
+import me.jesfot.gamingblockplug.roles.RoleManager;
 import me.jesfot.gamingblockplug.security.HalfInBedSystem;
 import me.jesfot.gamingblockplug.utils.DataUtils;
 import me.unei.configuration.api.IFlatConfiguration;
@@ -62,6 +63,7 @@ public class GPlayerListener implements Listener
 	public void onPlayerJoin(final PlayerJoinEvent event)
 	{
 		final GBPPlayer player = this.plugin.getPlayerManager().getPlayer(event.getPlayer());
+		player.safeReload();
 
 		if (this.plugin.isOnlineMode())
 		{
@@ -71,6 +73,10 @@ public class GPlayerListener implements Listener
 		{
 			this.plugin.getLogger().info("Starting Login system for " + player.getHandler().getName() + "...");
 			this.plugin.getSystemManager().getLoginSystem().autoLogin(player);
+		}
+		if (player.getRoleId() == null)
+		{
+			player.setRoleId(RoleManager.DEFAULT_NAME);
 		}
 		if (PermissionHelper.testPermissionSilent(event.getPlayer(), StaticPerms.LOGIN_MOTD, false))
 		{
@@ -86,6 +92,7 @@ public class GPlayerListener implements Listener
 				}
 			}
 		}
+		player.save();
 	}
 
 	@EventHandler
@@ -183,6 +190,34 @@ public class GPlayerListener implements Listener
 		Role role = this.plugin.getRoleManager().get(player.getRoleId());
 
 		event.setFormat(role.prependFormat(event.getFormat()));
+		
+		// Variables.
+		
+		if (PermissionHelper.testPermissionSilent(event.getPlayer(), StaticPerms.VARS_CHAT, false))
+		{
+			StringBuilder msg = new StringBuilder();
+			if(event.getMessage().contains("${") && event.getMessage().contains("}"))
+			{
+				this.plugin.getSystemManager().getVariablesSystem().loadFromFile();
+				String[] splited = event.getMessage().split("\\$");
+				for(String arg : splited)
+				{
+					if(arg.startsWith("{") && arg.contains("}"))
+					{
+						String var = arg.substring(1, arg.indexOf("}"));
+						arg = this.plugin.getSystemManager().getVariablesSystem().getToString(var)
+								+ ((arg.endsWith("}") && arg.indexOf("}") == arg.length() - 1)
+										? "" : arg.substring(arg.indexOf("}") + 1));
+					}
+					msg.append(arg);
+				}
+				event.setMessage(ChatColor.translateAlternateColorCodes('&', msg.toString()));
+			}
+			else
+			{
+				event.setMessage(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+			}
+		}
 	}
 
 	//Login

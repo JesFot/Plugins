@@ -18,6 +18,10 @@ public final class StaticPerms
 	public static Permission WALLS_PLACE = null;
 	public static Permission WALLS_BREAK = null;
 	
+	public static Permission VARS = null;
+	public static Permission VARS_CHAT = null;
+	public static Permission VARS_CMD = null;
+	
 	public static Permission LOGIN = null;
 	public static Permission LOGIN_MOTD = null;
 	public static Permission LOGIN_BYPASS = null;
@@ -43,12 +47,20 @@ public final class StaticPerms
 	
 	public static Permission CMD_PING = null;
 	
+	public static Permission CMD_SPYCHEST = null;
+	
 	public static Permission CMD_ROLE = null;
 	public static Permission CMD_ROLE_LIST = null;
 	public static Permission CMD_ROLE_ADD = null;
 	public static Permission CMD_ROLE_MODIF = null;
 	public static Permission CMD_ROLE_SET = null;
 	public static Permission CMD_ROLE_TEST = null;
+	
+	public static Permission CMD_VAR = null;
+	public static Permission CMD_VAR_SET = null;
+	public static Permission CMD_VAR_RESET = null;
+	public static Permission CMD_VAR_UNSET = null;
+	public static Permission CMD_VAR_PRINT = null;
 	
 	public static Permission CMD_MOTD = null;
 	public static Permission CMD_MOTD_PRINT = null;

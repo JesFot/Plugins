@@ -49,3 +49,15 @@ commands:
     description: Enable only one player in bed.
     usage: /<command>
     aliases: [gbpforcepassnight, passnight, fpn]
+  spychest:
+    description: Open someone's inventory
+    usage: /<command> <player> [normal/ender]
+    aliases: [gbpspychest]
+  var:
+    description: Variables management.
+    usage: |
+            /<command> <name>
+            /<command> unset <name>
+            /<command> set <name> <type> <value...>
+            /<command> help all/<rubric>
+    aliases: [gbpvar, variable, variables, vars]

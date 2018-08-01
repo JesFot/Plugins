@@ -12,6 +12,7 @@ public final class SystemManager
 	private WallSystem wallSystem = null;
 	private HalfInBedSystem passNightSystem = null;
 	private CommonChestSystem sharedChestSystem = null;
+	private VariablesSystem variablesSystem = null;
 	
 	public SystemManager(GamingBlockPlug plugin)
 	{
@@ -66,5 +67,14 @@ public final class SystemManager
 			}
 		}
 		return this.sharedChestSystem;
+	}
+	
+	public VariablesSystem getVariablesSystem()
+	{
+		if (this.variablesSystem == null)
+		{
+			this.variablesSystem = new VariablesSystem(this.plugin);
+		}
+		return this.variablesSystem;
 	}
 }
