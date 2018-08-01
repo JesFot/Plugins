@@ -65,6 +65,8 @@ public final class GBPPermissions
 		tmp = this.addGBP("command.fly", PermissionDefault.FALSE, "Permission to use the /fly command", StaticPerms.COMMANDS);
 		this.addGBP("command.fly.other", PermissionDefault.FALSE, "Permission to use the /fly <player> command", tmp);
 		tmp = this.addGBP("command.spawn", PermissionDefault.TRUE, "Permission to use the /spawn command", StaticPerms.COMMANDS);
+		this.addGBP("command.spawn.set", PermissionDefault.OP, "Permission to define the spawn tp", tmp);
+		this.addGBP("command.spawn.use", PermissionDefault.TRUE, "Permission to teleport to spawn", tmp);
 		tmp = this.addGBP("command.warp", PermissionDefault.TRUE, "Permission to use the /warp command", StaticPerms.COMMANDS);
 		this.addGBP("command.warp.set", PermissionDefault.OP, "Permission to define warps", tmp);
 		this.addGBP("command.warp.list", PermissionDefault.TRUE, "Permission to define warps", tmp);
@@ -72,16 +74,18 @@ public final class GBPPermissions
 		this.addGBP("command.warp.use.other", PermissionDefault.OP, "Permission to tp someone to warps", tmp);
 		this.addGBP("command.warp.use.goto", PermissionDefault.TRUE, "Permission to use tp on specific warp", tmp);
 		tmp = this.addGBP("command.passnight", PermissionDefault.FALSE, "Permission to use the /forcepassnight command", StaticPerms.COMMANDS);
-		tmp = this.addGBP("command.ping", PermissionDefault.TRUE, "Permission to use the /ping command", StaticPerms.COMMANDS);
+		// ---- > /ping command ----
+		StaticPerms.CMD_PING = this.addGBP("command.ping", PermissionDefault.TRUE, "Permission to use the /ping command", StaticPerms.COMMANDS);
+		// ---- < /ping command ----
 		tmp = this.addGBP("command.spychest", PermissionDefault.OP, "Permission to use the /spychest command", StaticPerms.COMMANDS);
-		// ---- START /role command ----
+		// ---- > /role command ----
 		StaticPerms.CMD_ROLE		= this.addGBP("command.role",			PermissionDefault.TRUE,		"Permission to use the /role command",		StaticPerms.COMMANDS);
 		StaticPerms.CMD_ROLE_LIST	= this.addGBP("command.role.list",		PermissionDefault.TRUE,		"Permission to list roles",					StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_ADD	= this.addGBP("command.role.add",		PermissionDefault.OP,		"Permission to add or remove roles",		StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_MODIF	= this.addGBP("command.role.modify",	PermissionDefault.OP,		"Permission to change options of roles",	StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_SET	= this.addGBP("command.role.set",		PermissionDefault.OP,		"Permission to set someone's role",			StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_TEST	= this.addGBP("command.role.test",		PermissionDefault.FALSE,	"Permission to test someone's role",		StaticPerms.CMD_ROLE);
-		// ---- END /role command ----
+		// ---- < /role command ----
 		tmp = this.addGBP("command.var", PermissionDefault.TRUE, "Permission to use the /var command", StaticPerms.COMMANDS);
 		this.addGBP("command.var.set", PermissionDefault.TRUE, "Permission to define a variable", tmp);
 		this.addGBP("command.var.reset", PermissionDefault.TRUE, "Permission to change a variable content", tmp);

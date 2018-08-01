@@ -10,9 +10,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.jesfot.gamingblockplug.Infos;
 import me.jesfot.gamingblockplug.command.CommandManager;
+import me.jesfot.gamingblockplug.command.PingCommand;
 import me.jesfot.gamingblockplug.command.RoleCommand;
 import me.jesfot.gamingblockplug.configuration.GBPConfigurations;
 import me.jesfot.gamingblockplug.data.PlayerManager;
+import me.jesfot.gamingblockplug.data.WorldManager;
 import me.jesfot.gamingblockplug.permission.GBPPermissions;
 import me.jesfot.gamingblockplug.roles.Role;
 import me.jesfot.gamingblockplug.roles.RoleManager;
@@ -41,6 +43,7 @@ public class GamingBlockPlug extends ServerHelper
 	private INBTConfiguration mainDataStore = null;
 	
 	private PlayerManager playerManager;
+	private WorldManager worldManager;
 	private RoleManager roleManager;
 	
 	GamingBlockPlug(JavaPlugin p_plugin)
@@ -93,8 +96,12 @@ public class GamingBlockPlug extends ServerHelper
 		this.playerManager = new PlayerManager();
 		this.playerManager.setAutoReloadSave(true, true);
 		
+		this.worldManager = new WorldManager();
+		this.worldManager.setAutoReloadSave(true, true);
+		
 		this.plugin.getLogger().info(" -> Registering commands...");
 		CommandManager.registerCommand(new RoleCommand(this));
+		CommandManager.registerCommand(new PingCommand());
 		this.plugin.getLogger().info("     -> Commands registered !");
 	}
 	
@@ -218,5 +225,10 @@ public class GamingBlockPlug extends ServerHelper
 	public PlayerManager getPlayerManager()
 	{
 		return this.playerManager;
+	}
+	
+	public WorldManager getWorldManager()
+	{
+		return this.worldManager;
 	}
 }

@@ -10,6 +10,8 @@ public final class StaticPerms
 	
 	public static Permission COMMANDS = null;
 	
+	public static Permission CMD_PING = null;
+	
 	public static Permission CMD_ROLE = null;
 	public static Permission CMD_ROLE_LIST = null;
 	public static Permission CMD_ROLE_ADD = null;

@@ -15,3 +15,6 @@ commands:
             /<command> set <player> <role> -- Set a role to a player.
             /<command> reset <player> -- Reset a player role to default.
     aliases: [gbprole, roles]
+  ping:
+    description: Ping ! Pong !
+    usage: /<command>
