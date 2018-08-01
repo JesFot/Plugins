@@ -44,7 +44,9 @@ public final class GBPPermissions
 		StaticPerms.IMPOSSIBLE = this.addGBP("impossible", PermissionDefault.FALSE, "Denied.");
 		
 		// System permissions :
-		tmp = this.addGBP("publicchest", PermissionDefault.TRUE, "Permission to open the public chest");
+		// ---- > Public/Common chest ----
+		StaticPerms.PUBLIC_CHEST	= this.addGBP("publicchest",	PermissionDefault.TRUE,	"Permission to open the public chest");
+		// ---- < Public/Common chest ----
 		// ---- > Half In Bed system ----
 		StaticPerms.HBS			= this.addGBP("hbs",		PermissionDefault.TRUE,		"Permission related to the 'HalfBedSys'");
 		StaticPerms.HBS_IGNORE	= this.addGBP("hbs.ignore",	PermissionDefault.FALSE,	"Permission used to ignore players",				StaticPerms.HBS);
@@ -55,7 +57,7 @@ public final class GBPPermissions
 		StaticPerms.WALLS_PLACE		= this.addGBP("walls.place",	PermissionDefault.OP,	"Permission to setup a wall",	StaticPerms.WALLS);
 		StaticPerms.WALLS_BREAK		= this.addGBP("walls.break",	PermissionDefault.OP,	"Permission to break a wall",	StaticPerms.WALLS);
 		// ---- < Wall system ----
-		this.addGBP("skinrestore", PermissionDefault.FALSE, "Permission to restore the original skin");
+		/* this.addGBP("skinrestore", PermissionDefault.FALSE, "Permission to restore the original skin"); */
 		tmp = this.addGBP("variables", PermissionDefault.TRUE, "Permission related to variables");
 		this.addGBP("variables.chat", PermissionDefault.TRUE, "Permission to use variables in the normal chat", tmp);
 		this.addGBP("variables.cmds", PermissionDefault.TRUE, "Permission to use variables in commands", tmp);

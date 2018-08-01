@@ -1,6 +1,7 @@
 package me.jesfot.gamingblockplug.security;
 
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
+import me.jesfot.gamingblockplug.utils.DataUtils;
 
 public final class SystemManager
 {
@@ -10,6 +11,7 @@ public final class SystemManager
 	private SkinRestorerSystem skinRestorer = null;
 	private WallSystem wallSystem = null;
 	private HalfInBedSystem passNightSystem = null;
+	private CommonChestSystem sharedChestSystem = null;
 	
 	public SystemManager(GamingBlockPlug plugin)
 	{
@@ -50,5 +52,19 @@ public final class SystemManager
 			this.passNightSystem = new HalfInBedSystem(this.plugin);
 		}
 		return this.passNightSystem;
+	}
+	
+	public CommonChestSystem getSharedChestSystem()
+	{
+		if (this.sharedChestSystem == null)
+		{
+			this.sharedChestSystem = new CommonChestSystem(this.plugin);
+			DataUtils.safeReload(this.plugin.getNBT(null));
+			if (this.plugin.getNBT(null).contains("CommonChest"))
+			{
+				this.sharedChestSystem.loadFromConfig(this.plugin.getNBT("CommonChest"));
+			}
+		}
+		return this.sharedChestSystem;
 	}
 }
