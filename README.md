@@ -4,12 +4,14 @@
 
 Plugins for minecraft bukkit
 
-GamingBlockPlug : Plugin pour le serveur Gaming Block
+GamingBlockPlugv2 : Plugin pour le serveur GamingBlock, nouveau départ pour la 1.13 de minecraft
 
-GamingBlockPlug1.9 : Version 1.9.X (Minecraft) du plugin (/!\ Ne fait pas les même choses <=> Plugin diférrent)
+old_versions/GamingBlockPlug : Plugin pour le serveur Gaming Block
 
-GamingBlockPlug1.11 : Version 1.11.X (Minecraft) du plugin
+old_versions/GamingBlockPlug1.9 : Version 1.9.X (Minecraft) du plugin (/!\ Ne fait pas les même choses <=> Plugin diférrent)
 
-GamingBlockPlug1.12 : Version 1.12 (Minecraft) du plugin
+old_versions/GamingBlockPlug1.11 : Version 1.11.X (Minecraft) du plugin
 
-GamingBlockPlug1.12.2 : Version 1.12.2 (Minecraft) du plugin (Bientôt disponible)
+old_versions/GamingBlockPlug1.12 : Version 1.12 (Minecraft) du plugin
+
+old_versions/GamingBlockPlug1.12.2 : Version 1.12.2 (Minecraft) du plugin
