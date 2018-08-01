@@ -66,8 +66,10 @@ public final class GBPPermissions
 		
 		// Commands permissions :
 		StaticPerms.COMMANDS = this.addGBP("command", PermissionDefault.OP, "Commands");
-		tmp = this.addGBP("command.fly", PermissionDefault.FALSE, "Permission to use the /fly command", StaticPerms.COMMANDS);
-		this.addGBP("command.fly.other", PermissionDefault.FALSE, "Permission to use the /fly <player> command", tmp);
+		// ---- > /fly command ----
+		StaticPerms.CMD_FLY		= this.addGBP("command.fly",	PermissionDefault.FALSE,	"Permission to use the /fly command",	StaticPerms.COMMANDS);
+		StaticPerms.CMD_FLY_OTHER	= this.addGBP("command.fly.other",	PermissionDefault.FALSE,	"Permission to use the /fly <player> command",	StaticPerms.CMD_FLY);
+		// ---- < /fly command ----
 		// ---- > /spawn command ----
 		StaticPerms.CMD_SPAWN	= this.addGBP("command.spawn",		PermissionDefault.TRUE,	"Permission to use the /spawn command",	StaticPerms.COMMANDS);
 		StaticPerms.CMD_SPAWN_SET	= this.addGBP("command.spawn.set",	PermissionDefault.OP,	"Permission to define the spawn tp",	StaticPerms.CMD_SPAWN);
@@ -81,7 +83,9 @@ public final class GBPPermissions
 		StaticPerms.CMD_WARP_USE_OTHER	= this.addGBP("command.warp.use.other",	PermissionDefault.OP,	"Permission to tp someone to warps",		StaticPerms.CMD_WARP_USE);
 		StaticPerms.CMD_WARP_USE_GOTO	= this.addGBP("command.warp.use.goto",	PermissionDefault.TRUE,	"Permission to use tp on specific warp",	StaticPerms.CMD_WARP_USE);
 		// ---- < /warp command ----
-		tmp = this.addGBP("command.passnight", PermissionDefault.FALSE, "Permission to use the /forcepassnight command", StaticPerms.COMMANDS);
+		// ---- > /forcepassnight command ----
+		StaticPerms.CMD_PASSNIGHT	= this.addGBP("command.passnight",	PermissionDefault.FALSE,	"Permission to use the /forcepassnight command",	StaticPerms.COMMANDS);
+		// ---- < /forcepassnight command ----
 		// ---- > /ping command ----
 		StaticPerms.CMD_PING	= this.addGBP("command.ping",	PermissionDefault.TRUE,	"Permission to use the /ping command",	StaticPerms.COMMANDS);
 		// ---- < /ping command ----
@@ -104,7 +108,9 @@ public final class GBPPermissions
 		StaticPerms.CMD_MOTD_PRINT	= this.addGBP("command.motd.print",	PermissionDefault.TRUE,		"Permission to see the MOTD",					StaticPerms.CMD_MOTD);
 		StaticPerms.CMD_MOTD_SET	= this.addGBP("command.motd.set",	PermissionDefault.OP,		"Permission to set the MOTD",					StaticPerms.CMD_MOTD);
 		// ---- < /motd command ----
+		// ---- > /spectate command ----
 		StaticPerms.CMD_SPECTATE	= this.addGBP("command.spect",	PermissionDefault.TRUE,	"Permission to use the /spectate command",	StaticPerms.COMMANDS);
+		// ---- < /spectate command ----
 	}
 	
 	public Permission add(Permission perm)

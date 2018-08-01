@@ -19,6 +19,9 @@ public final class StaticPerms
 	
 	public static Permission COMMANDS = null;
 	
+	public static Permission CMD_FLY = null;
+	public static Permission CMD_FLY_OTHER = null;
+	
 	public static Permission CMD_SPAWN = null;
 	public static Permission CMD_SPAWN_SET = null;
 	public static Permission CMD_SPAWN_USE = null;
@@ -29,6 +32,8 @@ public final class StaticPerms
 	public static Permission CMD_WARP_USE = null;
 	public static Permission CMD_WARP_USE_GOTO = null;
 	public static Permission CMD_WARP_USE_OTHER = null;
+	
+	public static Permission CMD_PASSNIGHT = null;
 	
 	public static Permission CMD_PING = null;
 	

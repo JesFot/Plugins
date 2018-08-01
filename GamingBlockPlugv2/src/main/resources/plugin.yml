@@ -18,6 +18,7 @@ commands:
   ping:
     description: Ping ! Pong !
     usage: /<command>
+    aliases: [gbpping]
   spawn:
     description: Teleport yourself at the world spawn
     usage: /<command> [set [<x> <y> <z> [<pitch> <yaw>]]]
@@ -34,3 +35,17 @@ commands:
     description: Print or setup a login message.
     usage: /<command> [set <message...>]
     aliases: [gbplogmsg, motd, lm]
+  spectate:
+    description: Change from survival to spectator mode.
+    usage: /<command>
+    aliases: [gbpspectate, spec, noclip]
+  fly:
+    description: Enable or disable flying mode.
+    usage: |
+            /<command> [on/off]
+            /<command> <player> on/off
+    aliases: [gbpfly]
+  forcepassnight:
+    description: Enable only one player in bed.
+    usage: /<command>
+    aliases: [gbpforcepassnight, passnight, fpn]
