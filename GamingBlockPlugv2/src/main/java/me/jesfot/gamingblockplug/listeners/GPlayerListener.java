@@ -13,6 +13,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -29,6 +31,7 @@ import me.jesfot.gamingblockplug.permission.PermissionHelper;
 import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.roles.Role;
+import me.jesfot.gamingblockplug.security.HalfInBedSystem;
 import me.jesfot.gamingblockplug.utils.DataUtils;
 import me.unei.configuration.api.IFlatConfiguration;
 import me.unei.configuration.api.IYAMLConfiguration;
@@ -129,6 +132,27 @@ public class GPlayerListener implements Listener
 			event.setCancelled(true);
 			return;
 		}
+	}
+	
+	@EventHandler
+	public void onPlayergoBed(final PlayerBedEnterEvent event)
+	{
+		Player player = event.getPlayer();
+		HalfInBedSystem hbs = this.plugin.getSystemManager().getHalfInBedSystem();
+		hbs.updatePlayerList().enterBed(player);
+		player.getServer().broadcastMessage(hbs.howManyInBedText());
+		if(hbs.halfInBed())
+		{
+			this.plugin.broad("Half of the players are in a bed.");
+			hbs.passNight(hbs.getPlayersInBed());
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
+	{
+		HalfInBedSystem hbs = this.plugin.getSystemManager().getHalfInBedSystem();
+		hbs.updatePlayerList().leaveBed(event.getPlayer()).endPassNight();
 	}
 	
 	@EventHandler

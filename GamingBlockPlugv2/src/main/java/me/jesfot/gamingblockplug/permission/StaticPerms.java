@@ -8,6 +8,10 @@ public final class StaticPerms
 	
 	public static Permission IMPOSSIBLE = null;
 	
+	public static Permission HBS = null;
+	public static Permission HBS_IGNORE = null;
+	public static Permission HBS_COUNT = null;
+	
 	public static Permission WALLS = null;
 	public static Permission WALLS_PLACE = null;
 	public static Permission WALLS_BREAK = null;

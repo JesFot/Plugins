@@ -9,6 +9,7 @@ public final class SystemManager
 	private LoginSystem loginSystem = null;
 	private SkinRestorerSystem skinRestorer = null;
 	private WallSystem wallSystem = null;
+	private HalfInBedSystem passNightSystem = null;
 	
 	public SystemManager(GamingBlockPlug plugin)
 	{
@@ -40,5 +41,14 @@ public final class SystemManager
 			this.wallSystem = new WallSystem();
 		}
 		return this.wallSystem;
+	}
+	
+	public HalfInBedSystem getHalfInBedSystem()
+	{
+		if (this.passNightSystem == null)
+		{
+			this.passNightSystem = new HalfInBedSystem(this.plugin);
+		}
+		return this.passNightSystem;
 	}
 }

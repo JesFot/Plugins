@@ -45,15 +45,17 @@ public final class GBPPermissions
 		
 		// System permissions :
 		tmp = this.addGBP("publicchest", PermissionDefault.TRUE, "Permission to open the public chest");
-		tmp = this.addGBP("hbs", PermissionDefault.TRUE, "Permission related to the 'HalfBedSys'");
-		this.addGBP("hbs.ignore", PermissionDefault.FALSE, "Permission used to ignore players", tmp);
-		this.addGBP("hbs.count", PermissionDefault.TRUE, "Permission checked before count in-bed players", tmp);
+		// ---- > Half In Bed system ----
+		StaticPerms.HBS			= this.addGBP("hbs",		PermissionDefault.TRUE,		"Permission related to the 'HalfBedSys'");
+		StaticPerms.HBS_IGNORE	= this.addGBP("hbs.ignore",	PermissionDefault.FALSE,	"Permission used to ignore players",				StaticPerms.HBS);
+		StaticPerms.HBS_COUNT	= this.addGBP("hbs.count",	PermissionDefault.TRUE,		"Permission checked before count in-bed players",	StaticPerms.HBS);
+		// ---- < Half In Bed system ----
 		// ---- > Wall system ----
 		StaticPerms.WALLS		= this.addGBP("walls",		PermissionDefault.TRUE,	"Permission related to security walls");
 		StaticPerms.WALLS_PLACE		= this.addGBP("walls.place",	PermissionDefault.OP,	"Permission to setup a wall",	StaticPerms.WALLS);
 		StaticPerms.WALLS_BREAK		= this.addGBP("walls.break",	PermissionDefault.OP,	"Permission to break a wall",	StaticPerms.WALLS);
 		// ---- < Wall system ----
-		tmp = this.addGBP("skinrestore", PermissionDefault.FALSE, "Permission to restore the original skin");
+		this.addGBP("skinrestore", PermissionDefault.FALSE, "Permission to restore the original skin");
 		tmp = this.addGBP("variables", PermissionDefault.TRUE, "Permission related to variables");
 		this.addGBP("variables.chat", PermissionDefault.TRUE, "Permission to use variables in the normal chat", tmp);
 		this.addGBP("variables.cmds", PermissionDefault.TRUE, "Permission to use variables in commands", tmp);
