@@ -1,0 +1,10 @@
+lang: -1
+chat:
+  naming:
+    team_example: &4Example
+    dev: Dev
+groups:
+  dev:
+    - Player1
+  color_dark_green:
+    - Player1

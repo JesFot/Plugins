@@ -1,0 +1,73 @@
+name: GamingBlockPlug
+main: fr.jesfot.gbp.bukkit.BukkitPlugin
+version: 1.26 mc1.9.4
+description: Plugin for Gaming Block Server
+authors: ["JesFot"]
+commands:
+  testgbp:
+    description: Commande test.
+    usage: /<command> [words...]
+  gtpa:
+    description: Same as tpa in essentials, but not.
+    usage: /<command> <targetPlayer>
+    aliases: [tpa]
+  ghome:
+    description: Same as home in essentials, but not really.
+    usage: /<command> [set] | /<command> <locName> [set]
+    aliases: [home, h]
+  economy:
+    description: Manage your economy, use '/economy help' for more informations
+    usage: /<command> [pay <player> <amount>]
+    aliases: [eco, ecmy]
+  toolb:
+    description: same as give deadbush, used for bank inventory
+    usage: /<command>
+  world:
+    description: Navigate between worlds.
+    usage: /<command> list | /<command> tp <worldName> | /<command> set <worldName> <load|unload> [newSeed] [Env] [Type]
+  perms:
+    description: manage permissions
+    usage: /<command> [player] <[-]permission> | /<command> &<permission>
+  var:
+    description: Variables command
+    usage: /<command> <varName> or /<command> set <varName> <type> <value> or /<command> unset <varName>
+  seed:
+    description: Show the seed of the world
+    usage: /<command>
+  logmessage:
+    description: Change or see the login message
+    usage: /<command> [set <text...>]
+    aliases: [logmsg, lmessage]
+  forcepassnight:
+    description: Force the halfBed system
+    usage: /<command>
+  shop:
+    description: Different commands pertaining to plugin
+    usage: /<command> list
+  addwall:
+    description: help for walls
+    usage: /<command> add|remove [locX locZ]
+  island:
+    description: Island control
+    usage: /<command> [start]
+  ping:
+    description: pong!
+    usage: /<command>
+  fly:
+    description: Allows you to fly
+    usage: /<command> [on|off]
+  gtpc:
+    description: Teleportation...
+    usage: /<command> [player] <x> <y> <z>
+  gteams:
+    description: Team managing
+    usage: /<command> ...
+  spectate:
+    description: Switch gamemode between Spectator and Survival
+    usage: /<command>
+  gspychest:
+    description: Spy chests
+    usage: /<command> <player>
+  salary:
+    description: Give global salary
+    usage: /<command>
