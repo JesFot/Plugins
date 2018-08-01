@@ -54,6 +54,10 @@ public class DataUtils
 	
 	public static Location getLocation(String key, INBTCompound store)
 	{
+		if (!store.hasKey(key))
+		{
+			return null;
+		}
 		INBTCompound loc = store.getCompound(key);
 		double x, y, z;
 		float pitch, yaw;
@@ -89,6 +93,10 @@ public class DataUtils
 	
 	public static Location getLocation(String key, IConfiguration store)
 	{
+		if (!store.contains(key))
+		{
+			return null;
+		}
 		IConfiguration loc = store.getSubSection(key);
 		double x, y, z;
 		float pitch, yaw;

@@ -10,6 +10,17 @@ public final class StaticPerms
 	
 	public static Permission COMMANDS = null;
 	
+	public static Permission CMD_SPAWN = null;
+	public static Permission CMD_SPAWN_SET = null;
+	public static Permission CMD_SPAWN_USE = null;
+	
+	public static Permission CMD_WARP = null;
+	public static Permission CMD_WARP_SET = null;
+	public static Permission CMD_WARP_LIST = null;
+	public static Permission CMD_WARP_USE = null;
+	public static Permission CMD_WARP_USE_GOTO = null;
+	public static Permission CMD_WARP_USE_OTHER = null;
+	
 	public static Permission CMD_PING = null;
 	
 	public static Permission CMD_ROLE = null;

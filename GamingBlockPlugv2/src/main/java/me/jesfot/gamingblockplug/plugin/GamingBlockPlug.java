@@ -9,9 +9,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.jesfot.gamingblockplug.Infos;
-import me.jesfot.gamingblockplug.command.CommandManager;
-import me.jesfot.gamingblockplug.command.PingCommand;
-import me.jesfot.gamingblockplug.command.RoleCommand;
+import me.jesfot.gamingblockplug.command.*;
 import me.jesfot.gamingblockplug.configuration.GBPConfigurations;
 import me.jesfot.gamingblockplug.data.PlayerManager;
 import me.jesfot.gamingblockplug.data.WorldManager;
@@ -102,6 +100,9 @@ public class GamingBlockPlug extends ServerHelper
 		this.plugin.getLogger().info(" -> Registering commands...");
 		CommandManager.registerCommand(new RoleCommand(this));
 		CommandManager.registerCommand(new PingCommand());
+		CommandManager.registerCommand(new SpawnCommand(this));
+		CommandManager.registerCommand(new WarpCommand(this));
+		CommandManager.registerCommand(new SetWarpCommand(this));
 		this.plugin.getLogger().info("     -> Commands registered !");
 	}
 	

@@ -70,6 +70,45 @@ public class GBPWorld
 		return DataUtils.getLocationMap(this.getConfigSection("Warps"));
 	}
 	
+	public Location getWarp(String name)
+	{
+		if (this.autoRS)
+		{
+			this.safeReload();
+		}
+		if (!this.getConfigSection("Warps").contains(name))
+		{
+			return null;
+		}
+		return DataUtils.getLocation("Warps." + name, this.getConfig());
+	}
+
+	public void addWarp(String name, Location loc)
+	{
+		if (this.autoRS)
+		{
+			this.safeReload();
+		}
+		DataUtils.setLocation("Warps." + name, loc, this.getConfig());
+		if (this.autoRS)
+		{
+			this.save();
+		}
+	}
+	
+	public void removeWarp(String name)
+	{
+		if (this.autoRS)
+		{
+			this.safeReload();
+		}
+		this.getConfigSection("Warps").remove(name);
+		if (this.autoRS)
+		{
+			this.save();
+		}
+	}
+	
 	public void setWarps(Map<String, Location> warps)
 	{
 		DataUtils.setLocationMap(this.getConfigSection("Warps"), warps);

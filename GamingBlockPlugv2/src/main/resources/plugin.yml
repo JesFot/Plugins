@@ -18,3 +18,15 @@ commands:
   ping:
     description: Ping ! Pong !
     usage: /<command>
+  spawn:
+    description: Teleport yourself at the world spawn
+    usage: /<command> [set [<x> <y> <z> [<pitch> <yaw>]]]
+    aliases: [gbpspawn, home, spa]
+  warp:
+    description: Teleport someone to a registered point
+    command: /<command> [name [player]] -- List warps or teleport someone
+    aliases: [gbpwarp, tpto, warps]
+  setwarp:
+    description: Setup a warp point
+    command: /<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]
+    aliases: [gbpsetwarp]
