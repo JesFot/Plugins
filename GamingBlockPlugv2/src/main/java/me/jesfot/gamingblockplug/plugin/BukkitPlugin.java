@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.jesfot.gamingblockplug.listeners.GBlockListener;
 import me.jesfot.gamingblockplug.listeners.GPlayerListener;
 import me.jesfot.gamingblockplug.listeners.GWorldListener;
 
@@ -36,15 +37,15 @@ public final class BukkitPlugin extends JavaPlugin
 		getLogger().info(" -> Registering listeners...");
 		final PluginManager pm = this.getServer().getPluginManager();
 		
-		//final GPluginListener pluginListener = new GPluginListener(this.gbp);
-		//final GBlockListener blockListener = new GBlockListener(this.gbp);
+		//final GPluginListener pluginListener = new GPluginListener(this.gbpPlugin);
+		final GBlockListener blockListener = new GBlockListener(this.gbpPlugin);
 		//final GEntityListener entityListener = new GEntityListener();
 		final GPlayerListener playerListener = new GPlayerListener(this.gbpPlugin);
 		final GWorldListener worldListener = new GWorldListener(this.gbpPlugin);
-		//final GInventoryListener inventoryListener = new GInventoryListener(this.gbp);
+		//final GInventoryListener inventoryListener = new GInventoryListener(this.gbpPlugin);
 		
 		//pm.registerEvents(pluginListener, this);
-		//pm.registerEvents(blockListener, this);
+		pm.registerEvents(blockListener, this);
 		//pm.registerEvents(entityListener, this);
 		pm.registerEvents(playerListener, this);
 		pm.registerEvents(worldListener, this);

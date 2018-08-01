@@ -16,6 +16,7 @@ import me.jesfot.gamingblockplug.data.WorldManager;
 import me.jesfot.gamingblockplug.permission.GBPPermissions;
 import me.jesfot.gamingblockplug.roles.Role;
 import me.jesfot.gamingblockplug.roles.RoleManager;
+import me.jesfot.gamingblockplug.security.SystemManager;
 import me.jesfot.gamingblockplug.utils.ServerHelper;
 import me.unei.configuration.api.Configurations;
 import me.unei.configuration.api.IConfiguration;
@@ -39,7 +40,8 @@ public class GamingBlockPlug extends ServerHelper
 	private GBPPermissions permissions = null;
 	private GBPConfigurations configs = null;
 	private INBTConfiguration mainDataStore = null;
-	
+
+	private SystemManager systemManager;
 	private PlayerManager playerManager;
 	private WorldManager worldManager;
 	private RoleManager roleManager;
@@ -91,6 +93,8 @@ public class GamingBlockPlug extends ServerHelper
 		
 		this.plugin.getLogger().info("     -> Configuration loaded !");
 		
+		this.systemManager = new SystemManager(this);
+		
 		this.playerManager = new PlayerManager();
 		this.playerManager.setAutoReloadSave(true, true);
 		
@@ -103,6 +107,7 @@ public class GamingBlockPlug extends ServerHelper
 		CommandManager.registerCommand(new SpawnCommand(this));
 		CommandManager.registerCommand(new WarpCommand(this));
 		CommandManager.registerCommand(new SetWarpCommand(this));
+		CommandManager.registerCommand(new MOTDCommand(this));
 		this.plugin.getLogger().info("     -> Commands registered !");
 	}
 	
@@ -231,5 +236,10 @@ public class GamingBlockPlug extends ServerHelper
 	public WorldManager getWorldManager()
 	{
 		return this.worldManager;
+	}
+	
+	public SystemManager getSystemManager()
+	{
+		return this.systemManager;
 	}
 }

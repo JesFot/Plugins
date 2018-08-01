@@ -16,6 +16,8 @@ public class GBPPlayer
 {
 	private final OfflinePlayer bukkitHandler;
 	
+	private boolean isLogged = false;
+	
 	private INBTConfiguration configFile = null;
 	private boolean autoRS = false;
 	
@@ -77,6 +79,42 @@ public class GBPPlayer
 		{
 			this.save();
 		}
+	}
+	
+	public String getPassword()
+	{
+		if (this.autoRS)
+		{
+			this.safeReload();
+		}
+		return this.getConfig().getString("Password");
+	}
+	
+	public void setPassword(String pass, boolean registered)
+	{
+		if (pass != null)
+		{
+			this.getConfig().setString("Password", pass);
+		}
+		else
+		{
+			this.getConfig().remove("Password");
+		}
+		this.getConfig().setBoolean("Registered", registered);
+		if (this.autoRS)
+		{
+			this.save();
+		}
+	}
+	
+	public boolean isLogged()
+	{
+		return this.isLogged;
+	}
+	
+	public void setIsLogged(boolean login)
+	{
+		this.isLogged = login;
 	}
 	
 	public void save()

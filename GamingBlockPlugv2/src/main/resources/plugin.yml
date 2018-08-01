@@ -24,9 +24,13 @@ commands:
     aliases: [gbpspawn, home, spa]
   warp:
     description: Teleport someone to a registered point
-    command: /<command> [name [player]] -- List warps or teleport someone
+    usage: /<command> [name [player]] -- List warps or teleport someone
     aliases: [gbpwarp, tpto, warps]
   setwarp:
     description: Setup a warp point
-    command: /<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]
+    usage: /<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]
     aliases: [gbpsetwarp]
+  logmsg:
+    description: Print or setup a login message.
+    usage: /<command> [set <message...>]
+    aliases: [gbplogmsg, motd, lm]

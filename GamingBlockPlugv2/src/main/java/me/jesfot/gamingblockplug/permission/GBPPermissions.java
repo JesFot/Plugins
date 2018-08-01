@@ -48,17 +48,21 @@ public final class GBPPermissions
 		tmp = this.addGBP("hbs", PermissionDefault.TRUE, "Permission related to the 'HalfBedSys'");
 		this.addGBP("hbs.ignore", PermissionDefault.FALSE, "Permission used to ignore players", tmp);
 		this.addGBP("hbs.count", PermissionDefault.TRUE, "Permission checked before count in-bed players", tmp);
-		tmp = this.addGBP("walls", PermissionDefault.TRUE, "Permission related to security walls");
-		this.addGBP("walls.place", PermissionDefault.OP, "Permission to setup a wall", tmp);
-		this.addGBP("walls.break", PermissionDefault.OP, "Permission to break a wall", tmp);
-		tmp = this.addGBP("skinrestore", PermissionDefault.TRUE, "Permission to restore the original skin");
+		// ---- > Wall system ----
+		StaticPerms.WALLS		= this.addGBP("walls",		PermissionDefault.TRUE,	"Permission related to security walls");
+		StaticPerms.WALLS_PLACE		= this.addGBP("walls.place",	PermissionDefault.OP,	"Permission to setup a wall",	StaticPerms.WALLS);
+		StaticPerms.WALLS_BREAK		= this.addGBP("walls.break",	PermissionDefault.OP,	"Permission to break a wall",	StaticPerms.WALLS);
+		// ---- < Wall system ----
+		tmp = this.addGBP("skinrestore", PermissionDefault.FALSE, "Permission to restore the original skin");
 		tmp = this.addGBP("variables", PermissionDefault.TRUE, "Permission related to variables");
 		this.addGBP("variables.chat", PermissionDefault.TRUE, "Permission to use variables in the normal chat", tmp);
 		this.addGBP("variables.cmds", PermissionDefault.TRUE, "Permission to use variables in commands", tmp);
-		tmp = this.addGBP("login", PermissionDefault.TRUE, "Permission related to login security");
-		this.addGBP("login.motd", PermissionDefault.TRUE, "Permission to see the MOTD at login");
-		this.addGBP("login.bypass", PermissionDefault.FALSE, "Permission to bypass the login password", tmp);
-		this.addGBP("login.register", PermissionDefault.TRUE, "Permission to register the login password", tmp);
+		// ---- > Login ----
+		StaticPerms.LOGIN		= this.addGBP("login",	PermissionDefault.TRUE,	"Permission related to login security");
+		StaticPerms.LOGIN_MOTD		= this.addGBP("login.motd",		PermissionDefault.TRUE,		"Permission to see the MOTD at login");
+		StaticPerms.LOGIN_BYPASS	= this.addGBP("login.bypass",	PermissionDefault.FALSE,	"Permission to bypass the login password",		StaticPerms.LOGIN);
+		StaticPerms.LOGIN_REGISTER	= this.addGBP("login.register",	PermissionDefault.TRUE,		"Permission to register the login password",	StaticPerms.LOGIN);
+		// ---- < Login ----
 		
 		// Commands permissions :
 		StaticPerms.COMMANDS = this.addGBP("command", PermissionDefault.OP, "Commands");
@@ -95,10 +99,12 @@ public final class GBPPermissions
 		this.addGBP("command.var.reset", PermissionDefault.TRUE, "Permission to change a variable content", tmp);
 		this.addGBP("command.var.unset", PermissionDefault.TRUE, "Permission to delete a variable", tmp);
 		this.addGBP("command.var.print", PermissionDefault.TRUE, "Permission to print a variable content", tmp);
-		tmp = this.addGBP("command.motd", PermissionDefault.TRUE, "Permission to use the /logmessage command", StaticPerms.COMMANDS);
-		this.addGBP("command.motd.print", PermissionDefault.TRUE, "Permission to see the MOTD", tmp);
-		this.addGBP("command.motd.set", PermissionDefault.OP, "Permission to set the MOTD", tmp);
-		tmp = this.addGBP("command.spect", PermissionDefault.TRUE, "Permission to use the /spectate command", StaticPerms.COMMANDS);
+		// ---- > /motd command ----
+		StaticPerms.CMD_MOTD	= this.addGBP("command.motd",		PermissionDefault.TRUE,		"Permission to use the /logmessage command",	StaticPerms.COMMANDS);
+		StaticPerms.CMD_MOTD_PRINT	= this.addGBP("command.motd.print",	PermissionDefault.TRUE,		"Permission to see the MOTD",					StaticPerms.CMD_MOTD);
+		StaticPerms.CMD_MOTD_SET	= this.addGBP("command.motd.set",	PermissionDefault.OP,		"Permission to set the MOTD",					StaticPerms.CMD_MOTD);
+		// ---- < /motd command ----
+		StaticPerms.CMD_SPECTATE	= this.addGBP("command.spect",	PermissionDefault.TRUE,	"Permission to use the /spectate command",	StaticPerms.COMMANDS);
 	}
 	
 	public Permission add(Permission perm)

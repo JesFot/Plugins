@@ -8,6 +8,15 @@ public final class StaticPerms
 	
 	public static Permission IMPOSSIBLE = null;
 	
+	public static Permission WALLS = null;
+	public static Permission WALLS_PLACE = null;
+	public static Permission WALLS_BREAK = null;
+	
+	public static Permission LOGIN = null;
+	public static Permission LOGIN_MOTD = null;
+	public static Permission LOGIN_BYPASS = null;
+	public static Permission LOGIN_REGISTER = null;
+	
 	public static Permission COMMANDS = null;
 	
 	public static Permission CMD_SPAWN = null;
@@ -29,4 +38,10 @@ public final class StaticPerms
 	public static Permission CMD_ROLE_MODIF = null;
 	public static Permission CMD_ROLE_SET = null;
 	public static Permission CMD_ROLE_TEST = null;
+	
+	public static Permission CMD_MOTD = null;
+	public static Permission CMD_MOTD_PRINT = null;
+	public static Permission CMD_MOTD_SET = null;
+	
+	public static Permission CMD_SPECTATE = null;
 }
