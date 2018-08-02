@@ -2,40 +2,33 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Usage - Commande gteams</title>
+	<title>Usage - Commande role</title>
 </head>
 <body>
-	<h1>Utilisation de la commande gteams du plugin GamingBlockPlug</h1>
+	<h1>Utilisation de la commande role du plugin GamingBlockPlug</h1>
 	<p>
-		<h4>Usage : /gteams list<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /gteams add|remove &lt;grade&gt;<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /gteams option &lt;grade&gt; &lt;optionName&gt; [value]<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /gteams join &lt;grade&gt; [player]<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /gteams leave [player];</h4>
+		<h4>Usage : /role list<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /role add|remove &lt;grade&gt;<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /role option &lt;grade&gt; &lt;optionName&gt; [&lt;value&gt;]<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /role set &lt;player&gt; &lt;grade&gt;<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| /role reset &lt;player&gt;</h4>
 		Cette commande permet gerer tout les grades et leurs options.<br />
 		Il est possible d'ajouter, d'enlever des grades mais aussi de changer plusieurs options.<br />
 		Les options sont :<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;Color => la couleur du grade dans le chat<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;DisplayName => le nom du grade dans le chat<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;MaxHomes => le nombre maximum de <a href="ghome.html">'home'</a><br />
-		<!--&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;CanUseFly => Vrai/Faux > possibilité d'utiliser la commande <a href="fly.html">/fly</a><br />-->
-		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;CanUseTpa => Vrai/Faux > possibilité d'utiliser la commande <a href="gtpa.html">/gtpa</a><br />
-		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;CanUseWorld => Vrai/Faux > possibilité d'utiliser la commande <a href="world.html">/world</a><br />
-		&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;CanUseSpectate => Vrai/Faux > possibilité d'utiliser la commande <a href="spectate.html">/spectate</a><br />
-		<!--&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;CanOpenShops => Vrai/Faux > possibilité d'ouvrir les 'shops' des personnes du même grade<br />-->
-		<!--&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;Salary => le salaire par semaine<br />-->
 		<br />
 		
 		<u>Exemple :</u><br />
-		&nbsp;&nbsp;&nbsp;&nbsp;'/gteams add admin'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/role add admin'<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;Le grade admin est créé avec les droits par defauts sauf si il existe déja.<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;'/gteams option admin DisplayName Test'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/role option admin DisplayName Test'<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;Ceux sui possèdent le grade 'admin' auront le mot 'Test' à coté du pseudo.<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;'/gteams join admin wormsor'<br />
+		&nbsp;&nbsp;&nbsp;&nbsp;'/role set wormsor admin'<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;Le joueur 'wormsor' possède désormais le grade 'admin'.<br />
 		
 		<h6>Version d'ajout: Version 0.1.20</h6>
-		<h6>Dernière mise-à-jour: Version 1.2.2</h6>
+		<h6>Dernière mise-à-jour: Version 1.13-1.0.0</h6>
 	</p>
 	<footer>
 		<a href="./">Retour à l'index</a>
