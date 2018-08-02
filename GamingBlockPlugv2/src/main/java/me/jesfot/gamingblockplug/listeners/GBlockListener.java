@@ -35,6 +35,7 @@ public class GBlockListener implements Listener
 					if (!this.plugin.getSystemManager().getWallSystem().canPlace(event.getPlayer(), event.getBlock()))
 					{
 						event.getPlayer().sendMessage("[Security_Wall] Info: You donnot have the right to make a wall.");
+						event.setCancelled(true);
 					}
 				}
 			}
@@ -53,6 +54,7 @@ public class GBlockListener implements Listener
 					if (!this.plugin.getSystemManager().getWallSystem().canPlace(event.getPlayer(), event.getBlock()))
 					{
 						event.getPlayer().sendMessage("[Security_Wall] Info: You donnot have the right to make a wall.");
+						event.setCancelled(true);
 					}
 				}
 			}

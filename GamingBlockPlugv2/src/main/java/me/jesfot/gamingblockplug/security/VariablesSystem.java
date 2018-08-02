@@ -245,9 +245,14 @@ public class VariablesSystem
 	public void storeToFile()
 	{
 		DataUtils.safeReload(this.storage);
+		IConfiguration section = this.storage.getSubSection("Variables");
+		for (String key : section.getKeys())
+		{
+			section.remove(key);
+		}
 		for (Entry<String, ObjData> entry : this.store.entrySet())
 		{
-			IConfiguration sub = this.storage.getSubSection("Variables." + entry.getKey());
+			IConfiguration sub = section.getSubSection(entry.getKey());
 			sub.setString("Key", entry.getKey());
 			if (!entry.getKey().equalsIgnoreCase("plugin"))
 			{
@@ -269,7 +274,7 @@ public class VariablesSystem
 		IConfiguration section = this.storage.getSubSection("Variables");
 		for (String key : section.getKeys())
 		{
-			IConfiguration sub = this.storage.getSubSection(key);
+			IConfiguration sub = section.getSubSection(key);
 			String obj = sub.getString("Value");
 			String type = sub.getString("Type");
 			int t = this.getIdForType(type);
@@ -302,25 +307,29 @@ public class VariablesSystem
 		this.store.remove(name);
 	}
 	
-	private int getIdForType(String tyoe)
+	private int getIdForType(String type)
 	{
-		if (tyoe.contentEquals("string"))
+		if (type == null)
+		{
+			return -1;
+		}
+		if (type.contentEquals("string"))
 		{
 			return 0;
 		}
-		else if (tyoe.contentEquals("integer"))
+		else if (type.contentEquals("integer"))
 		{
 			return 1;
 		}
-		else if (tyoe.contentEquals("boolean"))
+		else if (type.contentEquals("boolean"))
 		{
 			return 2;
 		}
-		else if (tyoe.contentEquals("float"))
+		else if (type.contentEquals("float"))
 		{
 			return 3;
 		}
-		else if (tyoe.contentEquals("double"))
+		else if (type.contentEquals("double"))
 		{
 			return 4;
 		}
@@ -330,25 +339,29 @@ public class VariablesSystem
 		}
 	}
 	
-	public static int getIdForTypes(String tyoe)
+	public static int getIdForTypes(String type)
 	{
-		if (tyoe.equalsIgnoreCase("string") || tyoe.equalsIgnoreCase("str"))
+		if (type == null)
+		{
+			return -1;
+		}
+		if (type.equalsIgnoreCase("string") || type.equalsIgnoreCase("str"))
 		{
 			return 0;
 		}
-		else if (tyoe.equalsIgnoreCase("integer") || tyoe.equalsIgnoreCase("int"))
+		else if (type.equalsIgnoreCase("integer") || type.equalsIgnoreCase("int"))
 		{
 			return 1;
 		}
-		else if (tyoe.equalsIgnoreCase("boolean") || tyoe.equalsIgnoreCase("bool"))
+		else if (type.equalsIgnoreCase("boolean") || type.equalsIgnoreCase("bool"))
 		{
 			return 2;
 		}
-		else if (tyoe.equalsIgnoreCase("float"))
+		else if (type.equalsIgnoreCase("float"))
 		{
 			return 3;
 		}
-		else if (tyoe.equalsIgnoreCase("double"))
+		else if (type.equalsIgnoreCase("double"))
 		{
 			return 4;
 		}

@@ -83,6 +83,7 @@ public class VarCommand extends CommandBase
 				String name = args[1];
 				varSystem.remove(name);
 				varSystem.storeToFile();
+				sender.sendMessage("Removed.");
 			}
 			else if(args[0].equalsIgnoreCase("help"))
 			{
