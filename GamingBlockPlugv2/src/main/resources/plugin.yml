@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: me.jesfot.gamingblockplug.plugin.BukkitPlugin
-version: 1.13-1.0.0
+version: 1.13-1.0.1
 description: Plugin for the Gaming Block Server
 depends: [uneiConfiguration]
 api-version: 1.13
@@ -21,7 +21,9 @@ commands:
     aliases: [gbpping]
   spawn:
     description: Teleport yourself at the world spawn
-    usage: /<command> [set [<x> <y> <z> [<pitch> <yaw>]]]
+    usage: |
+            /<command> [set [<x> <y> <z> [<pitch> <yaw>]]]
+            /<command> remove [<world>]
     aliases: [gbpspawn, home, spa]
   warp:
     description: Teleport someone to a registered point
@@ -29,8 +31,10 @@ commands:
     aliases: [gbpwarp, tpto, warps]
   setwarp:
     description: Setup a warp point
-    usage: /<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]
-    aliases: [gbpsetwarp]
+    usage: |
+            /<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]
+            /<command> <name> remove [<world>]
+    aliases: [gbpsetwarp, unsetwarp, warpctrl]
   logmsg:
     description: Print or setup a login message.
     usage: /<command> [set <message...>]

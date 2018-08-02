@@ -29,7 +29,7 @@ public class SetWarpCommand extends CommandBase
 		this.plugin = plugin;
 		
 		super.setMinimalPermission(StaticPerms.CMD_WARP);
-		super.setRawUsageMessage("/<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]]");
+		super.setRawUsageMessage("/<command> <name> [[<world>] <x> <y> <z> [<pitch> <yaw>]] | /<command> <name> remove [<world>]");
 	}
 
 	@Override
@@ -37,6 +37,23 @@ public class SetWarpCommand extends CommandBase
 	{
 		if (!PermissionHelper.testPermission(sender, StaticPerms.CMD_WARP_SET, false, null))
 		{
+			return true;
+		}
+		if ((args.length == 2 || args.length == 3) && args[1].equalsIgnoreCase("remove"))
+		{
+			String world = (args.length == 3) ? args[2] : null;
+			World w = (world == null) ? null : Bukkit.getWorld(world);
+			if (w == null && (sender instanceof Player))
+			{
+				w = ((Player) sender).getWorld();
+			}
+			else if (w == null)
+			{
+				sender.sendMessage("Precise world if you are not playing !");
+				return true;
+			}
+			this.plugin.getWorldManager().getWorld(w).removeWarp(args[0]);
+			Command.broadcastCommandMessage(sender, "Warp '" + args[0] + "' removed from world '" + w.getName() + "'", true);
 			return true;
 		}
 		boolean allOk = true;

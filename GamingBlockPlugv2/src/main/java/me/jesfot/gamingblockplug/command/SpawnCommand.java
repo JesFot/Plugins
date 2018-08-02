@@ -31,7 +31,7 @@ public class SpawnCommand extends CommandBase
 		this.plugin = plugin;
 		
 		super.setMinimalPermission(StaticPerms.CMD_SPAWN);
-		super.setRawUsageMessage("/<command> [set [[<world>] <x> <y> <z> [<pitch> <yaw>]]]");
+		super.setRawUsageMessage("/<command> [set [[<world>] <x> <y> <z> [<pitch> <yaw>]]] | /<command> remove [<world>]");
 	}
 
 	@Override
@@ -51,6 +51,26 @@ public class SpawnCommand extends CommandBase
 				spawn = current.getHandler().getSpawnLocation();
 			}
 			player.teleport(spawn, TeleportCause.COMMAND);
+		}
+		else if (args[0].equalsIgnoreCase("remove"))
+		{
+			if (!PermissionHelper.testPermission(sender, StaticPerms.CMD_SPAWN_SET, false, null))
+			{
+				return true;
+			}
+			String world = (args.length == 2) ? args[1] : null;
+			World w = (world == null) ? null : Bukkit.getWorld(world);
+			if (w == null && (sender instanceof Player))
+			{
+				w = ((Player) sender).getWorld();
+			}
+			else if (w == null)
+			{
+				sender.sendMessage("Precise world if you are not playing !");
+				return true;
+			}
+			this.plugin.getWorldManager().getWorld(w).removeSpawn();
+			Command.broadcastCommandMessage(sender, "Resetted spawn position for world '" + w.getName() + "'", true);
 		}
 		else if (args[0].equalsIgnoreCase("set"))
 		{

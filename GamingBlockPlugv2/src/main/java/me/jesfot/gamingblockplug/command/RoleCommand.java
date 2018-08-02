@@ -15,6 +15,7 @@ import me.jesfot.gamingblockplug.permission.PermissionHelper;
 import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.roles.Role;
+import me.jesfot.gamingblockplug.roles.RoleManager;
 import me.unei.lang.plugin.UneiLang;
 
 public class RoleCommand extends CommandBase
@@ -122,6 +123,7 @@ public class RoleCommand extends CommandBase
 			}
 			if (this.plugin.getRoleManager().setRole(player, roleName))
 			{
+				PermGroup.joinGroup(roleName, player);
 				Command.broadcastCommandMessage(sender, "Set the role for " + playerName + " to " + roleName, true);
 			}
 			else
@@ -148,6 +150,7 @@ public class RoleCommand extends CommandBase
 				}
 			}
 			this.plugin.getRoleManager().resetRole(player);
+			PermGroup.joinGroup(RoleManager.DEFAULT_NAME, player);
 			Command.broadcastCommandMessage(sender, "Reset the role for " + playerName + " to default", true);
 		}
 		else if (args[0].equalsIgnoreCase("option") && args.length >= 3)

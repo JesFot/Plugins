@@ -3,6 +3,8 @@ package me.jesfot.gamingblockplug.permission;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.bukkit.OfflinePlayer;
+
 import me.lucko.luckperms.LuckPerms;
 import me.lucko.luckperms.api.Group;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -41,6 +43,21 @@ public final class PermGroup
 			try
 			{
 				PermGroup.getLPAPI().getGroupManager().createAndLoadGroup(name);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void joinGroup(String groupName, OfflinePlayer player)
+	{
+		if (PermGroup.isLPAPIOk())
+		{
+			try
+			{
+				PermGroup.getLPAPI().getUser(player.getUniqueId()).setPrimaryGroup(groupName);
 			}
 			catch (Exception e)
 			{

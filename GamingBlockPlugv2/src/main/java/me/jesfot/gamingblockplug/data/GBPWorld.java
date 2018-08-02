@@ -136,6 +136,15 @@ public class GBPWorld
 		}
 	}
 	
+	public void removeSpawn()
+	{
+		this.getConfig().remove("Spawn");
+		if (this.autoRS)
+		{
+			this.save();
+		}
+	}
+	
 	public void save()
 	{
 		this.getConfig().save();
