@@ -61,7 +61,10 @@ public class CommandManager
 		Validate.notNull(command, "That command cannot be null");
 		plugin.getCommand(command.getName()).setExecutor(command);
 		plugin.getCommand(command.getName()).setTabCompleter(command);
-		plugin.getCommand(command.getName()).setPermission(command.getMinimalPermission().getName());
+		/*if (command.getMinimalPermission() != null)
+		{
+			plugin.getCommand(command.getName()).setPermission(command.getMinimalPermission().getName());
+		}*/
 	}
 	
 	protected static void unregisterServerCommand(JavaPlugin plugin, CommandBase command)

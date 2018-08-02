@@ -14,7 +14,7 @@ public final class PlayerReflection
 	static
 	{
 		craftPlayerClass = NMSReflection.getOBCClass("entity.CraftPlayer");
-		nmsPlayerClass = NMSReflection.getNMSClass("Player", true);
+		nmsPlayerClass = NMSReflection.getNMSClass("EntityPlayer", true);
 	}
 	
 	public static int getPing(Player player)

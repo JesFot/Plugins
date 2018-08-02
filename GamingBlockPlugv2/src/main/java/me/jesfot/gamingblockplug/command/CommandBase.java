@@ -161,6 +161,13 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		{
 			if (!PermissionHelper.testPermissionSilent(sender, this.getMinimalPermission(), this.opBypass()))
 			{
+				for (String perm : this.getMinimalPermission().getChildren().keySet())
+				{
+					if (PermissionHelper.testPermissionSilent(sender, perm, this.opBypass()))
+					{
+						return this.executeTabComplete(sender, command, alias, args);
+					}
+				}
 				return Collections.emptyList();
 			}
 		}
@@ -182,8 +189,17 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		}
 		if (this.getMinimalPermission() != null)
 		{
-			if (!PermissionHelper.testPermission(sender, this.getMinimalPermission(), this.opBypass(), null))
+			if (!PermissionHelper.testPermissionSilent(sender, this.getMinimalPermission(), this.opBypass()))
 			{
+				for (String perm : this.getMinimalPermission().getChildren().keySet())
+				{
+					if (PermissionHelper.testPermissionSilent(sender, perm, this.opBypass()))
+					{
+						return this.executeCommand(sender, command, label, args);
+					}
+				}
+				sender.sendMessage(ChatColor.DARK_RED + "I'm sorry, but you do not have permission to perform this command. " 
+						+ "Please contact the server administrators if you believe that this is an error.");
 				return true;
 			}
 		}
