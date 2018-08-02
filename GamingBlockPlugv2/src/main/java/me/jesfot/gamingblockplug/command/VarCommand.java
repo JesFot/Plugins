@@ -25,8 +25,8 @@ public class VarCommand extends CommandBase
 		this.plugin = plugin;
 		
 		super.setMinimalPermission(StaticPerms.CMD_VAR);
-		super.setRawUsageMessage("/<command> <VariableName> | /<command> unset <VariableName> | \"\n" + 
-				"				+ \"/<command> set <VariableName> <type> <Value...> | /<command> help <all|RubricName>");
+		super.setRawUsageMessage("/<command> <VariableName> | /<command> unset <VariableName> | "
+				+ "/<command> set <VariableName> <type> <Value...> | /<command> help <all|RubricName>");
 	}
 	
 	@Override

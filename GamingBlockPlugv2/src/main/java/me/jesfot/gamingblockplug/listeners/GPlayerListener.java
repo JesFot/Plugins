@@ -88,7 +88,7 @@ public class GPlayerListener implements Listener
 				String[] msgs = msg.split(" n ");
 				for (String str : msgs)
 				{
-					event.getPlayer().sendMessage(ChatColor.GOLD + str);
+					event.getPlayer().sendRawMessage(ChatColor.GOLD + str);
 				}
 			}
 		}

@@ -1,5 +1,8 @@
 package me.jesfot.gamingblockplug.command;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -73,5 +76,24 @@ public class FlyCommand extends CommandBase
 			Command.broadcastCommandMessage(sender, "Set flying to false for " + player.getName(), true);
 		}
 		return true;
+	}
+	
+	@Override
+	protected List<String> executeTabComplete(CommandSender sender, Command command, String label, String[] args)
+	{
+		List<String> result = Arrays.asList("on", "off", "true", "false", "yes", "no");
+		if (args.length >= 1 && args.length <= 2 && PermissionHelper.testPermissionSilent(sender, StaticPerms.CMD_FLY_OTHER, true))
+		{
+			if (args.length == 2)
+			{
+				return CommandBase.sortStart(args[1], result);
+			}
+			return null;
+		}
+		else if (args.length == 1)
+		{
+			return CommandBase.sortStart(args[0], result);
+		}
+		return super.executeTabComplete(sender, command, label, args);
 	}
 }

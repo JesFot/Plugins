@@ -74,7 +74,8 @@ public class SpyChestCommand extends CommandBase
 		}
 		else if (args.length == 2)
 		{
-			return CommandBase.sortStart(args[1], Arrays.asList("normal", "ender"));
+			List<String> result = Arrays.asList("normal", "ender");
+			return CommandBase.sortStart(args[1], result);
 		}
 		return Collections.emptyList();
 	}

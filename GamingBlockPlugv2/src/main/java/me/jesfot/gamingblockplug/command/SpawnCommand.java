@@ -26,7 +26,7 @@ public class SpawnCommand extends CommandBase
 	
 	public SpawnCommand(GamingBlockPlug plugin)
 	{
-		super("ping");
+		super("spawn");
 		
 		this.plugin = plugin;
 		
@@ -61,6 +61,8 @@ public class SpawnCommand extends CommandBase
 			boolean allOk = true;
 			switch (args.length)
 			{
+				case 1:
+					break;
 				case 6:
 					allOk &= NumberUtils.isNumber(args[5]);
 					allOk &= NumberUtils.isNumber(args[4]);
@@ -88,6 +90,14 @@ public class SpawnCommand extends CommandBase
 			String world = null;
 			double x = 0, y = 0, z = 0;
 			float pitch = 0, yaw = 0;
+			if (sender instanceof Player)
+			{
+				x = ((Player) sender).getLocation().getX();
+				y = ((Player) sender).getLocation().getY();
+				z = ((Player) sender).getLocation().getZ();
+				pitch = ((Player) sender).getLocation().getPitch();
+				yaw = ((Player) sender).getLocation().getYaw();
+			}
 			switch (args.length)
 			{
 				case 1:

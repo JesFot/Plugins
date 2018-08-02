@@ -1,5 +1,6 @@
 package me.jesfot.gamingblockplug.command;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -204,9 +205,32 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		{
 			if (!it.next().toLowerCase().startsWith(startOfString))
 			{
-				it.remove();
+				try
+				{
+					it.remove();
+				}
+				catch (UnsupportedOperationException ignored)
+				{
+					return CommandBase.sortWithRebuild(startOfString, listToSort);
+				}
 			}
 		}
 		return listToSort;
+	}
+	
+	private static List<String> sortWithRebuild(String startOfString, List<String> listToSort)
+	{
+		List<String> result = new ArrayList<String>();
+		Iterator<String> it = listToSort.iterator();
+		startOfString = startOfString.toLowerCase();
+		while (it.hasNext())
+		{
+			String current = it.next();
+			if (current.toLowerCase().startsWith(startOfString))
+			{
+				result.add(current);
+			}
+		}
+		return result;
 	}
 }
