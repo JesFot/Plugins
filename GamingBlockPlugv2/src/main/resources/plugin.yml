@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: me.jesfot.gamingblockplug.plugin.BukkitPlugin
-version: 1.13-1.0.1
+version: 1.13-1.0.2
 description: Plugin for the Gaming Block Server
 depends: [uneiConfiguration]
 api-version: 1.13

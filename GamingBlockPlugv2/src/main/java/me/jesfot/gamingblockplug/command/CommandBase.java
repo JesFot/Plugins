@@ -13,6 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
+import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.Permission;
 
 import me.jesfot.gamingblockplug.permission.PermissionHelper;
@@ -149,6 +150,31 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		this.disabledMessage = message;
 	}
 	
+	private static boolean hasSomeOfPerm(Permissible permissible, Permission master, boolean opBypass)
+	{
+		if (permissible == null || master == null)
+		{
+			return true;
+		}
+		if (permissible.isOp() && opBypass)
+		{
+			return true;
+		}
+		if (!PermissionHelper.testPermissionSilent(permissible, master, opBypass))
+		{
+			for (String perm : master.getChildren().keySet())
+			{
+				Permission pperm = Bukkit.getPluginManager().getPermission(perm);
+				if (hasSomeOfPerm(permissible, pperm, opBypass))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public final List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args)
 	{
@@ -159,15 +185,8 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		}
 		if (this.getMinimalPermission() != null)
 		{
-			if (!PermissionHelper.testPermissionSilent(sender, this.getMinimalPermission(), this.opBypass()))
+			if (!hasSomeOfPerm(sender, this.getMinimalPermission(), this.opBypass()))
 			{
-				for (String perm : this.getMinimalPermission().getChildren().keySet())
-				{
-					if (PermissionHelper.testPermissionSilent(sender, perm, this.opBypass()))
-					{
-						return this.executeTabComplete(sender, command, alias, args);
-					}
-				}
 				return Collections.emptyList();
 			}
 		}
@@ -189,15 +208,8 @@ public abstract class CommandBase implements CommandExecutor, TabCompleter
 		}
 		if (this.getMinimalPermission() != null)
 		{
-			if (!PermissionHelper.testPermissionSilent(sender, this.getMinimalPermission(), this.opBypass()))
+			if (!hasSomeOfPerm(sender, this.getMinimalPermission(), this.opBypass()))
 			{
-				for (String perm : this.getMinimalPermission().getChildren().keySet())
-				{
-					if (PermissionHelper.testPermissionSilent(sender, perm, this.opBypass()))
-					{
-						return this.executeCommand(sender, command, label, args);
-					}
-				}
 				sender.sendMessage(ChatColor.DARK_RED + "I'm sorry, but you do not have permission to perform this command. " 
 						+ "Please contact the server administrators if you believe that this is an error.");
 				return true;

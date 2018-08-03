@@ -8,6 +8,7 @@ import org.bukkit.OfflinePlayer;
 import me.lucko.luckperms.LuckPerms;
 import me.lucko.luckperms.api.Group;
 import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.User;
 
 public final class PermGroup
 {
@@ -57,7 +58,10 @@ public final class PermGroup
 		{
 			try
 			{
-				PermGroup.getLPAPI().getUser(player.getUniqueId()).setPrimaryGroup(groupName);
+				User u = PermGroup.getLPAPI().getUser(player.getUniqueId());
+				u.clearParents();
+				u.setPermission(PermGroup.getLPAPI().getNodeFactory().makeGroupNode(groupName).build());
+				u.setPrimaryGroup(groupName);
 			}
 			catch (Exception e)
 			{

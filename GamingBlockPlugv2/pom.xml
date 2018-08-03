@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.jesfot</groupId>
   <artifactId>gamingblockplug</artifactId>
-  <version>1.13-1.0.1</version>
+  <version>1.13-1.0.2</version>
   <packaging>jar</packaging>
   
   <name>GamingBlockPlug</name>
