@@ -113,6 +113,7 @@ public class GamingBlockPlug extends ServerHelper
 		CommandManager.registerCommand(new ForcePassnightCommand(this));
 		CommandManager.registerCommand(new SpyChestCommand(this));
 		CommandManager.registerCommand(new VarCommand(this));
+		CommandManager.registerCommand(new ToolbCommand());
 		this.plugin.getLogger().info("     -> Commands registered !");
 	}
 	

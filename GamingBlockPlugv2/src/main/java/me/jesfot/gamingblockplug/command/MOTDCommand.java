@@ -10,6 +10,11 @@ import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.utils.DataUtils;
 import me.unei.configuration.api.IYAMLConfiguration;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.0
+ * @version 1.0
+ */
 public class MOTDCommand extends CommandBase
 {
 	private final GamingBlockPlug plugin;

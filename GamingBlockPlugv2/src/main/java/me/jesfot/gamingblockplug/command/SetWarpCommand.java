@@ -18,6 +18,11 @@ import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.utils.NumberUtils;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.1
+ * @version 1.2
+ */
 public class SetWarpCommand extends CommandBase
 {
 	private final GamingBlockPlug plugin;

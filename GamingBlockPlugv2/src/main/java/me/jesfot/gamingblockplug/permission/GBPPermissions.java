@@ -104,6 +104,9 @@ public final class GBPPermissions
 		StaticPerms.CMD_ROLE_SET		= this.addGBP("command.role.set",		PermissionDefault.OP,		"Permission to set someone's role",					StaticPerms.CMD_ROLE);
 		StaticPerms.CMD_ROLE_TEST		= this.addGBP("command.role.test",		PermissionDefault.FALSE,	"Permission to test someone's role",				StaticPerms.CMD_ROLE);
 		// ---- < /role command ----
+		// ---- > /toolb command ----
+		StaticPerms.CMD_TOOLB			= this.addGBP("command.toolb",			PermissionDefault.TRUE,		"Permission to get a dead bush item",				StaticPerms.COMMANDS);
+		// ---- < /toolb command ----
 		// ---- > /var command ----
 		StaticPerms.CMD_VAR				= this.addGBP("command.var",			PermissionDefault.TRUE,		"Permission to use the /var command",				StaticPerms.COMMANDS);
 		StaticPerms.CMD_VAR_SET			= this.addGBP("command.var.set",		PermissionDefault.TRUE,		"Permission to define a variable",					StaticPerms.CMD_VAR);

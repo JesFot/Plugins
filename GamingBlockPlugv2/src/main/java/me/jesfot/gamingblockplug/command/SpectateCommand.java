@@ -7,6 +7,11 @@ import org.bukkit.entity.Player;
 
 import me.jesfot.gamingblockplug.permission.StaticPerms;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.0
+ * @version 1.0
+ */
 public class SpectateCommand extends CommandBase
 {
 	public SpectateCommand()

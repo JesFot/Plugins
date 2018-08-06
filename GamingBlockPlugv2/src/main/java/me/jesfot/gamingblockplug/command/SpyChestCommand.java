@@ -11,6 +11,11 @@ import org.bukkit.entity.Player;
 import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.0
+ * @version 1.0
+ */
 public class SpyChestCommand extends CommandBase
 {
 	private final GamingBlockPlug plugin;

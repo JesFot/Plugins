@@ -18,6 +18,11 @@ import me.jesfot.gamingblockplug.roles.Role;
 import me.jesfot.gamingblockplug.roles.RoleManager;
 import me.unei.lang.plugin.UneiLang;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.0
+ * @version 1.0
+ */
 public class RoleCommand extends CommandBase
 {
 	private final GamingBlockPlug plugin;

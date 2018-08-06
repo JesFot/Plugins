@@ -56,6 +56,8 @@ public final class StaticPerms
 	public static Permission CMD_ROLE_SET = null;
 	public static Permission CMD_ROLE_TEST = null;
 	
+	public static Permission CMD_TOOLB = null;
+	
 	public static Permission CMD_VAR = null;
 	public static Permission CMD_VAR_SET = null;
 	public static Permission CMD_VAR_RESET = null;

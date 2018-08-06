@@ -14,6 +14,11 @@ import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.security.VariablesSystem;
 import me.jesfot.gamingblockplug.utils.NumberUtils;
 
+/**
+ * @author JësFot
+ * @since 1.13-1.0.0
+ * @version 1.0
+ */
 public class VarCommand extends CommandBase
 {
 	private final GamingBlockPlug plugin;

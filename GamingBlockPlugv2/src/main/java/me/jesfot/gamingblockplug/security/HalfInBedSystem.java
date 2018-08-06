@@ -20,6 +20,7 @@ public class HalfInBedSystem
 	
 	private int playersTotalCount;
 	private int playersInBedCount;
+	private int countedPlayersInBed;
 	
 	public HalfInBedSystem(GamingBlockPlug plugin)
 	{
@@ -28,11 +29,13 @@ public class HalfInBedSystem
 		this.totalPlayers = new HashSet<>();
 		this.playersTotalCount = 0;
 		this.playersInBedCount = 0;
+		this.countedPlayersInBed = 0;
 	}
 	
 	public HalfInBedSystem updatePlayerList()
 	{
 		Collection<? extends Player> onlines = this.plugin.getServer().getOnlinePlayers();
+		this.totalPlayers.clear();
 		for (Player player : onlines)
 		{
 			if (!PermissionHelper.testPermissionSilent(player, StaticPerms.HBS_IGNORE, false))
@@ -44,8 +47,27 @@ public class HalfInBedSystem
 				player.setSleepingIgnored(true);
 			}
 		}
-		this.playersTotalCount = this.totalPlayers.size();
+		this.updatePlayersTotal();
 		return this;
+	}
+	
+	private void updatePlayersTotal()
+	{
+		this.playersTotalCount = this.totalPlayers.size();
+		this.setPlayersInBed(this.playersInBedCount);
+	}
+	
+	private void setPlayersInBed(int value)
+	{
+		this.playersInBedCount = value;
+		if (value > this.playersTotalCount)
+		{
+			this.countedPlayersInBed = this.playersTotalCount;
+		}
+		else
+		{
+			this.countedPlayersInBed = value;
+		}
 	}
 	
 	public HalfInBedSystem enterBed(Player player)
@@ -53,7 +75,7 @@ public class HalfInBedSystem
 		if (PermissionHelper.testPermissionSilent(player, StaticPerms.HBS_COUNT, false))
 		{
 			this.playersInBed.add(player);
-			this.playersInBedCount = this.playersInBed.size();
+			this.setPlayersInBed(this.playersInBed.size());
 		}
 		return this;
 	}
@@ -61,7 +83,7 @@ public class HalfInBedSystem
 	public HalfInBedSystem leaveBed(Player player)
 	{
 		this.playersInBed.remove(player);
-		this.playersInBedCount = this.playersInBed.size();
+		this.setPlayersInBed(this.playersInBed.size());
 		return this;
 	}
 	
@@ -72,7 +94,8 @@ public class HalfInBedSystem
 	
 	public boolean halfInBed()
 	{
-		if((((double) this.playersTotalCount) / 2.0) <= ((double) this.playersInBedCount))
+		this.updatePlayersTotal();
+		if((((double) this.playersTotalCount) / 2.0) <= ((double) this.countedPlayersInBed))
 		{
 			return true;
 		}
@@ -81,16 +104,17 @@ public class HalfInBedSystem
 	
 	public String howManyInBedText()
 	{
-		if(this.playersInBedCount <= 1)
+		this.updatePlayersTotal();
+		if(this.countedPlayersInBed <= 1)
 		{
-			if(this.playersInBedCount == 1)
+			if(this.countedPlayersInBed == 1)
 			{
 				return "There is [1/<totalplayer>] player in a bed.".replace("<totalplayer>", Integer.toString(this.playersTotalCount));
 			}
 			return "There is no player in bed.";
 		}
 		return "There are [<playersinbed>/<totalplayer>] players in beds.".replace("<totalplayer>", Integer.toString(this.playersTotalCount))
-				.replace("<playersinbed>", Integer.toString(this.playersInBedCount));
+				.replace("<playersinbed>", Integer.toString(this.countedPlayersInBed));
 	}
 	
 	public void passNight(final Collection<? extends Player> ignored)
