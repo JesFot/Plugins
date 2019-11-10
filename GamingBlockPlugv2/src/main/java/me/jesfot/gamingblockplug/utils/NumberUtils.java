@@ -8,7 +8,7 @@ package me.jesfot.gamingblockplug.utils;
  */
 public final class NumberUtils
 {
-	private NumberUtils() {};
+	private NumberUtils() { /* Nothing here */ }
 	
 	/**
 	 * Checks if the string parameter represent a number.
@@ -65,7 +65,7 @@ public final class NumberUtils
 	 */
 	public static double toDouble(String value, double p_default)
 	{
-		double result = p_default;
+		double result;
 		
 		try
 		{
@@ -89,7 +89,7 @@ public final class NumberUtils
 	 */
 	public static float toFloat(String value, float p_default)
 	{
-		float result = p_default;
+		float result;
 		
 		try
 		{
@@ -113,7 +113,7 @@ public final class NumberUtils
 	 */
 	public static int toInteger(String value, int p_default)
 	{
-		int result = p_default;
+		int result;
 		
 		try
 		{
@@ -137,7 +137,7 @@ public final class NumberUtils
 	 */
 	public static long toLong(String value, long p_default)
 	{
-		long result = p_default;
+		long result;
 		
 		try
 		{

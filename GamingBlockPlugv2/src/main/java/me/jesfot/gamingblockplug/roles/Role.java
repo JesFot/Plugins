@@ -202,7 +202,13 @@ public class Role
 		String rolePrefix = ChatColor.translateAlternateColorCodes('&', roleing.toString());
 		return rolePrefix + format;
 	}
-	
+
+	@Override
+	public int hashCode()
+	{
+		return this.getId().toLowerCase().hashCode();
+	}
+
 	@Override
 	public boolean equals(Object obj)
 	{

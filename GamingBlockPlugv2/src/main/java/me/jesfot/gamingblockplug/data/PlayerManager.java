@@ -14,7 +14,7 @@ public class PlayerManager
 	
 	private boolean autoRS = false;
 	
-	public PlayerManager() {};
+	public PlayerManager() { /* Nothing here */ }
 	
 	public void setAutoReloadSave(final boolean value)
 	{

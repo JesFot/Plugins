@@ -1,7 +1,6 @@
 package me.jesfot.gamingblockplug.listeners;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
@@ -34,7 +33,6 @@ import me.jesfot.gamingblockplug.permission.StaticPerms;
 import me.jesfot.gamingblockplug.plugin.GamingBlockPlug;
 import me.jesfot.gamingblockplug.roles.Role;
 import me.jesfot.gamingblockplug.roles.RoleManager;
-import me.jesfot.gamingblockplug.security.HalfInBedSystem;
 import me.jesfot.gamingblockplug.utils.DataUtils;
 import me.unei.configuration.api.IFlatConfiguration;
 import me.unei.configuration.api.IYAMLConfiguration;
@@ -107,7 +105,6 @@ public class GPlayerListener implements Listener
 		if (this.plugin.getSystemManager().getLoginSystem().isLogin(event))
 		{
 			event.setCancelled(true);
-			return;
 		}
 	}
 
@@ -119,14 +116,6 @@ public class GPlayerListener implements Listener
 			event.setUseInteractedBlock(Result.DENY);
 			event.setUseItemInHand(Result.DENY);
 			event.setCancelled(true);
-			return;
-		}
-		if (event.getAction().equals(Action.RIGHT_CLICK_AIR))
-		{
-			if (event.getItem().getType().equals(Material.DEAD_BUSH))
-			{
-				event.getPlayer().openInventory(this.plugin.getSystemManager().getSharedChestSystem().getSharedInventory());
-			}
 		}
 	}
 
@@ -136,7 +125,6 @@ public class GPlayerListener implements Listener
 		if (this.plugin.getSystemManager().getLoginSystem().isLogin(event))
 		{
 			event.setCancelled(true);
-			return;
 		}
 	}
 
@@ -146,29 +134,19 @@ public class GPlayerListener implements Listener
 		if (this.plugin.getSystemManager().getLoginSystem().isLogin(event))
 		{
 			event.setCancelled(true);
-			return;
 		}
 	}
 
 	@EventHandler
 	public void onPlayergoBed(final PlayerBedEnterEvent event)
 	{
-		Player player = event.getPlayer();
-		HalfInBedSystem hbs = this.plugin.getSystemManager().getHalfInBedSystem();
-		hbs.updatePlayerList().enterBed(player);
-		player.getServer().broadcastMessage(hbs.howManyInBedText());
-		if(hbs.halfInBed())
-		{
-			this.plugin.broad("Half of the players are in a bed.");
-			hbs.passNight(hbs.getPlayersInBed());
-		}
+		//
 	}
 
 	@EventHandler
 	public void onPlayerLeaveBed(final PlayerBedLeaveEvent event)
 	{
-		HalfInBedSystem hbs = this.plugin.getSystemManager().getHalfInBedSystem();
-		hbs.updatePlayerList().leaveBed(event.getPlayer()).endPassNight();
+		//
 	}
 
 	@EventHandler
@@ -204,10 +182,10 @@ public class GPlayerListener implements Listener
 				{
 					if(arg.startsWith("{") && arg.contains("}"))
 					{
-						String var = arg.substring(1, arg.indexOf("}"));
+						String var = arg.substring(1, arg.indexOf('}'));
 						arg = this.plugin.getSystemManager().getVariablesSystem().getToString(var)
-								+ ((arg.endsWith("}") && arg.indexOf("}") == arg.length() - 1)
-										? "" : arg.substring(arg.indexOf("}") + 1));
+								+ ((arg.endsWith("}") && arg.indexOf('}') == arg.length() - 1)
+										? "" : arg.substring(arg.indexOf('}') + 1));
 					}
 					msg.append(arg);
 				}
@@ -232,7 +210,6 @@ public class GPlayerListener implements Listener
 			{
 				event.setDamage(0);
 				event.setCancelled(true);
-				return;
 			}
 		}
 	}
@@ -246,7 +223,6 @@ public class GPlayerListener implements Listener
 			{
 				event.setDamage(0);
 				event.setCancelled(true);
-				return;
 			}
 		}
 	}
@@ -260,7 +236,6 @@ public class GPlayerListener implements Listener
 			event.setKeepLevel(true);
 			event.setDeathMessage(event.getEntity().getDisplayName() + " died while login...");
 			event.getEntity().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-			return;
 		}
 	}
 
@@ -273,7 +248,6 @@ public class GPlayerListener implements Listener
 			{
 				event.setResult(Result.DENY);
 				event.setCancelled(true);
-				return;
 			}
 		}
 	}
@@ -287,7 +261,6 @@ public class GPlayerListener implements Listener
 			{
 				event.setResult(Result.DENY);
 				event.setCancelled(true);
-				return;
 			}
 		}
 	}
@@ -298,7 +271,6 @@ public class GPlayerListener implements Listener
 		if(this.plugin.getSystemManager().getLoginSystem().isLogin(event.getPlayer().getUniqueId()))
 		{
 			event.setCancelled(true);
-			return;
 		}
 	}
 }

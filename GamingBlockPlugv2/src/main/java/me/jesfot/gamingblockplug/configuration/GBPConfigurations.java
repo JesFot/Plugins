@@ -97,14 +97,14 @@ public final class GBPConfigurations
 		{
 			this.mainConfig.reload();
 		}
-		catch (FileFormatException ignored) {};
+		catch (FileFormatException ignored) { /* ignored */ }
 		for (IFlatConfiguration cfg : this.configs.values())
 		{
 			try
 			{
 				cfg.reload();
 			}
-			catch (FileFormatException ignored) {};
+			catch (FileFormatException ignored) { /* ignored */ }
 		}
 	}
 	

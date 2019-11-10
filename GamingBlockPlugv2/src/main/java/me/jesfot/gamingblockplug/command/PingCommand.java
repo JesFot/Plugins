@@ -20,6 +20,7 @@ public class PingCommand extends CommandBase
 		super("ping");
 		super.setMinimalPermission(StaticPerms.CMD_PING);
 		super.setRawUsageMessage("/<command>");
+		super.disableCommand();
 	}
 
 	@Override

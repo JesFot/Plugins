@@ -49,10 +49,9 @@ public class CommandManager
 			catch(NullPointerException e)
 			{
 				e.printStackTrace();
-				continue;
 			}
 		}
-		plugin.getLogger().info("Succesfuly loaded " + commands.size() + " commands.");
+		plugin.getLogger().info(() -> "Succesfuly loaded " + commands.size() + " commands.");
 		commandsLoaded = true;
 	}
 	
@@ -86,10 +85,9 @@ public class CommandManager
 			catch(NullPointerException e)
 			{
 				e.printStackTrace();
-				continue;
 			}
 		}
-		plugin.getLogger().info("Succesfuly unregistred " + commands.size() + " commands.");
+		plugin.getLogger().info(() -> String.format("Succesfuly unregistred %d commands.", commands.size()));
 		commands.clear();
 	}
 	
@@ -98,5 +96,5 @@ public class CommandManager
 		return commandsLoaded;
 	}
 	
-	private CommandManager(){};
+	private CommandManager() { /* Nothing here */ }
 }

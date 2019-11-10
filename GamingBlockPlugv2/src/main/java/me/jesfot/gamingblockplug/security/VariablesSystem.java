@@ -99,22 +99,22 @@ public class VariablesSystem
 	
 	public void storeBool(String key, boolean value)
 	{
-		this.storeObject(key, new ObjData(new Boolean(value), ObjType.Boolean));
+		this.storeObject(key, new ObjData(Boolean.valueOf(value), ObjType.Boolean));
 	}
 	
 	public void storeInt(String key, int value)
 	{
-		this.storeObject(key, new ObjData(new Integer(value), ObjType.Int));
+		this.storeObject(key, new ObjData(Integer.valueOf(value), ObjType.Int));
 	}
 	
 	public void storeFloat(String key, float value)
 	{
-		this.storeObject(key, new ObjData(new Float(value), ObjType.Float));
+		this.storeObject(key, new ObjData(Float.valueOf(value), ObjType.Float));
 	}
 	
 	public void storeDouble(String key, double value)
 	{
-		this.storeObject(key, new ObjData(new Double(value), ObjType.Double));
+		this.storeObject(key, new ObjData(Double.valueOf(value), ObjType.Double));
 	}
 	
 	public String getString(String key) throws IllegalClassFormatException

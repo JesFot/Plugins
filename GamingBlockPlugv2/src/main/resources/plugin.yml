@@ -1,6 +1,6 @@
 name: GamingBlockPlug
 main: me.jesfot.gamingblockplug.plugin.BukkitPlugin
-version: 1.13-1.1.0
+version: 1.14-1.0.0
 description: Plugin for the Gaming Block Server
 depends: [uneiConfiguration]
 api-version: 1.13
@@ -39,20 +39,6 @@ commands:
     description: Print or setup a login message.
     usage: /<command> [set <message...>]
     aliases: [gbplogmsg, motd, lm]
-  spectate:
-    description: Change from survival to spectator mode.
-    usage: /<command>
-    aliases: [gbpspectate, spec, noclip]
-  fly:
-    description: Enable or disable flying mode.
-    usage: |
-            /<command> [on/off]
-            /<command> <player> on/off
-    aliases: [gbpfly]
-  forcepassnight:
-    description: Enable only one player in bed.
-    usage: /<command>
-    aliases: [gbpforcepassnight, passnight, fpn]
   spychest:
     description: Open someone's inventory
     usage: /<command> <player> [normal/ender]
@@ -65,7 +51,3 @@ commands:
             /<command> set <name> <type> <value...>
             /<command> help all/<rubric>
     aliases: [gbpvar, variable, variables, vars]
-  toolb:
-    description: Get a dead bush item, used for shared chest.
-    usage: /<command>
-    aliases: [gbptoolb, deadbush, commonchest]

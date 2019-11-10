@@ -116,7 +116,18 @@ public class WallSystem
 			this.updateBlocks();
 			for (Block block : this.blocks)
 			{
-				if (block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN))
+				if (block.getType().equals(Material.ACACIA_SIGN)
+						|| block.getType().equals(Material.ACACIA_WALL_SIGN)
+						|| block.getType().equals(Material.BIRCH_SIGN)
+						|| block.getType().equals(Material.BIRCH_WALL_SIGN)
+						|| block.getType().equals(Material.DARK_OAK_SIGN)
+						|| block.getType().equals(Material.DARK_OAK_WALL_SIGN)
+						|| block.getType().equals(Material.JUNGLE_SIGN)
+						|| block.getType().equals(Material.JUNGLE_WALL_SIGN)
+						|| block.getType().equals(Material.OAK_SIGN)
+						|| block.getType().equals(Material.OAK_WALL_SIGN)
+						|| block.getType().equals(Material.SPRUCE_SIGN)
+						|| block.getType().equals(Material.SPRUCE_WALL_SIGN))
 				{
 					Sign signBlock = (Sign) block.getState();
 					String[] lines = signBlock.getLines();

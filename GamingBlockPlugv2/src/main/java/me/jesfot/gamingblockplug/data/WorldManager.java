@@ -13,7 +13,7 @@ public class WorldManager
 	
 	private boolean autoRS = false;
 	
-	public WorldManager() {};
+	public WorldManager() { /* Nothing here */ }
 	
 	public void setAutoReloadSave(final boolean value)
 	{

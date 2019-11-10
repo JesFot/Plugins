@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.jesfot</groupId>
   <artifactId>gamingblockplug</artifactId>
-  <version>1.13-1.1.0</version>
+  <version>1.14-1.0.0</version>
   <packaging>jar</packaging>
   
   <name>GamingBlockPlug</name>
@@ -84,7 +84,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
         <executions>
           <execution>
             <id>jars-cp</id>
@@ -126,20 +125,31 @@
       <id>unei-repo</id>
       <url>http://unei.gitlab.io/maven/</url>
     </repository>
+    <repository>
+      <id>oss-sonatype</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
   </repositories>
   
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.13-R0.1-SNAPSHOT</version>
+      <version>1.14.4-R0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>me.unei</groupId>
       <artifactId>UneiConfiguration</artifactId>
-      <version>1.2.7-RELEASE</version>
+      <version>1.4.0</version>
+      <type>jar</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.unei</groupId>
+      <artifactId>uneiconfiguration-api</artifactId>
+      <version>1.4</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>
@@ -153,7 +163,7 @@
     <dependency>
       <groupId>me.lucko.luckperms</groupId>
       <artifactId>luckperms-api</artifactId>
-      <version>4.2</version>
+      <version>4.4</version>
       <type>jar</type>
       <scope>provided</scope>
     </dependency>

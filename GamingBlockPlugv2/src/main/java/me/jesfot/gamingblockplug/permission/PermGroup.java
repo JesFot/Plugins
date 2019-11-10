@@ -10,6 +10,7 @@ import me.lucko.luckperms.api.Group;
 import me.lucko.luckperms.api.LuckPermsApi;
 import me.lucko.luckperms.api.User;
 
+@SuppressWarnings("squid:S2259")
 public final class PermGroup
 {
 	private static LuckPermsApi getLPAPI()
@@ -102,7 +103,7 @@ public final class PermGroup
 						{
 							PermGroup.getLPAPI().getGroupManager().deleteGroup(t.get());
 						}
-					};
+					}
 				});
 			}
 			catch (Exception e)

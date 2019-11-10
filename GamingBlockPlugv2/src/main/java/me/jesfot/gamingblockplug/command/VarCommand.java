@@ -162,11 +162,11 @@ public class VarCommand extends CommandBase
 		{
 			return "";
 		}
-		String result = list[firstIndex];
+		StringBuilder result = new StringBuilder(list[firstIndex]);
 		for (int i = firstIndex + 1; i < list.length; i++)
 		{
-			result += " " + list[i];
+			result.append(' ').append(list[i]);
 		}
-		return result;
+		return result.toString();
 	}
 }

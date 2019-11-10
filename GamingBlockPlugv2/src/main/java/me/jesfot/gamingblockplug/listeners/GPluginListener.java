@@ -31,10 +31,10 @@ public class GPluginListener implements Listener
 			{
 				if(arg.startsWith("{") && arg.contains("}"))
 				{
-					String var = arg.substring(1, arg.indexOf("}"));
+					String var = arg.substring(1, arg.indexOf('}'));
 					arg = this.plugin.getSystemManager().getVariablesSystem().getToString(var)
-							+ ((arg.endsWith("}") && arg.indexOf("}") == arg.length() - 1)
-									? "" : arg.substring(arg.indexOf("}") + 1));
+							+ ((arg.endsWith("}") && arg.indexOf('}') == arg.length() - 1)
+									? "" : arg.substring(arg.indexOf('}') + 1));
 				}
 				msg.append(arg);
 			}
@@ -54,10 +54,10 @@ public class GPluginListener implements Listener
 			{
 				if(arg.startsWith("{") && arg.contains("}"))
 				{
-					String var = arg.substring(1, arg.indexOf("}"));
+					String var = arg.substring(1, arg.indexOf('}'));
 					arg = this.plugin.getSystemManager().getVariablesSystem().getToString(var)
-							+ ((arg.endsWith("}") && arg.indexOf("}") == arg.length() - 1)
-									? "" : arg.substring(arg.indexOf("}") + 1));
+							+ ((arg.endsWith("}") && arg.indexOf('}') == arg.length() - 1)
+									? "" : arg.substring(arg.indexOf('}') + 1));
 				}
 				msg.append(arg);
 			}
@@ -79,10 +79,10 @@ public class GPluginListener implements Listener
 				{
 					if(arg.startsWith("{") && arg.contains("}"))
 					{
-						String var = arg.substring(1, arg.indexOf("}"));
+						String var = arg.substring(1, arg.indexOf('}'));
 						arg = this.plugin.getSystemManager().getVariablesSystem().getToString(var)
-								+ ((arg.endsWith("}") && arg.indexOf("}") == arg.length() - 1)
-										? "" : arg.substring(arg.indexOf("}") + 1));
+								+ ((arg.endsWith("}") && arg.indexOf('}') == arg.length() - 1)
+										? "" : arg.substring(arg.indexOf('}') + 1));
 					}
 					msg.append(arg);
 				}

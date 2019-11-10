@@ -193,7 +193,7 @@ public class SpawnCommand extends CommandBase
 						result.add(t.getName());
 					}
 				});
-				return super.sortStart(args[1], result);
+				return CommandBase.sortStart(args[1], result);
 			}
 		}
 		if (args.length == 3)

@@ -17,7 +17,7 @@ public class ItemInventory
 	{
 		ItemStack item = new ItemStack(material);
 		ItemMeta meta = item.getItemMeta();
-		if (name != "")
+		if (!name.isEmpty())
 		{
 			meta.setDisplayName(name);
 		}
